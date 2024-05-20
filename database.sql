@@ -29,6 +29,7 @@ role int);
 
 select * from Users
 
+--drop table
 
 insert into Users (lastName,firstName,password,image,gender,dob,phone,email,address,status,createDate,role) Values
 ('admin','system','202cb962ac59075b964b07152d234b70','none',1,'2024/05/15','123456789','admin@gmail.com','hola',1,'2024/05/15',0);
