@@ -165,7 +165,7 @@
                 <div class="divider">
                     <span>or</span>
                 </div>
-                <a style="text-decoration: none" href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/SWP391/LoginGoogleHandler&response_type=code&client_id=64210906671-gn1cclen03hhngkbb5ultf010ppcss6p.apps.googleusercontent.com&approval_prompt=force">
+                <a style="text-decoration: none" href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/SWP391-G2/LoginGoogleHandler&response_type=code&client_id=64210906671-gn1cclen03hhngkbb5ultf010ppcss6p.apps.googleusercontent.com&approval_prompt=force">
                     <button style="width: 100%" type="button" class="btn google-btn">
                         <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
                         Login with Google
