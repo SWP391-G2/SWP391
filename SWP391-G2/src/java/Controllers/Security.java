@@ -21,6 +21,7 @@ public class Security {
         byte[] digest = msd.digest();
         enrText = DatatypeConverter.printHexBinary(digest).toLowerCase();
         return enrText;
+        
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
