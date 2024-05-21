@@ -1,0 +1,29 @@
+[33mcommit ce98f4bb0e2c64c09630f82f78813a5e3a62a65a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Nguyen Quang Bich HE173220 <bichnqhe173220@fpt.edu.vn>
+Date:   Tue May 21 00:12:52 2024 +0700
+
+    fix error login with google
+
+[33mcommit 2f44d34378858783fc62bb3ffc50875ac70d240b[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Nguyen Quang Bich HE173220 <bichnqhe173220@fpt.edu.vn>
+Date:   Mon May 20 23:51:17 2024 +0700
+
+    update login.jsp
+
+[33mcommit 91baa87d78836c54bce9f59711079fac0d5f1ac9[m
+Author: Nguyen Quang Bich HE173220 <bichnqhe173220@fpt.edu.vn>
+Date:   Mon May 20 23:25:21 2024 +0700
+
+    Update database
+
+[33mcommit 5177332634f212656985a1aeb792aa8e68b747e5[m
+Author: Nguyen Quang Bich HE173220 <bichnqhe173220@fpt.edu.vn>
+Date:   Mon May 20 23:12:26 2024 +0700
+
+    Update login function
+
+[33mcommit dbabf9634ce0c3af8fef88888b10cb777e00f98f[m
+Author: Nguyen Quang Bich HE173220 <bichnqhe173220@fpt.edu.vn>
+Date:   Mon May 20 22:40:57 2024 +0700
+
+    add project SWP391

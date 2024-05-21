@@ -16,24 +16,15 @@ public class Security {
 
     protected String PasswordSecurity(String srcText) throws NoSuchAlgorithmException {
         String enrText;
-        MessageDigest msd = MessageDigest.getInstance("MD5");
-        msd.update(srcText.getBytes());
-        byte[] digest = msd.digest();
-        enrText = DatatypeConverter.printHexBinary(digest).toLowerCase();
-        return enrText;
-    }
-
-        protected String PasswordSecurity2(String srcText) throws NoSuchAlgorithmException {
-        String enrText;
         MessageDigest msd = MessageDigest.getInstance("SHA-256");
         msd.update(srcText.getBytes());
         byte[] digest = msd.digest();
         enrText = DatatypeConverter.printHexBinary(digest).toLowerCase();
         return enrText;
     }
+
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Security s = new Security();
-        System.out.println(s.PasswordSecurity2("123"));
-        System.out.println(s.PasswordSecurity("123"));
+        System.out.println(s.PasswordSecurity("SHA-256"));
     }
 }

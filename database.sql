@@ -32,7 +32,9 @@ select * from Users
 --drop table
 
 insert into Users (lastName,firstName,password,image,gender,dob,phone,email,address,status,createDate,role) Values
-('admin','system','202cb962ac59075b964b07152d234b70','none',1,'2024/05/15','123456789','admin@gmail.com','hola',1,'2024/05/15',0);
+('admin','system','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','none',1,'2024/05/15','123456789','admin@gmail.com','hola',1,'2024/05/15',0);
 
 insert into Users (lastName,firstName,password,image,gender,dob,phone,email,address,status,createDate,role) Values
-('admin','system','202cb962ac59075b964b07152d234b70','none',1,'2024/05/15','123456789','nguyenquangbich0@gmail.com','hola',1,'2024/05/15',0);
+('admin','system','bbd07c4fc02c99b97124febf42c7b63b5011c0df28d409fbb486b5a9d2e615ea','none',1,'2024/05/15','123456789','bichnqhe173220','hola',1,'2024/05/15',0);
+
+
