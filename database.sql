@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[Categories](
 )
 
 
+<<<<<<< HEAD
 INSERT INTO [dbo].[Categories] ([CategoryName],[Description])
 VALUES
 ('Men', N'Các quý ông tìm đến nước hoa để làm gì? Có lẽ là để thơm tho, nam tính và làm chỉn chu thêm phong cách của bản thân, phải chứ? Namperfume thấu hiểu các quý ông của chúng ta, đem tới cho đấng mày râu những mùi hương tươm tất, gọn gàng, cuốn hút, đôi khi là quyền lực choáng ngợp, và chắc chắn không thể quên được sự bụi bặm phóng khoáng đặc trưng của phái mạnh.'),
@@ -54,12 +55,59 @@ VALUES
 ('Spicy',3),
 ('Woody',3);
 
+=======
+CREATE TABLE [dbo].[Categories](
+[CategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[CategoryName] [nvarchar](50) NOT NULL,
+[Description] [ntext] NULL,
+)
+
+
+INSERT INTO [dbo].[Categories] ([CategoryName],[Description])
+VALUES
+('Men', N'Các quý ông tìm đến nước hoa để làm gì? Có lẽ là để thơm tho, nam tính và làm chỉn chu thêm phong cách của bản thân, phải chứ? Namperfume thấu hiểu các quý ông của chúng ta, đem tới cho đấng mày râu những mùi hương tươm tất, gọn gàng, cuốn hút, đôi khi là quyền lực choáng ngợp, và chắc chắn không thể quên được sự bụi bặm phóng khoáng đặc trưng của phái mạnh.'),
+('Women', N'Nước hoa từ những ngày đầu đã được tạo ra là để phục vụ cho phái đẹp, vì thế dường như trong thế giới mùi hương, những sự lựa chọn cho nữ giới là phong phú và nhiều màu sắc hơn cả. Là do vậy, namperfume luôn muốn đem đến cho các quý cô xinh đẹp những lựa chọn tuyệt vời, từ quyến rũ, sang trọng, quyền lực đến nhẹ nhàng, ngây thơ, và không thể thiếu một chút gợi cảm lả lơi, ngả ngốn...'),
+('Unisex', N'Nước hoa unisex là dòng nước hoa phù hợp cho mọi giới tính, dù là nam hay nữ cũng đều dùng chung sản phẩm này. Cùng một chái nước hoa nhưng khi mày râu dùng sẽ trở nên lịch lãm, một nàng sỡ hữu nét quyến rũ yêu kều sẽ trở nên hấp dẫn hơn nữa.'),
+('Giftset', N'Giftset – hay còn gọi là bộ quà tặng, là tập hợp nhiều loại sản phẩm khác nhau. Chúng đều có tính ứng dụng cao để phục vụ cho công việc và cả trong cuộc sống hàng ngày. Tất cả các sản phẩm trong bộ Giftset đều có liên quan đến nhau, tính thẩm mỹ cao để mang đến sự hài lòng cho người nhận.');
+
+CREATE TABLE [dbo].[SubCategories](
+[SubCategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[SubCategoryName] [nvarchar](255) NOT NULL,
+[CategoryID] int NOT NULL,
+FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories]([CategoryID])
+)
+INSERT INTO [dbo].[SubCategories] ([SubCategoryName],[CategoryID])
+VALUES
+('Citrus',1),
+('Floral',1),
+('Fresh',1),
+('Fruity',1),
+('Romantic',1),
+('Spicy',1),
+('Woody',1),
+('Citrus',2),
+('Floral',2),
+('Fresh',2),
+('Fruity',2),
+('Romantic',2),
+('Spicy',3),
+('Woody',3),
+('Citrus',3),
+('Floral',3),
+('Fresh',3),
+('Fruity',3),
+('Romantic',3),
+('Spicy',3),
+('Woody',3);
+
+>>>>>>> e8cc823046d36ab772ca1ae825c5c222947fac20
 CREATE TABLE [dbo].[ProductImage] (
 [ProductImageID] [int] PRIMARY KEY IDENTITY(1,1),
 [Url] [nvarchar](255) NOT NULL,
 [Name] [nvarchar](50) NULL
 )
 
+<<<<<<< HEAD
 
 CREATE TABLE [dbo].[Accounts](
 [AccountID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -84,6 +132,8 @@ VALUES
 (N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1);
 
 
+=======
+>>>>>>> e8cc823046d36ab772ca1ae825c5c222947fac20
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
     fbAccountID INT NOT NULL,
@@ -194,6 +244,36 @@ CREATE TABLE [dbo].[StatusOrder] (
 )
 
 
+<<<<<<< HEAD
+=======
+CREATE TABLE [dbo].[Accounts](
+[AccountID] [int] IDENTITY(1,1) PRIMARY KEY,
+[FirstName] [nvarchar](50) NOT NULL,
+[LastName] [nvarchar](50) NOT NULL,
+[Password] [nvarchar](50) NOT NULL,
+[Image] [nvarchar](50) NULL,
+[Gender] bit NOT NULL,
+[BirthDay] date NOT NULL,
+[Phone] [nvarchar](11) NOT NULL,
+[Email] [nvarchar](50) NULL,
+[Address] [nvarchar](225) NULL,
+[Status] bit NOT NULL,
+[CreateDate] date NOT NULL,
+[RoleID] [int] NOT NULL,
+)
+
+
+INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
+VALUES
+(N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
+(N'Bích',N'Nguyễn','bichnqhe173220@fpt.edu.vn','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
+(N'Hoàng',N'Nguyễn','hoangnvhe171612@fpt.edu.vn','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1)
+;
+
+
+
+
+>>>>>>> e8cc823046d36ab772ca1ae825c5c222947fac20
 CREATE TABLE [dbo].[Orders] (
     OrderID INT PRIMARY KEY IDENTITY(1,1),
     AccountID INT NOT NULL,
@@ -218,3 +298,7 @@ CREATE TABLE [dbo].[OrderDetail] (
     FOREIGN KEY (odOrderID) REFERENCES [dbo].[Orders](OrderID),
     FOREIGN KEY (odProductID) REFERENCES [dbo].[Products](ProductID)
 )
+<<<<<<< HEAD
+=======
+--drop table
+>>>>>>> e8cc823046d36ab772ca1ae825c5c222947fac20
