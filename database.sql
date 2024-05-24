@@ -68,7 +68,7 @@ CREATE TABLE [dbo].[Accounts](
 [AccountID] [int] IDENTITY(1,1) PRIMARY KEY,
 [FirstName] [nvarchar](50) NOT NULL,
 [LastName] [nvarchar](50) NOT NULL,
-[Password] [nvarchar](50) NOT NULL,
+[Password] [nvarchar](512) NOT NULL,
 [Image] [nvarchar](50) NULL,
 [Gender] bit NOT NULL,
 [BirthDay] date NOT NULL,
@@ -89,6 +89,9 @@ VALUES
 INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
 VALUES
 (N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
+INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
+VALUES
+(N'Hoàng',N'Nguyễn','sa','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
 
 
 CREATE TABLE [dbo].[Feedbacks] (

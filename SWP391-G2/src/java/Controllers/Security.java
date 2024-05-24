@@ -26,6 +26,6 @@ public class Security {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Security s = new Security();
-        System.out.println(s.PasswordSecurity("SHA-256"));
+        System.out.println(s.PasswordSecurity("123"));
     }
 }

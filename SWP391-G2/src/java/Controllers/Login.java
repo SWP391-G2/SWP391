@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -75,8 +76,11 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Security security = new Security();
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String remember = request.getParameter("remember");
+        
         Users u = Udao.getAccount(email);
         try {
             if (u != null) {
