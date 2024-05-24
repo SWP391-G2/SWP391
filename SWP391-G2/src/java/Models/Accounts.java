@@ -9,22 +9,22 @@ package Models;
  * @author nguye
  */
 public class Accounts {
-    
+
     private int accountID;
-    private String lastName, firstName, password, image;
+    private String firstName, lastName, password, image;
     private byte gender;
     private String birthday, phone, email, address;
-    private int status;
+    private byte status;
     private String createDate;
     private int role;
 
     public Accounts() {
     }
 
-    public Accounts(int accountID, String lastName, String firstName, String password, String image, byte gender, String birthday, String phone, String email, String address, int status, String createDate, int role) {
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, byte gender, String birthday, String phone, String email, String address, byte status, String createDate, int role) {
         this.accountID = accountID;
-        this.lastName = lastName;
         this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.image = image;
         this.gender = gender;
@@ -45,20 +45,20 @@ public class Accounts {
         this.accountID = accountID;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -117,11 +117,11 @@ public class Accounts {
         this.address = address;
     }
 
-    public int getStatus() {
+    public byte getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(byte status) {
         this.status = status;
     }
 
@@ -140,6 +140,5 @@ public class Accounts {
     public void setRole(int role) {
         this.role = role;
     }
-    
-    
+
 }

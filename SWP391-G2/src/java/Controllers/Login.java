@@ -4,12 +4,14 @@
  */
 package Controllers;
 
-import Dal.UsersDAO;
-import Models.Users;
+import Dal.AccountsDAO;
+
+import Models.Accounts;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -70,22 +72,21 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    UsersDAO Udao = new UsersDAO();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AccountsDAO Adao = new AccountsDAO();
         Security security = new Security();
-        HttpSession session = request.getSession();
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        
-        Users u = Udao.getAccount(email);
-        try {
-            if (u != null) {
 
-                if (u.getPassword().equals(security.PasswordSecurity(password))) {
+        Accounts account = Adao.getAccount(email);
+
+        try {
+            if (account != null) {
+
+                if (account.getPassword().equals(security.PasswordSecurity(password))) {
                     request.setAttribute("email", email);
                     request.getRequestDispatcher("profile.jsp").forward(request, response);
                 } else {

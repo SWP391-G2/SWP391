@@ -80,6 +80,7 @@ CREATE TABLE [dbo].[Accounts](
 [RoleID] [int] NOT NULL,
 )
 
+select * from Accounts
 
 INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
 VALUES
@@ -93,7 +94,9 @@ INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],
 VALUES
 (N'Hoàng',N'Nguyễn','sa','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
 
-
+INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
+VALUES
+(N'Hoàng',N'Nguyễn','admin@gmail.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
     fbAccountID INT NOT NULL,
