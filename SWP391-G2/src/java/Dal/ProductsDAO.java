@@ -18,17 +18,8 @@ import java.util.List;
  */
 public class ProductsDAO extends DBContext {
 
-    String status;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Products> loadProduct() {
+    public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
         try {
@@ -51,17 +42,18 @@ public class ProductsDAO extends DBContext {
             }
 
         } catch (SQLException e) {
-            status = "Error at read Products " + e.getMessage();
+          
         }
         return pro;
     }
 
-    
-    public List<Products> loadProductbyID() {
+        public List<Products> getPaging( int index) {
         List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products";
+        String sql = "select * from Products order by productID OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY;";
+        //chay lenhj truy van
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, (index - 1) * 12);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 pro.add(new Products(
@@ -80,101 +72,30 @@ public class ProductsDAO extends DBContext {
             }
 
         } catch (SQLException e) {
-            status = "Error at read Products " + e.getMessage();
+          
         }
         return pro;
     }
-
-    
-    public List<Products> loadProductOderBypIDcID() {
-        List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products "
-                + "order by CategoryID, ProductID asc";
+        
+    public int getCount() {
+        String sql = "Select count(*) from products";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ur = connection.prepareStatement(sql);
+           
+            ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getString("ProductDetail"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getInt("ProductImageID"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getFloat("ProductPrice")
-                ));
+                return rs.getInt(1);
             }
-
         } catch (SQLException e) {
-            status = "Error at read Products " + e.getMessage();
         }
-        return pro;
+        return 0;
     }
 
     public static void main(String[] args) {
-        ProductsDAO dao = new ProductsDAO();
-        List<Products> list = dao.loadProductbyID();
-        System.out.println(list.size());
-//        List<Categories> list = dao.loadCategory();
-//        System.out.println(list.size());
-    }
-
-    public List<Categories> loadCategory() {
-        List<Categories> cate = new ArrayList<>();
-        String sql = """
-                     SELECT  [CategoryID]
-                           ,[CategoryName]
-                           ,[Description]
-                       FROM [DEMO].[dbo].[Categories]
-                     
-                     """;
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                cate.add(new Categories(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3)
-                ));
-            }
-        } catch (SQLException e) {
-
-        }
-        return cate;
-    }
-
-    public List<Products> loadProductByCID(int cid) {
-        List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products where CategoryID = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, cid);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getString("ProductDetail"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getInt("ProductImageID"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getFloat("ProductPrice")
-                ));
-            }
-
-        } catch (Exception e) {
-            status = "Error at read Products " + e.getMessage();
-        }
-        return pro;
+        ProductsDAO Pdao = new ProductsDAO();
+        System.out.println(Pdao.loadProducts().size());
+        System.out.println(Pdao.getPaging(2).size());
+        System.out.println(Pdao.getCount());
     }
 
 }

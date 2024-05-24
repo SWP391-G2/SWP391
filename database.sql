@@ -80,7 +80,7 @@ CREATE TABLE [dbo].[Accounts](
 [RoleID] [int] NOT NULL,
 )
 
-select * from Accounts
+
 
 INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
 VALUES
