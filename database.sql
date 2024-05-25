@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[Accounts](
 [Status] bit NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
+FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
 
 
@@ -85,10 +86,18 @@ INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],
 VALUES
 (N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
 (N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1);
+(N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
 
-INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
-VALUES
-(N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
+
+CREATE TABLE [dbo].[Roles] (
+    roleID INT PRIMARY KEY IDENTITY(1,1),
+    roleName NVARCHAR(50) NOT NULL UNIQUE
+)
+INSERT INTO [dbo].[Roles] (roleName) VALUES
+('Admin'),
+('Sale'),
+('Marketing'),
+('Customer');
 
 
 CREATE TABLE [dbo].[Feedbacks] (
@@ -102,6 +111,25 @@ CREATE TABLE [dbo].[Feedbacks] (
     fbStatus INT NOT NULL,
     FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts](AccountID)
 )
+CREATE TABLE [dbo].[Brands] (
+    [BrandID] INT PRIMARY KEY IDENTITY(1,1),
+    [BrandName] NVARCHAR(100) NOT NULL UNIQUE,
+    [Description] NVARCHAR(MAX)
+)
+INSERT INTO [dbo].[Brands]([BrandName],[Description])
+VALUES
+('GUCCI',N'Nước hoa Gucci là một trong những thương hiệu được tôn sùng nhất trên thế giới. Được thành lập vào thập niên 20 tại Florence, Ý, Gucci luôn hiểu rõ thời trang và nước hoa là hai thứ không thể tách rời nhau. Hãng mang đến những bộ quần áo với phong cách hiện đại, tân thời cho cả nam lẫn nữ. Biểu tượng 2 chữ cái lồng vào nhau nổi tiếng của Gucci đã trở thành một hình tượng thời trang, luôn được bắt gặp trong mọi sản phẩm của hãng, từ các bộ sưu tập túi, trang phục thể thao, các đôi giày gót cao và mảnh theo mùa cho đến những lọ nước hoa. Nước hoa Gucci rất đa dạng về mùi hương, từ gợi cảm mê đắm cho đến ngọt ngào tươi mát. Cùng với các dòng trang phục và phụ kiện của hãng, từ lâu đã trở thành những mùi hương kinh điển. Dễ dàng thấy được Gucci luôn tạo ra những làn sóng thời trang mới đồng thời là nhãn hiệu đi đầu về sự thanh lịch, và hương thơm tuyệt diệu của nước hoa Gucci luôn mang đến một cảm giác ngọt ngào của sự thành công.'),
+('CHANEL',N'Chanel là thương hiệu nước hoa danh tiếng được biết đến với sự sang trọng, tinh tế và đẳng cấp. Các sản phẩm nước hoa của Chanel thường mang hương thơm độc đáo, kết hợp giữa các thành phần tự nhiên và tổng hợp để tạo nên những mùi hương đặc trưng và lâu phai.'),
+('XERJOFF',N'Xerjoff là thương hiệu nước hoa cao cấp nổi tiếng với sự kết hợp hoàn hảo giữa nghệ thuật chế tác thủ công và nguyên liệu quý hiếm. Các dòng nước hoa của Xerjoff mang đến những trải nghiệm hương thơm độc đáo, phức tạp và đầy tinh tế.'),
+('LOUIS VUITTON',N'Louis Vuitton, nổi tiếng với sự sang trọng và đẳng cấp trong thời trang và phụ kiện, cũng mang đến những dòng nước hoa cao cấp với hương thơm tinh tế và độc đáo. Nước hoa Louis Vuitton được sáng tạo bởi các chuyên gia nước hoa hàng đầu, sử dụng nguyên liệu quý hiếm và chất lượng cao.'),
+('DIOR',N'Dior là một thương hiệu nổi tiếng trong lĩnh vực nước hoa, với nhiều dòng sản phẩm mang tính biểu tượng. Nước hoa Dior nổi bật với sự kết hợp tinh tế của các thành phần chất lượng cao, mang lại hương thơm đa dạng và phong phú.'),
+('TOMMY HILFIGER',N'Tommy Hilfiger là một thương hiệu nổi tiếng, không chỉ trong lĩnh vực thời trang mà còn trong ngành nước hoa. Nước hoa của Tommy Hilfiger thường mang phong cách trẻ trung, năng động và tươi mới. '),
+('ISSEY MIYAKE',N'Issey Miyake là một thương hiệu nổi tiếng với những dòng nước hoa mang phong cách hiện đại, tối giản và tinh tế. Nước hoa của Issey Miyake thường nổi bật với hương thơm tươi mát, thanh lịch và sáng tạo, lấy cảm hứng từ thiên nhiên và các yếu tố tự nhiên.'),
+('CREED',N'Creed là một thương hiệu nước hoa cao cấp của Pháp, nổi tiếng với các dòng nước hoa thủ công, tinh tế và sang trọng. Mỗi sản phẩm của Creed thường được làm từ các nguyên liệu tự nhiên chất lượng cao, mang lại hương thơm độc đáo và lâu dài.'),
+('YVES SAINT LAURENT (YSL)',N'Yves Saint Laurent (YSL) là một thương hiệu nước hoa danh tiếng, nổi bật với các sản phẩm mang phong cách quyến rũ, táo bạo và hiện đại. Nước hoa YSL thường được đánh giá cao bởi sự sáng tạo trong cách pha trộn hương liệu, mang lại những mùi hương độc đáo và ấn tượng.'),
+('ARMAF',N'Armaf là một thương hiệu nước hoa nổi tiếng với các sản phẩm chất lượng cao nhưng giá cả phải chăng. Các loại nước hoa của Armaf thường mang phong cách đa dạng, từ tươi mới đến nồng nàn, phù hợp với nhiều sở thích và dịp khác nhau. '),
+('ROJA PARFUMS',N'Roja Parfums là một thương hiệu nước hoa cao cấp và sang trọng của nhà sáng tạo nước hoa Roja Dove. Các sản phẩm của Roja Parfums thường được biết đến với sự tinh tế trong cách kết hợp các hương liệu, đảm bảo chất lượng cao nhất và tính độc đáo. Mỗi chai nước hoa Roja Parfums thường được làm thủ công và có giới hạn, tạo ra những tác phẩm nghệ thuật trong thế giới nước hoa.'),
+('LE LABO',N'Le Labo là một thương hiệu nước hoa cao cấp và độc đáo, nổi tiếng với việc tạo ra các sản phẩm thủ công và cá nhân hóa. Mỗi chai nước hoa của Le Labo được sản xuất tại cửa hàng, đảm bảo sự tinh tế và chất lượng. Thương hiệu này chú trọng vào việc sử dụng các thành phần tự nhiên và chất lượng cao, cùng với sự độc đáo trong cách pha trộn hương liệu.');
 
 CREATE TABLE [dbo].[Products] (
     [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
@@ -115,9 +143,11 @@ CREATE TABLE [dbo].[Products] (
     [OrderID] [INT] NULL,	
     [fbID] [INT] NULL,
     [ProductPrice] [float] NOT NULL,
+	[BrandID] [int] NULL,
     FOREIGN KEY (SubCategoryID) REFERENCES [dbo].[SubCategories]([SubCategoryID]),
     FOREIGN KEY (fbID) REFERENCES [dbo].[Feedbacks]([fbID]),
     FOREIGN KEY (ProductImageID) REFERENCES [dbo].[ProductImage]([ProductImageID]),
+	FOREIGN KEY (BrandID) REFERENCES [dbo].[Brands](BrandID),
 )
 INSERT INTO [dbo].[Products] (
 [ProductName],
@@ -125,13 +155,14 @@ INSERT INTO [dbo].[Products] (
 [ProductPrice],
 [ProductCreateDate],
 [SubCategoryID],
-[ProductStatus])
+[ProductStatus],
+[BrandID])
 VALUES
 --5 perfumes for Men
 ('XERJOFF CASAMORATI MEFISTO EDP FOR MEN','Được lấy cảm hứng từ bờ biển Ý, năm 2009 thương hiệu Xerjoff cho ra đời loại nước hoa dành cho nam mang tên Xerjoff Casamorati Mefisto EDP. Đây là một trong những chai nước hoa nằm trong bộ sưu tập Casamorati nổi tiếng rất được nhiều ưa chuộng.',
-'5580000','2024',1,1),
+'5580000','2024',1,1,3),
 ('LOUIS VUITTON MÉTÉORE EDP FOR MEN','Louis Vuitton Météore EDP là một phần trong BST “Les Parfum” của Louis Vuitton vừa ra mắt năm 2020. Ngay khi vừa ra mắt, chai nước hoa này đã thu hút được sự chú ý của những chàng trai với thiết kế sang trọng, tinh tế. Được lấy cảm hứng từ những tinh thể băng tuyết, chai nước hoa được thiết kế có hình trụ tròn, các cạnh được bo góc mềm mại.',
-'8650000','2024',1,1),
+'8650000','2024',1,1,),
 ('TOMMY ENDLESS BLUE FOR MEN','Tommy Endless Blue là một dòng nước hoa của Tommy Hilfiger dành cho nam giới, được ra mắt vào năm 2017. Chai nước hoa nam này đặc trưng với hương thơm hài hòa giữa sự ngọt ngào của Đậu Tonka, sự cay nồng của tiêu đen và hương bình yên của thảo dược cùng chút cay nồng của rượu cognac.',
 '2300000','2024',2,1),
 ('ISSEY MIYAKE L’EAU D’ISSEY INTENSE FOR MEN','Issey Miyake L’eau D’issey Intense là một tác phẩm nghệ thuật nước hoa nam giới của Issey Miyake, được ra mắt để tạo nên một trải nghiệm hương thơm đầy sức cuốn hút và sâu lắng. Đây không chỉ đơn thuần là một nước hoa, mà còn là một câu chuyện về cảm xúc và cái đẹp của sự tương phản.',
