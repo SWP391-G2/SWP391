@@ -13,165 +13,71 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
         <title>Login Page</title>
-
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-                font-family: Arial, sans-serif;
-                background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-            }
-
-            .login-container {
-                background: #fff;
-                padding: 2rem;
-                border-radius: 10px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                max-width: 400px;
-                width: 100%;
-            }
-
-            .title {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-                color: #333;
-            }
-
-            .login-form {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .input-group {
-                position: relative;
-                margin-bottom: 1.5rem;
-            }
-
-            .input-group-base {
-                position: relative;
-                margin-bottom: 1.5rem;
-                text-align: left;
-            }
-            .input-group-base a {
-                position: relative;
-                margin-bottom: 1.5rem;
-                text-align: right;
-            }
-            .input-group input {
-                width: 93%;
-                padding: 0.75rem;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                font-size: 1rem;
-                outline: none;
-            }
-
-            .input-group label {
-                position: absolute;
-                top: 50%;
-                left: 0.75rem;
-                transform: translateY(-50%);
-                background-color: #fff;
-                padding: 0 0.25rem;
-                color: #999;
-                transition: 0.3s;
-                pointer-events: none;
-            }
-
-            .input-group input:focus + label,
-            .input-group input:not(:placeholder-shown) + label {
-                top: 0;
-                transform: translateY(-100%);
-                font-size: 0.75rem;
-                color: #ff7e5f;
-            }
-
-            .btn {
-                padding: 0.75rem;
-                border: none;
-                border-radius: 5px;
-                background-color: #ff7e5f;
-                color: #fff;
-                font-size: 1rem;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .btn:hover {
-                background-color: #feb47b;
-            }
-
-            .google-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #4285F4;
-                margin-top: 1rem;
-            }
-
-            .google-btn img {
-                margin-right: 0.5rem;
-            }
-
-            .divider {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                margin: 1rem 0;
-            }
-
-            .divider::before,
-            .divider::after {
-                content: '';
-                flex: 1;
-                border-bottom: 1px solid #ccc;
-            }
-
-            .divider::before {
-                margin-right: 0.5em;
-            }
-
-            .divider::after {
-                margin-left: 0.5em;
-            }
-        </style>
     </head>
-    <body>
-        <div class="login-container">
-            <h1 class="title">Login</h1>
-            <form action="login" method="post" class="login-form">
-                <c:if test="${(requestScope.err != null)}">
-                    <h4 style="color: red;">${requestScope.err}</h4>
-                </c:if>
-                <div class="input-group">
-                    <input type="email" value="${param.email}" id="email" name="email" required placeholder="Email" >
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" name="password" required placeholder="Password">
-                    <label for="password">Password</label>
-                </div>
-                <div class="input-group-base">
-                    <input type="checkbox">
-                    <label>Remember me</label>
-                    <a href="#">For got password</a>
-                </div>
-                <button type="submit" class="btn">Login</button>
-                <div class="divider">
-                    <span>or</span>
-                </div>
-                <a style="text-decoration: none" href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/SWP391-G2/LoginGoogleHandler&response_type=code&client_id=64210906671-gn1cclen03hhngkbb5ultf010ppcss6p.apps.googleusercontent.com&approval_prompt=force">
-                    <button style="width: 100%" type="button" class="btn google-btn">
-                        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
-                        Login with Google
-                    </button>
-                </a>
-            </form>
+    <div class="row vh-100 g-0">
+        <!-- left side  -->
+        <div class="col-6 position-relative d-none d-lg-block">
+            <div class="bg-holder" style="background-image: url(assets/img/M.png);"></div>
         </div>
-    </body>
+
+        <!--/ left side  -->
+
+        <!-- right side  -->
+        <div class="col-lg-6">
+            <c:if test="${requestScope.err != null}">
+                <div class="row fixed-top">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6 alert alert-warning text-center" role="alert">
+                        ${requestScope.err}
+                    </div>
+                </div>
+            </c:if>
+            <div class="row align-items-center justify-content-center h-100 g-0 px-4 px-sm-">
+                <div class="col col-sm-6 col-lg-7 col-xl-6">
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold pb-5">Login</h2>
+                        <form action="login" method="post" >
+                            <div class="input-group mb-3" >
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                    </svg>
+                                </span>
+                                <input type="text" name="email" value="${requestScope.em}" class="form-control form-control-lg fs-6" placeholder="Username">
+                            </div>
+                            <div class="input-group mb-3" >
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                                    </svg>
+                                </span>
+                                <input type="password" name="password" value="${requestScope.pa}" class="form-control form-control-lg fs-6" placeholder="Password">
+                            </div>
+                            <div class="input-group mb-3 d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remember" class="form-check-input" id="formCheck">
+                                    <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
+                                </div>
+                                <div>
+                                    <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
+                                </div>
+                            </div>
+                            <button class="btn btn-dark btn-lg  w-100 mb-3" name="login"> Login</button>
+
+                        </form>
+                        <div class="text-center">
+                            <small>Don't have an accout? <a href="signup.jsp" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ right side  -->
+    </div>
+</body>
 </html>
