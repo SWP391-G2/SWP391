@@ -8,27 +8,27 @@ package Models;
  *
  * @author nguye
  */
-public class Users {
+public class Accounts {
 
-    private int userID;
-    private String lastName, firstName, password, image;
+    private int accountID;
+    private String firstName, lastName, password, image;
     private byte gender;
-    private String dob, phone, email, address;
-    private int status;
+    private String birthday, phone, email, address;
+    private byte status;
     private String createDate;
     private int role;
 
-    public Users() {
+    public Accounts() {
     }
 
-    public Users(int userID, String lastName, String firstName, String password, String image, byte gender, String dob, String phone, String email, String address, int status, String createDate, int role) {
-        this.userID = userID;
-        this.lastName = lastName;
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, byte gender, String birthday, String phone, String email, String address, byte status, String createDate, int role) {
+        this.accountID = accountID;
         this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.image = image;
         this.gender = gender;
-        this.dob = dob;
+        this.birthday = birthday;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -37,22 +37,12 @@ public class Users {
         this.role = role;
     }
 
-  
-
-    public int getUserID() {
-        return userID;
+    public int getAccountID() {
+        return accountID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public String getFirstName() {
@@ -61,6 +51,14 @@ public class Users {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -87,12 +85,12 @@ public class Users {
         this.gender = gender;
     }
 
-    public String getDob() {
-        return dob;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getPhone() {
@@ -119,11 +117,11 @@ public class Users {
         this.address = address;
     }
 
-    public int getStatus() {
+    public byte getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(byte status) {
         this.status = status;
     }
 

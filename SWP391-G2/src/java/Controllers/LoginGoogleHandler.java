@@ -5,7 +5,8 @@ package Controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Dal.UsersDAO;
+import Dal.AccountsDAO;
+
 import Models.UserGoogleDto;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -40,8 +41,8 @@ public class LoginGoogleHandler extends HttpServlet {
         String code = request.getParameter("code");
         String accessToken = getToken(code);
         UserGoogleDto user = getUserInfo(accessToken);
-        UsersDAO Udao = new UsersDAO();
-        if (Udao.getAccount(user.getEmail()) != null) {
+        AccountsDAO Adao = new AccountsDAO();
+        if (Adao.getAccount(user.getEmail()) != null) {
             request.setAttribute("email", user.getEmail());
             request.getRequestDispatcher("profile.jsp").forward(request, response);
         } else {
