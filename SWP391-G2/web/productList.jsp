@@ -25,12 +25,18 @@
     <body>
 
 
-        <!--    product   -->
-        <div class="p-5"></div>
-        <div class="row p-5 ">
-            <div class="col-2">
+            <!--    product   -->
+            <div class="p-5"></div>
+            <div class="row p-5 ">
+                <div class="col-2">
+                    <!-- search price start -->
+                <form action="ProductList" method="get">
+
+
+
 
                 <form action="listP" method="get">
+
 
                     <div class="pt-5">
                         <div class=" d-flex justify-content-between">
@@ -42,6 +48,7 @@
                         <button type="submit" name="checkprice" value="1" class="btn btn-dark text-uppercase w-100 mt-3">Apply</button> 
                     </div>
                 </form>
+                        <!-- search price end -->
             </div>
             <div class="col-10"> 
                 <div class=" rounded container bg-secondary-subtle">
