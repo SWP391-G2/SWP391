@@ -11,27 +11,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <link rel="icon" href="./assets/img/M.png" type="image/x-icon" />
-            <link rel="stylesheet" href="assets/css/style.css">
-           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-            <title>Store Heart</title>
-            <style>
-                html{
-                    scroll-behavior: smooth;
-                }
-            </style>
-        </head>
-        <body>
+        <link rel="icon" href="./assets/img/M.png" type="image/x-icon" />
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <title>Store Heart</title>
+        <style>
+            html{
+                scroll-behavior: smooth;
+            }
+        </style>
+    </head>
+    <body>
 
 
-            <!--    product   -->
-            <div class="p-5"></div>
-            <div class="row p-5 ">
-                <div class="col-2">
-                  
+        <!--    product   -->
+        <div class="p-5"></div>
+        <div class="row p-5 ">
+            <div class="col-2">
+
                 <form action="listP" method="get">
-                    
+
                     <div class="pt-5">
                         <div class=" d-flex justify-content-between">
                             <input type="number" class="w-50" name="min" value="${param.min}" placeholder="price min">-<input type="number" value="${param.max}" class="w-50" placeholder="price max" name="max">
@@ -79,21 +79,21 @@
                                 </c:forEach>
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center pb-3">
-                                        <c:if test="${tag-1>0}">
-                                            <li class="page-item">
-                                                <a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${tag-1}&&max=${param.max}&&min=${param.min}" >Previous</a>
-                                            </li>
-                                        </c:if>
-                                        <c:forEach begin="1" end="${requestScope.endP}" var="i">
-                                            <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${i}&&max=${param.max}&&min=${param.min}">${i}</a></li>
-                                            </c:forEach>
-                                            <c:if test="${tag<endP}">
-                                            <li class="page-item">
-                                                <a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${tag+1}&&max=${param.max}&&min=${param.min}">Next</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </nav>
+                                <c:if test="${tag-1>0}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${tag-1}&&max=${param.max}&&min=${param.min}" >Previous</a>
+                                    </li>
+                                </c:if>
+                                <c:forEach begin="1" end="${requestScope.endP}" var="i">
+                                    <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${i}&&max=${param.max}&&min=${param.min}">${i}</a></li>
+                                </c:forEach>
+                                <c:if test="${tag<endP}">
+                                <li class="page-item">
+                                    <a class="page-link" href="/Project_of_assignment/listP?search=${sr}&&index=${tag+1}&&max=${param.max}&&min=${param.min}">Next</a>
+                                </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                             </c:if>
                            
                             <c:if test="${requestScope.listP != null}">

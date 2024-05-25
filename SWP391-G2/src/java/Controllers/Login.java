@@ -11,6 +11,7 @@ import Models.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,31 +78,44 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         AccountsDAO Adao = new AccountsDAO();
         Security security = new Security();
-
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        String remember = request.getParameter("remember");
         Accounts account = Adao.getAccount(email);
-
+        
         try {
             if (account != null) {
-
-                if (account.getPassword().equals(security.PasswordSecurity(password))) {
-                    request.setAttribute("email", email);
-                    request.getRequestDispatcher("profile.jsp").forward(request, response);
+                if (account.getStatus() == 1) {
+                    if (account.getPassword().equals(security.PasswordSecurity(password))) {
+                        session.setAttribute("account", account.getAccountID());
+                        session.setAttribute("role", account.getRole());
+                        Cookie cookieEmail = new Cookie("em", email);
+                        cookieEmail.setMaxAge(30);
+                        response.addCookie(cookieEmail);
+                        if (remember != null) {
+                            Cookie cookiePassword = new Cookie("cp", password);
+                            cookiePassword.setMaxAge(30);
+                            response.addCookie(cookiePassword);
+                            session.setAttribute("save", "1");
+                        }
+                        request.setAttribute("email", email);
+                        request.getRequestDispatcher("profile.jsp").forward(request, response);
+                    } else {
+                        throw new Exception("Password is incorrect, please check again!!");
+                    }
                 } else {
-                    throw new Exception("Password is incorrect, please check again!!");
+                    throw new Exception("Your account has been banned");
                 }
-
             } else {
                 throw new Exception("email is not exsit, please check agian!");
             }
         } catch (Exception e) {
             request.setAttribute("err", e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
-
+            
         }
-
+        
     }
 
     /**
