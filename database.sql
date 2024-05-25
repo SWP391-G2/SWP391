@@ -101,7 +101,7 @@ FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
 VALUES
 (N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
-(N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1);
+(N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
 (N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
 
 
@@ -191,7 +191,7 @@ VALUES
 ('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',12,96,'2024',16,1,10),
 ('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',13,262,'2024',16,1,1),
 ('LE LABO THE NOIR 29 EDP FOR UNISEX',14,292,'2024',21,1,12),
-('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',15,520,'2024',21,1,4),
+('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',15,520,'2024',21,1,4);
 --5 Giftset 
 
 CREATE TABLE [dbo].[ProductDetail] (
