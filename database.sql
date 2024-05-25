@@ -16,8 +16,6 @@ CREATE TABLE [dbo].[Categories](
 [Description] [ntext] NULL,
 )
 
-
-
 INSERT INTO [dbo].[Categories] ([CategoryName],[Description])
 VALUES
 ('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.'),
@@ -79,6 +77,16 @@ VALUES
 ('images/Products/Unisex/4.0.jpg'),
 ('images/Products/Unisex/5.0.jpg')
 
+CREATE TABLE [dbo].[Roles] (
+    roleID INT PRIMARY KEY IDENTITY(1,1),
+    roleName NVARCHAR(50) NOT NULL UNIQUE
+)
+INSERT INTO [dbo].[Roles] (roleName) VALUES
+('Admin'),
+('Sale'),
+('Marketing'),
+('Customer');
+
 CREATE TABLE [dbo].[Accounts](
 [AccountID] [int] IDENTITY(1,1) PRIMARY KEY,
 [FirstName] [nvarchar](50) NOT NULL,
@@ -101,19 +109,8 @@ FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
 VALUES
 (N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
-(N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1);
+(N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
 (N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
-
-
-CREATE TABLE [dbo].[Roles] (
-    roleID INT PRIMARY KEY IDENTITY(1,1),
-    roleName NVARCHAR(50) NOT NULL UNIQUE
-)
-INSERT INTO [dbo].[Roles] (roleName) VALUES
-('Admin'),
-('Sale'),
-('Marketing'),
-('Customer');
 
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
@@ -191,14 +188,14 @@ VALUES
 ('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',12,96,'2024',16,1,10),
 ('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',13,262,'2024',16,1,1),
 ('LE LABO THE NOIR 29 EDP FOR UNISEX',14,292,'2024',21,1,12),
-('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',15,520,'2024',21,1,4),
+('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',15,520,'2024',21,1,4)
 --5 Giftset 
 
 CREATE TABLE [dbo].[ProductDetail] (
     [ProductDetailID] [int] PRIMARY KEY IDENTITY(1,1),
     [pdProductID] [int] NOT NULL,
 	[ProductDetail] [NVARCHAR](max) NULL,
-    [ProductMI] [float] NULL,	
+    [ProductMI] [nvarchar](50) NULL,	
     [ProductSold] [int] NULL,
     [ProductAvaiable] [int] NULL,
     [ProductCreateDate] DATE NULL,
@@ -210,35 +207,35 @@ CREATE TABLE [dbo].[ProductDetail] (
 INSERT INTO [dbo].ProductDetail ([pdProductID],[ProductDetail],[ProductMI],[ProductSold],[ProductAvaiable],[ProductCreateDate],[ProductStatus],[ProductImageID])
 VALUES
 (1,'Inspired by the Italian coast, in 2009 the Xerjoff brand launched a perfume for men called Xerjoff Casamorati Mefisto EDP. This is one of the perfume bottles located in the famous and very popular Casamorati collection.'
-,'30ml 100ml',0,100,2024,1,1),
+,'30ml 100ml',0,100,'2024',1,1),
 (2,'Louis Vuitton Météore EDP is part of Louis Vuitton "Les Parfum" collection just launched in 2020. As soon as it was released, this perfume bottle attracted attention. The idea of ​​boys with a luxurious and sophisticated design. Inspired by snow and ice crystals, the perfume bottle is designed with a round cylinder shape and soft rounded edges.'
-,'30ml 100ml',0,100,2024,1,2),
+,'30ml 100ml',0,100,'2024',1,2),
 (3,'Tommy Endless Blue is a perfume line of Tommy Hilfiger for men, launched in 2017. This men perfume bottle features a harmonious scent between sweetness of Tonka Beans, the spiciness of black pepper and the peaceful scent of herbs with a spicy kick of cognac.'
-,'30ml 100ml',0,100,2024,1,3),
+,'30ml 100ml',0,100,'2024',1,3),
 (4,'Issey Miyake L EAU D ISSEY Intense is a work of art as a men perfume by Issey Miyake, launched to create a fragrant experience. This fragrance is full of charm and depth. This is not simply a perfume, but also a story about emotions and the beauty of contrasts.'
-,'30ml 100ml',0,100,2024,1,4),
+,'30ml 100ml',0,100,'2024',1,4),
 (5,'Creed Aventus - A name that is no longer strange to trendy scent followers. Appointed as the king of men perfume. For being at the forefront of creating a scent Citrus, easy to use but indescribably unique. Attractive with a luxurious and attractive scent, adding a bit of generosity and bravery. The perfume line is inspired by the dramatic life of King Napoleon symbolizes war, peace and romance.',
-'30ml 100ml',0,100,2024,1,5),
+'30ml 100ml',0,100,'2024',1,5),
 (6,'Chanel Chance EDP has been famous for many years, Chanel is sought after and used by many people because of its classy scent. Chanel Chance Eau De Parfum is one of the perfume lines most sought after by women, including me.'
-,'30ml 100ml',0,100,2024,1,6),
+,'30ml 100ml',0,100,'2024',1,6),
 (7,'Dior Joy is a work that Dior has cherished for a long time, but has just released it. A new scent, completely different from previous perfumes. If these scents The previous scent was classic and elegant. Dior Joy is a scent full of joy and happiness that Dior wants to send to women.'
-,'30ml 100ml',0,100,2024,1,7),
+,'30ml 100ml',0,100,'2024',1,7),
 (8,'YSL Libre is a women perfume product line of high-end fashion house Yves Saint Laurent launched in 2019. YSL Libre belongs to the oriental scent group for women and is Created by two mixologists Anne Flipo and Carlos Benaim, Libre means "freedom" in French, inspired by the desire for freedom of independent, luxurious and sexy women. '
-,'30ml 100ml',0,100,2024,1,8),
+,'30ml 100ml',0,100,'2024',1,8),
 (9,'Louis Vuitton Spell On You EDP is a high-end women perfume product from the famous fashion brand Louis Vuitton. Launched in 2021, Spell On You promises is a safe choice for every girl because of its fresh, delicate, gentle scent.'
-,'30ml 100ml',0,100,2024,1,9),
+,'30ml 100ml',0,100,'2024',1,9),
 (10,'Chance Eau Fraiche captivates the world with its playful, lively and sparkling fragrance. Recently, Chanel launched a new line of women perfume Chance Eau Fraiche - brilliant Brilliant and elegant. A new opportunity is at hand.'
-,'30ml 100ml',0,100,2024,1,10),
+,'30ml 100ml',0,100,'2024',1,10),
 (11,'Xerjoff Naxos EDP perfume is a unisex perfume line in the special collection of the Xerjoff brand. Launched in 2015, inspired by the essence of beauty. An island located in the middle of the Mediterranean Sea, Sicily.'
-,'30ml 100ml',0,100,2024,1,11),
+,'30ml 100ml',0,100,'2024',1,11),
 (12,'Armaf Sterling Club De Nuit Milestone EDP perfume is the best-selling product line of Armaf perfume with a sweet and modern scent, a delicate blend of unique scent notes.'
-,'30ml 100ml',0,100,2024,1,12),
+,'30ml 100ml',0,100,'2024',1,12),
 (13,'In 2019, the Gucci brand launched the Gucci A Song For The Rose EDP perfume line, this is a unisex perfume for both men and women. Distilled scent From the floral scent group thyme creates a sweet and seductive scent.'
-,'30ml 100ml',0,100,2024,1,13),
+,'30ml 100ml',0,100,'2024',1,13),
 (14,'Like other perfume lines of the Le Labo brand, the Le Labo The Noir 29 EDP perfume line has a minimalist, stylish bottle design. to a luxurious, sophisticated feeling. The perfume bottle is made of transparent glass, the color of the perfume inside can be seen. In particular, the owner of this perfume bottle can print his or her name on it sticker, this represents the personalization of the product, bringing a new and unique experience to customers.'
-,'30ml 100ml',0,100,2024,1,14),
+,'30ml 100ml',0,100,'2024',1,14),
 (15,'Are you looking for a perfume line for both women and men with a truly luxurious scent as well as making an impression at the first moment? Then Louis Vuitton Ombre Nomade EDP is the right choice right now. This is a unisex perfume line from the luxury brand Louis Vuitton.'
-,'30ml 100ml',0,100,2024,1,15);
+,'30ml 100ml',0,100,'2024',1,15);
 
 
 CREATE TABLE [dbo].[Cart] (
