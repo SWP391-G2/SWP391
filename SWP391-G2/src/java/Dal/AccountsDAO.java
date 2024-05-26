@@ -51,6 +51,27 @@ public class AccountsDAO extends DBContext {
         }
         return null;
     }
+    
+    
+    public Accounts getAccountFull(String email, String pass) {
+
+        String sql = "select * from Accounts where email=?";
+        //chay lenhj truy van
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, email);
+            ur.setString(2, pass);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                Accounts account = new Accounts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getByte(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getByte(11), rs.getString(12), rs.getInt(13));
+                return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
 
     public static void main(String[] args) {
         AccountsDAO d = new AccountsDAO();
