@@ -59,7 +59,7 @@ CREATE TABLE [dbo].[ProductImages] (
 [Url] [nvarchar](255) NOT NULL,
 [Name] [nvarchar](50) NULL
 )
-INSERT INTO [dbo].[ProductImage] ([Url])
+INSERT INTO [dbo].[ProductImages] ([Url])
 VALUES
 ('images/Products/Men/1_0.jpg'),
 ('images/Products/Men/2_0.jpg'),
