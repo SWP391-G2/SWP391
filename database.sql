@@ -304,11 +304,9 @@ CREATE TABLE [dbo].[Cart] (
     CartID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
     Quantity INT NOT NULL,
-    AccountID INT NOT NULL,
     CreateDate DATE NOT NULL,
     TotalPrice FLOAT NOT NULL,
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
-    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID])
 )
 
 
