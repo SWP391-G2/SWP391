@@ -14,30 +14,28 @@ public class Products {
     private int productID;
     private int subCategoryID;
     private String productName;
-    private String productDetail;
     private Date productCreateDate;
-    private int pdtID;
+    private int productDetailID;
     private boolean productStatus;
-    private int productImageID;
+    private String productImageUrl;
     private int OrderID;
     private int fbID;
-    private float productPrice;
+    private int BrandID;
 
     public Products() {
     }
 
-    public Products(int productID, int subCategoryID, String productName, String productDetail, Date productCreateDate, int pdtID, boolean productStatus, int productImageID, int OrderID, int fbID, float productPrice) {
+    public Products(int productID, int subCategoryID, String productName, Date productCreateDate, int productDetailID, boolean productStatus, String productImageUrl, int OrderID, int fbID, int BrandID) {
         this.productID = productID;
         this.subCategoryID = subCategoryID;
         this.productName = productName;
-        this.productDetail = productDetail;
         this.productCreateDate = productCreateDate;
-        this.pdtID = pdtID;
+        this.productDetailID = productDetailID;
         this.productStatus = productStatus;
-        this.productImageID = productImageID;
+        this.productImageUrl = productImageUrl;
         this.OrderID = OrderID;
         this.fbID = fbID;
-        this.productPrice = productPrice;
+        this.BrandID = BrandID;
     }
 
     public int getProductID() {
@@ -64,14 +62,6 @@ public class Products {
         this.productName = productName;
     }
 
-    public String getProductDetail() {
-        return productDetail;
-    }
-
-    public void setProductDetail(String productDetail) {
-        this.productDetail = productDetail;
-    }
-
     public Date getProductCreateDate() {
         return productCreateDate;
     }
@@ -80,12 +70,12 @@ public class Products {
         this.productCreateDate = productCreateDate;
     }
 
-    public int getPdtID() {
-        return pdtID;
+    public int getProductDetailID() {
+        return productDetailID;
     }
 
-    public void setPdtID(int pdtID) {
-        this.pdtID = pdtID;
+    public void setProductDetailID(int productDetailID) {
+        this.productDetailID = productDetailID;
     }
 
     public boolean isProductStatus() {
@@ -96,12 +86,12 @@ public class Products {
         this.productStatus = productStatus;
     }
 
-    public int getProductImageID() {
-        return productImageID;
+    public String getProductImageUrl() {
+        return productImageUrl;
     }
 
-    public void setProductImageID(int productImageID) {
-        this.productImageID = productImageID;
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
     }
 
     public int getOrderID() {
@@ -120,18 +110,15 @@ public class Products {
         this.fbID = fbID;
     }
 
-    public float getProductPrice() {
-        return productPrice;
+    public int getBrandID() {
+        return BrandID;
     }
 
-    public void setProductPrice(float productPrice) {
-        this.productPrice = productPrice;
+    public void setBrandID(int BrandID) {
+        this.BrandID = BrandID;
     }
 
-    @Override
-    public String toString() {
-        return "Products{" + "productID=" + productID + ", subCategoryID=" + subCategoryID + ", productName=" + productName + ", productDetail=" + productDetail + ", productCreateDate=" + productCreateDate + ", pdtID=" + pdtID + ", productStatus=" + productStatus + ", productImageID=" + productImageID + ", OrderID=" + OrderID + ", fbID=" + fbID + ", productPrice=" + productPrice + '}';
-    }
+   
 
      
 

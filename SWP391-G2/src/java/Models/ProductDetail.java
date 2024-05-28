@@ -12,37 +12,56 @@ import java.util.Date;
  * @author hatru
  */
 public class ProductDetail {
-    private int ProductDetailID;
+    private int ProductID;
+    private String ProductName;
+    private int ProductFullDetailID;
     private int pdProductID;
-    private float ProductML;
-    private int ProductSold;
-    private int ProductAvailable;
+    private String ProductDescription; 
     private Date ProductCreateDate;
-    private Boolean  ProductStatus;
-    private int ProductImageID;
-    private int ProductQuantity;
-
+    private Boolean ProductStatus;
+    private String ProductSize;
+    private Float ProductPrice;
+    private int ProductAvaiable;
+    private String ProductImageUrl;
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductDetailID, int pdProductID, float ProductML, int ProductSold, int ProductAvailable, Date ProductCreateDate, Boolean ProductStatus, int ProductImageID, int ProductQuantity) {
-        this.ProductDetailID = ProductDetailID;
+    public ProductDetail(int ProductID, String ProductName, int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String ProductImageUrl) {
+        this.ProductID = ProductID;
+        this.ProductName = ProductName;
+        this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
-        this.ProductML = ProductML;
-        this.ProductSold = ProductSold;
-        this.ProductAvailable = ProductAvailable;
+        this.ProductDescription = ProductDescription;
         this.ProductCreateDate = ProductCreateDate;
         this.ProductStatus = ProductStatus;
-        this.ProductImageID = ProductImageID;
-        this.ProductQuantity = ProductQuantity;
+        this.ProductSize = ProductSize;
+        this.ProductPrice = ProductPrice;
+        this.ProductAvaiable = ProductAvaiable;
+        this.ProductImageUrl = ProductImageUrl;
     }
 
-    public int getProductDetailID() {
-        return ProductDetailID;
+    public int getProductID() {
+        return ProductID;
     }
 
-    public void setProductDetailID(int ProductDetailID) {
-        this.ProductDetailID = ProductDetailID;
+    public void setProductID(int ProductID) {
+        this.ProductID = ProductID;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String ProductName) {
+        this.ProductName = ProductName;
+    }
+
+    public int getProductFullDetailID() {
+        return ProductFullDetailID;
+    }
+
+    public void setProductFullDetailID(int ProductFullDetailID) {
+        this.ProductFullDetailID = ProductFullDetailID;
     }
 
     public int getPdProductID() {
@@ -53,28 +72,12 @@ public class ProductDetail {
         this.pdProductID = pdProductID;
     }
 
-    public float getProductML() {
-        return ProductML;
+    public String getProductDescription() {
+        return ProductDescription;
     }
 
-    public void setProductML(float ProductML) {
-        this.ProductML = ProductML;
-    }
-
-    public int getProductSold() {
-        return ProductSold;
-    }
-
-    public void setProductSold(int ProductSold) {
-        this.ProductSold = ProductSold;
-    }
-
-    public int getProductAvailable() {
-        return ProductAvailable;
-    }
-
-    public void setProductAvailable(int ProductAvailable) {
-        this.ProductAvailable = ProductAvailable;
+    public void setProductDescription(String ProductDescription) {
+        this.ProductDescription = ProductDescription;
     }
 
     public Date getProductCreateDate() {
@@ -92,22 +95,38 @@ public class ProductDetail {
     public void setProductStatus(Boolean ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
-
-    public int getProductImageID() {
-        return ProductImageID;
-    }
-
-    public void setProductImageID(int ProductImageID) {
-        this.ProductImageID = ProductImageID;
-    }
-
-    public int getProductQuantity() {
-        return ProductQuantity;
-    }
-
-    public void setProductQuantity(int ProductQuantity) {
-        this.ProductQuantity = ProductQuantity;
-    }
     
+    public String getProductSize() {
+        return ProductSize;
+    }
+
+    public void setProductSize(String ProductSize) {
+        this.ProductSize = ProductSize;
+    }
+
+    public Float getProductPrice() {
+        return ProductPrice;
+    }
+
+    public void setProductPrice(Float ProductPrice) {
+        this.ProductPrice = ProductPrice;
+    }
+
+    public int getProductAvaiable() {
+        return ProductAvaiable;
+    }
+
+    public void setProductAvaiable(int ProductAvaiable) {
+        this.ProductAvaiable = ProductAvaiable;
+    }
+
+    public String getProductImageUrl() {
+        return ProductImageUrl;
+    }
+
+    public void setProductImageUrl(String ProductImageUrl) {
+        this.ProductImageUrl = ProductImageUrl;
+    }
+
     
 }
