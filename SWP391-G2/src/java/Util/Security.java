@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controllers;
+package Util;
 
 /**
  *
@@ -14,7 +14,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class Security {
 
-    protected String PasswordSecurity(String srcText) throws NoSuchAlgorithmException {
+    public String getPasswordSecurity(String srcText) throws NoSuchAlgorithmException {
         String enrText;
         MessageDigest msd = MessageDigest.getInstance("SHA-256");
         msd.update(srcText.getBytes());
@@ -23,9 +23,11 @@ public class Security {
         return enrText;
         
     }
+   
 
+    
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Security s = new Security();
-        System.out.println(s.PasswordSecurity("123"));
+        System.out.println(s.getPasswordSecurity("123"));
     }
 }

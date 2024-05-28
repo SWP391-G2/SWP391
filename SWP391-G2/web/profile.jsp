@@ -14,6 +14,7 @@
     </head>
     <body>
         <h1>${requestScope.email}</h1>
+        <a href="/SWP391-G2/login">${sessionScope.save}fgf/a>
 
     </body>
 </html>
