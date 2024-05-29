@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class ProductsDAO extends DBContext {
 
-
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
@@ -30,24 +29,23 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductID"),
                         rs.getInt("SubCategoryID"),
                         rs.getString("ProductName"),
-                        rs.getString("ProductDetail"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getInt("ProductImageID"),
+                        rs.getString("productImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getFloat("ProductPrice")
+                        rs.getInt("BrandID")
                 ));
             }
 
         } catch (SQLException e) {
-          
+
         }
         return pro;
     }
 
-        public List<Products> getPaging( int index) {
+    public List<Products> getPaging(int index) {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products order by productID OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY;";
         //chay lenhj truy van
@@ -60,28 +58,27 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductID"),
                         rs.getInt("SubCategoryID"),
                         rs.getString("ProductName"),
-                        rs.getString("ProductDetail"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getInt("ProductImageID"),
+                        rs.getString("productImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getFloat("ProductPrice")
+                        rs.getInt("BrandID")
                 ));
             }
 
         } catch (SQLException e) {
-          
+
         }
         return pro;
     }
-        
+
     public int getCount() {
         String sql = "Select count(*) from products";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
-           
+
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
