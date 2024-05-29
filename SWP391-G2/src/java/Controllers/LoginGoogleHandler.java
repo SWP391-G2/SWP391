@@ -42,14 +42,15 @@ public class LoginGoogleHandler extends HttpServlet {
         String accessToken = getToken(code);
         UserGoogleDto user = getUserInfo(accessToken);
         AccountsDAO Adao = new AccountsDAO();
+       
         if (Adao.getAccount(user.getEmail()) != null) {
-            request.setAttribute("email", user.getEmail());
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            request.setAttribute("email", "Email is not exsit!!");
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         } else {
-            request.setAttribute("err", "email is not exsit!!");
+            request.setAttribute("err", user.getEmail());
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        // request.getRequestDispatcher("/login?isVerify="+user.isVerified_email()+"&&email="+user.getEmail()).forward(request, response);
+ 
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {

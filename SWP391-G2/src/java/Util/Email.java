@@ -5,6 +5,7 @@
 package Util;
 
 import java.util.Properties;
+import java.util.Random;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,8 +21,12 @@ import javax.mail.internet.MimeMessage;
  */
 public class Email {
 
+    public int randomOTP() {
+        Random random = new Random();
+        return random.nextInt(900000) + 100000;
+    }
     private final String emailFrom = "swp391g2@gmail.com";
-    private final String emailPass = "A@1234567890";
+    private final String emailPass = "xjvmsjcizbkqmwap";
 
     public void sendEmail(String subject, String messgage, String to) {
         try {
@@ -68,9 +73,90 @@ public class Email {
             // Gui email
             Transport.send(msg);
         } catch (MessagingException e) {
+
             System.out.println("Send email failed");
+            System.err.println(e);
         }
     }
-    
-    
+
+    public static void main(String[] args) {
+        Email e = new Email();
+        System.out.println(e.randomOTP());
+        String otps = String.valueOf(e.randomOTP());
+       String su = e.subjectEmail();
+   e.sendEmail(su, otps, "bichnqhe173220@fpt.edu.vn");
+    }
+
+    public String subjectEmail() {
+        return "The Perfume Shop - Verify your recovery email";
+    }
+
+    public String SendOTP(String email, String OTP) {
+        return "<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<head>\n"
+                + "  <title>The perfume shop Email</title>\n"
+                + "  <style>\n"
+                + "    body {\n"
+                + "      font-family: Arial, sans-serif;\n"
+                + "      margin: 0;\n"
+                + "      padding: 0;\n"
+                + "      background-color: #f4f4f4;\n"
+                + "    }\n"
+                + "\n"
+                + "    .container {\n"
+                + "      width: 500px;\n"
+                + "      margin: 100px auto;\n"
+                + "      background-color: #fff;\n"
+                + "      padding: 30px;\n"
+                + "      border-radius: 5px;\n"
+                + "      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);\n"
+                + "    }\n"
+                + "\n"
+                + "    h1 {\n"
+                + "      color: pink;\n"
+                + "      text-align: center;\n"
+                + "      margin-bottom: 20px;\n"
+                + "    }\n"
+                + "    h2{\n"
+                + "    text-align: center;\n"
+                + "    }\n"
+                + "\n"
+                + "    p {\n"
+                + "      line-height: 1.6;\n"
+                + "      margin-bottom: 15px;\n"
+                + "    }\n"
+                + "\n"
+                + "    .code {\n"
+                + "      font-size: 24px;\n"
+                + "      font-weight: bold;\n"
+                + "      text-align: center;\n"
+                + "      margin-bottom: 20px;\n"
+                + "    }\n"
+                + "\n"
+                + "    .footer {\n"
+                + "      text-align: center;\n"
+                + "      font-size: 12px;\n"
+                + "      color: #888;\n"
+                + "      margin-top: 20px;\n"
+                + "    }\n"
+                + "  </style>\n"
+                + "</head>\n"
+                + "<body>\n"
+                + "  <div class=\"container\">\n"
+                + "    <h1>THE PERFUME SHOP</h1>\n"
+                + "    <h2>Verify your recovery email</h2>\n"
+                + "    <p>The perfume shop has received a request to use " + email + " as an account to access our products.</p>\n"
+                + "    <p>Use this code to finish setting up this recovery email:</p>\n"
+                + "    <div class=\"code\">" + OTP + "</div>\n"
+                + "    <p>This code will expire in 15 minutes</p>\n"
+                + "    <div class=\"footer\">\n"
+                + "      <p>Welcome to!!</p>\n"
+                + "      <p>© 2024 The Perfume Shop TPS, Km39 Cao tốc Láng Hòa Lạc,Hà Nội, Việt Nam</p>\n"
+                + "    </div>\n"
+                + "  </div>\n"
+                + "</body>\n"
+                + "</html>";
+
+    }
 }

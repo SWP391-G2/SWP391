@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.security.NoSuchAlgorithmException;
+
 
 /**
  *
@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
     
         try {
             if (account != null) {
-                if (account.getStatus() == 1) {
+                if (account.isStatus()) {
                     if (account.getPassword().equals(security.getPasswordSecurity(password))) {
                         session.setAttribute("account", account);
                         Cookie cookieEmail = new Cookie("em", email);
