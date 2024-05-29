@@ -5,17 +5,18 @@
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
+
         <servlet-name>ProductDetail</servlet-name>
         <servlet-class>Controllers.ControlProductDetail</servlet-class>
-=======
+
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.Signup</servlet-class>
->>>>>>> 2438ffcabaef86f00ad6171d5ff4aa301a9cb51c
+
     </servlet>
     <servlet>
         <servlet-name>EmailService</servlet-name>
         <servlet-class>Controllers.EmailService</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -30,16 +31,16 @@
         <url-pattern>/ProductList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
+
         <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/productdetail</url-pattern>
-=======
+
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
->>>>>>> 2438ffcabaef86f00ad6171d5ff4aa301a9cb51c
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EmailService</servlet-name>
         <url-pattern>/email</url-pattern>
+
     </servlet-mapping>
 </web-app>
