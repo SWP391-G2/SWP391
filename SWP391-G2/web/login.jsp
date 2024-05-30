@@ -32,19 +32,15 @@
 
     </head>
     <div class="row vh-100 g-0">
-        <!-- left side  -->
-        <div class="col-6 position-relative d-none d-lg-block">
-            <div class="bg-holder" style="background-image: url(assets/img/M.png);"></div>
-        </div>
-
+       
         <!--/ left side  -->
 
         <!-- right side  -->
-        <div class="col-lg-6">
+        <div class="col-lg">
             <c:if test="${requestScope.err != null}">
-                <div class="row fixed-top">
-                    <div class="col-lg-6"></div>
-                    <div class="col-lg-6 alert alert-warning text-center" role="alert">
+                <div class="row fixed-top text-center">
+                 
+                    <div class="alert alert-warning text-center" role="alert">
                         ${requestScope.err}
                     </div>
                 </div>
