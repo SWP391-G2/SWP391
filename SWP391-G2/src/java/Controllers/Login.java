@@ -4,7 +4,6 @@
  */
 package Controllers;
 
-
 import Dal.AccountsDAO;
 import Models.Accounts;
 import Util.Security;
@@ -16,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 /**
  *
  * @author nguye
@@ -27,8 +25,8 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        if(email!=null){
-             request.setAttribute("err", "hoang");
+        if (email != null) {
+            request.setAttribute("err", "hoang");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         HttpSession session = request.getSession();
@@ -53,7 +51,7 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException  {
+            throws ServletException, IOException {
         AccountsDAO Adao = new AccountsDAO();
         Security security = new Security();
         HttpSession session = request.getSession();
@@ -61,7 +59,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         boolean remember = request.getParameter("remember") != null;
         Accounts account = Adao.getAccount(email);
-    
+
         try {
             if (account != null) {
                 if (account.isStatus()) {
@@ -79,8 +77,16 @@ public class Login extends HttpServlet {
                             response.addCookie(cookiePassword);
                             session.setAttribute("save", "1");
                         }
-                        request.setAttribute("email", email);
-                        request.getRequestDispatcher("profile.jsp").forward(request, response);
+                        switch (account.getRole()) {
+                            case 4 ->
+                                request.getRequestDispatcher("home.jsp").forward(request, response);
+                            case 3 ->
+                                request.getRequestDispatcher("marketing.jsp").forward(request, response);
+                            case 2 ->
+                                request.getRequestDispatcher("sale.jsp").forward(request, response);
+                            case 1 ->
+                                request.getRequestDispatcher("admin.jsp").forward(request, response);
+                        }
                     } else {
                         throw new Exception("Password is incorrect, please check again!!");
                     }
