@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.util.Date;
+
 /**
  *
  * @author nguye
@@ -12,16 +14,33 @@ public class Accounts {
 
     private int accountID;
     private String firstName, lastName, password, image;
-    private byte gender;
-    private String birthday, phone, email, address;
-    private byte status;
-    private String createDate;
+    private boolean gender;
+    private Date birthday;
+    private String  phone, email, address;
+    private boolean status;
+    private Date createDate;
     private int role;
 
     public Accounts() {
     }
 
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, byte gender, String birthday, String phone, String email, String address, byte status, String createDate, int role) {
+    public Accounts(String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
+    }
+
+    
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
         this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,19 +96,19 @@ public class Accounts {
         this.image = image;
     }
 
-    public byte getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(byte gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -117,19 +136,19 @@ public class Accounts {
         this.address = address;
     }
 
-    public byte getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -141,4 +160,5 @@ public class Accounts {
         this.role = role;
     }
 
+   
 }

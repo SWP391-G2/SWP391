@@ -4,19 +4,18 @@
  */
 package Controllers;
 
+
 import Dal.AccountsDAO;
-
 import Models.Accounts;
-
+import Util.Security;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
-
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 
 /**
  *
@@ -24,95 +23,59 @@ import jakarta.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String email = request.getParameter("email");
+        if(email!=null){
+             request.setAttribute("err", "hoang");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         HttpSession session = request.getSession();
         Cookie arrayCookie[] = request.getCookies();
-        for(Cookie cookie : arrayCookie){
-            if(cookie.getName().equals("em")){
+        for (Cookie cookie : arrayCookie) {
+            if (cookie.getName().equals("em")) {
                 request.setAttribute("email", cookie.getValue());
                 continue;
             }
-            if(session.getAttribute("save") != null){
-                if(cookie.getName().equals("pa")){
+            if (cookie.getName().equals("cp")) {
+                if (session.getAttribute("save") != null) {
                     request.setAttribute("password", cookie.getValue());
+                } else {
+                    cookie.setMaxAge(0);
                 }
             }
         }
-        String logout = request.getParameter("logOut");
-        if(logout != null){
-            session.invalidate();
-        }
+
+        session.invalidate();
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException  {
         AccountsDAO Adao = new AccountsDAO();
         Security security = new Security();
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
+        boolean remember = request.getParameter("remember") != null;
         Accounts account = Adao.getAccount(email);
-        
+    
         try {
             if (account != null) {
-                if (account.getStatus() == 1) {
-                    if (account.getPassword().equals(security.PasswordSecurity(password))) {
-                        session.setAttribute("account", account.getAccountID());
-                        session.setAttribute("role", account.getRole());
+                if (account.isStatus()) {
+                    if (account.getPassword().equals(security.getPasswordSecurity(password))) {
+                        session.setAttribute("account", account);
                         Cookie cookieEmail = new Cookie("em", email);
                         cookieEmail.setMaxAge(30);
+                        cookieEmail.setSecure(true);
                         response.addCookie(cookieEmail);
-                        if (remember != null) {
+                        if (remember) {
+
                             Cookie cookiePassword = new Cookie("cp", password);
                             cookiePassword.setMaxAge(30);
+                            cookiePassword.setSecure(true);
                             response.addCookie(cookiePassword);
                             session.setAttribute("save", "1");
                         }
@@ -130,16 +93,11 @@ public class Login extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("err", e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
-            
+
         }
-        
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
