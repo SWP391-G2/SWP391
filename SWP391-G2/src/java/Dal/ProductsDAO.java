@@ -4,10 +4,7 @@
  */
 package Dal;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> hoang
 import Models.Products;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
