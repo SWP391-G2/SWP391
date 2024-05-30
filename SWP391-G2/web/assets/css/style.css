@@ -1,0 +1,28 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 27, 2024, 9:33:59 PM
+    Author     : nguye
+*/
+
+.header{
+    background-color: pink;
+}
+.login-button, .shopping-cart{
+    text-decoration: none;
+    color: #000;
+}
+
+.nav-item, .nav-link.active{
+    
+    font-weight: 600;
+}
+.nav-item:hover, .nav-link.active{
+    color: #ccc;
+}
+
+.btn-outline-none{
+    outline: none;
+}
