@@ -78,15 +78,15 @@
                                 <ul class="pagination justify-content-center pb-3">
                                     <c:if test="${tag-1>0}">
                                         <li class="page-item">
-                                            <a class="page-link" href="/Products/ProductList?index=${tag-1}" >Previous</a>
+                                            <a class="page-link" href="/SWP391-G2/ProductList?index=${tag-1}" >Previous</a>
                                         </li>
                                     </c:if>
                                     <c:forEach begin="1" end="${requestScope.endP}" var="i">
-                                        <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/Products/ProductList?index=${i}">${i}</a></li>
+                                        <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/SWP391-G2/ProductList?index=${i}">${i}</a></li>
                                         </c:forEach>
                                         <c:if test="${tag<endP}">
                                         <li class="page-item">
-                                            <a class="page-link" href="/Products/ProductList?index=${tag+1}">Next</a>
+                                            <a class="page-link" href="/SWP391-G2/ProductList?index=${tag+1}">Next</a>
                                         </li>
                                     </c:if>
                                 </ul>
