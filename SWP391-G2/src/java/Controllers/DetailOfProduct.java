@@ -21,7 +21,7 @@ import Models.Products;
  *
  * @author admin
  */
-public class ControlProductDetail extends HttpServlet {
+public class DetailOfProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
