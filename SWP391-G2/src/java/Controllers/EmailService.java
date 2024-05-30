@@ -2,54 +2,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controllers;
-import Dal.ProductDetailDAO;
-import Models.Brands;
-import Models.ImageDetail;
+
+import Dal.AccountsDAO;
+import Models.Accounts;
+import Util.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import Models.ProductDetail;
-import Models.Products;
+import jakarta.servlet.http.HttpSession;
+
 /**
  *
- * @author admin
+ * @author nguye
  */
-public class ControlProductDetail extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+public class EmailService extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetail</title>");  
+            out.println("<title>Servlet EmailService</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetail at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EmailService at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,21 +58,26 @@ public class ControlProductDetail extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        ProductDetailDAO pdtDAO = new ProductDetailDAO();
-        ProductDetail pd = pdtDAO.getProductDetail(1);
-        Brands brand = pdtDAO.getBrand(1);
-        List<ImageDetail> imgdt =pdtDAO.getListImageDetail(1);
-        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(1);
-        request.setAttribute("priceandsize", priceandsize);
-        request.setAttribute("imgdt", imgdt);
-        request.setAttribute("b", brand);
-        request.setAttribute("pd", pd);
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
 
-    /** 
+        AccountsDAO Adao = new AccountsDAO();
+        HttpSession session = request.getSession();
+        String otp = request.getParameter("OTP");
+        String ots = (String) session.getAttribute("otpmain");
+        
+        if (otp.equals(ots)) {
+            Accounts account = (Accounts) session.getAttribute("accountForSign");
+            Adao.setInsert(account);
+            response.sendRedirect("login.jsp");
+        } else {
+            request.setAttribute("err", "OTP is incorrect!!");
+            request.getRequestDispatcher("email.jsp").forward(request, response);
+        }
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -79,12 +85,24 @@ public class ControlProductDetail extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {
+       
+            HttpSession session = request.getSession();
+            Accounts account = (Accounts) session.getAttribute("accountForSign");
+            Email e = new Email();
+            String otps = String.valueOf(e.randomOTP());
+            String sub = e.subjectEmail();
+            session.setAttribute("otpmain", otps);
+            String sendOTP = e.SendOTP(account.getEmail(), otps);
+            e.sendEmail(sub, sendOTP, account.getEmail());
+            response.sendRedirect("email.jsp");
+        
+
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

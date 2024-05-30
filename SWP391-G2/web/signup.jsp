@@ -6,33 +6,30 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" href="./assets/img/M.png" type="image/x-icon" />
-        <link rel="stylesheet" href="assets/css/loginStyle.css">
+            <link rel="icon" href="./images/logo/image.png" type="image/x-icon" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <title>Store by heart</title>
+        <title>The perfume shop</title>
     </head>
     <body>
         <div class="row vh-100 g-0">
             <!--left side  -->
-            <div class="col-6 position-relative d-none d-lg-block">
-                <div class="bg-holder" style="background-image: url(assets/img/M.png);"></div>
-            </div>
+          
 
             <!--/ left side  -->
 
             <!-- right side  -->
-            <div class="col-lg-6">
+            <div class="col-lg">
                 <c:if test="${requestScope.err !=null}">
                     <div class="row fixed-top text-center">
-                        <div class="col-lg-6"></div>
-                        <div class="col-lg-6 alert alert-warning" role="alert">
+                        
+                        <div class=" alert alert-warning" role="alert">
                             ${requestScope.err}
                         </div>
                     </div>
                 </c:if>
-                <div class="row align-items-center justify-content-center h-100 g-0 px-4 px-sm-">
-                    <div class="col col-sm-6 col-lg-7 col-xl-6">
+                <div class="row align-items-center justify-content-center h-100  g-0 px-4 px-sm">
+                    <div class="col col-sm-6 col-lg-7 col-xl-6 d-flex align-items-center justify-content-center">
                         <div class="text-center mb-5">
                             <h2 class="fw-bold pb-5">SIGN UP</h2>
                             <form action="signup" method="post" >
@@ -71,7 +68,7 @@
                                         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
                                         </svg>
                                     </span>
-                                    <input type="password" name="password" required="" class="form-control form-control-lg fs-6" placeholder="Password">
+                                    <input type="password" name="password"  required="" class="form-control form-control-lg fs-6" placeholder="Password">
                                 </div>
                                 <div class="input-group mb-3" >
                                     <span class="input-group-text">
@@ -79,7 +76,7 @@
                                         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
                                         </svg>
                                     </span>
-                                    <input type="password" name="confirmpassword"  required="" class="form-control form-control-lg fs-6" placeholder="Confirm password">
+                                    <input type="password" name="confirmpassword"   required="" class="form-control form-control-lg fs-6" placeholder="Confirm password">
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -89,11 +86,27 @@
                                 </div>
                                 <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
                             </form>
+                                    <div>
+                                        <hr/>
+                                        
+                                        <ul type="none" class="text-start pe-3 requiement-list">
+                                            <p>Password must contains</p>
+                                            <li>
+                                               At least 8 characters length
+                                             </li>
+                                            <li>At least 1 number (0..9)</li>
+                                            <li>At least 1 lowercase letter (a..z)</li>
+                                             <li>At least 1 special symbol (!..$)</li>
+                                              <li>At least 1 uppercase letter (A..Z)</li>
+                                        </ul>
+
+                                    </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--/ right side  -->
+             
         </div>
     </body>
 </html>
