@@ -113,11 +113,10 @@ public class AccountsDAO extends DBContext {
         return null;
     }
 
-<<<<<<< HEAD
     public void setInsert(Accounts account) {
         String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
-            
+
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, account.getFirstName());
             ur.setString(2, account.getLastName());
@@ -134,8 +133,9 @@ public class AccountsDAO extends DBContext {
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
-=======
-    //get All customer by roleID
+        }
+    }    //get All customer by roleID
+
     public List<Accounts> getAllCustomer(int roleID) {
         List<Accounts> listAccount = new ArrayList();
         String sql = "select * from Accounts where RoleID = ?";
@@ -144,7 +144,20 @@ public class AccountsDAO extends DBContext {
             ur.setInt(1, roleID);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Accounts account = new Accounts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getByte(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getByte(11), rs.getString(12), rs.getInt(13));
+                 Accounts account = new Accounts(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getBoolean(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getBoolean(11),
+                        rs.getDate(12),
+                        rs.getInt(13));
                 listAccount.add(account);
             }
         } catch (SQLException e) {
@@ -163,7 +176,20 @@ public class AccountsDAO extends DBContext {
             ur.setInt(2, id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Accounts account = new Accounts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getByte(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getByte(11), rs.getString(12), rs.getInt(13));
+                 Accounts account = new Accounts(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getBoolean(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getBoolean(11),
+                        rs.getDate(12),
+                        rs.getInt(13));
                 listAccount.add(account);
             }
         } catch (SQLException e) {
@@ -197,50 +223,7 @@ public class AccountsDAO extends DBContext {
             ur.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
->>>>>>> trung
         }
     }
 
-    public static void main(String[] args) {
-        AccountsDAO d = new AccountsDAO();
-<<<<<<< HEAD
-        Date date = new Date(System.currentTimeMillis());
-        Accounts er = new Accounts("sd", "sd", "sd", "sd", true, date, "sd", "sd",
-                "sd", true, date, 0);
-        d.setInsert(new Accounts(
-                "d",
-                "sd",
-                "sd",
-                "sd",
-                true,
-                date,
-                "sd",
-                "sd",
-                "sd",
-                true,
-                date,
-                1));
-        
-        for (Accounts a : d.getAll()) {
-            System.out.println(a.getAccountID());
-        }
-        System.out.println(d.getAccount("123@gmail.com").getPassword());
-
-=======
-        /*for (Accounts a : d.getAll()) {
-            System.out.println(a.getAccountID());
-        }
-        System.out.println(d.getAccount("admin@gmail.com").getPassword());*/
- /*List<Accounts> list = d.getAllCustomer(1);
-        for (Accounts accounts : list) {
-            System.out.println( accounts.getFirstName());
-        }*/
-
- /*List<Accounts> list = d.getCustomerByName("Trung", 4);
-        for (Accounts accounts : list) {
-            System.out.println(accounts.getFirstName() + accounts.getLastName());
-        }*/
-        
->>>>>>> trung
-    }
 }
