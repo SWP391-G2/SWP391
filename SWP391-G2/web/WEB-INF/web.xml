@@ -4,16 +4,48 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminCustomer</servlet-name>
+        <servlet-class>Controllers.AdminCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSale</servlet-name>
+        <servlet-class>Controllers.AdminSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCreate</servlet-name>
+        <servlet-class>Controllers.AdminBlock</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAccount</servlet-name>
+        <servlet-class>Controllers.AdminAccount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-     <servlet>
+    <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>Controllers.ProductList</servlet-class>
     </servlet>
-      <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCustomer</servlet-name>
+        <url-pattern>/admincustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSale</servlet-name>
+        <url-pattern>/adminsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCreate</servlet-name>
+        <url-pattern>/admincreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccount</servlet-name>
+        <url-pattern>/adminaccount</url-pattern>
     </servlet-mapping>
 </web-app>

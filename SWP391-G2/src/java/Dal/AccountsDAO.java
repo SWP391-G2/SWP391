@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class AccountsDAO extends DBContext {
 
+    //get All customer in database
     public List<Accounts> getAll() {
         List<Accounts> list = new ArrayList<>();
         String sql = "select * from Accounts";
@@ -51,8 +52,7 @@ public class AccountsDAO extends DBContext {
         }
         return null;
     }
-    
-    
+
     public Accounts getAccountFull(String email, String pass) {
 
         String sql = "select * from Accounts where email=?";
@@ -71,13 +71,87 @@ public class AccountsDAO extends DBContext {
         }
         return null;
     }
-    
+
+    //get All customer by roleID
+    public List<Accounts> getAllCustomer(int roleID) {
+        List<Accounts> listAccount = new ArrayList();
+        String sql = "select * from Accounts where RoleID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, roleID);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Accounts account = new Accounts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getByte(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getByte(11), rs.getString(12), rs.getInt(13));
+                listAccount.add(account);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listAccount;
+    }
+
+    //get All customer by Name
+    public List<Accounts> getCustomerByName(String name, int id) {
+        List<Accounts> listAccount = new ArrayList();
+        String sql = "select * from Accounts where LastName like ? and RoleID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, "%" + name + "%");
+            ur.setInt(2, id);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Accounts account = new Accounts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getByte(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getByte(11), rs.getString(12), rs.getInt(13));
+                listAccount.add(account);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listAccount;
+    }
+
+    //Block Account
+    public void blockAccount(int accountID) {
+        String sql = "UPDATE Accounts\n"
+                + "SET Status = 0\n"
+                + "WHERE AccountID = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, accountID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    //Unblock Account
+    public void unblockAccount(int accountID) {
+        String sql = "UPDATE Accounts\n"
+                + "SET Status = 1\n"
+                + "WHERE AccountID = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, accountID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         AccountsDAO d = new AccountsDAO();
-        for (Accounts a : d.getAll()) {
+        /*for (Accounts a : d.getAll()) {
             System.out.println(a.getAccountID());
         }
-        System.out.println(d.getAccount("admin@gmail.com").getPassword());
+        System.out.println(d.getAccount("admin@gmail.com").getPassword());*/
+ /*List<Accounts> list = d.getAllCustomer(1);
+        for (Accounts accounts : list) {
+            System.out.println( accounts.getFirstName());
+        }*/
+
+ /*List<Accounts> list = d.getCustomerByName("Trung", 4);
+        for (Accounts accounts : list) {
+            System.out.println(accounts.getFirstName() + accounts.getLastName());
+        }*/
+        
     }
 }
