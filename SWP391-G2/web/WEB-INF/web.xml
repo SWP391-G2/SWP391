@@ -4,25 +4,48 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>Controllers.HomeServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.Signup</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>EmailService</servlet-name>
         <servlet-class>Controllers.EmailService</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>Controllers.ProductList</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.DetailOfProduct</servlet-class>
+
+    </servlet>
+   
+    <servlet>
+        <servlet-name>AdminCustomer</servlet-name>
+        <servlet-class>Controllers.AdminCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSale</servlet-name>
+        <servlet-class>Controllers.AdminSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCreate</servlet-name>
+        <servlet-class>Controllers.AdminBlock</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAccount</servlet-name>
+        <servlet-class>Controllers.AdminAccount</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -31,6 +54,10 @@
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
@@ -43,5 +70,21 @@
     <servlet-mapping>
         <servlet-name>DetailOfProduct</servlet-name>
         <url-pattern>/detailofproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCustomer</servlet-name>
+        <url-pattern>/admincustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSale</servlet-name>
+        <url-pattern>/adminsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCreate</servlet-name>
+        <url-pattern>/admincreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccount</servlet-name>
+        <url-pattern>/adminaccount</url-pattern>
     </servlet-mapping>
 </web-app>
