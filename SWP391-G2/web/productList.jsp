@@ -24,13 +24,14 @@
     </head>
     <body>
 
-        <form method="get" action="/listProduct" class="d-flex" role="search">
+        <form method="get" action="/Search" class="d-flex" role="search">
             <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-light" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
                 <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
                 <path d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11"/>
                 </svg></button>
         </form>
+        
         <!--    product   -->
         <div class="p-5"></div>
         <div class="row p-5 ">
@@ -55,15 +56,18 @@
                     <div class="p-5">
 
                         <div class="row  d-flex justify-content-xxl-evenly" >
+                            <c:set var="image" value="${requestScope.list}"/>
+                          
                             <c:forEach var="y" items="${requestScope.listProduct}">
+                                
                                 <div class="col-auto ps-2 pb-3 ">
                                     <div class="card shadow" style="width: 18rem;">
                                         <a href="#" style="" class="disabled text-dark text-decoration-none link-underline-opacity-0" id="moreinformation">
-                                            <img src="assets/img/products/P${y.productID}.png" class="card-img-top img-thumbnail" alt="P${y.productImageID}">
+                                            <img src=" ${y.productImageUrl}" class="card-img-top img-thumbnail" alt="${y.productImageUrl}">
                                             <div class="card-body">
                                                 <h5 class="card-title">${y.productName}</h5>
-                                                <p class="card-text">${y.productDetail}</p>
-                                                <p class="ps-2 card-text text-secondary">${y.productPrice} VND</p>
+                                               
+                                             <!--   <p class="ps-2 card-text text-secondary"> VND</p> -->
                                                 <a href="#" class="pt-2 btn btn-dark">Add to Cart</a>
                                             </div>
                                         </a>
@@ -74,15 +78,15 @@
                                 <ul class="pagination justify-content-center pb-3">
                                     <c:if test="${tag-1>0}">
                                         <li class="page-item">
-                                            <a class="page-link" href="/Product/ProductList?index=${tag-1}" >Previous</a>
+                                            <a class="page-link" href="/Products/ProductList?index=${tag-1}" >Previous</a>
                                         </li>
                                     </c:if>
                                     <c:forEach begin="1" end="${requestScope.endP}" var="i">
-                                        <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/Product/ProductList?index=${i}">${i}</a></li>
+                                        <li class="page-item ${tag == i ? "active":""}"><a class="page-link" href="/Products/ProductList?index=${i}">${i}</a></li>
                                         </c:forEach>
                                         <c:if test="${tag<endP}">
                                         <li class="page-item">
-                                            <a class="page-link" href="/Product/ProductList?index=${tag+1}">Next</a>
+                                            <a class="page-link" href="/Products/ProductList?index=${tag+1}">Next</a>
                                         </li>
                                     </c:if>
                                 </ul>
