@@ -90,7 +90,24 @@ public class ProductsDAO extends DBContext {
         }
         return 0;
     }
-
+    // List Products of Men
+    public List<Products> getProductMen(){
+        List<Products> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products ";
+        return list;
+    }
+    // List Products of Women
+    public List<Products> getProductWomen(){
+        List<Products> list = new ArrayList<>();
+        String sql = "";
+        return list;
+    }
+    // List Products of Unisex
+    public List<Products> getProductUnisex(){
+        List<Products> list = new ArrayList<>();
+        String sql = "";
+        return list;
+    }
     public static void main(String[] args) {
         ProductsDAO Pdao = new ProductsDAO();
         System.out.println(Pdao.loadProducts().size());
