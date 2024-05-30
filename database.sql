@@ -1,4 +1,4 @@
-﻿USE [master]
+﻿﻿USE [master]
 
 GO
 IF EXISTS (SELECT * FROM sys.databases WHERE name = 'TPS')
@@ -87,10 +87,14 @@ INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],
 VALUES
 (N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
 (N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
+<<<<<<< HEAD
 (N'Hoàng',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
 (N'Trung',N'Hà','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',2,1),
 (N'Khánh',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',3,1);
 
+=======
+(N'Hoàng',N'Nguyễn','hoang@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1);
+>>>>>>> trung
 
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
@@ -164,7 +168,10 @@ VALUES
 ('CHANEL CHANCE EAU FRAICHE EDP FOR WOMEN',10,'2024',8,1,2,'images/Products/Women/5_0.jpg'),
 
 --5 perfumes for Unisex
+<<<<<<< HEAD
 
+=======
+>>>>>>> trung
 ('XERJOFF NAXOS EDP FOR UNISEX',11,'2024',13,1,3,'images/Products/Unisex/1_0.jpg'),
 ('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',12,'2024',16,1,10,'images/Products/Unisex/2_0.jpg'),
 ('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',13,'2024',16,1,1,'images/Products/Unisex/3_0.jpg'),
