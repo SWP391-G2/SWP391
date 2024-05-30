@@ -4,7 +4,6 @@
  */
 package Dal;
 
-import Models.Categories;
 import Models.Products;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

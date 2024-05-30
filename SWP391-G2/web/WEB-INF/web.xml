@@ -15,9 +15,12 @@
     </servlet>
     <servlet>
         <servlet-name>EmailService</servlet-name>
-        <servlet-class>Controllers.EmailService</servlet-class>
-
+        <servlet-class>Controllers.EmailService</servlet-class>   
     </servlet>
+       <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern>/ProductList</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
