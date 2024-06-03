@@ -4,30 +4,63 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>Controllers.HomeServlet</servlet-class>
     </servlet>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     <servlet>
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.Signup</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>EmailService</servlet-name>
         <servlet-class>Controllers.EmailService</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>Controllers.ProductList</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.DetailOfProduct</servlet-class>
+<<<<<<< HEAD
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
         <servlet-class>Controllers.Search</servlet-class>
+=======
+
+>>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     </servlet>
+   
+    <servlet>
+        <servlet-name>AdminCustomer</servlet-name>
+        <servlet-class>Controllers.AdminCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSale</servlet-name>
+        <servlet-class>Controllers.AdminSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCreate</servlet-name>
+        <servlet-class>Controllers.AdminBlock</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAccount</servlet-name>
+        <servlet-class>Controllers.AdminAccount</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -53,7 +86,24 @@
         <url-pattern>/detailofproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
+=======
+        <servlet-name>AdminCustomer</servlet-name>
+        <url-pattern>/admincustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSale</servlet-name>
+        <url-pattern>/adminsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCreate</servlet-name>
+        <url-pattern>/admincreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccount</servlet-name>
+        <url-pattern>/adminaccount</url-pattern>
+>>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     </servlet-mapping>
 </web-app>

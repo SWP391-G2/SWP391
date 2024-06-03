@@ -4,21 +4,19 @@
  */
 package Controllers;
 
-import Dal.CategoriesDAO;
-import Dal.ProductsDAO;
-import Models.Categories;
+import Dal.AccountsDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author ROG
+ * @author hatru
  */
-public class ProductList extends HttpServlet {
+public class AdminBlock extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,27 +30,18 @@ public class ProductList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        ProductsDAO Pdao = new ProductsDAO();
-        CategoriesDAO Cdao = new CategoriesDAO();
-        List<Categories> listCate = Cdao.loadCategory();
-
-        String indexP = request.getParameter("index");
-        int index = 1;
-        if (indexP != null) {
-            index = Integer.parseInt(indexP);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AdminCreate</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AdminCreate at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        int count = Pdao.getCount();
-        int endPage = count / 12;
-        if (count % 12 != 0) {
-            endPage++;
-        }
-        request.setAttribute("listProduct", Pdao.getPaging(index));
-        request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
-        request.setAttribute("category", listCate);
-        request.getRequestDispatcher("productList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,7 +56,30 @@ public class ProductList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String accountID = request.getParameter("block");
+        AccountsDAO dao = new AccountsDAO();
+        if (accountID != null) {
+            int id = -1;
+            try {
+                id = Integer.parseInt(accountID);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+
+            dao.blockAccount(id);
+        } else {
+            String accountID1 = request.getParameter("unblock");
+            int id = -1;
+            try {
+                id = Integer.parseInt(accountID1);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+            dao.unblockAccount(id);
+        }
+        request.getRequestDispatcher("admincustomer.jsp").forward(request, response);
+
     }
 
     /**

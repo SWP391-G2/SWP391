@@ -2,63 +2,49 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controllers;
 
-import Dal.CategoriesDAO;
-import Dal.ProductsDAO;
-import Models.Categories;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author ROG
+ * @author hatru
  */
-public class ProductList extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class AdminAccount extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        ProductsDAO Pdao = new ProductsDAO();
-        CategoriesDAO Cdao = new CategoriesDAO();
-        List<Categories> listCate = Cdao.loadCategory();
-
-        String indexP = request.getParameter("index");
-        int index = 1;
-        if (indexP != null) {
-            index = Integer.parseInt(indexP);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AdminAccount</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AdminAccount at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        int count = Pdao.getCount();
-        int endPage = count / 12;
-        if (count % 12 != 0) {
-            endPage++;
-        }
-        request.setAttribute("listProduct", Pdao.getPaging(index));
-        request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
-        request.setAttribute("category", listCate);
-        request.getRequestDispatcher("productList.jsp").forward(request, response);
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -66,13 +52,22 @@ public class ProductList extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    throws ServletException, IOException {
+        //processRequest(request, response);
+        String firstName = request.getParameter("fi");
+        String lastName = request.getParameter("lastname");
+        String password = request.getParameter("password");
+        String image = request.getParameter("image");
+        String gender = request.getParameter("gender");
+        String birthday = request.getParameter("birthday");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String status = request.getParameter("status");
+        String roleID = request.getParameter("roleID");
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -80,13 +75,12 @@ public class ProductList extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

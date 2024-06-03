@@ -16,6 +16,14 @@
     <body >
         <div style="height: 300px"></div>
         <div class="container d-flex align-items-center justify-content-center">
+            <c:if test="${requestScope.err != null}">
+                <div class="row fixed-top text-center">
+
+                    <div class="alert alert-warning text-center" role="alert">
+                        ${requestScope.err}
+                    </div>
+                </div>
+            </c:if>
             <form method="get" action="email" class="row g-3">
                 <div class="col-auto">
                     <label for="staticEmail2" class="visually-hidden"></label>
@@ -23,7 +31,7 @@
                 </div>
                 <div class="col-auto">
                     <label for="inputPassword2" class="visually-hidden"></label>
-                    <input type="number" name="OTP" class="form-control" id="inputPassword2" placeholder="XXXXXX">
+                    <input type="number" name="OTP" class="form-control" required="" id="inputPassword2" placeholder="XXXXXX">
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-dark mb-3">Confirm identity</button>

@@ -14,7 +14,7 @@ public class Accounts {
 
     private int accountID;
     private String firstName, lastName, password, image;
-    private boolean gender;
+    private int gender;
     private Date birthday;
     private String  phone, email, address;
     private boolean status;
@@ -24,7 +24,7 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -40,7 +40,7 @@ public class Accounts {
     }
 
     
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
         this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,11 +96,11 @@ public class Accounts {
         this.image = image;
     }
 
-    public boolean isGender() {
+    public int isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
