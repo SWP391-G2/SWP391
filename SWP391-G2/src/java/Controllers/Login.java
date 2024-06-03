@@ -56,8 +56,8 @@ public class Login extends HttpServlet {
         Security security = new Security();
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
         boolean remember = request.getParameter("remember") != null;
+        String password = request.getParameter("password");
         Accounts account = Adao.getAccount(email);
 
         try {

@@ -22,34 +22,8 @@ import jakarta.servlet.http.HttpSession;
 public class EmailService extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EmailService</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EmailService at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method. this function use for get OTP
+     * from user input and compare to OTP send for user by email
      *
      * @param request servlet request
      * @param response servlet response
@@ -62,9 +36,11 @@ public class EmailService extends HttpServlet {
 
         AccountsDAO Adao = new AccountsDAO();
         HttpSession session = request.getSession();
+        // get OTP from user
         String otp = request.getParameter("OTP");
+        // get OTP send for user
         String ots = (String) session.getAttribute("otpmain");
-        
+        // Compare both OTP
         if (otp.equals(ots)) {
             Accounts account = (Accounts) session.getAttribute("accountForSign");
             Adao.setInsert(account);
@@ -76,7 +52,8 @@ public class EmailService extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. this function use to send OTP
+     * for user by email
      *
      * @param request servlet request
      * @param response servlet response
@@ -86,18 +63,16 @@ public class EmailService extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            HttpSession session = request.getSession();
-            Accounts account = (Accounts) session.getAttribute("accountForSign");
-            Email e = new Email();
-            String otps = String.valueOf(e.randomOTP());
-            String sub = e.subjectEmail();
-            session.setAttribute("otpmain", otps);
-            String sendOTP = e.SendOTP(account.getEmail(), otps);
-            e.sendEmail(sub, sendOTP, account.getEmail());
-            response.sendRedirect("email.jsp");
-        
 
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("accountForSign");
+        Email e = new Email();
+        String otps = String.valueOf(e.randomOTP());
+        String sub = e.subjectEmail();
+        session.setAttribute("otpmain", otps);
+        String sendOTP = e.SendOTP(account.getEmail(), otps);
+        e.sendEmail(sub, sendOTP, account.getEmail());
+        response.sendRedirect("email.jsp");
     }
 
     /**

@@ -44,10 +44,10 @@ public class LoginGoogleHandler extends HttpServlet {
         AccountsDAO Adao = new AccountsDAO();
        
         if (Adao.getAccount(user.getEmail()) != null) {
-            request.setAttribute("email", "Email is not exsit!!");
+     
             request.getRequestDispatcher("home.jsp").forward(request, response);
         } else {
-            request.setAttribute("err", user.getEmail());
+                request.setAttribute("err", "Email is not exsit!!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
  

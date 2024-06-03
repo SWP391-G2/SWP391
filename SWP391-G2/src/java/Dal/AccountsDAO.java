@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
                         rs.getString(9),
@@ -65,7 +66,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
                         rs.getString(9),
@@ -97,7 +98,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
                         rs.getString(9),
@@ -123,7 +124,7 @@ public class AccountsDAO extends DBContext {
             ur.setString(3, account.getEmail());
             ur.setString(4, account.getPassword());
             ur.setString(5, account.getImage());
-            ur.setBoolean(6, account.isGender());
+            ur.setInt(6, account.isGender());
             ur.setDate(7, (Date) account.getBirthday());
             ur.setString(8, account.getPhone());
             ur.setString(9, account.getAddress());
@@ -144,13 +145,13 @@ public class AccountsDAO extends DBContext {
             ur.setInt(1, roleID);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                 Accounts account = new Accounts(
+                Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
                         rs.getString(9),
@@ -176,13 +177,13 @@ public class AccountsDAO extends DBContext {
             ur.setInt(2, id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                 Accounts account = new Accounts(
+                Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
                         rs.getString(9),
@@ -224,6 +225,32 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public static void main(String[] args) throws ParseException {
+        Date date = new Date(System.currentTimeMillis());
+        //get time and convert string to date 
+        String datebirthday = "2000-12-31";
+        SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
+
+        java.util.Date utilDate = formatdate.parse(datebirthday);
+        Date birthday = new Date(utilDate.getTime());
+
+        Accounts a = new Accounts(
+                "42134",
+                "234",
+                "12234",
+                "",
+                1,
+                birthday,
+                "",
+                "rewr",
+                "",
+                true,
+                date,
+                4);
+            AccountsDAO adao = new AccountsDAO();
+            adao.setInsert(a);
     }
 
 }
