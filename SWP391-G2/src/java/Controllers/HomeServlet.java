@@ -63,9 +63,7 @@ public class HomeServlet extends HttpServlet {
         ProductsDAO p = new ProductsDAO();
         List<Categories> categories = c.loadCategory();
         List<Products> productAll = p.loadProducts();
-        List<Products> productMen = p.getProductMen();
-        List<Products> productWomen = p.getProductWomen();
-        List<Products> productUnisex = p.getProductUnisex();
+       
     } 
 
     /** 

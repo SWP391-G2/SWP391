@@ -11,13 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
+import Models.Categories;
+import Models.SubCategories;
 
 /**
  *
  * @author ROG
  */
 public class ProductsDAO extends DBContext {
-
+    
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
@@ -87,19 +90,68 @@ public class ProductsDAO extends DBContext {
         }
         return 0;
     }
-    // List Products of Men
-    public List<Products> getProductMen(){
-        List<Products> list = new ArrayList<>();
-        String sql = "SELECT * FROM Products ";
-        return list;
+    // List Products by Category
+    public List<Products> getProductsByCategory(int category){
+        List<Products> products = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Products] p " + 
+                "JOIN [dbo].[SubCategories] sc ON p.SubCategoryID = sc.SubCategoryID" +
+                "JOIN [dbo].[Categories] c ON sc.CategoryID = c.CategoryID" +
+                "WHERE c.CategoryID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, category);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Products product = new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("SubCategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("productImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return products;
     }
-    // List Products of Women
-    public List<Products> getProductWomen(){
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
+    // List Products by SubCategory
+    public List<Products> getProductBySubCategory(int subcategory){
+        List<Products> products = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Products] p" +
+                "JOIN [dbo].[SubCategories] sc ON p.SubCategoryID = sc.SubCategoryID" +
+                "WHERE sc.SubCategoryID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, subcategory);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Products product = new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("SubCategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("productImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return products;
     }
-    // List Products of Unisex
+    // List Products
     public List<Products> getProductUnisex(){
         List<Products> list = new ArrayList<>();
         String sql = "";
