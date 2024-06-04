@@ -4,7 +4,6 @@
  */
 package Dal;
 
-
 import Models.SubCategories;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,27 +15,36 @@ import java.util.List;
  *
  * @author ROG
  */
-public class SubCategoriesDAO extends DBContext{
-       public List<SubCategories> loadSubCategory() {
-        List<SubCategories> subC = new ArrayList<>();
-        String sql = "select * from SubCategories";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                subC.add(new SubCategories(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3)
-                ));
-            }
-        } catch (SQLException e) {
-
+public class SubCategoriesDAO extends DBContext {
+    public List<SubCategories> getAllSubCategories() {
+    List<SubCategories> subCate = new ArrayList<>();
+    String sql = "SELECT * FROM [dbo].[SubCategories]";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            SubCategories subcategory = new SubCategories(
+                    rs.getInt("SubCategoryID"),
+                    rs.getString("SubCategoryName"),
+                    rs.getInt("CategoryID")
+            );
+            subCate.add(subcategory);
         }
-        return subC;
+    } catch (SQLException e) {
+        System.out.println(e);
     }
-       public static void main(String[] args) {
-           SubCategoriesDAO SubCdao = new SubCategoriesDAO();
-           System.out.println(SubCdao.loadSubCategory().size());
-    }
+    return subCate;
 }
+
+
+        public static void main(String[] args) {
+            SubCategoriesDAO dao = new SubCategoriesDAO();
+        List<SubCategories> subcategories = dao.getAllSubCategories();
+        for (SubCategories subcategory : subcategories) {
+            System.out.println("SubCategory ID: " + subcategory.getSubCategoryID());
+            System.out.println("SubCategory Name: " + subcategory.getSubCategoryName());
+            System.out.println("Category ID: " + subcategory.getCategoryID());
+        }
+    }
+    }
+

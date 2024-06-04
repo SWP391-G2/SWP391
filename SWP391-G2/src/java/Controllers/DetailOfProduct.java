@@ -60,12 +60,12 @@ public class DetailOfProduct extends HttpServlet {
     throws ServletException, IOException {
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
         ProductDetail pd = pdtDAO.getProductDetail(1);
-        Brands brand = pdtDAO.getBrand(1);
+        //Brands brand = pdtDAO.getBrand(1);
         List<ImageDetail> imgdt =pdtDAO.getListImageDetail(1);
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(1);
         request.setAttribute("priceandsize", priceandsize);
         request.setAttribute("imgdt", imgdt);
-        request.setAttribute("b", brand);
+        //request.setAttribute("b", brand);
         request.setAttribute("pd", pd);
         request.getRequestDispatcher("productDetail.jsp").forward(request, response);
     } 

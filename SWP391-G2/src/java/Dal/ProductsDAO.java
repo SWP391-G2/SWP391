@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import Models.Categories;
 import Models.SubCategories;
 
@@ -91,15 +90,15 @@ public class ProductsDAO extends DBContext {
         return 0;
     }
     // List Products by Category
-    public List<Products> getProductsByCategory(int category){
+    public List<Products> getProductsByCategory(int categoryid){
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[Products] p " + 
-                "JOIN [dbo].[SubCategories] sc ON p.SubCategoryID = sc.SubCategoryID" +
-                "JOIN [dbo].[Categories] c ON sc.CategoryID = c.CategoryID" +
-                "WHERE c.CategoryID = ?";
+        String sql = "SELECT * FROM Products p " + 
+                 " JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID " +
+                 " JOIN Categories c ON sc.CategoryID = c.CategoryID " +
+                 " WHERE c.CategoryID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, category);
+            ps.setInt(1, categoryid);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Products product = new Products(
@@ -122,14 +121,14 @@ public class ProductsDAO extends DBContext {
         return products;
     }
     // List Products by SubCategory
-    public List<Products> getProductBySubCategory(int subcategory){
+    public List<Products> getProductBySubCategory(int subcategoryid){
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[Products] p" +
-                "JOIN [dbo].[SubCategories] sc ON p.SubCategoryID = sc.SubCategoryID" +
+        String sql = "SELECT * FROM Products p" +
+                "JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID" +
                 "WHERE sc.SubCategoryID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, subcategory);
+            ps.setInt(1, subcategoryid);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Products product = new Products(
@@ -151,17 +150,15 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
-    // List Products
-    public List<Products> getProductUnisex(){
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
-    }
     public static void main(String[] args) {
         ProductsDAO Pdao = new ProductsDAO();
         System.out.println(Pdao.loadProducts().size());
         System.out.println(Pdao.getPaging(2).size());
         System.out.println(Pdao.getCount());
+        int categoryId = 1; // example category ID
+        List<Products> products = Pdao.getProductsByCategory(categoryId);
+        products.forEach(product -> System.out.println("Product ID: " + product.getProductID() + 
+                                                       ", Name: " + product.getProductName()));
     }
 
 }

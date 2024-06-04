@@ -5,6 +5,7 @@
 
 package Controllers;
 
+import Dal.BrandsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import Dal.CategoriesDAO;
 import Dal.ProductsDAO;
 import Dal.SubCategoriesDAO;
+import Models.Brands;
 import Models.Categories;
 import Models.Products;
 import Models.SubCategories;        
@@ -59,12 +61,22 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CategoriesDAO c = new CategoriesDAO();
-        ProductsDAO p = new ProductsDAO();
-        List<Categories> categories = c.loadCategory();
-        List<Products> productAll = p.loadProducts();
-       
-    } 
+        CategoriesDAO categoriesDAO = new CategoriesDAO();
+        SubCategoriesDAO subcategoriesDAO = new SubCategoriesDAO();
+        ProductsDAO productsDAO = new ProductsDAO();
+        BrandsDAO brandsDAO = new BrandsDAO();
+        List<Products> products = productsDAO.getProductsByCategory(1);
+        List<SubCategories> subcategories = subcategoriesDAO.getAllSubCategories();
+        List<Categories> categories = categoriesDAO.loadCategory();
+        List<Brands> brands = brandsDAO.getBrands();
+        request.setAttribute("subcategories", subcategories);
+        request.setAttribute("categories", categories);
+        request.setAttribute("products", products);
+        request.setAttribute("brands", brands);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    }
+    
+    
 
     /** 
      * Handles the HTTP <code>POST</code> method.

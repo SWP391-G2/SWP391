@@ -4,46 +4,30 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>Controllers.HomeServlet</servlet-class>
     </servlet>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     <servlet>
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.Signup</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>EmailService</servlet-name>
         <servlet-class>Controllers.EmailService</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>Controllers.ProductList</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.DetailOfProduct</servlet-class>
-<<<<<<< HEAD
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
         <servlet-class>Controllers.Search</servlet-class>
-=======
-
->>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     </servlet>
-   
     <servlet>
         <servlet-name>AdminCustomer</servlet-name>
         <servlet-class>Controllers.AdminCustomer</servlet-class>
@@ -86,10 +70,10 @@
         <url-pattern>/detailofproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminCustomer</servlet-name>
         <url-pattern>/admincustomer</url-pattern>
     </servlet-mapping>
@@ -104,6 +88,5 @@
     <servlet-mapping>
         <servlet-name>AdminAccount</servlet-name>
         <url-pattern>/adminaccount</url-pattern>
->>>>>>> 8d024ce01399065b4a405fa28803393ccc52351c
     </servlet-mapping>
 </web-app>

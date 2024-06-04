@@ -5,6 +5,7 @@
 package Dal;
 
 import Models.Categories;
+import Models.SubCategories;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,36 +17,34 @@ import java.util.List;
  * @author ROG
  */
 public class CategoriesDAO extends DBContext{
-    
      public static void main(String[] args) {
-         CategoriesDAO c = new CategoriesDAO();
-  
-        List<Categories> list = c.loadCategory();
-        System.out.println(list.size());
-    }
+        CategoriesDAO dao = new CategoriesDAO();
+        List<Categories> categories = dao.loadCategory();
+        for (Categories category : categories) {
+            System.out.println("Category ID: " + category.getCategoryID());
+            System.out.println("Category Name: " + category.getCategoryName());
+            System.out.println("Category Description: " + category.getDescription());
+        }
+      
+     }
 
     public List<Categories> loadCategory() {
-        List<Categories> cate = new ArrayList<>();
-        String sql = """
-                     SELECT  [CategoryID]
-                           ,[CategoryName]
-                           ,[Description]
-                       FROM [DEMO].[dbo].[Categories]
-                     
-                     """;
+        List<Categories> categories = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Categories]";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                cate.add(new Categories(
+                Categories category = new Categories(
                         rs.getInt("CategoryID"),
                         rs.getString("CategoryName"),
-                        rs.getString("Description")
-                ));
+                        rs.getString("Description") 
+                );
+                categories.add(category);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
-        return cate;
+        return categories;
     }
 }
