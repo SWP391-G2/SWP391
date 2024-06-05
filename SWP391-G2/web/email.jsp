@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,29 +15,36 @@
         <title>The perfume shop</title>
     </head>
     <body >
-        <div style="height: 300px"></div>
-        <div class="container d-flex align-items-center justify-content-center">
+        <div class="row vh-100 g-0">
             <c:if test="${requestScope.err != null}">
-                <div class="row fixed-top text-center">
+                <div class="p-0 m-0 fixed-top text-center">
 
                     <div class="alert alert-warning text-center" role="alert">
                         ${requestScope.err}
                     </div>
                 </div>
             </c:if>
-            <form method="get" action="email" class="row g-3">
-                <div class="col-auto">
-                    <label for="staticEmail2" class="visually-hidden"></label>
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="OTP">
+            <div class="d-flex justify-content-center">
+                <div class=" col col-sm-9 col-lg-7 col-xl-5  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
+                    <div style="background-color: pink" class=" text-center p-5 ps-5 border rounded-5 shadow justify-content-center row container d-flex align-items-center justify-content-center">
+
+
+                        <form method="get" action="email" class="row g-3 justify-content-center">
+                            <h1 class="pb-5">VERIFY EMAIL</h1>
+                            <div class="col-auto">
+                                <label for="inputPassword2" class="visually-hidden"></label>
+                                <input type="number" name="OTP" maxlength="6" class="form-control" required="" id="inputPassword2" placeholder="XXXXXX">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-dark mb-3">Confirm identity</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <label for="inputPassword2" class="visually-hidden"></label>
-                    <input type="number" name="OTP" class="form-control" required="" id="inputPassword2" placeholder="XXXXXX">
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-dark mb-3">Confirm identity</button>
-                </div>
-            </form>
+
+            </div>
+
         </div>
     </body>
+    
 </html>

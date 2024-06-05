@@ -132,7 +132,7 @@
                             <span id="status">${(pd.getProductStatus()?'Con Hang':'Het Hang')}</span>
                         </p>
 
-                        <p><strong>Price:</strong> <span id="price">${priceandsize[0].productPrice} $</span></p>
+                        <p><strong>Price:</strong><input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden=""> <span id="price">${priceandsize[0].productPrice} $</span></p>
 
                         <p>
                             <strong>Type:</strong>
@@ -148,7 +148,7 @@
                             <input type="number" id="quantity" value="1" min="1" readonly />
                             <button onclick="changeQuantity(1)">+</button>
                         </div>
-                        <button class="btn btn-primary btn-lg" onclick="addToCart()">
+                        <button class="btn btn-primary btn-lg" onclick="addToCart(${pd.productID})">
                             Add to Cart
                         </button>
                     </div>
@@ -163,7 +163,7 @@
                         class="col-md-2 product-title"
                         onclick="showSection('description')"
                         >
-                       Describe
+                        Describe
                     </div>
                     <div class="col-md-2 product-title" onclick="showSection('policy')">
                         Policy
@@ -224,10 +224,18 @@
                     if (priceAndSizeData[i].size == selectedSize) {
                         // Hiển thị giá của size được chọn
                         document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
+                        document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
                         break; // Kết thúc vòng lặp khi tìm được size tương ứng
                     }
                 }
             });
+            function addToCart(productID) {
+                var price = document.getElementById('priceofproduct').value;
+                var quantity = document.getElementById('quantity').value;
+                var size = document.getElementById('perfume-type').value;
+
+                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&price=" + price+"&&size=" + size;
+            }
         </script>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

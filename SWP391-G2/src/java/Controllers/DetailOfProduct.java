@@ -59,10 +59,10 @@ public class DetailOfProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
-        ProductDetail pd = pdtDAO.getProductDetail(1);
-        Brands brand = pdtDAO.getBrand(1);
-        List<ImageDetail> imgdt =pdtDAO.getListImageDetail(1);
-        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(1);
+        ProductDetail pd = pdtDAO.getProductDetail(3);
+        Brands brand = pdtDAO.getBrand(3);
+        List<ImageDetail> imgdt =pdtDAO.getListImageDetail(3);
+        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(3);
         request.setAttribute("priceandsize", priceandsize);
         request.setAttribute("imgdt", imgdt);
         request.setAttribute("b", brand);
