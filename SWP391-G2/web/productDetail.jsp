@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="col-12">
                             <img
-                                src="${pd.getProductImageUrl()}"
+                                src="${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image"
                                 id="product-image"
@@ -83,10 +83,10 @@
                     <div class="row">
                         <div class="col-3">
                             <img
-                                src="${pd.getProductImageUrl()}"
+                                src="${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image-small"
-                                onclick="showImage('${pd.getProductImageUrl()}')"
+                                onclick="showImage('${p.getProductImageUrl()}')"
                                 />
                         </div>
                         <c:forEach items="${imgdt}" var="img">
@@ -122,7 +122,7 @@
                 <div class="col-md-6 product-details product-description">
 
                     <div>
-                        <h1 id="product-name">${pd.getProductName()}</h1>
+                        <h1 id="product-name">${p.getProductName()}</h1>
                         <p>
                             <strong>Trademark:</strong>
                             <span id="brand">${b.getBrandName()}</span>
@@ -132,7 +132,7 @@
                             <span id="status">${(pd.getProductStatus()?'Con Hang':'Het Hang')}</span>
                         </p>
 
-                        <p><strong>Price:</strong> <span id="price">${priceandsize[0].productPrice} $</span></p>
+                        <p><strong>Price:</strong><input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden=""> <span id="price">${priceandsize[0].productPrice} $</span></p>
 
                         <p>
                             <strong>Type:</strong>
@@ -148,7 +148,7 @@
                             <input type="number" id="quantity" value="1" min="1" readonly />
                             <button onclick="changeQuantity(1)">+</button>
                         </div>
-                        <button class="btn btn-primary btn-lg" onclick="addToCart()">
+                        <button class="btn btn-primary btn-lg" onclick="addToCart(${p.productID})">
                             Add to Cart
                         </button>
                     </div>
@@ -163,7 +163,7 @@
                         class="col-md-2 product-title"
                         onclick="showSection('description')"
                         >
-                       Describe
+                        Describe
                     </div>
                     <div class="col-md-2 product-title" onclick="showSection('policy')">
                         Policy
@@ -176,6 +176,7 @@
                 <p class="col-8">
                     ${pd.getProductDescription()}
                 </p>
+                <p><img src="${p.getProductImageUrl()}"></p>
                 <p class="col-8">
                     ${b.getBrandDescription()}
                 </p>
@@ -184,54 +185,84 @@
                 <p class="col-8">Chính sách bảo hành và đổi trả hàng hóa...</p>
             </div>
         </div>
-        <script>
-            function showImage(imagePath) {
-                document.getElementById("product-image").src = imagePath;
-            }
 
-            function changeQuantity(change) {
-                var quantityInput = document.getElementById("quantity");
-                var currentQuantity = parseInt(quantityInput.value);
-                var newQuantity = currentQuantity + change;
-                if (newQuantity >= 1) {
-                    quantityInput.value = newQuantity;
+
+        <div class="container">
+            <h1 class="my-4">Similar Products</h1>
+            <div class="row">
+                <c:forEach items="${psimilar}" var="pl">
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <img
+                                src=""
+                                class="card-img-top"
+                                alt="..."
+                                />
+                            <div class="card-body">
+                                <h5 class="card-title">${pl.getProductName()}</h5>
+                                <p class="card-text">Yves Saint Laurent YSL Mon Paris EDP</p>                   
+                                <p class="card-text">2.530.000₫ - 2.960.000₫ (-22%)</p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
+
+            <script>
+                function showImage(imagePath) {
+                    document.getElementById("product-image").src = imagePath;
                 }
-            }
 
-            function showSection(sectionId) {
-                var sections = document.getElementsByClassName("content-section");
-                for (var i = 0; i < sections.length; i++) {
-                    sections[i].classList.remove("active");
-                }
-                document.getElementById(sectionId).classList.add("active");
-            }
-
-            var priceAndSizeData = [
-            <c:forEach items="${priceandsize}" var="size" varStatus="status">
-            {
-            size: "${size.productSize}",
-                    price: "${size.productPrice}"
-            }<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-            ];
-
-            document.getElementById("perfume-type").addEventListener("change", function () {
-                // Lấy giá trị size được chọn
-                var selectedSize = this.value;
-
-                // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
-                for (var i = 0; i < priceAndSizeData.length; i++) {
-                    if (priceAndSizeData[i].size == selectedSize) {
-                        // Hiển thị giá của size được chọn
-                        document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
-                        break; // Kết thúc vòng lặp khi tìm được size tương ứng
+                function changeQuantity(change) {
+                    var quantityInput = document.getElementById("quantity");
+                    var currentQuantity = parseInt(quantityInput.value);
+                    var newQuantity = currentQuantity + change;
+                    if (newQuantity >= 1) {
+                        quantityInput.value = newQuantity;
                     }
                 }
-            });
-        </script>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                function showSection(sectionId) {
+                    var sections = document.getElementsByClassName("content-section");
+                    for (var i = 0; i < sections.length; i++) {
+                        sections[i].classList.remove("active");
+                    }
+                    document.getElementById(sectionId).classList.add("active");
+                }
+
+                var priceAndSizeData = [
+                <c:forEach items="${priceandsize}" var="size" varStatus="status">
+                {
+                size: "${size.productSize}",
+                        price: "${size.productPrice}"
+                }<c:if test="${!status.last}">,</c:if>
+                </c:forEach>
+                ];
+
+                document.getElementById("perfume-type").addEventListener("change", function () {
+                    // Lấy giá trị size được chọn
+                    var selectedSize = this.value;
+
+                    // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
+                    for (var i = 0; i < priceAndSizeData.length; i++) {
+                        if (priceAndSizeData[i].size == selectedSize) {
+                            // Hiển thị giá của size được chọn
+                            document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
+                            document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
+                            break; // Kết thúc vòng lặp khi tìm được size tương ứng
+                        }
+                    }
+                });
+                function addToCart(productID) {
+                    var price = document.getElementById('priceofproduct').value;
+                    var quantity = document.getElementById('quantity').value;
+                    window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&price=" + price;
+                }
+            </script>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

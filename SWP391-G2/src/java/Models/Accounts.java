@@ -4,6 +4,7 @@
  */
 package Models;
 
+import java.util.BitSet;
 import java.util.Date;
 
 /**
@@ -14,17 +15,18 @@ public class Accounts {
 
     private int accountID;
     private String firstName, lastName, password, image;
-    private boolean gender;
+    private int gender;
     private Date birthday;
-    private String  phone, email, address;
-    private boolean status;
+    private String phone, email, address;
+    private int status;
     private Date createDate;
     private int role;
 
     public Accounts() {
     }
 
-    public Accounts(String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+        this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -39,9 +41,12 @@ public class Accounts {
         this.role = role;
     }
 
-    
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, boolean gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
-        this.accountID = accountID;
+    @Override
+    public String toString() {
+        return "Accounts{" + "accountID=" + accountID + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", image=" + image + ", gender=" + gender + ", birthday=" + birthday + ", phone=" + phone + ", email=" + email + ", address=" + address + ", status=" + status + ", createDate=" + createDate + ", role=" + role + '}';
+    }
+
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -96,11 +101,11 @@ public class Accounts {
         this.image = image;
     }
 
-    public boolean isGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -136,11 +141,11 @@ public class Accounts {
         this.address = address;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -160,5 +165,4 @@ public class Accounts {
         this.role = role;
     }
 
-   
 }

@@ -5,6 +5,7 @@
 
 package Controllers;
 import Dal.ProductDetailDAO;
+import Dal.ProductsDAO;
 import Models.Brands;
 import Models.ImageDetail;
 import java.io.IOException;
@@ -58,15 +59,32 @@ public class DetailOfProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String id_raw = request.getParameter("product");
+        int id = -1;
+        try {
+            id = 2;
+        } catch (NumberFormatException e) {
+            System.out.println("");
+        }
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
-        ProductDetail pd = pdtDAO.getProductDetail(1);
-        Brands brand = pdtDAO.getBrand(1);
-        List<ImageDetail> imgdt =pdtDAO.getListImageDetail(1);
-        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(1);
+        //ProductsDAO pDAO = new ProductsDAO();
+        //BrandsDAO bDAO = new BrandsDAO();
+        //ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
+
+        ProductDetail pd = pdtDAO.getProductDetail(id);
+        //Products p = pDAO.getProduct(id);
+        //Brands brand = bDAO.getBrand(p.getBrandID());
+        //List<ProductDetailImage> imgdt =pdiDAO.getListImageDetail(id);
+        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
+        //request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
-        request.setAttribute("imgdt", imgdt);
-        request.setAttribute("b", brand);
+        //request.setAttribute("imgdt", imgdt);
+        //request.setAttribute("b", brand);
         request.setAttribute("pd", pd);
+        //request.setAttribute("p", p);
+
+
+
         request.getRequestDispatcher("productDetail.jsp").forward(request, response);
     } 
 

@@ -12,8 +12,6 @@ import java.util.Date;
  * @author hatru
  */
 public class ProductDetail {
-    private int ProductID;
-    private String ProductName;
     private int ProductFullDetailID;
     private int pdProductID;
     private String ProductDescription; 
@@ -22,13 +20,11 @@ public class ProductDetail {
     private String ProductSize;
     private Float ProductPrice;
     private int ProductAvaiable;
-    private String ProductImageUrl;
+
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductID, String ProductName, int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String ProductImageUrl) {
-        this.ProductID = ProductID;
-        this.ProductName = ProductName;
+    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable) {
         this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
         this.ProductDescription = ProductDescription;
@@ -37,23 +33,6 @@ public class ProductDetail {
         this.ProductSize = ProductSize;
         this.ProductPrice = ProductPrice;
         this.ProductAvaiable = ProductAvaiable;
-        this.ProductImageUrl = ProductImageUrl;
-    }
-
-    public int getProductID() {
-        return ProductID;
-    }
-
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
-    }
-
-    public String getProductName() {
-        return ProductName;
-    }
-
-    public void setProductName(String ProductName) {
-        this.ProductName = ProductName;
     }
 
     public int getProductFullDetailID() {
@@ -95,7 +74,7 @@ public class ProductDetail {
     public void setProductStatus(Boolean ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
-    
+
     public String getProductSize() {
         return ProductSize;
     }
@@ -119,14 +98,6 @@ public class ProductDetail {
     public void setProductAvaiable(int ProductAvaiable) {
         this.ProductAvaiable = ProductAvaiable;
     }
-
-    public String getProductImageUrl() {
-        return ProductImageUrl;
-    }
-
-    public void setProductImageUrl(String ProductImageUrl) {
-        this.ProductImageUrl = ProductImageUrl;
-    }
-
-    
+   
+   
 }
