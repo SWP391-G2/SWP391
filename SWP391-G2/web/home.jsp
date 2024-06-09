@@ -10,8 +10,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>The Perfume Shop | Genuine Perfume Store</title>
+        <link rel="icon" href="./images/logo/image.png" type="image/x-icon" />
         <title>The Perfume Shop</title>
-        <link rel="icon" href="images/logo1.png"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <link href="css/homestyle.css" rel="stylesheet">
@@ -25,7 +26,6 @@
             <div class="container">
                 <div class="header-main">
                     <div class="row">   
-
                         <div class="col-md-4 hidden-sm hidden-xs">
                             <div class="header_search search_form">
                                 <form class="input-group search-bar search_form has-validation-callback " action="/search" method="get" role="search"> 
@@ -38,7 +38,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <div class="col-md-4 col-100-h">
                             <h1><a href="home">THE PERFUME SHOP</a></h1>
                         </div>
@@ -88,52 +87,38 @@
                                         <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item-lv2">
-                                            <a class="nav-link" href="#">Men's Perfume
-                                                <i class="fa fa-caret-right" data-toggle="dropdown"></i>                                               
-                                            </a> 
-                                            <ul class="dropdown-menu-lv2">
-                                                <li class="nav-item-lv3">
-                                                    <a class="nav-link" href="#">Scents
-                                                        <i class="fa fa-caret-right" data-toggle="dropdown"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>              
-                                        </li>
-                                        <li class="nav-item-lv2">
-                                            <a class="nav-link" href="#">Women's Perfumes
-                                                <i class="fa fa-caret-right" data-toggle="dropdown"></i>
-                                            </a>
-                                            <ul class="dropdown-menu-lv2">
-                                                <li class="nav-item-lv3">
-                                                    <a class="nav-link" href="#">Scents
-                                                        <i class="fa fa-caret-right" data-toggle="dropdown"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>      
-                                        </li>
-                                        <li class="nav-item-lv2">
-                                            <a class="nav-link" href="#">Unisex's Perfumes
-                                                <i class="fa fa-caret-right" data-toggle="dropdown"></i>
-                                            </a>
-                                            <ul class="dropdown-menu-lv2">
-                                                <li class="nav-item-lv3">
-                                                    <a class="nav-link" href="#">Scents
-                                                        <i class="fa fa-caret-right" data-toggle="dropdown"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>      
-                                        </li>
-                                        <li class="nav-item-lv2">
-                                            <a class="nav-link" href="#">Gift Set
-                                            </a>
-                                        </li>
+                                        <c:forEach var="category" items="${requestScope.categories}">
+                                            <li class="nav-item-lv2">
+                                                <a class="nav-link" href="#">
+                                                    ${category.categoryName}'s Perfumes
+                                                    <i class="fa fa-caret-right" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu-lv2">
+                                                    <c:forEach var="sub" items="${requestScope.subcategories}">
+                                                        <c:if test="${sub.categoryID == category.categoryID}">
+                                                            <li class="nav-item-lv3">
+                                                                <a class="nav-link" href="#">${sub.subCategoryName}</a>
+                                                            </li>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </ul>
+                                            </li>
+                                        </c:forEach>
+
                                     </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">BRANDS
                                         <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                     </a>
+                                    <ul class="dropdown-menu">
+                                        <c:forEach var="brand" items="${requestScope.brands}">
+                                            <li class="nav-item-lv2">
+                                                <a class="nav-link" href="#">${brand.brandName}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">BLOGS</a>
@@ -146,11 +131,10 @@
                                         <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                     </a>
                                     <ul class="dropdown-menu">
+
                                         <li class="nav-item-lv2">
                                             <a class="nav-link" href="login">Login</a>
-                                        </li>
-                                        <li class="nav-item-lv2">
-                                            <a class="nav-link" href="register">Register</a>
+                                            <a class="nav-link" href="signup.jsp">Sign Up</a>
                                         </li>
                                     </ul>                                                                          
                                 </li>
@@ -171,7 +155,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="8000">
                         <a href="page1.html">
-                            <img src="images/Sliders/slider5.jpg" class="d-block w-100" alt="First slide">
+                            <img src="images/Sliders/slider1.jpg" class="d-block w-100" alt="First slide">
                         </a>
                         <div class="carousel-caption d-none d-md-block">
                             <h5>THE PERFUME SHOP</h5>
@@ -229,35 +213,27 @@
                                             </div>
                                         </div>
                                         <div class="section_block_product_tab">
-                                            <div class="e-tabs not-dqtab ajax-tab-1"data-section="ajax-tab-1">
+                                            <div class="e-tabs not-dqtab ajax-tab-1" data-section="ajax-tab-1">
                                                 <div class="content">
                                                     <div class="tab-1 tab-content current">
                                                         <div class="section-tour-owl products products-view-grid owl-carousel owl-loaded owl-drag"
                                                              data-lg-items="5" data-md-items="5" data-sm-items="4" data-xs-items="3" data-xss-items="2" data-margin="0" data-nav="true" data-dot="false">
                                                             <div class="owl-stage-outer">
-                                                                <div class="owl-stage" style="transform: translate3d(-1148px, 0px, 0px); transition: all 0s ease 0s; width: 2296px;">
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                </div>                    
-                                                                <div class="owl-nav">
-                                                                    <div class="owl-prev">
-                                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                                    </div>
-
-                                                                    <div class="owl-next disabled">
-                                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="owl-dots disabled"></div>
+                                                                <div class="owl-stage">
+                                                                    <div class="">
+                                                                        
+                                                                    </div>         
+                                                                </div> 
                                                             </div>
+                                                            <div class="owl-nav">
+                                                                <div class="owl-prev">
+                                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                                </div>
+                                                                <div class="owl-next disabled">
+                                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="owl-dots disabled"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -425,7 +401,7 @@
                                         <span>THE PERFUME SHOP</span>
                                     </h4>
                                     <p>
-                                        <!--<span>Nhận tất cả các loại nước hoa từ chúng tôi trong vòng 2 ngày giao hàng. Chúng tôi thậm chí có thể đặt hàngnước hoa không có trong cơ sở dữ liệu của chúng tôi. Để làm điều đó vui lòng gửi E-mail của bạn đến E-mail của công ty.</span>-->
+                                        <span>Nhận tất cả các loại nước hoa từ chúng tôi trong vòng 2 ngày giao hàng. Chúng tôi thậm chí có thể đặt hàngnước hoa không có trong cơ sở dữ liệu của chúng tôi. Để làm điều đó vui lòng gửi E-mail của bạn đến E-mail của công ty.</span>
                                     </p>
                                     <p>
                                         <span>Địa chỉ :</span>  Hoa Lac Hi-tech Park, km 29, Đại lộ Thăng Long, Hà Nội, Vietnam
@@ -434,7 +410,7 @@
                                     <p><span>Phone :</span> <a href="tel: +91 8888884444">0986686686</a> </p>
                                     <p style="margin-top: 20px">
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.494053017802!2d105.52340642545694!3d21.012908838322463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc60e7d3f19%3A0x2be9d7d0b5abcbf4!2sFPT%20University!5e0!3m2!1sen!2s!4v1710438011585!5m2!1sen!2s" 
-                                                width="330" height="200" style="border:1px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                                width="300" height="200" style="border:1px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
 
                                         </iframe>
                                     </p>
@@ -491,6 +467,9 @@
                 </div>
             </div>
             <jsp:include page="footer.jsp"/>
-        </footer>     
+        </footer>   
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>
