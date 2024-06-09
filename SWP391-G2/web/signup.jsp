@@ -12,26 +12,27 @@
         <title>The perfume shop</title>
     </head>
     <body>
-        <div class="row vh-100 g-0">
+        <div class="row vh-100 g-0" >
+            <c:if test="${requestScope.err != null}">
+                <div class="p-0 m-0 fixed-top text-center">
+
+                    <div class="alert alert-warning text-center" role="alert">
+                        ${requestScope.err}
+                    </div>
+                </div>
+            </c:if>
             <!--left side  -->
 
 
             <!--/ left side  -->
 
             <!-- right side  -->
-            <div class="col-lg">
-                <c:if test="${requestScope.err !=null}">
-                    <div class="row fixed-top text-center">
+            <div class="d-flex justify-content-center">
 
-                        <div class=" alert alert-warning" role="alert">
-                            ${requestScope.err}
-                        </div>
-                    </div>
-                </c:if>
-                <div class="row align-items-center justify-content-center h-100  g-0 px-4 px-sm">
-                    <div class="col col-sm-6 col-lg-7 col-xl-6 d-flex align-items-center justify-content-center">
+                <div class=" col col-sm-9 col-lg-9 col-xl-6  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
+                    <div class="" >
                         <div class="text-center mb-5">
-                            <h2 class="fw-bold pb-5">SIGN UP</h2>
+                            <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
                             <form action="signup" method="post" >
                                 <div class="input-group mb-3" >
                                     <span class="input-group-text">
@@ -41,7 +42,7 @@
                                         </svg>
                                     </span>
                                     <div class="form-floating">
-                                        <input type="email" name="email" value="${param.email}" class="form-control form-control-lg fs-6" required placeholder="Email">
+                                        <input type="email" name="email" value="${param.email}" maxlength="50" class="form-control form-control-lg fs-6" required placeholder="Email">
                                         <label for="floatingInputGroup1">Email</label>
                                     </div>
                                 </div>
@@ -54,7 +55,7 @@
                                             </svg>
                                         </span>
                                         <div class="form-floating">
-                                            <input type="text" name="firstname" required="" value="${param.firstname}" class="form-control form-control-lg fs-6" placeholder="First Name">
+                                            <input type="text" name="firstname" required="" maxlength="50" value="${param.firstname}" class="form-control form-control-lg fs-6" placeholder="First Name">
                                             <label for="floatingInputGroup1">First name</label>
                                         </div>
                                     </div>
@@ -66,7 +67,7 @@
                                             </svg>
                                         </span>
                                         <div class="form-floating">
-                                            <input type="text" name="lastname" required="" value="${param.lastname}" class="form-control form-control-lg fs-6" placeholder="Last Name">
+                                            <input type="text" name="lastname" required="" maxlength="50" value="${param.lastname}" class="form-control form-control-lg fs-6" placeholder="Last Name">
                                             <label for="floatingInputGroup1">Last name</label>
                                         </div>
                                     </div>
@@ -80,7 +81,7 @@
                                             </svg>
                                         </span>
                                         <div class="form-floating">
-                                            <input type="date" name="brithday"  value="${param.brithday}" id="dateinput" max="" class="form-control form-control-lg fs-6" mix="1900-01-01">
+                                            <input type="date" name="brithday" required=""  value="${param.brithday}" id="dateinput" max="" class="form-control form-control-lg fs-6" mix="1900-01-01">
                                             <label for="floatingInputGroup1">Birthday</label>
                                         </div>
                                     </div>
@@ -103,7 +104,7 @@
                                         </svg>
                                     </span>
                                     <div class="form-floating">
-                                        <input type="password" name="password"  required="" class="form-control form-control-lg fs-6" placeholder="Password">
+                                        <input type="password" name="password" maxlength="512"  required="" class="form-control form-control-lg fs-6" placeholder="Password">
                                         <label for="floatingInputGroup1">Password</label>
                                     </div>
                                 </div>
@@ -114,7 +115,7 @@
                                         </svg>
                                     </span>
                                     <div class="form-floating">
-                                        <input type="password" name="confirmpassword"   required="" class="form-control form-control-lg fs-6" placeholder="Confirm password">
+                                        <input type="password" name="confirmpassword" maxlength="512"  required="" class="form-control form-control-lg fs-6" placeholder="Confirm password">
                                         <label for="floatingInputGroup1">Confirm password</label>
                                     </div>
                                 </div>
@@ -162,6 +163,6 @@
 
         // Đặt thuộc tính 'max' của phần tử input
         document.getElementById('dateinput').setAttribute('max', formattedDate);
-      
+
     </script>
 </html>
