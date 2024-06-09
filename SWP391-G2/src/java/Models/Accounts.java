@@ -25,8 +25,10 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
-        this.accountID = accountID;
+
+
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -41,12 +43,9 @@ public class Accounts {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Accounts{" + "accountID=" + accountID + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", image=" + image + ", gender=" + gender + ", birthday=" + birthday + ", phone=" + phone + ", email=" + email + ", address=" + address + ", status=" + status + ", createDate=" + createDate + ", role=" + role + '}';
-    }
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
+        this.accountID = accountID;
 
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -102,6 +101,7 @@ public class Accounts {
     }
 
     public int getGender() {
+
         return gender;
     }
 

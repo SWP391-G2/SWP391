@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,29 +114,29 @@ public class AccountsDAO extends DBContext {
         return null;
     }
 
-//    public void setInsert(Accounts account) {
-//        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-//        try {
-//
-//            PreparedStatement ur = connection.prepareStatement(sql);
-//            ur.setString(1, account.getFirstName());
-//            ur.setString(2, account.getLastName());
-//            ur.setString(3, account.getEmail());
-//            ur.setString(4, account.getPassword());
-//            ur.setString(5, account.getImage());
-//            ur.setInt(6, account.isGender());
-//            ur.setDate(7, (Date) account.getBirthday());
-//            ur.setString(8, account.getPhone());
-//            ur.setString(9, account.getAddress());
-//            ur.setDate(10, (Date) account.getCreateDate());
-//            ur.setInt(11, account.getRole());
-//            ur.setInt(12, account.isStatus());
-//            ur.executeUpdate();
-//        } catch (SQLException e) {
-//            System.err.println(e);
-//        }
-//    }
-    //get All customer by roleID
+    public void setInsert(Accounts account) {
+        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+        try {
+
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, account.getFirstName());
+            ur.setString(2, account.getLastName());
+            ur.setString(3, account.getEmail());
+            ur.setString(4, account.getPassword());
+            ur.setString(5, account.getImage());
+            ur.setInt(6, account.isGender());
+            ur.setDate(7, (Date) account.getBirthday());
+            ur.setString(8, account.getPhone());
+            ur.setString(9, account.getAddress());
+            ur.setDate(10, (Date) account.getCreateDate());
+            ur.setInt(11, account.getRole());
+            ur.setBoolean(12, account.isStatus());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }    //get All customer by roleID
+
     public List<Accounts> getAllCustomer(int roleID) {
         List<Accounts> listAccount = new ArrayList();
         String sql = "select * from Accounts where RoleID = ?";
@@ -491,30 +492,6 @@ public class AccountsDAO extends DBContext {
             System.out.println(e);
         }
     }
-
-    public static void main(String[] args) {
-        AccountsDAO d = new AccountsDAO();
-        //System.out.println(d.getTotalPage(-1, -1, "trung", 10));
-//        List<Accounts> list = d.getListAdminByFilter(-1, -1, "trung", 1, 10);
-//       
-//        for (Accounts accounts : list) {
-//            System.out.println(accounts.getFirstName());
-
-        /*for (Accounts a : d.getAll()) {
-            System.out.println(a.getAccountID());
-        }
-        System.out.println(d.getAccount("admin@gmail.com").getPassword());*/
-        //int number = d.getLastID();
-        // Date date = new Date(System.currentTimeMillis());
-//        Accounts a = new Accounts("Trung", "Anh", "123", "adfsaf", 1, date, "0944362986", "Hatrung03022003@gmail,com", "Thanh Ba - Phu Tho", 1, date, 2);
-//        d.setInsertAccount(a);
-        /*List<Accounts> list = d.getCustomerByName("Trung", 4);
-        for (Accounts accounts : list) {
-            System.out.println(accounts.getFirstName() + accounts.getLastName());
-        }*/
-//        Accounts a = d.getAccoutByID(14);
-//        System.out.println(a.toString());
-        d.updateAccount(0, 3, "anh1.jpg",76);
-    }
+    
 
 }

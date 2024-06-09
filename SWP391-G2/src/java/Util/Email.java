@@ -149,7 +149,7 @@ public class Email {
                 + "    <p>The perfume shop has received a request to use " + email + " as an account to access our products.</p>\n"
                 + "    <p>Use this code to finish setting up this recovery email:</p>\n"
                 + "    <div class=\"code\">" + OTP + "</div>\n"
-                + "    <p>This code will expire in 15 minutes</p>\n"
+                + "    <p></p>\n"
                 + "    <div class=\"footer\">\n"
                 + "      <p>Welcome to!!</p>\n"
                 + "      <p>© 2024 The Perfume Shop TPS, Km39 Cao tốc Láng Hòa Lạc,Hà Nội, Việt Nam</p>\n"

@@ -67,6 +67,7 @@ public class DetailOfProduct extends HttpServlet {
             System.out.println("");
         }
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
+
         //ProductsDAO pDAO = new ProductsDAO();
         //BrandsDAO bDAO = new BrandsDAO();
         //ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
@@ -79,6 +80,7 @@ public class DetailOfProduct extends HttpServlet {
         //request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
         //request.setAttribute("imgdt", imgdt);
+
         //request.setAttribute("b", brand);
         request.setAttribute("pd", pd);
         //request.setAttribute("p", p);

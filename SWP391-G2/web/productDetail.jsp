@@ -148,7 +148,9 @@
                             <input type="number" id="quantity" value="1" min="1" readonly />
                             <button onclick="changeQuantity(1)">+</button>
                         </div>
+
                         <button class="btn btn-primary btn-lg" onclick="addToCart(${p.productID})">
+
                             Add to Cart
                         </button>
                     </div>
@@ -223,6 +225,7 @@
                     }
                 }
 
+
                 function showSection(sectionId) {
                     var sections = document.getElementsByClassName("content-section");
                     for (var i = 0; i < sections.length; i++) {
@@ -252,6 +255,7 @@
                             document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
                             break; // Kết thúc vòng lặp khi tìm được size tương ứng
                         }
+
                     }
                 });
                 function addToCart(productID) {
@@ -259,7 +263,19 @@
                     var quantity = document.getElementById('quantity').value;
                     window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&price=" + price;
                 }
+
             </script>
+
+            });
+            function addToCart(productID) {
+                var price = document.getElementById('priceofproduct').value;
+                var quantity = document.getElementById('quantity').value;
+                var size = document.getElementById('perfume-type').value;
+
+                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&price=" + price+"&&size=" + size;
+            }
+        </script>
+
 
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

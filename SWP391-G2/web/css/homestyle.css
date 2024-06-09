@@ -53,42 +53,42 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .header_search {
+}
+
+.header_search {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .header_search {
+}
+
+.header_search {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .search-bar {
+}
+
+.search-bar {
     display: flex;
     align-items: center;
     border: 1px solid #ccc;
-    border-radius: 20px; 
+    border-radius: 20px;
     overflow: hidden;
     width: 100%;
-    max-width: 240px; 
+    max-width: 240px;
     background-color: white;
     padding-top: 1px;
     margin-top: 7px;
-  }
-  
-  .search-bar input {
+}
+
+.search-bar input {
     border: none;
     padding: 8px 12px;
-    width: calc(100% - 40px); 
+    width: calc(100% - 40px);
     outline: none;
-    font-size: 14px; 
-  }
-  
-  .search-bar button {
+    font-size: 14px;
+}
+
+.search-bar button {
     background-color: white;
     border: none;
     padding: 8px 10px;
@@ -96,20 +96,20 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px; 
-  }
-  
-  .search-bar button i {
-    font-size: 18px; 
-    color: #000; 
-  }
-  
-  
+    font-size: 14px;
+}
+
+.search-bar button i {
+    font-size: 18px;
+    color: #000;
+}
+
+
 .logo {
     padding: 5px 0;
 }
 header.header nav {
-    background-color: rgba(12, 11, 11, 0.7); 
+    background-color: rgba(12, 11, 11, 0.7);
     border-top: 1px solid #0c0b0b ;
 
 }
@@ -186,6 +186,7 @@ a, .text-link {
 .nav-item-lv2:hover .dropdown-menu-lv2 {
     display: block;
 }
+
 /* Cart and Wishlist Icons */
 .my-wishlist,
 .my-cart {

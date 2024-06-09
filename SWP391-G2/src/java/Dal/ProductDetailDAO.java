@@ -48,23 +48,6 @@ public class ProductDetailDAO extends DBContext {
         return list;
     }
 
-    public Brands getBrand(int id) {
-        String sql = "select * from Products p join Brands b on"
-                + " p.BrandID = b.BrandID where p.ProductID = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return new Brands(1, rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"));
-            }
-        } catch (SQLException e) {
-
-        }
-        return null;
-    }
 
     public List<ImageDetail> getListImageDetail(int id) {
         List<ImageDetail> list = new ArrayList<>();

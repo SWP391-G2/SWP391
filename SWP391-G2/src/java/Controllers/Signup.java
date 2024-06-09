@@ -8,14 +8,14 @@ import Dal.AccountsDAO;
 import Models.Accounts;
 import Util.Security;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+
 
 
 /**
@@ -33,8 +33,6 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         AccountsDAO Adao = new AccountsDAO();
         String email = request.getParameter("email");
         Accounts account = Adao.getAccount(email);
@@ -46,12 +44,32 @@ public class Signup extends HttpServlet {
                     if (password.equalsIgnoreCase(passConfirm)) {
                         String firstname = request.getParameter("firstname");
                         String lastname = request.getParameter("lastname");
+                        String datebirthday = request.getParameter("brithday");
+                        int gender = Integer.parseInt(request.getParameter("gender"));
                         HttpSession session = request.getSession();
+                        //get time in current
                         Date date = new Date(System.currentTimeMillis());
+                        //get time and convert string to date 
+                        SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
                         Security security = new Security();
-                        Accounts a = new Accounts(firstname, lastname, security.getPasswordSecurity(password), "", true, date, "", email, "", true, date, 4);
+                        java.util.Date utilDate = formatdate.parse(datebirthday);
+                        Date birthday = new Date(utilDate.getTime());
+
+                        Accounts a = new Accounts(
+                                firstname,
+                                lastname,
+                                security.getPasswordSecurity(password),
+                                "",
+                                gender,
+                                birthday,
+                                "",
+                                email,
+                                "",
+                                true,
+                                date,
+                                4);
                         session.setAttribute("accountForSign", a);
-                         request.getRequestDispatcher("/email").forward(request, response);
+                        request.getRequestDispatcher("/email").forward(request, response);
                     } else {
                         throw new Exception("Password and Confirm password is not equals!!");
                     }
