@@ -33,17 +33,30 @@
         <servlet-name>AdminCustomer</servlet-name>
         <servlet-class>Controllers.AdminCustomer</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>AdminSale</servlet-name>
         <servlet-class>Controllers.AdminSale</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminCreate</servlet-name>
-        <servlet-class>Controllers.AdminBlock</servlet-class>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controllers.CartController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminAccount</servlet-name>
-        <servlet-class>Controllers.AdminAccount</servlet-class>
+        <servlet-name>AdminControlAccount</servlet-name>
+        <servlet-class>Controllers.admin.AdminControlAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminBlockStatus</servlet-name>
+        <servlet-class>Controllers.admin.AdminBlockStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDetails</servlet-name>
+        <servlet-class>Controllers.AdminDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminProfile</servlet-name>
+        <servlet-class>Controllers.admin.AdminProfile</servlet-class>
     </servlet>
    
     <servlet-mapping>
@@ -71,6 +84,7 @@
         <url-pattern>/detailofproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
@@ -79,15 +93,28 @@
         <url-pattern>/admincustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>AdminSale</servlet-name>
         <url-pattern>/adminsale</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminCreate</servlet-name>
-        <url-pattern>/admincreate</url-pattern>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminAccount</servlet-name>
-        <url-pattern>/adminaccount</url-pattern>
+        <servlet-name>AdminControlAccount</servlet-name>
+        <url-pattern>/admincontrolaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminBlockStatus</servlet-name>
+        <url-pattern>/adminblock</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDetails</servlet-name>
+        <url-pattern>/admindetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminProfile</servlet-name>
+        <url-pattern>/adminprofile</url-pattern>
     </servlet-mapping>
 </web-app>

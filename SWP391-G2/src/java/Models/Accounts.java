@@ -4,6 +4,7 @@
  */
 package Models;
 
+import java.util.BitSet;
 import java.util.Date;
 
 /**
@@ -22,6 +23,37 @@ public class Accounts {
     private int role;
 
     public Accounts() {
+    }
+
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+        this.accountID = accountID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
+    }
+
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
     }
 
     public int getAccountID() {
@@ -125,37 +157,6 @@ public class Accounts {
     }
 
     public void setRole(int role) {
-        this.role = role;
-    }
-
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
-    }
-
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
-        this.accountID = accountID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.status = status;
-        this.createDate = createDate;
         this.role = role;
     }
 

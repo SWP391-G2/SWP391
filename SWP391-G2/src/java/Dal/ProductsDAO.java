@@ -4,7 +4,6 @@
  */
 package Dal;
 
-
 import Models.Products;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ import Models.SubCategories;
  * @author ROG
  */
 public class ProductsDAO extends DBContext {
-    
+
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
@@ -89,18 +88,40 @@ public class ProductsDAO extends DBContext {
         }
         return 0;
     }
+
+    // List Products of Men
+    public List<Products> getProductMen() {
+        List<Products> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products ";
+        return list;
+    }
+
+    // List Products of Women
+    public List<Products> getProductWomen() {
+        List<Products> list = new ArrayList<>();
+        String sql = "";
+        return list;
+    }
+
+    // List Products of Unisex
+    public List<Products> getProductUnisex() {
+        List<Products> list = new ArrayList<>();
+        String sql = "";
+        return list;
+    }
+
     // List Products by Category
-    public List<Products> getProductsByCategory(int categoryid){
+    public List<Products> getProductsByCategory(int categoryid) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products p " + 
-                 " JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID " +
-                 " JOIN Categories c ON sc.CategoryID = c.CategoryID " +
-                 " WHERE c.CategoryID = ?";
+        String sql = "SELECT * FROM Products p "
+                + " JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID "
+                + " JOIN Categories c ON sc.CategoryID = c.CategoryID "
+                + " WHERE c.CategoryID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryid);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Products product = new Products(
                         rs.getInt("ProductID"),
                         rs.getInt("SubCategoryID"),
@@ -120,17 +141,18 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
+
     // List Products by SubCategory
-    public List<Products> getProductBySubCategory(int subcategoryid){
+    public List<Products> getProductBySubCategory(int subcategoryid) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products p" +
-                "JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID" +
-                "WHERE sc.SubCategoryID = ?";
+        String sql = "SELECT * FROM Products p"
+                + "JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID"
+                + "WHERE sc.SubCategoryID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, subcategoryid);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Products product = new Products(
                         rs.getInt("ProductID"),
                         rs.getInt("SubCategoryID"),
@@ -150,15 +172,50 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
+
+    //Get Product by ProductID
+    public Products getProductByProductID(int id) {
+        String sql = "select * from Products where ProductID=?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, id);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Products p = new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("SubCategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("productImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID")
+                );
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
     public static void main(String[] args) {
         ProductsDAO Pdao = new ProductsDAO();
-        System.out.println(Pdao.loadProducts().size());
+        /*System.out.println(Pdao.loadProducts().size());
         System.out.println(Pdao.getPaging(2).size());
+
+        System.out.println(Pdao.getCount());*/
+        Products p = Pdao.getProductByProductID(1);
+        System.out.println(p.getProductImageUrl());
+
         System.out.println(Pdao.getCount());
         int categoryId = 1; // example category ID
         List<Products> products = Pdao.getProductsByCategory(categoryId);
-        products.forEach(product -> System.out.println("Product ID: " + product.getProductID() + 
-                                                       ", Name: " + product.getProductName()));
+        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
+                + ", Name: " + product.getProductName()));
     }
 
 }
