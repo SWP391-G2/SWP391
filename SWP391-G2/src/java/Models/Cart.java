@@ -17,6 +17,14 @@ public class Cart {
     public Cart() {
         items = new ArrayList<>();
     }
+    
+     public void setItems(List<Item> items){
+        this.items = items;
+    }
+    
+    public List<Item> getItems(){
+        return items;
+    }
 
     public Cart(List<Item> items) {
         this.items = items;
@@ -61,5 +69,15 @@ public class Cart {
         }
         return t;
     }
+    
+    private ProductDetail getProductDetailByID(int id, List<ProductDetail> list){
+        for (ProductDetail i : list) {
+            if(i.getPdProductID()  == id){
+                return i;
+            }
+        }
+        return null;
+    }
+  
     
 }

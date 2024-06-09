@@ -9,30 +9,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /* css/admin.css */
 /* css/admin.css */
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     display: flex;
-    height: 100vh;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #343a40;
+    background-color: #333;
     color: #fff;
     padding: 20px;
-    box-sizing: border-box;
 }
 
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .sidebar nav ul {
@@ -41,7 +37,7 @@ body, html {
 }
 
 .sidebar nav ul li {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .sidebar nav ul li a {
@@ -49,25 +45,18 @@ body, html {
     text-decoration: none;
     display: block;
     padding: 10px;
+    background-color: #444;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .sidebar nav ul li a:hover {
-    background-color: #495057;
+    background-color: #555;
 }
 
 .main-content {
-    flex-grow: 1;
+    flex: 1;
     padding: 20px;
-    box-sizing: border-box;
-    background-color: #fff;
-    overflow: auto;
-}
-
-.main-content h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
 }
 
 .action-bar {
@@ -77,30 +66,34 @@ body, html {
 }
 
 .create-btn {
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .create-btn:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 .search-input {
-    padding: 8px;
-    width: 200px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: calc(100% - 160px);
+    margin-right: 10px;
 }
 
 .search-btn {
-    padding: 8px 12px;
+    padding: 10px 20px;
     background-color: #007BFF;
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -111,32 +104,47 @@ body, html {
 .customer-table {
     width: 100%;
     border-collapse: collapse;
-}
-
-.customer-table thead {
-    background-color: #007BFF;
-    color: #fff;
+    margin-bottom: 20px;
 }
 
 .customer-table th, .customer-table td {
     padding: 10px;
+    border: 1px solid #ccc;
     text-align: left;
-    border: 1px solid #ddd;
 }
 
-.customer-table tbody tr:nth-child(even) {
+.customer-table th {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.customer-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.customer-table tbody tr:hover {
+.customer-table tr:hover {
     background-color: #f1f1f1;
 }
 
-.customer-table td a {
-    color: #007BFF;
-    text-decoration: none;
+.pagination {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.customer-table td a:hover {
-    text-decoration: underline;
+.pagination a {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
+
+.pagination a.active {
+    background-color: #0056b3;
 }

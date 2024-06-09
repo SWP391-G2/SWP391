@@ -40,7 +40,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 list.add(account);
@@ -71,7 +71,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 return account;
@@ -103,7 +103,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 return account;
@@ -156,7 +156,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 listAccount.add(account);
@@ -167,7 +167,7 @@ public class AccountsDAO extends DBContext {
         return listAccount;
     }
 
-    //get All customer by Name
+    //get All customer by Name and roleID
     public List<Accounts> getCustomerByName(String name, int id) {
         List<Accounts> listAccount = new ArrayList();
         String sql = "select * from Accounts where LastName like ? and RoleID = ?";
@@ -188,7 +188,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 listAccount.add(account);
@@ -200,57 +200,298 @@ public class AccountsDAO extends DBContext {
     }
 
     //Block Account
-    public void blockAccount(int accountID) {
+    public void updateStatusAccount(int status, int accountID) {
         String sql = "UPDATE Accounts\n"
-                + "SET Status = 0\n"
+                + "SET Status = ?\n"
                 + "WHERE AccountID = ?;";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
-            ur.setInt(1, accountID);
+            ur.setInt(1, status);
+            ur.setInt(2, accountID);
             ur.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    //Unblock Account
-    public void unblockAccount(int accountID) {
-        String sql = "UPDATE Accounts\n"
-                + "SET Status = 1\n"
-                + "WHERE AccountID = ?;";
+    //get Image by accountID
+    public static List<Accounts> listImage = new ArrayList<>();
+
+    public Accounts getAccoutByID(int id) {
+        String sql = "select * from Accounts where AccountID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
-            ur.setInt(1, accountID);
+            ur.setInt(1, id);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                Accounts account = new Accounts(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getDate(12),
+                        rs.getInt(13));
+                return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    //Update 
+    public int update(Accounts account) {
+        for (int i = 0; i < listImage.size(); i++) {
+            if (listImage.get(i).getAccountID() == account.getAccountID()) {
+                listImage.set(i, account);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int save(Accounts account) {
+        listImage.add(account);
+        return 1;
+    }
+
+    //get number of account 
+    public int getTotalAccountByRoleID(int roleID) {
+        String sql = "select COUNT(*) from Accounts where RoleID=?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, roleID);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public List<Accounts> pagingAccount(int roleID, int index) {
+        List<Accounts> list = new ArrayList<>();
+        String sql = "select * From Accounts where RoleID = ?\n"
+                + "Order by AccountID\n"
+                + "OFFSET ? ROWS FETCH NEXT 6 ROWS ONLY";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, roleID);
+            ur.setInt(2, (index - 1) * 6);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Accounts account = new Accounts(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getDate(12),
+                        rs.getInt(13));
+                list.add(account);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    //Insert new acocunt for sale/marketing
+    public void setInsertAccount(Accounts account) {
+        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Password],[Image],[Gender],[BirthDay],[Phone],[Email],[Address],[Status],[CreateDate],[RoleID]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+        try {
+
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, account.getFirstName());
+            ur.setString(2, account.getLastName());
+            ur.setString(3, account.getPassword());
+            ur.setString(4, account.getImage());
+
+            ur.setInt(5, account.getGender());
+            ur.setDate(6, (Date) account.getBirthday());
+            ur.setString(7, account.getPhone());
+            ur.setString(8, account.getEmail());
+            ur.setString(9, account.getAddress());
+            ur.setInt(10, account.getStatus());
+            ur.setDate(11, (Date) account.getCreateDate());
+            ur.setInt(12, account.getRole());
+
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
+    public int getLastID() {
+        String sql = "select MAX(AccountID) from Accounts";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public ArrayList<Accounts> getListAdminByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
+        ArrayList<Accounts> listAccount = new ArrayList<>();
+        String sql = "SELECT * FROM Accounts";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (roleId != -1 || status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (roleId != -1) {
+                sql += " RoleID = ?";
+                whereAdded = true;
+            }
+
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " Status = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (FirstName LIKE ? OR LastName LIKE ?  OR Email LIKE ?)";
+            }
+        }
+
+        sql += " ORDER BY AccountID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (roleId != -1) {
+                ur.setInt(parameterIndex, roleId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 3; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            // Set the limit and offset parameters for pagination
+            ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
+            parameterIndex++;
+            ur.setInt(parameterIndex, pageSize);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Accounts account = new Accounts(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getDate(12),
+                        rs.getInt(13));
+                listAccount.add(account);
+            }
+        } catch (Exception e) {
+        }
+
+        return listAccount;
+    }
+
+    public int getTotalPage(int roleId, int status, String search, int pageSize) {
+        String sql = "SELECT COUNT(*) FROM Accounts";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (roleId != -1 || status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (roleId != -1) {
+                sql += " RoleID = ?";
+                whereAdded = true;
+            }
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " Status = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (FirstName LIKE ? OR LastName LIKE ? OR Email LIKE ?)";
+            }
+        }
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (roleId != -1) {
+                ur.setInt(parameterIndex, roleId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 3; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                int totalRecord = rs.getInt(1);
+                int totalPage = totalRecord / pageSize;
+                if (totalRecord % pageSize != 0) {
+                    totalPage++;
+                }
+                return totalPage;
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    public void updateAccount(int status, int roleID, String image, int accountID) {
+        String sql = "Update Accounts set Status = ?, RoleID = ?,Image = ? where AccountID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, roleID);
+            ur.setString(3, image);
+            ur.setInt(4, accountID);
+    
             ur.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-
-    public static void main(String[] args) throws ParseException {
-        Date date = new Date(System.currentTimeMillis());
-        //get time and convert string to date 
-        String datebirthday = "2000-12-31";
-        SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
-
-        java.util.Date utilDate = formatdate.parse(datebirthday);
-        Date birthday = new Date(utilDate.getTime());
-
-        Accounts a = new Accounts(
-                "42134",
-                "234",
-                "12234",
-                "",
-                1,
-                birthday,
-                "",
-                "rewr",
-                "",
-                true,
-                date,
-                4);
-            AccountsDAO adao = new AccountsDAO();
-            adao.setInsert(a);
-    }
+    
 
 }

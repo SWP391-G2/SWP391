@@ -9,16 +9,19 @@ package Models;
  * @author hatru
  */
 public class Item {
+
     private ProductDetail product;
     private int quantity;
+    private String mil;
     private double price;
 
     public Item() {
     }
 
-    public Item(ProductDetail product, int quantity, double price) {
+    public Item(ProductDetail product, int quantity, String mil, double price) {
         this.product = product;
         this.quantity = quantity;
+        this.mil = mil;
         this.price = price;
     }
 
@@ -38,6 +41,14 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public String getMil() {
+        return mil;
+    }
+
+    public void setMil(String mil) {
+        this.mil = mil;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -45,6 +56,7 @@ public class Item {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    
+
+   
+
 }
