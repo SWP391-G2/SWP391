@@ -97,6 +97,8 @@ public class Login extends HttpServlet {
                     } else {
                         throw new Exception("Password is incorrect, please check again!!");
                     }
+                } else {
+                    throw new Exception("Your account was ban please enter another account!!");
                 }
             } else {
                 throw new Exception("email is not exsit, please check agian!");
