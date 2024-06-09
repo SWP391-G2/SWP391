@@ -24,6 +24,11 @@
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.DetailOfProduct</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Controllers.Search</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AdminCustomer</servlet-name>
         <servlet-class>Controllers.AdminCustomer</servlet-class>
@@ -64,6 +69,10 @@
     <servlet-mapping>
         <servlet-name>DetailOfProduct</servlet-name>
         <url-pattern>/detailofproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminCustomer</servlet-name>

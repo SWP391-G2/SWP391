@@ -4,14 +4,11 @@
  */
 package Models;
 
-/**
- *
- * @author ROG
- */
+
 public class Categories {
     private int categoryID;
     private String categoryName;
-    private String description;
+    private String description;   
 
     public Categories() {
     }
@@ -45,11 +42,8 @@ public class Categories {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @Override
-    public String toString() {
-        return "Categories{" + "categoryID=" + categoryID + ", categoryName=" + categoryName + ", description=" + description + '}';
-    }
-
+    
    
 }
+
+

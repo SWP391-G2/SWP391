@@ -9,7 +9,6 @@ package Models;
  * @author admin
  */
 public class Brands {
-    private int ProductID;
     private int BrandID;
     private String BrandName;
     private String BrandDescription;
@@ -17,19 +16,10 @@ public class Brands {
     public Brands() {
     }
 
-    public Brands(int ProductID, int BrandID, String BrandName, String BrandDescription) {
-        this.ProductID = ProductID;
+    public Brands(int BrandID, String BrandName, String BrandDescription) {
         this.BrandID = BrandID;
         this.BrandName = BrandName;
         this.BrandDescription = BrandDescription;
-    }
-
-    public int getProductID() {
-        return ProductID;
-    }
-
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
     }
 
     public int getBrandID() {
@@ -56,5 +46,6 @@ public class Brands {
         this.BrandDescription = BrandDescription;
     }
 
+    
         
 }
