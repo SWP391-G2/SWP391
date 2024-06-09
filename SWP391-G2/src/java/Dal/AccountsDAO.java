@@ -40,7 +40,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 list.add(account);
@@ -60,7 +60,7 @@ public class AccountsDAO extends DBContext {
             ur.setString(1, email);
             ResultSet rs = ur.executeQuery();
             if (rs.next()) {
-                Accounts account = new Accounts(
+                    Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -71,7 +71,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 return account;
@@ -92,7 +92,7 @@ public class AccountsDAO extends DBContext {
             ur.setString(2, pass);
             ResultSet rs = ur.executeQuery();
             if (rs.next()) {
-                Accounts account = new Accounts(
+                     Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -103,7 +103,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 return account;
@@ -124,13 +124,13 @@ public class AccountsDAO extends DBContext {
             ur.setString(3, account.getEmail());
             ur.setString(4, account.getPassword());
             ur.setString(5, account.getImage());
-            ur.setInt(6, account.isGender());
+            ur.setInt(6, account.getGender());
             ur.setDate(7, (Date) account.getBirthday());
             ur.setString(8, account.getPhone());
             ur.setString(9, account.getAddress());
             ur.setDate(10, (Date) account.getCreateDate());
             ur.setInt(11, account.getRole());
-            ur.setBoolean(12, account.isStatus());
+            ur.setInt(12, account.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -145,7 +145,7 @@ public class AccountsDAO extends DBContext {
             ur.setInt(1, roleID);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Accounts account = new Accounts(
+                    Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -156,7 +156,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 listAccount.add(account);
@@ -177,7 +177,7 @@ public class AccountsDAO extends DBContext {
             ur.setInt(2, id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Accounts account = new Accounts(
+                     Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -188,7 +188,7 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getBoolean(11),
+                        rs.getInt(11),
                         rs.getDate(12),
                         rs.getInt(13));
                 listAccount.add(account);
@@ -227,30 +227,30 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) throws ParseException {
-        Date date = new Date(System.currentTimeMillis());
-        //get time and convert string to date 
-        String datebirthday = "2000-12-31";
-        SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
-
-        java.util.Date utilDate = formatdate.parse(datebirthday);
-        Date birthday = new Date(utilDate.getTime());
-
-        Accounts a = new Accounts(
-                "42134",
-                "234",
-                "12234",
-                "",
-                1,
-                birthday,
-                "",
-                "rewr",
-                "",
-                true,
-                date,
-                4);
-            AccountsDAO adao = new AccountsDAO();
-            adao.setInsert(a);
-    }
+//    public static void main(String[] args) throws ParseException {
+//        Date date = new Date(System.currentTimeMillis());
+//        //get time and convert string to date 
+//        String datebirthday = "2000-12-31";
+//        SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        java.util.Date utilDate = formatdate.parse(datebirthday);
+//        Date birthday = new Date(utilDate.getTime());
+//
+//        Accounts a = new Accounts(
+//                "42134",
+//                "234",
+//                "12234",
+//                "",
+//                1,
+//                birthday,
+//                "",
+//                "rewr",
+//                "",
+//                true,
+//                date,
+//                4);
+//            AccountsDAO adao = new AccountsDAO();
+//            adao.setInsert(a);
+//    }
 
 }

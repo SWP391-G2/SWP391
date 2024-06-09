@@ -64,7 +64,7 @@ public class Signup extends HttpServlet {
                                 "",
                                 email,
                                 "",
-                                true,
+                                1,
                                 date,
                                 4);
                         session.setAttribute("accountForSign", a);

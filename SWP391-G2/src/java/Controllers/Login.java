@@ -21,7 +21,14 @@ import jakarta.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-    @Override
+    /**
+     * This function use for logout function
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -62,7 +69,7 @@ public class Login extends HttpServlet {
 
         try {
             if (account != null) {
-                if (account.isStatus()) {
+                if (account.getStatus() == 1) {
                     if (account.getPassword().equals(security.getPasswordSecurity(password))) {
                         session.setAttribute("account", account);
                         Cookie cookieEmail = new Cookie("em", email);
@@ -90,8 +97,6 @@ public class Login extends HttpServlet {
                     } else {
                         throw new Exception("Password is incorrect, please check again!!");
                     }
-                } else {
-                    throw new Exception("Your account has been banned");
                 }
             } else {
                 throw new Exception("email is not exsit, please check agian!");

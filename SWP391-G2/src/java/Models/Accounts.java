@@ -16,44 +16,12 @@ public class Accounts {
     private String firstName, lastName, password, image;
     private int gender;
     private Date birthday;
-    private String  phone, email, address;
-    private boolean status;
+    private String phone, email, address;
+    private int status;
     private Date createDate;
     private int role;
 
     public Accounts() {
-    }
-
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
-    }
-
-    
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, boolean status, Date createDate, int role) {
-        this.accountID = accountID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
     }
 
     public int getAccountID() {
@@ -96,7 +64,7 @@ public class Accounts {
         this.image = image;
     }
 
-    public int isGender() {
+    public int getGender() {
         return gender;
     }
 
@@ -136,11 +104,11 @@ public class Accounts {
         this.address = address;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -160,5 +128,35 @@ public class Accounts {
         this.role = role;
     }
 
-   
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
+    }
+
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+        this.accountID = accountID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
+    }
+
 }
