@@ -62,11 +62,11 @@
     </servlet>
     <servlet>
         <servlet-name>BlogListController</servlet-name>
-        <servlet-class>controllers.guest.blog.BlogListController</servlet-class>
+        <servlet-class>Controllers.guest.blog.BlogListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BlogDetailsController</servlet-name>
-        <servlet-class>controllers.guest.blog.BlogDetailsController</servlet-class>
+        <servlet-class>Controllers.guest.blog.BlogDetailsController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
