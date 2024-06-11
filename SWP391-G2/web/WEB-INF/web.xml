@@ -2,7 +2,7 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Controllers.Login</servlet-class>
+        <servlet-class>Controllers.common.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
@@ -50,7 +50,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminDetails</servlet-name>
-        <servlet-class>Controllers.AdminDetails</servlet-class>
+        <servlet-class>Controllers.admin.AdminDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminProfile</servlet-name>
