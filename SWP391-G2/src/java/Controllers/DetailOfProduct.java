@@ -4,7 +4,9 @@
  */
 
 package Controllers;
+import Dal.BrandsDAO;
 import Dal.ProductDetailDAO;
+import Dal.ProductDetailImagesDAO;
 import Dal.ProductsDAO;
 import Models.Brands;
 import Models.ImageDetail;
@@ -62,30 +64,32 @@ public class DetailOfProduct extends HttpServlet {
         String id_raw = request.getParameter("product");
         int id = -1;
         try {
-            id = 2;
+            id = 1;
         } catch (NumberFormatException e) {
             System.out.println("");
         }
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
 
-        //ProductsDAO pDAO = new ProductsDAO();
-        //BrandsDAO bDAO = new BrandsDAO();
-        //ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
+        ProductsDAO pDAO = new ProductsDAO();
+        BrandsDAO bDAO = new BrandsDAO();
+        ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
 
         ProductDetail pd = pdtDAO.getProductDetail(id);
-        //Products p = pDAO.getProduct(id);
-        //Brands brand = bDAO.getBrand(p.getBrandID());
-        //List<ProductDetailImage> imgdt =pdiDAO.getListImageDetail(id);
+        Products p = pDAO.getProduct(id);
+        
+        Brands brand = bDAO.getBrandById(p.getBrandID());
+        List<ImageDetail> imgdt =pdiDAO.getListImageDetail(id);
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
-        //request.setAttribute("psimilar", psimilar);
+        List<Products> psimilar = pDAO.getProductSimilar(p.getBrandID());
+        
+        
+        request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
-        //request.setAttribute("imgdt", imgdt);
+        request.setAttribute("imgdt", imgdt);
 
-        //request.setAttribute("b", brand);
+        request.setAttribute("b", brand);
         request.setAttribute("pd", pd);
-        //request.setAttribute("p", p);
-
-
+        request.setAttribute("p", p);
 
         request.getRequestDispatcher("productDetail.jsp").forward(request, response);
     } 

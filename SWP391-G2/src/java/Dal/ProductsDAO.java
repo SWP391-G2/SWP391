@@ -18,7 +18,58 @@ import Models.SubCategories;
  * @author ROG
  */
 public class ProductsDAO extends DBContext {
+    public Products getProduct(int id) {
+        String sql = "select * from Products where ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("SubCategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("productImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public List<Products> getProductSimilar(int id) {
+        List<Products> p = new ArrayList<>();
+        String sql = "select * from Products where BrandID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                p.add(new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("SubCategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("productImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID")
+                ));
+            }
 
+        } catch (SQLException e) {
+
+        }
+        return p;
+    }
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";

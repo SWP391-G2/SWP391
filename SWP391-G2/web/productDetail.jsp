@@ -166,7 +166,7 @@
         </style>
     </head>
     <body>
-       
+
         <div class="container mt-5">
             <div class="row">
                 <!-- Nửa bên trái gồm hai ảnh sản phẩm -->
@@ -219,7 +219,7 @@
                         </p>
                         <p>
                             <strong>Quantity:</strong>
-                            <span id="quantitie">${pd.getProductAvaiable()}</span>
+                            <span id="quantitie">${priceandsize[0].productAvaiable}</span>
                         </p>
                         <p><strong>Price:</strong><input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden=""> <span id="price">${priceandsize[0].productPrice} $</span></p>
 
@@ -232,11 +232,6 @@
                             </select>
                         </p>
 
-                        <!--                        <div class="quantity-controls">
-                                                    <button onclick="changeQuantity(-1)">-</button>
-                                                    <input type="number" id="quantity" value="1" min="1" max="65" readonly />
-                                                    <button onclick="changeQuantity(1)">+</button>
-                                                </div>-->
                         <div class="quantity-controls"> 
                             <button onclick="changeQuantity(-1)">-</button> 
                             <input type="number" id="quantity" value="1" min="1" readonly="" />
@@ -541,7 +536,8 @@
             <c:forEach items="${priceandsize}" var="size" varStatus="status">
             {
             size: "${size.productSize}",
-                    price: "${size.productPrice}"
+                    price: "${size.productPrice}",
+                     quantity: "${size.productAvaiable}"
             }<c:if test="${!status.last}">,</c:if>
             </c:forEach>
             ];
@@ -556,10 +552,12 @@
                         // Hiển thị giá của size được chọn
                         document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
                         document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
+                        document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                         break; // Kết thúc vòng lặp khi tìm được size tương ứng
                     }
                 }
             });
+            
             function addToCart(productID) {
                 var price = document.getElementById('priceofproduct').value;
                 var quantity = document.getElementById('quantity').value;
