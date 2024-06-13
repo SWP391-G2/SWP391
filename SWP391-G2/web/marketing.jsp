@@ -66,12 +66,9 @@
                     <div class="col-2">
                         <select class="form-control" id="cateID" name="category">
                             <option value="-1" ${cateID==null ? 'selected' : '' }>All Category</option>
-                            <option value="1" ${cateID==1 ? 'selected' : '' }>Apple</option>
-                            <option value="2" ${cateID==2 ? 'selected' : '' }>Samsung</option>
-                            <option value="3" ${cateID==3 ? 'selected' : '' }>Xiaomi</option>
-                            <option value="4" ${cateID==4 ? 'selected' : '' }>Realme</option>
-                            <option value="5" ${cateID==5 ? 'selected' : '' }>Oppo</option>
-                            <option value="6" ${cateID==6 ? 'selected' : '' }>Vivo</option>
+                            <c:forEach var="i" items="category" varStatus="loop">
+                                <option value="${i.categoryID}" ${categoryID== loop.index ? 'selected' : '' }>${i.categoryName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <script>
@@ -149,43 +146,43 @@
                                         <th scope="col">Product ID</th>
                                         <th scope="col">Product Image</th>
                                         <th scope="col">Product Name</th>
-                                        <th scope="col">Price</th>
+                                        
                                         <th scope="col">Category</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>                    
-                                <c:forEach items="${listProduct}" var="listProduct">
-                                    <tr>
+                                    <c:forEach items="${listProduct}" var="listProduct">
+                                        <tr>
 
-                                        <td>${listProduct.proID}</td>
-                                        <td><img src="${pageContext.request.contextPath}/img/${listProduct.proImage}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                        <td><a href="manage-productDetail?proId=${listProduct.proID}">${listProduct.proName}</a></td>
-                                        <td><fmt:formatNumber value="${listProduct.proPrice}" type="number" pattern="#,##0" /> VND</td>
-                                    <td>${listProduct.getCateNameByCateID()}</td>                                      
-                                    <td><a href="manage-productDetailStock?proId=${listProduct.proID}">Stock</a></td>
-                                    <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                    <td>
-                                    <c:choose>
-                                        <c:when test="${listProduct.proStatus == 1}">
-                                            <a href="updateStatusProduct?status=0&proId=${listProduct.proID}">
-                                                <button type="button" class="btn btn-danger">
-                                                    Hide
-                                                </button>
-                                            </a>
-                                        </c:when>
-                                        <c:when test="${listProduct.proStatus == 0}">
-                                            <a href="updateStatusProduct?status=1&proId=${listProduct.proID}">
-                                                <button type="button" class="btn btn-success">
-                                                    View
-                                                </button>
-                                            </a>
-                                        </c:when>
-                                    </c:choose>
-                                    </td>
-                                    </tr>
-                                </c:forEach>
+                                            <td>${listProduct.proID}</td>
+                                            <td><img src="${pageContext.request.contextPath}/img/${listProduct.proImage}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
+                                            <td><a href="manage-productDetail?proId=${listProduct.proID}">${listProduct.proName}</a></td>
+                                            <td><fmt:formatNumber value="${listProduct.proPrice}" type="number" pattern="#,##0" /> VND</td>
+                                            <td>${listProduct.getCateNameByCateID()}</td>                                      
+                                            <td><a href="manage-productDetailStock?proId=${listProduct.proID}">Stock</a></td>
+                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${listProduct.proStatus == 1}">
+                                                        <a href="updateStatusProduct?status=0&proId=${listProduct.proID}">
+                                                            <button type="button" class="btn btn-danger">
+                                                                Hide
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${listProduct.proStatus == 0}">
+                                                        <a href="updateStatusProduct?status=1&proId=${listProduct.proID}">
+                                                            <button type="button" class="btn btn-success">
+                                                                View
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
