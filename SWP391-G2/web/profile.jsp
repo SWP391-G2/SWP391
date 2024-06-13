@@ -96,29 +96,32 @@
            <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://ei8ht.my.id/ricojei8ht.png"><span class="font-weight-bold">RicoJ</span><span class="text-black-50">ricojei8ht@mymail.com</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="${profile.image}"><span class="font-weight-bold">${profile.lastName}</span><span class="text-black-50">${profile.email}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+            <form method="Post" action="Profile">
+                <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                    <div class="col-md-6"><label class="labels">Firstname</label><input name="firstname" type="text" class="form-control" placeholder="firstname" value="${profile.firstName}"></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input name="lastname" type="text" class="form-control" value="${profile.lastName}" placeholder="surname"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address" value=""></div>
-                    <div class="col-md-12"><label class="labels">Gender</label><input type="text" class="form-control" placeholder="Enter Gender" value=""></div>
-                    <div class="col-md-12"><label class="labels">birthday</label><input type="text" class="form-control" placeholder="Enter Date Of Birth" value=""></div>
-                    <div class="col-md-12"><label class="labels">email</label><input type="text" class="form-control" placeholder="Enter Email" value=""></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input name="phone" type="text" class="form-control" placeholder="enter phone number" value="${profile.phone}"></div>
+                    <div class="col-md-12"><label class="labels">Address</label><input name="address" type="text" class="form-control" placeholder="enter address" value="${profile.address}"></div>
+                    <div class="col-md-12"><label class="labels">Gender</label><input name="gender" type="text" class="form-control" placeholder="Enter Gender" value="${profile.gender}"></div>
+                    <div class="col-md-12"><label class="labels">birthday</label><input name="birth" type="date" class="form-control" placeholder="Enter Date Of Birth" value="${profile.birthday}"></div>
+                 
                 </div>
                 <div class="row mt-3">
 
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                    <div class="mt-5 text-center"><button name="save" class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
             </div>
+            </form>
+            
         </div>
         <div class="col-md-4">
             <div class="p-3 py-5">

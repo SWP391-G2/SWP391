@@ -492,5 +492,35 @@ public class AccountsDAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+     
+     public void updateProfile(Accounts account) {
+        String sql = "UPDATE Accounts SET firstname=?, lastname=?, Gender=?, BirthDay=?, Phone=?, [Address]=? Where email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, account.getFirstName());
+            st.setString(2, account.getLastName());
+            st.setInt(3, account.getGender());
+            st.setString(4, account.getBirthday().toString());
+            st.setString(5, account.getPhone());
+            st.setString(6,account.getAddress());
+            st.setString(7, account.getEmail());
+                    
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
 
+    public void updatePasWord(String password, String email) {
+        String sql = "UPDATE Accounts SET password=? Where email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
 }
