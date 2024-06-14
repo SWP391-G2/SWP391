@@ -4,6 +4,7 @@
  */
 package Dal;
 
+import context.DBContext;
 import Models.Categories;
 import Models.SubCategories;
 import java.sql.PreparedStatement;

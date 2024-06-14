@@ -1,10 +1,10 @@
-﻿USE [master]
+use [master]
 GO
 IF EXISTS (SELECT * FROM sys.databases WHERE name = 'TPS')
 	DROP DATABASE TPS
 GO
+--drop database TPS
 CREATE DATABASE TPS
-
 GO
 USE TPS
 GO
@@ -13,45 +13,15 @@ CREATE TABLE [dbo].[Categories](
 [CategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 [CategoryName] [nvarchar](50) NOT NULL,
 [Description] [ntext] NULL,
+	[status] [int]
 )
 
-INSERT INTO [dbo].[Categories] ([CategoryName],[Description])
+INSERT INTO [dbo].[Categories] ([CategoryName],[Description],[status])
 VALUES
-('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.'),
-('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...'),
-('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.'),
-('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.');
-
-CREATE TABLE [dbo].[SubCategories](
-[SubCategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-[SubCategoryName] [nvarchar](255) NOT NULL,
-[CategoryID] int NOT NULL,
-FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories]([CategoryID])
-)
-INSERT INTO [dbo].[SubCategories] ([SubCategoryName],[CategoryID])
-VALUES
-('Citrus',1),
-('Floral',1),
-('Fresh',1),
-('Fruity',1),
-('Romantic',1),
-('Spicy',1),
-('Woody',1),
-('Citrus',2),
-('Floral',2),
-('Fresh',2),
-('Fruity',2),
-('Romantic',2),
-('Spicy',2),
-('Woody',2),
-('Citrus',3),
-('Floral',3),
-('Fresh',3),
-('Fruity',3),
-('Romantic',3),
-('Spicy',3),
-('Woody',3);
-
+('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.',1),
+('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...',1),
+('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.',1),
+('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.',1);
 
 CREATE TABLE [dbo].[Roles] (
     roleID INT PRIMARY KEY IDENTITY(1,1),
@@ -71,28 +41,35 @@ CREATE TABLE [dbo].[Accounts](
 [Image] [nvarchar](50) NULL,
 [Gender] int NOT NULL,
 [BirthDay] date NOT NULL,
-[Phone] [nvarchar](11) NOT NULL,
 [Email] [nvarchar](50) NULL,
-[Address] [nvarchar](225) NULL,
-[Status] bit NOT NULL,
+[Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
-
-
-
-INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) 
+INSERT INTO [dbo].[Accounts] (
+    [FirstName],
+    [LastName],
+    [Password],
+    [Image],
+    [Gender],
+    [BirthDay],
+    [Email],
+    [Status],
+    [CreateDate],
+    [RoleID]
+)
 VALUES
-(N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
-(N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
-
-(N'Hoàng',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
-(N'Trung',N'Hà','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',2,1),
-(N'Khánh',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',3,1);
-
-
-
+    (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com', 1, '2022-01-01', 1),
+    (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com', 1, '2022-01-02', 2),
+    (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com', 1, '2022-01-03', 1),
+    (N'Ngô', N'Thị Nga', 'password123', NULL, 2, '1995-04-04', 'ngothinga@example.com', 1, '2022-01-04', 2),
+    (N'Phạm', N'Văn Minh', 'password123', NULL, 1, '1985-05-05', 'phamvanminh@example.com', 1, '2022-01-05', 1),
+    (N'Hồ', N'Thị Thu', 'password123', NULL, 2, '1998-06-06', 'hothithu@example.com', 1, '2022-01-06', 2),
+    (N'Đặng', N'Văn Tùng', 'password123', NULL, 1, '1990-07-07', 'dangvantung@example.com', 1, '2022-01-07', 1),
+    (N'Lê', N'Thị Loan', 'password123', NULL, 2, '1992-08-08', 'lethiloan@example.com', 1, '2022-01-08', 2),
+    (N'Nguyễn', N'Văn Hùng', 'password123', NULL, 1, '1982-09-09', 'nguyenvanhung@example.com', 1, '2022-01-09', 1),
+    (N'Trần', N'Thị Linh', 'password123', NULL, 2, '1995-10-10', 'tranthilinh@example.com', 1, '2022-01-10', 2);
 
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
@@ -108,37 +85,40 @@ CREATE TABLE [dbo].[Feedbacks] (
 CREATE TABLE [dbo].[Brands] (
     [BrandID] INT PRIMARY KEY IDENTITY(1,1),
     [BrandName] NVARCHAR(100) NOT NULL UNIQUE,
-    [Description] NVARCHAR(MAX)
+    [Description] NVARCHAR(MAX),
+	[status] [int]
 )
-INSERT INTO [dbo].[Brands]([BrandName],[Description])
+
+INSERT INTO [dbo].[Brands]([BrandName],[Description],[status])
 VALUES
-('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.'),
-('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.'),
-('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.'),
-('LOUIS VUITTON', 'Louis Vuitton, famous for its luxury and class in fashion and accessories, also offers high-end perfume lines with delicate and unique scents. Louis Vuitton perfumes are Created by leading perfumers, using rare and high quality ingredients.'),
-('DIOR','Dior is a famous brand in the field of perfume, with many iconic product lines. Dior perfume stands out with its sophisticated combination of high-quality ingredients, bringing the fragrance is diverse and rich.'),
-('TOMMY HILFIGER','Tommy Hilfiger is a famous brand, not only in the fashion field but also in the perfume industry. Tommy Hilfiger perfumes often have a youthful, dynamic and fresh style.' ),
-('ISSEY MIYAKE',N'Issey Miyake is a famous brand with modern, minimalist and sophisticated perfume lines. Issey Miyake perfumes often stand out with their fresh, elegant and creative, inspired by nature and natural elements.'),
-('CREED', 'Creed is a high-end French perfume brand, famous for its handmade, sophisticated and luxurious perfume lines. Each Creed product is usually made from quality natural ingredients. high quality, providing a unique and long-lasting fragrance.'),
-('YVES SAINT LAURENT (YSL)','Yves Saint Laurent (YSL) is a famous perfume brand, standing out with products that have a seductive, bold and modern style. YSL perfumes are often highly appreciated for the creativity in blending aromas, bringing unique and impressive scents.'),
-('ARMAF','Armaf is a famous perfume brand with high quality products at affordable prices. Armaf perfumes often have diverse styles, from fresh to passionate, suitable for everyone. Suitable for many different tastes and occasions.'),
-('ROJA PARFUMS', 'Roja Parfums is a high-end and luxurious perfume brand of perfume creator Roja Dove. Roja Parfums products are often known for their sophistication in the way they combine scents. materials, ensuring the highest quality and uniqueness. Each bottle of Roja Parfums perfume is often handmade and limited, creating works of art in the world of perfume.'),
-('LE LABO','Le Labo is a high-end and unique perfume brand, famous for creating handmade and personalized products. Each bottle of Le Labo perfume is made in-house products, ensuring sophistication and quality. This brand focuses on using natural and high-quality ingredients, along with unique flavor blends.'),
-('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure '),
-('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . '),
-('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ');
+('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.',1),
+('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.',1),
+('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.',1),
+('LOUIS VUITTON', 'Louis Vuitton, famous for its luxury and class in fashion and accessories, also offers high-end perfume lines with delicate and unique scents. Louis Vuitton perfumes are Created by leading perfumers, using rare and high quality ingredients.',1),
+('DIOR','Dior is a famous brand in the field of perfume, with many iconic product lines. Dior perfume stands out with its sophisticated combination of high-quality ingredients, bringing the fragrance is diverse and rich.',1),
+('TOMMY HILFIGER','Tommy Hilfiger is a famous brand, not only in the fashion field but also in the perfume industry. Tommy Hilfiger perfumes often have a youthful, dynamic and fresh style.' ,1),
+('ISSEY MIYAKE',N'Issey Miyake is a famous brand with modern, minimalist and sophisticated perfume lines. Issey Miyake perfumes often stand out with their fresh, elegant and creative, inspired by nature and natural elements.',1),
+('CREED', 'Creed is a high-end French perfume brand, famous for its handmade, sophisticated and luxurious perfume lines. Each Creed product is usually made from quality natural ingredients. high quality, providing a unique and long-lasting fragrance.',1),
+('YVES SAINT LAURENT (YSL)','Yves Saint Laurent (YSL) is a famous perfume brand, standing out with products that have a seductive, bold and modern style. YSL perfumes are often highly appreciated for the creativity in blending aromas, bringing unique and impressive scents.',1),
+('ARMAF','Armaf is a famous perfume brand with high quality products at affordable prices. Armaf perfumes often have diverse styles, from fresh to passionate, suitable for everyone. Suitable for many different tastes and occasions.',1),
+('ROJA PARFUMS', 'Roja Parfums is a high-end and luxurious perfume brand of perfume creator Roja Dove. Roja Parfums products are often known for their sophistication in the way they combine scents. materials, ensuring the highest quality and uniqueness. Each bottle of Roja Parfums perfume is often handmade and limited, creating works of art in the world of perfume.',1),
+('LE LABO','Le Labo is a high-end and unique perfume brand, famous for creating handmade and personalized products. Each bottle of Le Labo perfume is made in-house products, ensuring sophistication and quality. This brand focuses on using natural and high-quality ingredients, along with unique flavor blends.',1),
+('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure ',1),
+('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . ',1),
+('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1);
 CREATE TABLE [dbo].[Products] (
-    [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
-    [SubCategoryID] [INT] NULL,
+     [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductDetailID] [INT] NULL,
-    [ProductStatus] BIT NOT NULL,
+    [ProductStatus] int NOT NULL,
     [ProductImageUrl] [nvarchar](255) NOT NULL,
     [OrderID] [INT] NULL,	
     [fbID] [INT] NULL,
 	[BrandID] [int] NULL,
-    FOREIGN KEY (SubCategoryID) REFERENCES [dbo].[SubCategories]([SubCategoryID]),
+	[fk_category_id][int],
+	[UpdateDescription] nvarchar(max) NULL,
+	FOREIGN KEY (fk_category_id) REFERENCES [dbo].[Categories](CategoryID),
     FOREIGN KEY (fbID) REFERENCES [dbo].[Feedbacks]([fbID]),
 	FOREIGN KEY (BrandID) REFERENCES [dbo].[Brands](BrandID),
 )
@@ -146,92 +126,92 @@ INSERT INTO [dbo].[Products] (
 [ProductName],
 [ProductDetailID],
 [ProductCreateDate],
-[SubCategoryID],
 [ProductStatus],
 [BrandID],
-[ProductImageUrl])
+[ProductImageUrl],
+[fk_category_id])
 VALUES
 --20 perfumes for Men
-('XERJOFF CASAMORATI MEFISTO EDP FOR MEN',1,'2024-01-01',1,1,3,'images/Products/Men/1_0.jpg'),
-('LOUIS VUITTON MÉTÉORE EDP FOR MEN',2,'2024-01-01',1,1,4,'images/Products/Men/2_0.jpg'),
-('TOMMY ENDLESS BLUE FOR MEN',3,'2024-01-01',2,1,6,'images/Products/Men/3_0.jpg'),
-('ISSEY MIYAKE LEAU DISSEY INTENSE FOR MEN',4,'2024-01-01',7,1,7,'images/Products/Men/4_0.jpg'),
-('CREED AVENTUS EDP FOR MEN',5,'2024-01-01',4,1,8,'images/Products/Men/5_0.jpg'),
-('DIOR SAUVAGE EDP FOR MEN',6,'2024-01-01',2,1,5,'images/Products/Men/6_0.jpg'),
-('BLEU DE CHANEL EDP FOR MEN',7,'2024-01-01',7,1,2,'images/Products/Men/7_0.jpg'),
-('YVES SAINT LAURENT LA NUIT DE L''HOMME EDT FOR MEN',8,'2024-01-01',6,1,9,'images/Products/Men/8_0.jpg'),
-('VERSACE DYLAN BLUE POUR HOMME FOR MEN',9,'2024-01-01',2,1,14,'images/Products/Men/9_0.jpg'),
-('ARMAF VENTANA POUR HOMME EDP FOR MEN',10,'2024-01-01',7,1,10,'images/Products/Men/10_0.jpg'),
-('BVLGARI WOOD NEROLI EDP FOR MEN',11,'2024-01-01',7,1,13,'images/Products/Men/11_0.jpg'),
-('VERSACE EAU FRAICHE EDT FOR MEN',12,'2024-01-01',7,1,14,'images/Products/Men/12_0.jpg'),
-('GUCCI GUILTY ABSOLUTE POUR HOMME FOR MEN',13,'2024-01-01',7,1,1,'images/Products/Men/13_0.jpg'),
-('YVES SAINT LAURENT Y EDP FOR MEN',14,'2024-01-01',2,1,9,'images/Products/Men/14_0.jpg'),
-('ROJA ENIGMA POUR HOMME FOR MEN',15,'2024-01-01',5,1,11,'images/Products/Men/15_0.jpg'),
-('BVLGARI SPLENDIDA JASMIN NOIR EDP FOR MEN',16,'2024-01-01',2,1,13,'images/Products/Men/16_0.jpg'),
-('CHANEL ANTAEUS POUR HOMME EDT FOR MEN',17,'2024-01-01',6,1,2,'images/Products/Men/17_0.jpg'),
-('DIOR HOMME SPORT EDT FOR MEN',18,'2024-01-01',7,1,5,'images/Products/Men/18_0.jpg'),
-('VERSACE EROS FLAME FOR MEN',19,'2024-01-01',6,1,14,'images/Products/Men/19_0.jpg'),
-('ISSEY MIYAKE NUIT DISSEY EDT FOR MEN',20,'2024-01-01',6,1,7,'images/Products/Men/20_0.jpg'),
+('XERJOFF CASAMORATI MEFISTO EDP FOR MEN',1,'2024-01-01',1,3,'images/Products/Men/1_0.jpg',1),
+('LOUIS VUITTON MÉTÉORE EDP FOR MEN',2,'2024-01-01',1,4,'images/Products/Men/2_0.jpg',1),
+('TOMMY ENDLESS BLUE FOR MEN',3,'2024-01-01',1,6,'images/Products/Men/3_0.jpg',1),
+('ISSEY MIYAKE LEAU DISSEY INTENSE FOR MEN',4,'2024-01-01',1,7,'images/Products/Men/4_0.jpg',1),
+('CREED AVENTUS EDP FOR MEN',5,'2024-01-01',1,8,'images/Products/Men/5_0.jpg',1),
+('DIOR SAUVAGE EDP FOR MEN',6,'2024-01-01',1,5,'images/Products/Men/6_0.jpg',1),
+('BLEU DE CHANEL EDP FOR MEN',7,'2024-01-01',1,2,'images/Products/Men/7_0.jpg',1),
+('YVES SAINT LAURENT LA NUIT DE L''HOMME EDT FOR MEN',8,'2024-01-01',1,9,'images/Products/Men/8_0.jpg',1),
+('VERSACE DYLAN BLUE POUR HOMME FOR MEN',9,'2024-01-01',1,14,'images/Products/Men/9_0.jpg',1),
+('ARMAF VENTANA POUR HOMME EDP FOR MEN',10,'2024-01-01',1,10,'images/Products/Men/10_0.jpg',1),
+('BVLGARI WOOD NEROLI EDP FOR MEN',11,'2024-01-01',1,13,'images/Products/Men/11_0.jpg',1),
+('VERSACE EAU FRAICHE EDT FOR MEN',12,'2024-01-01',1,14,'images/Products/Men/12_0.jpg',1),
+('GUCCI GUILTY ABSOLUTE POUR HOMME FOR MEN',13,'2024-01-01',1,1,'images/Products/Men/13_0.jpg',1),
+('YVES SAINT LAURENT Y EDP FOR MEN',14,'2024-01-01',1,9,'images/Products/Men/14_0.jpg',1),
+('ROJA ENIGMA POUR HOMME FOR MEN',15,'2024-01-01',1,11,'images/Products/Men/15_0.jpg',1),
+('BVLGARI SPLENDIDA JASMIN NOIR EDP FOR MEN',16,'2024-01-01',1,13,'images/Products/Men/16_0.jpg',1),
+('CHANEL ANTAEUS POUR HOMME EDT FOR MEN',17,'2024-01-01',1,2,'images/Products/Men/17_0.jpg',1),
+('DIOR HOMME SPORT EDT FOR MEN',18,'2024-01-01',1,5,'images/Products/Men/18_0.jpg',1),
+('VERSACE EROS FLAME FOR MEN',19,'2024-01-01',1,14,'images/Products/Men/19_0.jpg',1),
+('ISSEY MIYAKE NUIT DISSEY EDT FOR MEN',20,'2024-01-01',1,7,'images/Products/Men/20_0.jpg',1),
 
 
 --20 perfumes for Women
-('CHANEL CHANCE EDP FOR WOMEN',21,'2024-01-01',9,1,2,'images/Products/Women/1_0.jpg'),
-('DIOR JOY EDP FOR WOMEN',22,'2024-01-01',11,1,5,'images/Products/Women/2_0.jpg'),
-('YSL LIBRE EDP FOR WOMEN',23,'2024-01-01',9,1,9,'images/Products/Women/3_0.jpg'),
-('LOUIS VUITTON SPELL ON YOU EDP FOR WOMEN',24,'2024-01-01',9,1,4,'images/Products/Women/4_0.jpg'),
-('CHANEL CHANCE EAU FRAICHE EDP FOR WOMEN',25,'2024-01-01',8,1,2,'images/Products/Women/5_0.jpg'),
-('LANCOME LA VIE EST BELLE EN ROSE FOR WOMEN',26,'2024-01-01',11,1,15,'images/Products/Women/6_0.jpg'),
-('LANCOME TRESOR LA NUIT EDP FOR WOMEN',27,'2024-01-01',9,1,15,'images/Products/Women/7_0.jpg'),
-('LANCOME LA VIE EST BELLE EDP FOR WOMEN',28,'2024-01-01',11,1,15,'images/Products/Women/8_0.jpg'),
-('GUCCI BLOOM AMBROSIA DI FIORI EDP FOR WOMEN',29,'2024-01-01',9,1,1,'images/Products/Women/9_0.jpg'),
-('BVLGARI ROSE GOLDEA FOR WOMEN',30,'2024-01-01',9,1,13,'images/Products/Women/10_0.jpg'),
-('ARMAF CLUB DE NUIT FOR WOMEN',31,'2024-01-01',11,1,10,'images/Products/Women/11_0.jpg'),
-('GUCCI FLORA GORGEOUS GARDENIA EDP FOR WOMEN',32,'2024-01-01',9,1,1,'images/Products/Women/12_0.jpg'),
-('TOMMY GIRL EDT FOR WOMEN',33,'2024-01-01',11,1,6,'images/Products/Women/13_0.jpg'),
-('ROJA ELIXIR POUR FEMME FOR WOMEN',34,'2024-01-01',9,1,11,'images/Products/Women/14_0.jpg'),
-('CHANEL COCO MADEMOISELLE EDP FOR WOMEN',35,'2024-01-01',9,1,2,'images/Products/Women/15_0.jpg'),
-('LOUIS VUITTON MATIERE NOIRE FOR WOMEN',36,'2024-01-01',14,1,4,'images/Products/Women/16_0.jpg'),
-('LOUIS VUITTON CALIFORNIA DREAM FOR WOMEN',37,'2024-01-01',11,1,4,'images/Products/Women/17_0.jpg'),
-('GUCCI BLOOM EDP FOR WOMEN',38,'2024-01-01',9,1,1,'images/Products/Women/18_0.jpg'),
-('CHANEL COCO NOIR FOR WOMEN',39,'2024-01-01',9,1,2,'images/Products/Women/19_0.jpg'),
-('VERSACE DYLAN BLUE POUR FEMME EDP FOR WOMEN',40,'2024-01-01',11,1,14,'images/Products/Women/20_0.jpg'),
-
+('CHANEL CHANCE EDP FOR WOMEN',21,'2024-01-01',1,2,'images/Products/Women/1_0.jpg',2),
+('DIOR JOY EDP FOR WOMEN',22,'2024-01-01',1,5,'images/Products/Women/2_0.jpg',2),
+('YSL LIBRE EDP FOR WOMEN',23,'2024-01-01',1,9,'images/Products/Women/3_0.jpg',2),
+('LOUIS VUITTON SPELL ON YOU EDP FOR WOMEN',24,'2024-01-01',1,4,'images/Products/Women/4_0.jpg',2),
+('CHANEL CHANCE EAU FRAICHE EDP FOR WOMEN',25,'2024-01-01',1,2,'images/Products/Women/5_0.jpg',2),
+('LANCOME LA VIE EST BELLE EN ROSE FOR WOMEN',26,'2024-01-01',1,15,'images/Products/Women/6_0.jpg',2),
+('LANCOME TRESOR LA NUIT EDP FOR WOMEN',27,'2024-01-01',1,15,'images/Products/Women/7_0.jpg',2),
+('LANCOME LA VIE EST BELLE EDP FOR WOMEN',28,'2024-01-01',1,15,'images/Products/Women/8_0.jpg',2),
+('GUCCI BLOOM AMBROSIA DI FIORI EDP FOR WOMEN',29,'2024-01-01',1,1,'images/Products/Women/9_0.jpg',2),
+('BVLGARI ROSE GOLDEA FOR WOMEN',30,'2024-01-01',1,13,'images/Products/Women/10_0.jpg',2),
+('ARMAF CLUB DE NUIT FOR WOMEN',31,'2024-01-01',1,10,'images/Products/Women/11_0.jpg',2),
+('GUCCI FLORA GORGEOUS GARDENIA EDP FOR WOMEN',32,'2024-01-01',1,1,'images/Products/Women/12_0.jpg',2),
+('TOMMY GIRL EDT FOR WOMEN',33,'2024-01-01',1,6,'images/Products/Women/13_0.jpg',2),
+('ROJA ELIXIR POUR FEMME FOR WOMEN',34,'2024-01-01',1,11,'images/Products/Women/14_0.jpg',2),
+('CHANEL COCO MADEMOISELLE EDP FOR WOMEN',35,'2024-01-01',1,2,'images/Products/Women/15_0.jpg',2),
+('LOUIS VUITTON MATIERE NOIRE FOR WOMEN',36,'2024-01-01',1,4,'images/Products/Women/16_0.jpg',2),
+('LOUIS VUITTON CALIFORNIA DREAM FOR WOMEN',37,'2024-01-01',1,4,'images/Products/Women/17_0.jpg',2),
+('GUCCI BLOOM EDP FOR WOMEN',38,'2024-01-01',1,1,'images/Products/Women/18_0.jpg',2),
+('CHANEL COCO NOIR FOR WOMEN',39,'2024-01-01',1,2,'images/Products/Women/19_0.jpg',2),
+('VERSACE DYLAN BLUE POUR FEMME EDP FOR WOMEN',40,'2024-01-01',1,14,'images/Products/Women/20_0.jpg',2),
 
 --20 perfumes for Unisex
-('XERJOFF NAXOS EDP FOR UNISEX',41,'2024-01-01',13,1,3,'images/Products/Unisex/1_0.jpg'),
-('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',42,'2024-01-01',16,1,10,'images/Products/Unisex/2_0.jpg'),
-('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',43,'2024-01-01',16,1,1,'images/Products/Unisex/3_0.jpg'),
-('LE LABO THE NOIR 29 EDP FOR UNISEX',44,'2024-01-01',21,1,12,'images/Products/Unisex/4_0.jpg'),
-('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',45,'2024-01-01',21,1,4,'images/Products/Unisex/5_0.jpg'),
-('CREED SILVER MOUTAIN WATER FOR UNISEX',46,'2024-01-01',17,1,8,'images/Products/Unisex/6_0.jpg'),
-('LE LABO BERGAMOTE 22 EDP FOR UNISEX',47,'2024-01-01',15,1,12,'images/Products/Unisex/7_0.jpg'),
-('LE LABO SANTAL 33 FOR UNISEX',48,'2024-01-01',21,1,12,'images/Products/Unisex/8_0.jpg'),
-('ROJA DOVE AMBER AOUND PARFUM FOR UNISEX',49,'2024-01-01',20,1,11,'images/Products/Unisex/9_0.jpg'),
-('LOUIS VUITTON CACTUS GARDEN EDP FOR UNISEX',50,'2024-01-01',15,1,4,'images/Products/Unisex/10_0.jpg'),
-('LOUIS VUITOTN SUN SONG EDP FOR UNISEX',51,'2024-01-01',15,1,4,'images/Products/Unisex/11_0.jpg'),
-('ROJA DOVE MANHATTAN EDP FOR UNISEX',52,'2024-01-01',20,1,11,'images/Products/Unisex/12_0.jpg'),
-('ROJA DOVE BURLINGTON 1819 PARFUM FOR UNISEX',53,'2024-01-01',15,1,11,'images/Products/Unisex/13_0.jpg'),
-('XERJOFF ALEXANDRIA II FOR UNISEX',54,'2024-01-01',21,1,3,'images/Products/Unisex/14_0.jpg'),
-('BVLGARI SPLENDIDA MAGNOLIA SENSUEL EDP FOR UNISEX',55,'2024-01-01',16,1,13,'images/Products/Unisex/15_0.jpg'),
-('ARMAF CLUB DE NUIT UNTOLD EDP FOR UNISEX',56,'2024-01-01',16,1,10,'images/Products/Unisex/16_0.jpg'),
-('GUCCI BLOOM ACQUA DI FIORI EDT',57,'2024-01-01',16,1,1,'images/Products/Unisex/17_0.jpg'),
-('CHANEL GABRIELLE ESSENCE EDP',58,'2024-01-01',16,1,2,'images/Products/Unisex/18_0.jpg'),
-('VERSACE YELLOW DIAMOND INTENSE EDP FOR UNISEX',59,'2024-01-01',16,1,14,'images/Products/Unisex/19_0.jpg'),
-('CHANEL ALLURE HOMME SPORT COLOGNE FOR UNISEX',60,'2024-01-01',15,1,2,'images/Products/Unisex/20_0.jpg'),
+('XERJOFF NAXOS EDP FOR UNISEX',41,'2024-01-01',1,3,'images/Products/Unisex/1_0.jpg',3),
+('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',42,'2024-01-01',1,10,'images/Products/Unisex/2_0.jpg',3),
+('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',43,'2024-01-01',1,1,'images/Products/Unisex/3_0.jpg',3),
+('LE LABO THE NOIR 29 EDP FOR UNISEX',44,'2024-01-01',1,12,'images/Products/Unisex/4_0.jpg',3),
+('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',45,'2024-01-01',1,4,'images/Products/Unisex/5_0.jpg',3),
+('CREED SILVER MOUTAIN WATER FOR UNISEX',46,'2024-01-01',1,8,'images/Products/Unisex/6_0.jpg',3),
+('LE LABO BERGAMOTE 22 EDP FOR UNISEX',47,'2024-01-01',1,12,'images/Products/Unisex/7_0.jpg',3),
+('LE LABO SANTAL 33 FOR UNISEX',48,'2024-01-01',1,12,'images/Products/Unisex/8_0.jpg',3),
+('ROJA DOVE AMBER AOUND PARFUM FOR UNISEX',49,'2024-01-01',1,11,'images/Products/Unisex/9_0.jpg',3),
+('LOUIS VUITTON CACTUS GARDEN EDP FOR UNISEX',50,'2024-01-01',1,4,'images/Products/Unisex/10_0.jpg',3),
+('LOUIS VUITOTN SUN SONG EDP FOR UNISEX',51,'2024-01-01',1,4,'images/Products/Unisex/11_0.jpg',3),
+('ROJA DOVE MANHATTAN EDP FOR UNISEX',52,'2024-01-01',1,11,'images/Products/Unisex/12_0.jpg',3),
+('ROJA DOVE BURLINGTON 1819 PARFUM FOR UNISEX',53,'2024-01-01',1,11,'images/Products/Unisex/13_0.jpg',3),
+('XERJOFF ALEXANDRIA II FOR UNISEX',54,'2024-01-01',1,3,'images/Products/Unisex/14_0.jpg',3),
+('BVLGARI SPLENDIDA MAGNOLIA SENSUEL EDP FOR UNISEX',55,'2024-01-01',1,13,'images/Products/Unisex/15_0.jpg',3),
+('ARMAF CLUB DE NUIT UNTOLD EDP FOR UNISEX',56,'2024-01-01',1,10,'images/Products/Unisex/16_0.jpg',3),
+('GUCCI BLOOM ACQUA DI FIORI EDT',57,'2024-01-01',1,1,'images/Products/Unisex/17_0.jpg',3),
+('CHANEL GABRIELLE ESSENCE EDP',58,'2024-01-01',1,2,'images/Products/Unisex/18_0.jpg',3),
+('VERSACE YELLOW DIAMOND INTENSE EDP FOR UNISEX',59,'2024-01-01',1,14,'images/Products/Unisex/19_0.jpg',3),
+('CHANEL ALLURE HOMME SPORT COLOGNE FOR UNISEX',60,'2024-01-01',1,2,'images/Products/Unisex/20_0.jpg',3),
 
 --5 Giftset 
-('SET YSL BLACK OPIUM EDP FOR GIFT SET',61,'2024-01-01',NULL,1,9,'images/Products/Giftset/1_0.jpg'),
-('SET BVLGARI OMNIA FOR GIFT SET',62,'2024-01-01',NULL,1,13,'images/Products/Giftset/2_0.jpg'),
-('SET OF 5 LANCOME PARIS PERFUMES FOR GIFT SET',63,'2024-01-01',NULL,1,15,'images/Products/Giftset/3_0.jpg'),
-('BVLGARI OMNIA AMETHYSTE FOR GIFT SET',64,'2024-01-01',NULL,1,13,'images/Products/Giftset/4_0.jpg'),
-('VERSACE BRIGHT CRYSTAL ABSOLU FOR GIFT SET',65,'2024-01-01',NULL,1,14,'images/Products/Giftset/5_0.jpg');
+('SET YSL BLACK OPIUM EDP FOR GIFT SET',61,'2024-01-01',1,9,'images/Products/Giftset/1_0.jpg',4),
+('SET BVLGARI OMNIA FOR GIFT SET',62,'2024-01-01',1,13,'images/Products/Giftset/2_0.jpg',4),
+('SET OF 5 LANCOME PARIS PERFUMES FOR GIFT SET',63,'2024-01-01',1,15,'images/Products/Giftset/3_0.jpg',4),
+('BVLGARI OMNIA AMETHYSTE FOR GIFT SET',64,'2024-01-01',1,13,'images/Products/Giftset/4_0.jpg',4),
+('VERSACE BRIGHT CRYSTAL ABSOLU FOR GIFT SET',65,'2024-01-01',1,14,'images/Products/Giftset/5_0.jpg',4);
+
 
 CREATE TABLE [dbo].[ProductFullDetail] (
     [ProductFullDetailID] [int] PRIMARY KEY IDENTITY(1,1),
     [pdProductID] [int] NOT NULL,
     [ProductDescription] [NVARCHAR](max) NULL,
     [ProductCreateDate] DATE NULL,
-    [ProductStatus] BIT NOT NULL,
+    [ProductStatus] int NOT NULL,
     [ProductSize] [NVARCHAR](max) NULL,
     [ProductPrice] [decimal](18, 2) NOT NULL,
     [ProductAvaiable] [int] NOT NULL
@@ -597,9 +577,10 @@ VALUES
 CREATE TABLE [dbo].[Cart] (
     CartID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
+	AccountID int NOT NULL,
     Quantity INT NOT NULL,
-    CreateDate DATE NOT NULL,
     TotalPrice FLOAT NOT NULL,
+	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
 
@@ -639,11 +620,51 @@ CREATE TABLE [dbo].[OrderDetail] (
 CREATE TABLE [dbo].[Sliders](
 [SliderID] int PRIMARY KEY IDENTITY(1,1),
 [SliderImage] nvarchar(255) NOT NULL,
-[SliderStatus] bit NOT NULL,
+[SliderStatus] int NOT NULL,
 [SliderTitle] nvarchar(max) NULL,
-)
-INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[SliderStatus])
+[update_at] date,
+[fk_account_id] [int],
+FOREIGN KEY ([fk_account_id]) REFERENCES [dbo].[Accounts]([AccountID]
+))
+INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[update_at],[SliderStatus],[fk_account_id])
 VALUES
-('images/Sliders/slider1.jpg',NULL,1),
-('images/Sliders/2.jpg',NULL,1),
-('images/Sliders/3.jpg',NULL,1)
+('images/Sliders/slider1.jpg',NULL,'2024-01-01',1,5),
+('images/Sliders/2.jpg',NULL,'2024-01-01',1,5),
+('images/Sliders/3.jpg',NULL,'2024-01-01',1,3)
+
+CREATE TABLE [dbo].[Blog](
+	[blog_id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[title] [nvarchar](max) NULL,
+	[brief_infor] [nvarchar](max) NULL,
+	[content_blog] [nvarchar](max) NULL,
+	[thumbnail] [nvarchar](max) NULL,
+	[createdAt] [datetime] NULL,
+	[updateAt] [datetime] NULL,
+	[author_id] [int] NULL,
+	[status] [int] NULL,
+	FOREIGN KEY ([author_id]) REFERENCES [dbo].[Accounts]([AccountID])
+)
+--create table address 
+CREATE TABLE [dbo].[Address] (
+    [address_id] INT PRIMARY KEY IDENTITY(1,1),
+    [account_id] INT,
+	[phone] varchar(11),
+    [address_line] NVARCHAR(MAX),
+    [city] NVARCHAR(MAX),
+    [district] NVARCHAR(MAX),
+    [status] INT,
+    FOREIGN KEY ([account_id]) REFERENCES [dbo].[Accounts]([AccountID])
+);
+--insert value in table address
+INSERT INTO [dbo].[Address] ( [phone], [address_line], [city], [district], [status])
+VALUES
+( '0912345678', '123 Đường Nguyễn Trãi', 'Hà Nội', 'Thanh Xuân', 1),
+( '0987654321', '456 Đường Lê Lợi', 'Hồ Chí Minh', 'Quận 1', 1),
+( '0934567890', '789 Đường Trần Phú', 'Đà Nẵng', 'Hải Châu', 0),
+( '0923456789', '101 Đường Phạm Ngũ Lão', 'Hà Nội', 'Hoàn Kiếm', 1),
+( '0945678901', '202 Đường Trường Chinh', 'Hồ Chí Minh', 'Quận 3', 0),
+( '0912345679', '303 Đường Bạch Đằng', 'Đà Nẵng', 'Thanh Khê', 1),
+( '0987654320', '404 Đường Hùng Vương', 'Hà Nội', 'Ba Đình', 1),
+( '0934567891', '505 Đường Nguyễn Văn Cừ', 'Hồ Chí Minh', 'Quận 5', 0),
+( '0923456788', '606 Đường Lý Thái Tổ', 'Đà Nẵng', 'Liên Chiểu', 1),
+( '0945678902', '707 Đường Võ Văn Kiệt', 'Hà Nội', 'Cầu Giấy', 1);
