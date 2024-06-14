@@ -6,10 +6,8 @@
 package Controllers;
 import Dal.BrandsDAO;
 import Dal.ProductDetailDAO;
-import Dal.ProductDetailImagesDAO;
 import Dal.ProductsDAO;
 import Models.Brands;
-import Models.ImageDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -72,26 +70,26 @@ public class DetailOfProduct extends HttpServlet {
 
         ProductsDAO pDAO = new ProductsDAO();
         BrandsDAO bDAO = new BrandsDAO();
-        ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
+       
 
         ProductDetail pd = pdtDAO.getProductDetail(id);
         Products p = pDAO.getProduct(id);
         
         Brands brand = bDAO.getBrandById(p.getBrandID());
-        List<ImageDetail> imgdt =pdiDAO.getListImageDetail(id);
+      
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
         List<Products> psimilar = pDAO.getProductSimilar(p.getBrandID());
         
         
         request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
-        request.setAttribute("imgdt", imgdt);
+        
 
         request.setAttribute("b", brand);
         request.setAttribute("pd", pd);
         request.setAttribute("p", p);
 
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("products/productDetail.jsp").forward(request, response);
     } 
 
     /** 

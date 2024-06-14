@@ -25,7 +25,7 @@ public class BrandsDAO extends DBContext {
                 Brands brand = new Brands(
                         rs.getInt("BrandID"),
                         rs.getString("BrandName"),
-                        rs.getString("Description")
+                        rs.getString("Description"),rs.getInt("status")
                 );
                 brands.add(brand);
             }
@@ -43,7 +43,7 @@ public class BrandsDAO extends DBContext {
             while (rs.next()) {
                 return new Brands(rs.getInt("BrandID"),
                         rs.getString("BrandName"),
-                        rs.getString("Description"));
+                        rs.getString("Description"),rs.getInt("status"));
             }
         } catch (SQLException e) {
 

@@ -6,7 +6,6 @@ package Dal;
 
 import context.DBContext;
 import Models.Brands;
-import Models.ImageDetail;
 import Models.Products;
 import Models.ProductDetail;
 import java.sql.PreparedStatement;
@@ -35,12 +34,15 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 list.add( new ProductDetail(
                         rs.getInt("ProductFullDetailID"),
-                        rs.getInt("pdProductID"), rs.getString("ProductDescription"),
+                        rs.getInt("pdProductID"), 
+                        rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
                         rs.getBoolean("ProductStatus"), 
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable")));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image")
+                ));
             }
 
         } catch (SQLException e) {
@@ -50,23 +52,6 @@ public class ProductDetailDAO extends DBContext {
     }
 
 
-    public List<ImageDetail> getListImageDetail(int id) {
-        List<ImageDetail> list = new ArrayList<>();
-        String sql = "select * from  ProductDetailImages where ProductFullDetailID = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new ImageDetail(rs.getInt("ImageID"), 1,
-                        rs.getString("ImageUrl")));
-            }
-
-        } catch (SQLException e) {
-
-        }
-        return list;
-    }
     
     public ProductDetail getProductDetail(int id) {
         String sql = "select * from ProductFullDetail where pdProductID = ?";
@@ -77,12 +62,15 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 return new ProductDetail(
                         rs.getInt("ProductFullDetailID"),
-                        rs.getInt("pdProductID"), rs.getString("ProductDescription"),
+                        rs.getInt("pdProductID"), 
+                        rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
                         rs.getBoolean("ProductStatus"), 
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable"));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image")
+                );
             }
         } catch (SQLException e) {
             System.out.println(e);

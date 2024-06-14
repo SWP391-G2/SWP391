@@ -1,6 +1,6 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="vi">
     <head>
@@ -190,13 +190,13 @@
                                 onclick="showImage('${p.getProductImageUrl()}')"
                                 />
                         </div>
-                        <c:forEach items="${imgdt}" var="img">
+                        <c:forEach items="${priceandsize}" var="img">
                             <div class="col-3">
                                 <img
-                                    src="${img.getImageUrl()}"
+                                    src="${img.getImage()}"
                                     alt="Ảnh sản phẩm 2"
                                     class="product-image-small"
-                                    onclick="showImage('${img.getImageUrl()}')"
+                                    onclick="showImage('${img.getImage()}')"
                                     />
                             </div>
                         </c:forEach>
@@ -504,7 +504,7 @@
 
             </div>
         </section>
-        <%@include file="footer.jsp" %>
+        <%@include file="../footer.jsp" %>
 
         <script>
             function showImage(imagePath) {
@@ -537,7 +537,7 @@
             {
             size: "${size.productSize}",
                     price: "${size.productPrice}",
-                     quantity: "${size.productAvaiable}"
+                    quantity: "${size.productAvaiable}"
             }<c:if test="${!status.last}">,</c:if>
             </c:forEach>
             ];
@@ -557,7 +557,7 @@
                     }
                 }
             });
-            
+
             function addToCart(productID) {
                 var price = document.getElementById('priceofproduct').value;
                 var quantity = document.getElementById('quantity').value;
