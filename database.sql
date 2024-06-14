@@ -1,10 +1,5 @@
-﻿USE [master]
-GO
-IF EXISTS (SELECT * FROM sys.databases WHERE name = 'TPS')
-	DROP DATABASE TPS
-GO
+﻿
 CREATE DATABASE TPS
-
 GO
 USE TPS
 GO
@@ -21,37 +16,6 @@ VALUES
 ('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...'),
 ('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.'),
 ('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.');
-
-CREATE TABLE [dbo].[SubCategories](
-[SubCategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-[SubCategoryName] [nvarchar](255) NOT NULL,
-[CategoryID] int NOT NULL,
-FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories]([CategoryID])
-)
-INSERT INTO [dbo].[SubCategories] ([SubCategoryName],[CategoryID])
-VALUES
-('Citrus',1),
-('Floral',1),
-('Fresh',1),
-('Fruity',1),
-('Romantic',1),
-('Spicy',1),
-('Woody',1),
-('Citrus',2),
-('Floral',2),
-('Fresh',2),
-('Fruity',2),
-('Romantic',2),
-('Spicy',2),
-('Woody',2),
-('Citrus',3),
-('Floral',3),
-('Fresh',3),
-('Fruity',3),
-('Romantic',3),
-('Spicy',3),
-('Woody',3);
-
 
 CREATE TABLE [dbo].[Roles] (
     roleID INT PRIMARY KEY IDENTITY(1,1),
@@ -74,7 +38,7 @@ CREATE TABLE [dbo].[Accounts](
 [Phone] [nvarchar](11) NOT NULL,
 [Email] [nvarchar](50) NULL,
 [Address] [nvarchar](225) NULL,
-[Status] bit NOT NULL,
+[Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
@@ -86,11 +50,9 @@ INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],
 VALUES
 (N'Hà',N'Phạm','pna2906@gmai.com','123456','images/users/Ha.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
 (N'Bích',N'Nguyễn','123@gmail.com','123456','images/users/Bich.png',1,'2003-11-01','0123456789',N'Hà Nội','2024-05-23',1,1),
-
 (N'Hoàng',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',1,1),
 (N'Trung',N'Hà','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',2,1),
 (N'Khánh',N'Nguyễn','123@gmai.com','123456','images/users/Hoang.png',1,'2003-06-29','0862981785',N'Hà Nội','2024-05-24',3,1);
-
 
 
 
@@ -128,17 +90,16 @@ VALUES
 ('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . '),
 ('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ');
 CREATE TABLE [dbo].[Products] (
-    [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
-    [SubCategoryID] [INT] NULL,
+     [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductDetailID] [INT] NULL,
-    [ProductStatus] BIT NOT NULL,
+    [ProductStatus] int NOT NULL,
     [ProductImageUrl] [nvarchar](255) NOT NULL,
     [OrderID] [INT] NULL,	
     [fbID] [INT] NULL,
 	[BrandID] [int] NULL,
-    FOREIGN KEY (SubCategoryID) REFERENCES [dbo].[SubCategories]([SubCategoryID]),
+	[UpdateDescription] nvarchar(max) NULL,
     FOREIGN KEY (fbID) REFERENCES [dbo].[Feedbacks]([fbID]),
 	FOREIGN KEY (BrandID) REFERENCES [dbo].[Brands](BrandID),
 )
@@ -146,92 +107,91 @@ INSERT INTO [dbo].[Products] (
 [ProductName],
 [ProductDetailID],
 [ProductCreateDate],
-[SubCategoryID],
 [ProductStatus],
 [BrandID],
 [ProductImageUrl])
 VALUES
 --20 perfumes for Men
-('XERJOFF CASAMORATI MEFISTO EDP FOR MEN',1,'2024-01-01',1,1,3,'images/Products/Men/1_0.jpg'),
-('LOUIS VUITTON MÉTÉORE EDP FOR MEN',2,'2024-01-01',1,1,4,'images/Products/Men/2_0.jpg'),
-('TOMMY ENDLESS BLUE FOR MEN',3,'2024-01-01',2,1,6,'images/Products/Men/3_0.jpg'),
-('ISSEY MIYAKE LEAU DISSEY INTENSE FOR MEN',4,'2024-01-01',7,1,7,'images/Products/Men/4_0.jpg'),
-('CREED AVENTUS EDP FOR MEN',5,'2024-01-01',4,1,8,'images/Products/Men/5_0.jpg'),
-('DIOR SAUVAGE EDP FOR MEN',6,'2024-01-01',2,1,5,'images/Products/Men/6_0.jpg'),
-('BLEU DE CHANEL EDP FOR MEN',7,'2024-01-01',7,1,2,'images/Products/Men/7_0.jpg'),
-('YVES SAINT LAURENT LA NUIT DE L''HOMME EDT FOR MEN',8,'2024-01-01',6,1,9,'images/Products/Men/8_0.jpg'),
-('VERSACE DYLAN BLUE POUR HOMME FOR MEN',9,'2024-01-01',2,1,14,'images/Products/Men/9_0.jpg'),
-('ARMAF VENTANA POUR HOMME EDP FOR MEN',10,'2024-01-01',7,1,10,'images/Products/Men/10_0.jpg'),
-('BVLGARI WOOD NEROLI EDP FOR MEN',11,'2024-01-01',7,1,13,'images/Products/Men/11_0.jpg'),
-('VERSACE EAU FRAICHE EDT FOR MEN',12,'2024-01-01',7,1,14,'images/Products/Men/12_0.jpg'),
-('GUCCI GUILTY ABSOLUTE POUR HOMME FOR MEN',13,'2024-01-01',7,1,1,'images/Products/Men/13_0.jpg'),
-('YVES SAINT LAURENT Y EDP FOR MEN',14,'2024-01-01',2,1,9,'images/Products/Men/14_0.jpg'),
-('ROJA ENIGMA POUR HOMME FOR MEN',15,'2024-01-01',5,1,11,'images/Products/Men/15_0.jpg'),
-('BVLGARI SPLENDIDA JASMIN NOIR EDP FOR MEN',16,'2024-01-01',2,1,13,'images/Products/Men/16_0.jpg'),
-('CHANEL ANTAEUS POUR HOMME EDT FOR MEN',17,'2024-01-01',6,1,2,'images/Products/Men/17_0.jpg'),
-('DIOR HOMME SPORT EDT FOR MEN',18,'2024-01-01',7,1,5,'images/Products/Men/18_0.jpg'),
-('VERSACE EROS FLAME FOR MEN',19,'2024-01-01',6,1,14,'images/Products/Men/19_0.jpg'),
-('ISSEY MIYAKE NUIT DISSEY EDT FOR MEN',20,'2024-01-01',6,1,7,'images/Products/Men/20_0.jpg'),
+('XERJOFF CASAMORATI MEFISTO EDP FOR MEN',1,'2024-01-01',1,3,'images/Products/Men/1_0.jpg'),
+('LOUIS VUITTON MÉTÉORE EDP FOR MEN',2,'2024-01-01',1,4,'images/Products/Men/2_0.jpg'),
+('TOMMY ENDLESS BLUE FOR MEN',3,'2024-01-01',1,6,'images/Products/Men/3_0.jpg'),
+('ISSEY MIYAKE LEAU DISSEY INTENSE FOR MEN',4,'2024-01-01',1,7,'images/Products/Men/4_0.jpg'),
+('CREED AVENTUS EDP FOR MEN',5,'2024-01-01',1,8,'images/Products/Men/5_0.jpg'),
+('DIOR SAUVAGE EDP FOR MEN',6,'2024-01-01',1,5,'images/Products/Men/6_0.jpg'),
+('BLEU DE CHANEL EDP FOR MEN',7,'2024-01-01',1,2,'images/Products/Men/7_0.jpg'),
+('YVES SAINT LAURENT LA NUIT DE L''HOMME EDT FOR MEN',8,'2024-01-01',1,9,'images/Products/Men/8_0.jpg'),
+('VERSACE DYLAN BLUE POUR HOMME FOR MEN',9,'2024-01-01',1,14,'images/Products/Men/9_0.jpg'),
+('ARMAF VENTANA POUR HOMME EDP FOR MEN',10,'2024-01-01',1,10,'images/Products/Men/10_0.jpg'),
+('BVLGARI WOOD NEROLI EDP FOR MEN',11,'2024-01-01',1,13,'images/Products/Men/11_0.jpg'),
+('VERSACE EAU FRAICHE EDT FOR MEN',12,'2024-01-01',1,14,'images/Products/Men/12_0.jpg'),
+('GUCCI GUILTY ABSOLUTE POUR HOMME FOR MEN',13,'2024-01-01',1,1,'images/Products/Men/13_0.jpg'),
+('YVES SAINT LAURENT Y EDP FOR MEN',14,'2024-01-01',1,9,'images/Products/Men/14_0.jpg'),
+('ROJA ENIGMA POUR HOMME FOR MEN',15,'2024-01-01',1,11,'images/Products/Men/15_0.jpg'),
+('BVLGARI SPLENDIDA JASMIN NOIR EDP FOR MEN',16,'2024-01-01',1,13,'images/Products/Men/16_0.jpg'),
+('CHANEL ANTAEUS POUR HOMME EDT FOR MEN',17,'2024-01-01',1,2,'images/Products/Men/17_0.jpg'),
+('DIOR HOMME SPORT EDT FOR MEN',18,'2024-01-01',1,5,'images/Products/Men/18_0.jpg'),
+('VERSACE EROS FLAME FOR MEN',19,'2024-01-01',1,14,'images/Products/Men/19_0.jpg'),
+('ISSEY MIYAKE NUIT DISSEY EDT FOR MEN',20,'2024-01-01',1,7,'images/Products/Men/20_0.jpg'),
 
 
 --20 perfumes for Women
-('CHANEL CHANCE EDP FOR WOMEN',21,'2024-01-01',9,1,2,'images/Products/Women/1_0.jpg'),
-('DIOR JOY EDP FOR WOMEN',22,'2024-01-01',11,1,5,'images/Products/Women/2_0.jpg'),
-('YSL LIBRE EDP FOR WOMEN',23,'2024-01-01',9,1,9,'images/Products/Women/3_0.jpg'),
-('LOUIS VUITTON SPELL ON YOU EDP FOR WOMEN',24,'2024-01-01',9,1,4,'images/Products/Women/4_0.jpg'),
-('CHANEL CHANCE EAU FRAICHE EDP FOR WOMEN',25,'2024-01-01',8,1,2,'images/Products/Women/5_0.jpg'),
-('LANCOME LA VIE EST BELLE EN ROSE FOR WOMEN',26,'2024-01-01',11,1,15,'images/Products/Women/6_0.jpg'),
-('LANCOME TRESOR LA NUIT EDP FOR WOMEN',27,'2024-01-01',9,1,15,'images/Products/Women/7_0.jpg'),
-('LANCOME LA VIE EST BELLE EDP FOR WOMEN',28,'2024-01-01',11,1,15,'images/Products/Women/8_0.jpg'),
-('GUCCI BLOOM AMBROSIA DI FIORI EDP FOR WOMEN',29,'2024-01-01',9,1,1,'images/Products/Women/9_0.jpg'),
-('BVLGARI ROSE GOLDEA FOR WOMEN',30,'2024-01-01',9,1,13,'images/Products/Women/10_0.jpg'),
-('ARMAF CLUB DE NUIT FOR WOMEN',31,'2024-01-01',11,1,10,'images/Products/Women/11_0.jpg'),
-('GUCCI FLORA GORGEOUS GARDENIA EDP FOR WOMEN',32,'2024-01-01',9,1,1,'images/Products/Women/12_0.jpg'),
-('TOMMY GIRL EDT FOR WOMEN',33,'2024-01-01',11,1,6,'images/Products/Women/13_0.jpg'),
-('ROJA ELIXIR POUR FEMME FOR WOMEN',34,'2024-01-01',9,1,11,'images/Products/Women/14_0.jpg'),
-('CHANEL COCO MADEMOISELLE EDP FOR WOMEN',35,'2024-01-01',9,1,2,'images/Products/Women/15_0.jpg'),
-('LOUIS VUITTON MATIERE NOIRE FOR WOMEN',36,'2024-01-01',14,1,4,'images/Products/Women/16_0.jpg'),
-('LOUIS VUITTON CALIFORNIA DREAM FOR WOMEN',37,'2024-01-01',11,1,4,'images/Products/Women/17_0.jpg'),
-('GUCCI BLOOM EDP FOR WOMEN',38,'2024-01-01',9,1,1,'images/Products/Women/18_0.jpg'),
-('CHANEL COCO NOIR FOR WOMEN',39,'2024-01-01',9,1,2,'images/Products/Women/19_0.jpg'),
-('VERSACE DYLAN BLUE POUR FEMME EDP FOR WOMEN',40,'2024-01-01',11,1,14,'images/Products/Women/20_0.jpg'),
-
+('CHANEL CHANCE EDP FOR WOMEN',21,'2024-01-01',1,2,'images/Products/Women/1_0.jpg'),
+('DIOR JOY EDP FOR WOMEN',22,'2024-01-01',1,5,'images/Products/Women/2_0.jpg'),
+('YSL LIBRE EDP FOR WOMEN',23,'2024-01-01',1,9,'images/Products/Women/3_0.jpg'),
+('LOUIS VUITTON SPELL ON YOU EDP FOR WOMEN',24,'2024-01-01',1,4,'images/Products/Women/4_0.jpg'),
+('CHANEL CHANCE EAU FRAICHE EDP FOR WOMEN',25,'2024-01-01',1,2,'images/Products/Women/5_0.jpg'),
+('LANCOME LA VIE EST BELLE EN ROSE FOR WOMEN',26,'2024-01-01',1,15,'images/Products/Women/6_0.jpg'),
+('LANCOME TRESOR LA NUIT EDP FOR WOMEN',27,'2024-01-01',1,15,'images/Products/Women/7_0.jpg'),
+('LANCOME LA VIE EST BELLE EDP FOR WOMEN',28,'2024-01-01',1,15,'images/Products/Women/8_0.jpg'),
+('GUCCI BLOOM AMBROSIA DI FIORI EDP FOR WOMEN',29,'2024-01-01',1,1,'images/Products/Women/9_0.jpg'),
+('BVLGARI ROSE GOLDEA FOR WOMEN',30,'2024-01-01',1,13,'images/Products/Women/10_0.jpg'),
+('ARMAF CLUB DE NUIT FOR WOMEN',31,'2024-01-01',1,10,'images/Products/Women/11_0.jpg'),
+('GUCCI FLORA GORGEOUS GARDENIA EDP FOR WOMEN',32,'2024-01-01',1,1,'images/Products/Women/12_0.jpg'),
+('TOMMY GIRL EDT FOR WOMEN',33,'2024-01-01',1,6,'images/Products/Women/13_0.jpg'),
+('ROJA ELIXIR POUR FEMME FOR WOMEN',34,'2024-01-01',1,11,'images/Products/Women/14_0.jpg'),
+('CHANEL COCO MADEMOISELLE EDP FOR WOMEN',35,'2024-01-01',1,2,'images/Products/Women/15_0.jpg'),
+('LOUIS VUITTON MATIERE NOIRE FOR WOMEN',36,'2024-01-01',1,4,'images/Products/Women/16_0.jpg'),
+('LOUIS VUITTON CALIFORNIA DREAM FOR WOMEN',37,'2024-01-01',1,4,'images/Products/Women/17_0.jpg'),
+('GUCCI BLOOM EDP FOR WOMEN',38,'2024-01-01',1,1,'images/Products/Women/18_0.jpg'),
+('CHANEL COCO NOIR FOR WOMEN',39,'2024-01-01',1,2,'images/Products/Women/19_0.jpg'),
+('VERSACE DYLAN BLUE POUR FEMME EDP FOR WOMEN',40,'2024-01-01',1,14,'images/Products/Women/20_0.jpg'),
 
 --20 perfumes for Unisex
-('XERJOFF NAXOS EDP FOR UNISEX',41,'2024-01-01',13,1,3,'images/Products/Unisex/1_0.jpg'),
-('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',42,'2024-01-01',16,1,10,'images/Products/Unisex/2_0.jpg'),
-('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',43,'2024-01-01',16,1,1,'images/Products/Unisex/3_0.jpg'),
-('LE LABO THE NOIR 29 EDP FOR UNISEX',44,'2024-01-01',21,1,12,'images/Products/Unisex/4_0.jpg'),
-('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',45,'2024-01-01',21,1,4,'images/Products/Unisex/5_0.jpg'),
-('CREED SILVER MOUTAIN WATER FOR UNISEX',46,'2024-01-01',17,1,8,'images/Products/Unisex/6_0.jpg'),
-('LE LABO BERGAMOTE 22 EDP FOR UNISEX',47,'2024-01-01',15,1,12,'images/Products/Unisex/7_0.jpg'),
-('LE LABO SANTAL 33 FOR UNISEX',48,'2024-01-01',21,1,12,'images/Products/Unisex/8_0.jpg'),
-('ROJA DOVE AMBER AOUND PARFUM FOR UNISEX',49,'2024-01-01',20,1,11,'images/Products/Unisex/9_0.jpg'),
-('LOUIS VUITTON CACTUS GARDEN EDP FOR UNISEX',50,'2024-01-01',15,1,4,'images/Products/Unisex/10_0.jpg'),
-('LOUIS VUITOTN SUN SONG EDP FOR UNISEX',51,'2024-01-01',15,1,4,'images/Products/Unisex/11_0.jpg'),
-('ROJA DOVE MANHATTAN EDP FOR UNISEX',52,'2024-01-01',20,1,11,'images/Products/Unisex/12_0.jpg'),
-('ROJA DOVE BURLINGTON 1819 PARFUM FOR UNISEX',53,'2024-01-01',15,1,11,'images/Products/Unisex/13_0.jpg'),
-('XERJOFF ALEXANDRIA II FOR UNISEX',54,'2024-01-01',21,1,3,'images/Products/Unisex/14_0.jpg'),
-('BVLGARI SPLENDIDA MAGNOLIA SENSUEL EDP FOR UNISEX',55,'2024-01-01',16,1,13,'images/Products/Unisex/15_0.jpg'),
-('ARMAF CLUB DE NUIT UNTOLD EDP FOR UNISEX',56,'2024-01-01',16,1,10,'images/Products/Unisex/16_0.jpg'),
-('GUCCI BLOOM ACQUA DI FIORI EDT',57,'2024-01-01',16,1,1,'images/Products/Unisex/17_0.jpg'),
-('CHANEL GABRIELLE ESSENCE EDP',58,'2024-01-01',16,1,2,'images/Products/Unisex/18_0.jpg'),
-('VERSACE YELLOW DIAMOND INTENSE EDP FOR UNISEX',59,'2024-01-01',16,1,14,'images/Products/Unisex/19_0.jpg'),
-('CHANEL ALLURE HOMME SPORT COLOGNE FOR UNISEX',60,'2024-01-01',15,1,2,'images/Products/Unisex/20_0.jpg'),
+('XERJOFF NAXOS EDP FOR UNISEX',41,'2024-01-01',1,3,'images/Products/Unisex/1_0.jpg'),
+('ARMAF STERLING CLUB DE NUIT MILESTONE EDP FOR UNISEX',42,'2024-01-01',1,10,'images/Products/Unisex/2_0.jpg'),
+('GUCCI A SONG FOR THE ROSE EDP FOR UNISEX',43,'2024-01-01',1,1,'images/Products/Unisex/3_0.jpg'),
+('LE LABO THE NOIR 29 EDP FOR UNISEX',44,'2024-01-01',1,12,'images/Products/Unisex/4_0.jpg'),
+('LOUIS VUITTON OMBRE NOMADE EDP FOR UNISEX',45,'2024-01-01',1,4,'images/Products/Unisex/5_0.jpg'),
+('CREED SILVER MOUTAIN WATER FOR UNISEX',46,'2024-01-01',1,8,'images/Products/Unisex/6_0.jpg'),
+('LE LABO BERGAMOTE 22 EDP FOR UNISEX',47,'2024-01-01',1,12,'images/Products/Unisex/7_0.jpg'),
+('LE LABO SANTAL 33 FOR UNISEX',48,'2024-01-01',1,12,'images/Products/Unisex/8_0.jpg'),
+('ROJA DOVE AMBER AOUND PARFUM FOR UNISEX',49,'2024-01-01',1,11,'images/Products/Unisex/9_0.jpg'),
+('LOUIS VUITTON CACTUS GARDEN EDP FOR UNISEX',50,'2024-01-01',1,4,'images/Products/Unisex/10_0.jpg'),
+('LOUIS VUITOTN SUN SONG EDP FOR UNISEX',51,'2024-01-01',1,4,'images/Products/Unisex/11_0.jpg'),
+('ROJA DOVE MANHATTAN EDP FOR UNISEX',52,'2024-01-01',1,11,'images/Products/Unisex/12_0.jpg'),
+('ROJA DOVE BURLINGTON 1819 PARFUM FOR UNISEX',53,'2024-01-01',1,11,'images/Products/Unisex/13_0.jpg'),
+('XERJOFF ALEXANDRIA II FOR UNISEX',54,'2024-01-01',1,3,'images/Products/Unisex/14_0.jpg'),
+('BVLGARI SPLENDIDA MAGNOLIA SENSUEL EDP FOR UNISEX',55,'2024-01-01',1,13,'images/Products/Unisex/15_0.jpg'),
+('ARMAF CLUB DE NUIT UNTOLD EDP FOR UNISEX',56,'2024-01-01',1,10,'images/Products/Unisex/16_0.jpg'),
+('GUCCI BLOOM ACQUA DI FIORI EDT',57,'2024-01-01',1,1,'images/Products/Unisex/17_0.jpg'),
+('CHANEL GABRIELLE ESSENCE EDP',58,'2024-01-01',1,2,'images/Products/Unisex/18_0.jpg'),
+('VERSACE YELLOW DIAMOND INTENSE EDP FOR UNISEX',59,'2024-01-01',1,14,'images/Products/Unisex/19_0.jpg'),
+('CHANEL ALLURE HOMME SPORT COLOGNE FOR UNISEX',60,'2024-01-01',1,2,'images/Products/Unisex/20_0.jpg'),
 
 --5 Giftset 
-('SET YSL BLACK OPIUM EDP FOR GIFT SET',61,'2024-01-01',NULL,1,9,'images/Products/Giftset/1_0.jpg'),
-('SET BVLGARI OMNIA FOR GIFT SET',62,'2024-01-01',NULL,1,13,'images/Products/Giftset/2_0.jpg'),
-('SET OF 5 LANCOME PARIS PERFUMES FOR GIFT SET',63,'2024-01-01',NULL,1,15,'images/Products/Giftset/3_0.jpg'),
-('BVLGARI OMNIA AMETHYSTE FOR GIFT SET',64,'2024-01-01',NULL,1,13,'images/Products/Giftset/4_0.jpg'),
-('VERSACE BRIGHT CRYSTAL ABSOLU FOR GIFT SET',65,'2024-01-01',NULL,1,14,'images/Products/Giftset/5_0.jpg');
+('SET YSL BLACK OPIUM EDP FOR GIFT SET',61,'2024-01-01',1,9,'images/Products/Giftset/1_0.jpg'),
+('SET BVLGARI OMNIA FOR GIFT SET',62,'2024-01-01',1,13,'images/Products/Giftset/2_0.jpg'),
+('SET OF 5 LANCOME PARIS PERFUMES FOR GIFT SET',63,'2024-01-01',1,15,'images/Products/Giftset/3_0.jpg'),
+('BVLGARI OMNIA AMETHYSTE FOR GIFT SET',64,'2024-01-01',1,13,'images/Products/Giftset/4_0.jpg'),
+('VERSACE BRIGHT CRYSTAL ABSOLU FOR GIFT SET',65,'2024-01-01',1,14,'images/Products/Giftset/5_0.jpg');
+
 
 CREATE TABLE [dbo].[ProductFullDetail] (
     [ProductFullDetailID] [int] PRIMARY KEY IDENTITY(1,1),
     [pdProductID] [int] NOT NULL,
     [ProductDescription] [NVARCHAR](max) NULL,
     [ProductCreateDate] DATE NULL,
-    [ProductStatus] BIT NOT NULL,
+    [ProductStatus] int NOT NULL,
     [ProductSize] [NVARCHAR](max) NULL,
     [ProductPrice] [decimal](18, 2) NOT NULL,
     [ProductAvaiable] [int] NOT NULL
@@ -597,9 +557,10 @@ VALUES
 CREATE TABLE [dbo].[Cart] (
     CartID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
+	AccountID int NOT NULL,
     Quantity INT NOT NULL,
-    CreateDate DATE NOT NULL,
     TotalPrice FLOAT NOT NULL,
+	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
 
@@ -639,7 +600,7 @@ CREATE TABLE [dbo].[OrderDetail] (
 CREATE TABLE [dbo].[Sliders](
 [SliderID] int PRIMARY KEY IDENTITY(1,1),
 [SliderImage] nvarchar(255) NOT NULL,
-[SliderStatus] bit NOT NULL,
+[SliderStatus] int NOT NULL,
 [SliderTitle] nvarchar(max) NULL,
 )
 INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[SliderStatus])
@@ -647,3 +608,16 @@ VALUES
 ('images/Sliders/slider1.jpg',NULL,1),
 ('images/Sliders/2.jpg',NULL,1),
 ('images/Sliders/3.jpg',NULL,1)
+
+CREATE TABLE [dbo].[Blog](
+	[blog_id] [int] IDENTITY(1,1) NOT NULL,
+	[title] [nvarchar](max) NULL,
+	[brief_infor] [nvarchar](max) NULL,
+	[content_blog] [nvarchar](max) NULL,
+	[thumbnail] [nvarchar](max) NULL,
+	[createdAt] [datetime] NULL,
+	[updateAt] [datetime] NULL,
+	[author_id] [int] NULL,
+	[status] [int] NULL,
+	FOREIGN KEY ([author_id]) REFERENCES [dbo].[Accounts]([AccountID])
+)
