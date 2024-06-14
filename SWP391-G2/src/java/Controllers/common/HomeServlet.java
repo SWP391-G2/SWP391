@@ -3,26 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controllers;
-import Dal.ProductDetailDAO;
-import Dal.ProductsDAO;
-import Models.Brands;
-import Models.ImageDetail;
+package Controllers.common;
+
+import Dal.BrandsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import Models.ProductDetail;
+import Dal.CategoriesDAO;
+import Dal.ProductsDAO;
+import Dal.SubCategoriesDAO;
+import Models.Brands;
+import Models.Categories;
 import Models.Products;
+import Models.SubCategories;        
+import java.util.List;
 /**
  *
- * @author admin
+ * @author pna29
  */
-public class DetailOfProduct extends HttpServlet {
+public class HomeServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +41,10 @@ public class DetailOfProduct extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetail</title>");  
+            out.println("<title>Servlet HomeServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetail at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,36 +61,22 @@ public class DetailOfProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id_raw = request.getParameter("product");
-        int id = -1;
-        try {
-            id = 2;
-        } catch (NumberFormatException e) {
-            System.out.println("");
-        }
-        ProductDetailDAO pdtDAO = new ProductDetailDAO();
-
-        //ProductsDAO pDAO = new ProductsDAO();
-        //BrandsDAO bDAO = new BrandsDAO();
-        //ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
-
-        ProductDetail pd = pdtDAO.getProductDetail(id);
-        //Products p = pDAO.getProduct(id);
-        //Brands brand = bDAO.getBrand(p.getBrandID());
-        //List<ProductDetailImage> imgdt =pdiDAO.getListImageDetail(id);
-        List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
-        //request.setAttribute("psimilar", psimilar);
-        request.setAttribute("priceandsize", priceandsize);
-        //request.setAttribute("imgdt", imgdt);
-
-        //request.setAttribute("b", brand);
-        request.setAttribute("pd", pd);
-        //request.setAttribute("p", p);
-
-
-
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-    } 
+        CategoriesDAO categoriesDAO = new CategoriesDAO();
+        SubCategoriesDAO subcategoriesDAO = new SubCategoriesDAO();
+        ProductsDAO productsDAO = new ProductsDAO();
+        BrandsDAO brandsDAO = new BrandsDAO();
+        List<Products> products = productsDAO.getProductsByCategory(1);
+        List<SubCategories> subcategories = subcategoriesDAO.getAllSubCategories();
+        List<Categories> categories = categoriesDAO.loadCategory();
+        List<Brands> brands = brandsDAO.getBrands();
+        request.setAttribute("subcategories", subcategories);
+        request.setAttribute("categories", categories);
+        request.setAttribute("products", products);
+        request.setAttribute("brands", brands);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    }
+    
+    
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -100,7 +88,7 @@ public class DetailOfProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /** 
