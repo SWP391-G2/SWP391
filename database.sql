@@ -370,10 +370,16 @@ CREATE TABLE [dbo].[Cart] (
     ProductFullDetailID INT NOT NULL,
 	AccountID int NOT NULL,
     Quantity INT NOT NULL,
-    TotalPrice FLOAT NOT NULL,
+    TotalPrice DECIMAL(18,2),
+	product_name [NVARCHAR](255),
+	product_size [NVARCHAR](max),
+	[image] varchar(100),
 	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
+
+-- Sample data for insertion into Cart table
+
 
 
 CREATE TABLE [dbo].[StatusOrder] (
@@ -429,13 +435,6 @@ CREATE TABLE [dbo].[OrderDetail] (
     FOREIGN KEY (odProductID) REFERENCES [dbo].[Products](ProductID)
 )
 -- Sample data for insertion into OrderDetail table
-INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductID, odQuantity, odPrice)
-VALUES
-(1, 1, 2, 50.00),
-(1, 2, 1, 30.00),
-(2, 3, 3, 45.00),
-(3, 1, 1, 50.00),
-(4, 2, 2, 30.00);
 
 CREATE TABLE [dbo].[Sliders](
 [SliderID] int PRIMARY KEY IDENTITY(1,1),
