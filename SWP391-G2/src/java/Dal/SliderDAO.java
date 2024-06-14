@@ -4,6 +4,7 @@
  */
 package Dal;
 
+import context.DBContext;
 import Models.Sliders;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

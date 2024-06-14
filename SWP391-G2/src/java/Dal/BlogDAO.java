@@ -8,6 +8,7 @@ package Dal;
  *
  * @author TNO
  */
+import context.DBContext;
 import static Constant.constant.RECORD_PER_PAGE;
 import Models.BlogResponseDTO;
 import java.sql.*;
