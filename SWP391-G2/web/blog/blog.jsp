@@ -56,7 +56,7 @@
                                                             class="ti-pencil-alt mr-2"></i>${blogList.firstName} ${blogList.lastName}</span>
                                                 </div>
 
-                                                <h3 class="mt-3 mb-3"><a href="blog-single.html">${blogList.title}</a></h3>
+                                                <h3 class="mt-3 mb-3"><a href="blogDetails?id=${blogList.id}">${blogList.title}</a></h3>
                                                 <p class="mb-4">${blogList.brief}</p>
 
                                                 <a href="blogDetails?id=${blogList.id}" class="btn btn-small btn-main btn-round-full">Learn
