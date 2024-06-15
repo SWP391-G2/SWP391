@@ -82,7 +82,7 @@ public class ProductDetailDAO extends DBContext {
         ProductDetailDAO p = new ProductDetailDAO();
         List<ProductDetail> list = p.getPriceAllowSize(1);
         for( ProductDetail product : list){
-            System.out.println(product.getProductAvaiable());
+            System.out.println(product.getImage());
         }
     }
 }

@@ -193,11 +193,13 @@
                         <c:forEach items="${priceandsize}" var="img">
                             <div class="col-3">
                                 <img
-                                    src="${img.getImage()}"
+                                    
+                                    src="images/Products/Giftset/${img.getImage()}"
                                     alt="Ảnh sản phẩm 2"
                                     class="product-image-small"
                                     onclick="showImage('${img.getImage()}')"
                                     />
+                                <img src="images/Products/Giftset/1_0.jpg" alt="alt"/>
                             </div>
                         </c:forEach>
 
