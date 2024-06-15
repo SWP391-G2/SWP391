@@ -5,9 +5,11 @@
 
 package Controllers;
 import Dal.BrandsDAO;
+import Dal.CategoriesDAO;
 import Dal.ProductDetailDAO;
 import Dal.ProductsDAO;
 import Models.Brands;
+import Models.Categories;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -62,7 +64,7 @@ public class DetailOfProduct extends HttpServlet {
         String id_raw = request.getParameter("product");
         int id = -1;
         try {
-            id = 1;
+            id = 4;
         } catch (NumberFormatException e) {
             System.out.println("");
         }
@@ -70,24 +72,25 @@ public class DetailOfProduct extends HttpServlet {
 
         ProductsDAO pDAO = new ProductsDAO();
         BrandsDAO bDAO = new BrandsDAO();
-       
-
-        ProductDetail pd = pdtDAO.getProductDetail(id);
-        Products p = pDAO.getProduct(id);
+        CategoriesDAO cDAO = new CategoriesDAO();
+        Products product = pDAO.getProduct(id);
+        Categories categories = cDAO.getCategoryById(product.getFk_category_id());
+        ProductDetail productDetail = pdtDAO.getProductDetail(id);
         
-        Brands brand = bDAO.getBrandById(p.getBrandID());
+         
+        Brands brand = bDAO.getBrandById(product.getBrandID());
       
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
-        List<Products> psimilar = pDAO.getProductSimilar(p.getBrandID());
+        List<Products> psimilar = pDAO.getProductSimilar(product.getBrandID());
         
         
         request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
         
-
+        request.setAttribute("c", categories);
         request.setAttribute("b", brand);
-        request.setAttribute("pd", pd);
-        request.setAttribute("p", p);
+        request.setAttribute("pd", productDetail);
+        request.setAttribute("p", product);
 
         request.getRequestDispatcher("products/productDetail.jsp").forward(request, response);
     } 

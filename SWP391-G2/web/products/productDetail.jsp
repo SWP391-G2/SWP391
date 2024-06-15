@@ -174,7 +174,7 @@
                     <div class="row">
                         <div class="col-12">
                             <img
-                                src="${p.getProductImageUrl()}"
+                                src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image"
                                 id="product-image"
@@ -184,22 +184,22 @@
                     <div class="row">
                         <div class="col-3">
                             <img
-                                src="${p.getProductImageUrl()}"
+                                src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image-small"
-                                onclick="showImage('${p.getProductImageUrl()}')"
+                                onclick="showImage('images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}')"
                                 />
                         </div>
                         <c:forEach items="${priceandsize}" var="img">
                             <div class="col-3">
                                 <img
                                     
-                                    src="images/Products/Giftset/${img.getImage()}"
+                                    src="images/Products/${c.getCategoryName()}/${img.getImage()}"
                                     alt="Ảnh sản phẩm 2"
                                     class="product-image-small"
-                                    onclick="showImage('${img.getImage()}')"
+                                    onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')"
                                     />
-                                <img src="images/Products/Giftset/1_0.jpg" alt="alt"/>
+                                
                             </div>
                         </c:forEach>
 
@@ -267,7 +267,7 @@
                 <p class="col-8">
                     ${pd.getProductDescription()}
                 </p>
-                <img src="${p.getProductImageUrl()}">
+                <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
                 <p class="col-8">
                     ${b.getBrandDescription()}
                 </p>
@@ -284,17 +284,19 @@
 
                     Currently, perfume has become a popular product and is widely used around the world. Perfume manufacturers have used modern technology to create new perfumes with complex scents and longer lasting scents. Perfume is also widely used in other fields such as health, spa and beauty.
                 </p>
-
-                <c:forEach items="${imgdt}" var="img">
-                    <div class="col-12">
-                        <img
-                            src="${img.getImageUrl()}"
-                            alt="Ảnh sản phẩm 1"
-                            class="product-image"
-                            id="product-image"
-                            />
-                    </div>
-                </c:forEach>
+                <c:forEach items="${priceandsize}" var="img">
+                            <div class="col-10">
+                                <img
+                                    
+                                    src="images/Products/${c.getCategoryName()}/${img.getImage()}"
+                                    alt="Ảnh sản phẩm 2"
+                                    class="product-image-small"
+                                    id="product-image"
+                                    onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')"
+                                    />
+                                
+                            </div>
+                        </c:forEach>
             </div>
             <div id="policy" class="content-section">
                 <p class="col-8">The information security policy is complied with relevant legal regulations on personal information protection and Decree 52/2013/ND-CP of the government on e-commerce issued on May 16, 2013. .
@@ -355,7 +357,7 @@
                     <div class="col-md-3">
                         <div class="card mb-4">
                             <img
-                                src="${pl.getProductImageUrl()}"
+                                src="images/Products/${c.getCategoryName()}/${pl.getProductImageUrl()}"
                                 class="card-img-top"
                                 alt="..."
                                 style="width: 70%; display: block ; margin-right:auto;margin-left: auto"/>
@@ -418,7 +420,7 @@
                             </p>
                             <div class="client-comment-img">
                                 <img
-                                    src="${p.getProductImageUrl()}"
+                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
                                     />
                             </div>
                         </div>
@@ -458,7 +460,7 @@
                             </p>
                             <div class="client-comment-img">
                                 <img
-                                    src="${p.getProductImageUrl()}"
+                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
                                     />
                             </div>
                         </div>
@@ -497,7 +499,7 @@
                             </p>
                             <div class="client-comment-img">
                                 <img
-                                    src="${p.getProductImageUrl()}"
+                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
                                     />
                             </div>
                         </div>

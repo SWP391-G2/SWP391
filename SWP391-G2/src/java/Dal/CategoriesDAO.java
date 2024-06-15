@@ -17,8 +17,9 @@ import java.util.List;
  *
  * @author ROG
  */
-public class CategoriesDAO extends DBContext{
-     public static void main(String[] args) {
+public class CategoriesDAO extends DBContext {
+
+    public static void main(String[] args) {
         CategoriesDAO dao = new CategoriesDAO();
         List<Categories> categories = dao.loadCategory();
         for (Categories category : categories) {
@@ -26,8 +27,8 @@ public class CategoriesDAO extends DBContext{
             System.out.println("Category Name: " + category.getCategoryName());
             System.out.println("Category Description: " + category.getDescription());
         }
-      
-     }
+
+    }
 
     public List<Categories> loadCategory() {
         List<Categories> categories = new ArrayList<>();
@@ -39,7 +40,8 @@ public class CategoriesDAO extends DBContext{
                 Categories category = new Categories(
                         rs.getInt("CategoryID"),
                         rs.getString("CategoryName"),
-                        rs.getString("Description") 
+                        rs.getString("Description"),
+                        rs.getInt("status")
                 );
                 categories.add(category);
             }
@@ -47,5 +49,24 @@ public class CategoriesDAO extends DBContext{
             System.out.println(e);
         }
         return categories;
+    }
+
+    public Categories getCategoryById(int id) {
+        String sql = "select * from Categories where CategoryID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Categories(
+                        rs.getInt("CategoryID"),
+                        rs.getString("CategoryName"),
+                        rs.getString("Description"),
+                        rs.getInt("status"));
+            }
+        }catch(SQLException e){
+            
+        }
+        return null;
     }
 }
