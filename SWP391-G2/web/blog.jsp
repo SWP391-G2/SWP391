@@ -150,7 +150,7 @@
                     </div>
 
                     <div class="row mt-5">
-                        <%@include file="componentPublic/pagination.jsp"%>
+                        <%@include file="partials/pagination.jsp"%>
                     </div>
                 </div>
             </section>

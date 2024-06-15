@@ -68,6 +68,10 @@
         <servlet-name>BlogDetailsController</servlet-name>
         <servlet-class>Controllers.guest.blog.BlogDetailsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingManagerment</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingManagerment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -135,5 +139,9 @@
     <servlet-mapping>
         <servlet-name>BlogDetailsController</servlet-name>
         <url-pattern>/blogDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingManagerment</servlet-name>
+        <url-pattern>/MarketingManagerment</url-pattern>
     </servlet-mapping>
 </web-app>
