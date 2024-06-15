@@ -4,19 +4,21 @@
  */
 package Models;
 
-
 public class Categories {
+
     private int categoryID;
     private String categoryName;
-    private String description;   
+    private String description;
+    private int status;
 
     public Categories() {
     }
 
-    public Categories(int categoryID, String categoryName, String description) {
+    public Categories(int categoryID, String categoryName, String description, int status) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.description = description;
+        this.status = status;
     }
 
     public int getCategoryID() {
@@ -42,8 +44,13 @@ public class Categories {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-   
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }
-
-

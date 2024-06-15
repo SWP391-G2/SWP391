@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/admin.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/partials/pagination.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/createaccount.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/partials/header.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Products.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerment.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/admindetails.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/testadmin.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/admin-profile.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Accounts.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/marketing.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/cart.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/context/DBContext.java</file>
         </group>
     </open-files>
 </project-private>

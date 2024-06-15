@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.Categories;
 import Models.SubCategories;
+import java.sql.Date;
 
 /**
  *
@@ -27,18 +28,19 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+
                 pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getInt("BrandID")
-                ));
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11)));
             }
 
         } catch (SQLException e) {
@@ -57,17 +59,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getInt("BrandID")
-                ));
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11)));
             }
 
         } catch (SQLException e) {
@@ -124,17 +126,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Products product = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getInt("BrandID")
-                );
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -155,17 +157,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Products product = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getInt("BrandID")
-                );
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -182,19 +184,20 @@ public class ProductsDAO extends DBContext {
             ur.setInt(1, id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Products p = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getInt("ProductDetailID"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("OrderID"),
-                        rs.getInt("fbID"),
-                        rs.getInt("BrandID")
-                );
-                return p;
+                Products product = new Products(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11));
+
+                return product;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -203,20 +206,175 @@ public class ProductsDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args) {
-        ProductsDAO Pdao = new ProductsDAO();
-        /*System.out.println(Pdao.loadProducts().size());
-        System.out.println(Pdao.getPaging(2).size());
+    public ArrayList<Products> getListProductByFilter(int cateId, int status, String search, int brandId, int pageNo, int pageSize) {
+        ArrayList<Products> listProduct = new ArrayList<>();
+        Products product = new Products();
+        String sql = "select * from Products";
+        boolean whereAdded = false;
+        if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (cateId != -1) {
+                sql += " fk_category_id = ?";
+                whereAdded = true;
+            }
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " ProductStatus = ?";
+                whereAdded = true;
+            }
+            if (brandId != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " BrandID = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (ProductName LIKE '?')";
+            }
+        }
 
-        System.out.println(Pdao.getCount());*/
-        Products p = Pdao.getProductByProductID(1);
-        System.out.println(p.getProductImageUrl());
 
-        System.out.println(Pdao.getCount());
-        int categoryId = 1; // example category ID
-        List<Products> products = Pdao.getProductsByCategory(categoryId);
-        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
-                + ", Name: " + product.getProductName()));
+
+        sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+          System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int parameterIndex = 1;
+            if (cateId != -1) {
+                st.setInt(parameterIndex, cateId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                st.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (brandId != -1) {
+                st.setInt(parameterIndex, brandId);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                st.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
+
+            }
+            //set the limit and offset parameters for pagination
+            st.setInt(parameterIndex, (pageNo - 1) * pageSize);
+            parameterIndex++;
+            st.setInt(parameterIndex, pageSize);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product = new Products(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getString(11));
+                listProduct.add(product);
+            }
+
+        } catch (Exception e) {
+
+        }
+        return listProduct;
     }
 
+    public int getTotalPage(int cateId, int status, String search, int brandId, int pageSize) {
+        String sql = "select count(*) from Products";
+        boolean whereAdded = false;
+        if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (cateId != -1) {
+                sql += " fk_category_id = ?";
+                whereAdded = true;
+            }
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " ProductStatus = ?";
+                whereAdded = true;
+            }
+            if (brandId != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " BrandID = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (ProductName LIKE '?')";
+            }
+        }
+        System.out.println(sql);
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            int parameterIndex = 1;
+            if (cateId != -1) {
+                st.setInt(parameterIndex, cateId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                st.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (brandId != -1) {
+                st.setInt(parameterIndex, brandId);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                st.setString(parameterIndex, "%" + search + "%");
+
+            }
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int totalRecord = rs.getInt(1);
+                int totalPage = totalRecord / pageSize;
+                if (totalPage % pageSize != 0) {
+                    totalPage++;
+                }
+                return totalPage;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        ProductsDAO  dao = new ProductsDAO();
+        System.out.println( dao.getTotalPage(-1, -1, "", 1, 3));
+        System.out.println(dao.getListProductByFilter(-1, -1, "", 1, 1, 3).size());
+    }
+    
+//    public static void main(String[] args) {
+//        ProductsDAO Pdao = new ProductsDAO();
+//        /*System.out.println(Pdao.loadProducts().size());
+//        System.out.println(Pdao.getPaging(2).size());
+//
+//        System.out.println(Pdao.getCount());*/
+//        Products p = Pdao.getProductByProductID(1);
+//        System.out.println(p.getProductImageUrl());
+//
+//        System.out.println(Pdao.getCount());
+//        int categoryId = 1; // example category ID
+//        List<Products> products = Pdao.getProductsByCategory(categoryId);
+//        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
+//                + ", Name: " + product.getProductName()));
+//    }
 }

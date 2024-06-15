@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         if (email != null) {
             request.setAttribute("err", "hoang");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("../common/login.jsp").forward(request, response);
         }
         HttpSession session = request.getSession();
         Cookie arrayCookie[] = request.getCookies();
@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("err", e.getMessage());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("./common/login.jsp").forward(request, response);
 
         }
 

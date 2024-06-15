@@ -12,22 +12,22 @@ import java.sql.Date;
  */
 public class Products {
     private int productID;
-    private int subCategoryID;
     private String productName;
     private Date productCreateDate;
     private int productDetailID;
-    private boolean productStatus;
+    private int productStatus;
     private String productImageUrl;
     private int OrderID;
     private int fbID;
     private int BrandID;
+    private int fk_category_id;
+    private String UpdateDescription;
 
     public Products() {
     }
 
-    public Products(int productID, int subCategoryID, String productName, Date productCreateDate, int productDetailID, boolean productStatus, String productImageUrl, int OrderID, int fbID, int BrandID) {
+    public Products(int productID, String productName, Date productCreateDate, int productDetailID, int productStatus, String productImageUrl, int OrderID, int fbID, int BrandID, int fk_category_id, String UpdateDescription) {
         this.productID = productID;
-        this.subCategoryID = subCategoryID;
         this.productName = productName;
         this.productCreateDate = productCreateDate;
         this.productDetailID = productDetailID;
@@ -36,6 +36,8 @@ public class Products {
         this.OrderID = OrderID;
         this.fbID = fbID;
         this.BrandID = BrandID;
+        this.fk_category_id = fk_category_id;
+        this.UpdateDescription = UpdateDescription;
     }
 
     public int getProductID() {
@@ -44,14 +46,6 @@ public class Products {
 
     public void setProductID(int productID) {
         this.productID = productID;
-    }
-
-    public int getSubCategoryID() {
-        return subCategoryID;
-    }
-
-    public void setSubCategoryID(int subCategoryID) {
-        this.subCategoryID = subCategoryID;
     }
 
     public String getProductName() {
@@ -78,11 +72,11 @@ public class Products {
         this.productDetailID = productDetailID;
     }
 
-    public boolean isProductStatus() {
+    public int getProductStatus() {
         return productStatus;
     }
 
-    public void setProductStatus(boolean productStatus) {
+    public void setProductStatus(int productStatus) {
         this.productStatus = productStatus;
     }
 
@@ -118,10 +112,21 @@ public class Products {
         this.BrandID = BrandID;
     }
 
-   
+    public int getFk_category_id() {
+        return fk_category_id;
+    }
 
-     
+    public void setFk_category_id(int fk_category_id) {
+        this.fk_category_id = fk_category_id;
+    }
 
-   
+    public String getUpdateDescription() {
+        return UpdateDescription;
+    }
+
+    public void setUpdateDescription(String UpdateDescription) {
+        this.UpdateDescription = UpdateDescription;
+    }
+  
     
 }

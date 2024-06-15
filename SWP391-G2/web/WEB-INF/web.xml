@@ -142,6 +142,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingManagerment</servlet-name>
-        <url-pattern>/MarketingManagerment</url-pattern>
+        <url-pattern>/marketinganager</url-pattern>
     </servlet-mapping>
 </web-app>
