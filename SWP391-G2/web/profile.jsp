@@ -109,8 +109,7 @@
                     <div class="col-md-6"><label class="labels">Surname</label><input name="lastname" type="text" class="form-control" value="${profile.lastName}" placeholder="surname"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input name="phone" type="text" class="form-control" placeholder="enter phone number" value="${profile.phone}"></div>
-                    <div class="col-md-12"><label class="labels">Address</label><input name="address" type="text" class="form-control" placeholder="enter address" value="${profile.address}"></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input name="phone" type="text" class="form-control" placeholder="enter phone number" value="${profile.phone}"> ${mess}</div>
                     <div class="col-md-12"><label class="labels">Gender</label><input name="gender" type="text" class="form-control" placeholder="Enter Gender" value="${profile.gender}"></div>
                     <div class="col-md-12"><label class="labels">birthday</label><input name="birth" type="date" class="form-control" placeholder="Enter Date Of Birth" value="${profile.birthday}"></div>
                  

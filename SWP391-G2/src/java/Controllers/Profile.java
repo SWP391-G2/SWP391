@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import Controllers.Validate;
 /**
  *
  * @author ROG
@@ -77,7 +77,7 @@ public class Profile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-          HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
          Accounts account = (Accounts)session.getAttribute("account");
          String emaill = account.getEmail();
          AccountsDAO Accdao = new AccountsDAO();
@@ -89,22 +89,29 @@ public class Profile extends HttpServlet {
          String gender = request.getParameter("gender");
          String birthday = request.getParameter("birth");
          String button = request.getParameter("save");
+         Validate validate = new Validate();
          try {
-            SimpleDateFormat formatdate = new SimpleDateFormat();
+            SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date utilDate = formatdate.parse(birthday);
+            Date dob = new Date(utilDate.getTime());
             if(button != null){
              
              acc.setFirstName(firstName);
              acc.setLastName(lastName);
-             acc.setPhone(phone);
+             if(validate.isValidPhone(phone)){
+                 acc.setPhone(phone);
+             }else{
+                 request.setAttribute("mess", "invalid phone number ");
+             }
              acc.setGender(Integer.parseInt(gender));
-             acc.setBirthday(utilDate);
-             
+             acc.setBirthday(dob);
+             acc.setEmail(emaill);
              Accdao.updateProfile(acc);
              request.setAttribute("profile", acc);
               request.getRequestDispatcher("profile.jsp").forward(request, response);
          }
         } catch (Exception e) {
+            e.printStackTrace();
         }
          
         

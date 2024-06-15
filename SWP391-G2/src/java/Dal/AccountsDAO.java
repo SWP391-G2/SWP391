@@ -5,6 +5,7 @@
 package Dal;
 
 import Models.Accounts;
+import Models.Products;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -495,7 +496,7 @@ public class AccountsDAO extends DBContext {
     
      
      public void updateProfile(Accounts account) {
-        String sql = "UPDATE Accounts SET firstname=?, lastname=?, Gender=?, BirthDay=?, Phone=?, [Address]=? Where email=?";
+        String sql = "UPDATE Accounts SET FirstName=?, LastName=?, Gender=?, BirthDay=?, Phone=? Where Email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, account.getFirstName());
@@ -503,8 +504,8 @@ public class AccountsDAO extends DBContext {
             st.setInt(3, account.getGender());
             st.setString(4, account.getBirthday().toString());
             st.setString(5, account.getPhone());
-            st.setString(6,account.getAddress());
-            st.setString(7, account.getEmail());
+           
+            st.setString(6, account.getEmail());
                     
             st.executeUpdate();
         } catch (SQLException e) {
@@ -522,5 +523,18 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException e) {
             System.err.println(e);
         }
+    }
+     public static void main(String[] args) {
+        AccountsDAO Adao = new AccountsDAO();
+         Accounts account = Adao.getAccount("hoangnvhe171612@fpt.edu.vn");
+         System.out.println(account.toString());
+         account.setFirstName("Nguyen");
+         account.setLastName("Hoang");
+         account.setBirthday(account.getBirthday());
+         account.setGender(1);
+         account.setPhone("0975375261");
+         account.setEmail(account.getEmail());
+         Adao.updateProfile(account);
+         System.out.println(account);
     }
 }
