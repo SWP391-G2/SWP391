@@ -49,7 +49,7 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
-            <jsp:include page="../public/navigation.jsp"></jsp:include>
+            
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -79,16 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <select class="form-control" id="roleId" name="roleId">
-                            <option value="-1" ${roleId==null ? 'selected' : '' }>All role</option>
-                            <c:forEach items="${listRole}" var="role">
-                                <option value="${role.roleID}" ${role.roleID==roleId ? 'selected' : '' }>
-                                    ${role.roleName}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
+         
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
@@ -117,49 +108,31 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Full Name</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Role</th>
+                                        <th scope="col">Brand Name</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listUser}" var="user" varStatus="loop">
+                                    <c:forEach items="${listbrand}" var="brand" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td><a onclick="showDetail(${user.getAccountID()},${user.getRole()})">
-                                                    <button type="button" class="border-0 ">${user.getFirstName()}  ${user.getLastName()}</button></a></td>
-                                            <td>${user.getGender()}</td>
-                                            <td>${user.getEmail()}</td>
-                                            <td>${user.getPhone()}</td>
-                                            <td>${user.getAddress()}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${user.getRole() == 1}">Admin</c:when>
-                                                    <c:when test="${user.getRole() == 3}">Marketing</c:when>
-                                                    <c:when test="${user.getRole() == 2}">Saler</c:when>
-                                                    <c:otherwise>User</c:otherwise>
-                                                </c:choose>
-                                            </td>
-
+                                            <td>${brand.getBrandName()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                            <td>${brand.getDescription()}</td>
                                             <td>
-
                                                 <c:choose>
-                                                    <c:when test="${user.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Admin blocked successfully!',${user.getAccountID()}, 0)">
+                                                    <c:when test="${brand.getStatus() == 1}">
+                                                        <a  onclick="showAlert('Marketing blocked successfully!',${brand.getBrandID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
-                                                                Block
+                                                                View
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${user.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Admin unblocked successfully!',${user.getAccountID()}, 1);">
+                                                    <c:when test="${brand.getStatus() == 0}">
+                                                        <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
                                                             <button type="button" class="btn btn-success">
-                                                                UnBlock
+                                                                Hide
                                                             </button>
                                                         </a>
                                                     </c:when>
@@ -227,7 +200,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add new account</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -238,16 +211,73 @@
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group row">
                                         <div class="col-6">
-                                            <label for="firstName">Brand Name: </label>
+                                            <label for="firstName">First Name:</label>
                                             <input type="text" class="form-control" id="firstname"
                                                    name="firstname" required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="lastName">Description: </label>
+                                            <label for="lastName">Last Name:</label>
                                             <input type="text" class="form-control" id="lastname"
                                                    name="lastname" required>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="1">Male</option>
+                                            <option value="0">Female</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone">Image:</label>
+                                        <input type="file" class="form-control" id="image" name="image"
+                                            >
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                               required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Birthdate</label>
+                                        <input type="date" class="form-control" id=birthdates name="birthday"
+                                               required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number:</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone">Address:</label>
+                                        <input type="text" class="form-control" id="address" name="address"
+                                               required>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" class="form-control" id="password"
+                                               name="password" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="roleId">Role ID:</label>
+                                        <select class="form-control" id="roleId" name="roleID">
+                                            <option value="2">Sale</option>
+                                            <option value="3">Marketing</option>
+                                        </select>
+                                    </div>
+
 
                                 </div>
                                 <div class="modal-footer">
@@ -284,7 +314,7 @@
 
 
     <script>
-                                        function showAlert(message, accountID, status1) {
+                                        function showAlert(message, brandID, status1) {
 
 
                                             if (confirm(message)) {
@@ -292,8 +322,8 @@
                                                 const roleId = document.querySelector('#roleId').value;
                                                 const status = document.querySelector('#status').value;
                                                 const pageNo = document.querySelector('#pageNo').value;
-                                                window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                                                        '&status=' + status + '&pageNo=' + pageNo + "&accountID=" + accountID + "&statusnew=" + status1;
+                                                window.location.href = 'brand?search=' + search +
+                                                        '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
                                             }
                                         }
                                         function showDetail(accountID, accountRole) {
@@ -302,7 +332,7 @@
                                             const status = document.querySelector('#status').value;
                                             const pageNo = document.querySelector('#pageNo').value;
                                             window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
+                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID='+accountRole ;
                                         }
     </script>
     <script>
@@ -322,7 +352,7 @@
             const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
             const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'brand?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
@@ -334,7 +364,7 @@
             const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
             const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'brand?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
 
@@ -345,7 +375,7 @@
             const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
             const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'brand?search=' + search + 
                     '&status=' + status + '&pageNo=1';
         });
 
@@ -354,7 +384,7 @@
             const search = document.querySelector('#search').value;
             const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'brand?search=' + search + 
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 

@@ -2,28 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.customer;
+package controller.marketing;
 
-import Dal.CartsDAO;
-import Dal.ProductDetailDAO;
-import Models.Carts;
-import Models.ProductDetail;
+import Dal.AccountsDAO;
+import Dal.BrandsDAO;
+import Dal.RoleDAO;
+import Models.Accounts;
+import Models.Brands;
+import Models.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import static java.nio.file.Files.list;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author hatru
  */
-public class controllerCart extends HttpServlet {
+public class BrandController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class controllerCart extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet controllerCart</title>");
+            out.println("<title>Servlet BrandController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet controllerCart at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BrandController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +62,44 @@ public class controllerCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        //processRequest(request, response);
+        int status_new = -1;
+        int brandID = -1;
+        try {
+            status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            brandID  = request.getParameter("brandID") == null ? -1 : Integer.parseInt(request.getParameter("brandID"));
+        } catch (Exception e) {
+        }
+
+        if (status_new != -1) {
+            BrandsDAO brandDAO = new BrandsDAO();
+            brandDAO.updateStatusBrand(status_new, brandID);
+        }
+
+        String search = "";
+        int status = -1;
+        int pageNo = 1;
+        final int pageSize = 10;
+        try {
+
+            search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+
+        } catch (Exception e) {
+        }
+        
+        BrandsDAO brandDao = new BrandsDAO();
+        List<Brands> listbrand = brandDao.getBrandByFilter(status, search, pageNo, pageSize);
+        int totalPage = brandDao.getTotalPage(status, search, pageSize);
+
+        request.setAttribute("search", search);
+        request.setAttribute("status", status);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("currentPage", pageNo);
+        request.setAttribute("listbrand", listbrand);
+
+        request.getRequestDispatcher("marketing/brand.jsp").forward(request, response);
     }
 
     /**
@@ -78,29 +114,6 @@ public class controllerCart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        //        ProductDetailDAO pdDao = new ProductDetailDAO();
-//        Cookie[] arr = request.getCookies();
-//        String txt = "";
-//        if(arr != null){
-//            for (Cookie o : arr) {
-//                if(o.getName().equals("cart")){
-//                    txt+=o.getValue();
-//                }
-//            }
-//        }
-//        String pdID = request.getParameter("productID");
-//        String quantity = request.getParameter("Quantity");
-//        String price = request.getParameter("Price");
-//        String size = request.getParameter("size");
-//        int productID = 3;
-//
-//        double price = 100.5;
-//        int accountID = 9;
-//        int quantity1 = 10;
-//        double totalPrice = quantity1 * price;
-//        ProductDetailDAO pdDAO = new ProductDetailDAO();
-//        pdDAO.insetCart(productID, accountID, quantity1, totalPrice);
-
     }
 
     /**

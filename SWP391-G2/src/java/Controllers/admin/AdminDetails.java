@@ -104,7 +104,7 @@ public class AdminDetails extends HttpServlet {
             request.setAttribute("data", account);
 
         }
-        request.getRequestDispatcher("admindetails.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admindetails.jsp").forward(request, response);
     }
 
     /**
@@ -162,7 +162,7 @@ public class AdminDetails extends HttpServlet {
         }
 
         dao.updateAccount(statusnew, roleID, filename, accountID);
-     response.sendRedirect("./admincontrolaccount?search=" + search + "&roleId=" + roleId + "&status=" + status + "&pageNo=" + pageNo);
+     response.sendRedirect(".admin/admincontrolaccount?search=" + search + "&roleId=" + roleId + "&status=" + status + "&pageNo=" + pageNo);
     }
 
     /**

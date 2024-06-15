@@ -55,83 +55,92 @@
                                         </thead>
                                         <tbody>
 
-                                            <c:set var="o" value="${sessionScope.cart}"/>
-                                            <c:set var="t" value="0"/>
-                                            <c:set var="sum" value="0"/>
-                                            <c:forEach items="${o.items}" var="i">
-                                                <c:set var="t" value="${t+1}"/>  
+                                        
+                                            <c:set var="o" value="${requestScope.listcart}"/>
+                                            <c:set var="p" value="${requestScope.listproduct}"/>
+                                            
+                                            <h1>${o.getCardID()}</h1>
+                                            <h1>${p.getProductSize()}</h1>
+                                        
+                                            
 
-                                                <tr>
-                                                    <td class="align-middle"><strong>${t}</strong></td>
-                                                    <th scope="row">
-                                                        <div class="p-2">
-                                                            <img src="" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                            <div class="ml-3 d-inline-block align-middle">
-                                                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">${name}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
-                                                            </div>
-                                                        </div>
-                                                    </th>
-                                                    <td class="align-middle"><strong><fmt:formatNumber pattern="##.##" value="${i.price}"/>$</strong></td>
-                                                    <td class="align-middle">
-                                                        <a href="deletecart?number=-1&id="><button class="btnSub">-</button></a> 
-                                                        <strong>${i.quantity}</strong>
-                                                        <a href="deletecart?number=1&id=}"><button class="btnAdd">+</button></a>
-                                                    </td>
-                                                    <td  class="align-middle"><strong><fmt:formatNumber pattern="##.##" value="${i.price*i.quantity}"/>$</strong></td>
-                                                    <c:set var="sum" value="${sum + i.price*i.quantity}"/>
-                                                    <td class="align-middle">
-                                                        <form action="deletecart" method="post" class="text-dark" onsubmit="return confirmDelete();" >
-                                                            <input type="hidden" class="btn btn-danger" name="idcart" value="">
-                                                            <input type="submit" class="btn btn-danger" name="submit" value="DELETE">
-                                                            </td>
-                                                            </tr> 
-                                                        </c:forEach>
-                                                        </tbody>
-                                                        </table>
-                                                        </div>
-                                                        <!-- End -->
-                                                        </div>
-                                                        </div>
+                                        <c:set var="o" value="${requestScope.listcart}"/>
+                                        <c:set var="t" value="0"/>
+                                        <c:set var="sum" value="0"/>
+                                        <c:forEach items="${o.items}" var="i">
+                                            <c:set var="t" value="${t+1}"/>  
 
-                                                        <div class="row py-5 p-4 bg-white rounded shadow-sm">
-                                                            <div class="col-lg-6">
-                                                                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Voucher</div>
-                                                                <div class="p-4">
-                                                                    <div class="input-group mb-4 border rounded-pill p-2">
-                                                                        <input type="text" placeholder="Nhập Voucher" aria-describedby="button-addon3" class="form-control border-0">
-                                                                        <div class="input-group-append border-0">
-                                                                            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Sử dụng</button>
-                                                                        </div>
+                                            <tr>
+                                                <td class="align-middle"><strong>${t}</strong></td>
+                                                <th scope="row">
+                                                    <div class="p-2">
+                                                        <img src="" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                        <div class="ml-3 d-inline-block align-middle">
+                                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">${o.getAccountID()}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                
+                                                <td class="align-middle">
+                                                    <a href="deletecart?number=-1&id="><button class="btnSub">-</button></a> 
+                                                    <strong>${i.quantity}</strong>
+                                                    <a href="deletecart?number=1&id=}"><button class="btnAdd">+</button></a>
+                                                </td>
+                                                <td  class="align-middle"><strong><fmt:formatNumber pattern="##.##" value="${i.price*i.quantity}"/>$</strong></td>
+                                                <c:set var="sum" value="${sum + i.price*i.quantity}"/>
+                                                <td class="align-middle">
+                                                    <form action="deletecart" method="post" class="text-dark" onsubmit="return confirmDelete();" >
+                                                        <input type="hidden" class="btn btn-danger" name="idcart" value="">
+                                                        <input type="submit" class="btn btn-danger" name="submit" value="DELETE">
+                                                        </td>
+                                                        </tr> 
+                                                    </c:forEach>
+                                                    </tbody>
+                                                    </table>
+                                                    </div>
+                                                    <!-- End -->
+                                                    </div>
+                                                    </div>
+
+                                                    <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                                                        <div class="col-lg-6">
+                                                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Voucher</div>
+                                                            <div class="p-4">
+                                                                <div class="input-group mb-4 border rounded-pill p-2">
+                                                                    <input type="text" placeholder="Nhập Voucher" aria-describedby="button-addon3" class="form-control border-0">
+                                                                    <div class="input-group-append border-0">
+                                                                        <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Sử dụng</button>
                                                                     </div>
                                                                 </div>
-                                                                <a href="home" class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Close Cart</a>
                                                             </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Total Money</div>
-                                                                <div class="p-4">
-                                                                    <ul class="list-unstyled mb-4">
-                                                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total Money Product</strong><strong><fmt:formatNumber pattern="##.##" value="${sum}"/>$</strong></li>
-                                                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Fee Ship</strong><strong>Free ship</strong></li>
-                                                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">VAT</strong><strong>8%</strong></li>
-                                                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total Money CheckOut</strong>
-                                                                            <h5 class="font-weight-bold"><fmt:formatNumber pattern="##.##" value=""/> $</h5>
-                                                                        </li>
-                                                                    </ul><a href="buy"class="btn btn-dark rounded-pill py-2 btn-block">BUY</a>
-                                                                </div>
+                                                            <a href="home" class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Close Cart</a>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Total Money</div>
+                                                            <div class="p-4">
+                                                                <ul class="list-unstyled mb-4">
+                                                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total Money Product</strong><strong><fmt:formatNumber pattern="##.##" value="${sum}"/>$</strong></li>
+                                                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Fee Ship</strong><strong>Free ship</strong></li>
+                                                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">VAT</strong><strong>8%</strong></li>
+                                                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total Money CheckOut</strong>
+                                                                        <h5 class="font-weight-bold"><fmt:formatNumber pattern="##.##" value=""/> $</h5>
+                                                                    </li>
+                                                                </ul><a href="buy"class="btn btn-dark rounded-pill py-2 btn-block">BUY</a>
                                                             </div>
                                                         </div>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                                                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-                                                        <script>
-                                                                                                            function confirmDelete() {
-                                                                                                                return confirm("Are you sure you want to delete this item from the cart?");
-                                                                                                            }
-                                                        </script>
-                                                        </body>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                                                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                                                    <script>
+                                                        function confirmDelete() {
+                                                            return confirm("Are you sure you want to delete this item from the cart?");
+                                                        }
+                                                    </script>
+                                                    </body>
 
-                                                        </html>
+                                                    </html>

@@ -11,15 +11,17 @@ package Models;
 public class Brands {
     private int BrandID;
     private String BrandName;
-    private String BrandDescription;
+    private String Description;
+    private int status;
 
     public Brands() {
     }
 
-    public Brands(int BrandID, String BrandName, String BrandDescription) {
+    public Brands(int BrandID, String BrandName, String Description, int status) {
         this.BrandID = BrandID;
         this.BrandName = BrandName;
-        this.BrandDescription = BrandDescription;
+        this.Description = Description;
+        this.status = status;
     }
 
     public int getBrandID() {
@@ -38,12 +40,25 @@ public class Brands {
         this.BrandName = BrandName;
     }
 
-    public String getBrandDescription() {
-        return BrandDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setBrandDescription(String BrandDescription) {
-        this.BrandDescription = BrandDescription;
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Brands{" + "BrandID=" + BrandID + ", BrandName=" + BrandName + ", Description=" + Description + ", status=" + status + '}';
     }
 
     

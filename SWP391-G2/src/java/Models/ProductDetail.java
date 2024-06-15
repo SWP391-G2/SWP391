@@ -98,6 +98,11 @@ public class ProductDetail {
     public void setProductAvaiable(int ProductAvaiable) {
         this.ProductAvaiable = ProductAvaiable;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetail{" + "ProductFullDetailID=" + ProductFullDetailID + ", pdProductID=" + pdProductID + ", ProductDescription=" + ProductDescription + ", ProductCreateDate=" + ProductCreateDate + ", ProductStatus=" + ProductStatus + ", ProductSize=" + ProductSize + ", ProductPrice=" + ProductPrice + ", ProductAvaiable=" + ProductAvaiable + '}';
+    }
    
    
 }
