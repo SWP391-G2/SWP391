@@ -193,13 +193,13 @@
                         <c:forEach items="${priceandsize}" var="img">
                             <div class="col-3">
                                 <img
-                                    
+
                                     src="images/Products/${c.getCategoryName()}/${img.getImage()}"
                                     alt="Ảnh sản phẩm 2"
                                     class="product-image-small"
                                     onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')"
                                     />
-                                
+
                             </div>
                         </c:forEach>
 
@@ -210,7 +210,9 @@
                 <div class="col-md-6 product-details product-description" style="background: whitesmoke">
 
                     <div>
-                        <h1 id="product-name" class="custom-link">${p.getProductName()}</h1>
+                        <p><input type="text" id="productductFullDetailID" value="${priceandsize[0].productFullDetailID}" hidden=""></p>
+                        <h1 id="produc-tname" class="custom-link">${p.getProductName()}</h1>
+                        <input type="text" id="productname" value="${p.getProductName()}" hidden="">
                         <p>
                             <strong>Trademark:</strong>
                             <span id="brand">${b.getBrandName()}</span>
@@ -285,18 +287,18 @@
                     Currently, perfume has become a popular product and is widely used around the world. Perfume manufacturers have used modern technology to create new perfumes with complex scents and longer lasting scents. Perfume is also widely used in other fields such as health, spa and beauty.
                 </p>
                 <c:forEach items="${priceandsize}" var="img">
-                            <div class="col-10">
-                                <img
-                                    
-                                    src="images/Products/${c.getCategoryName()}/${img.getImage()}"
-                                    alt="Ảnh sản phẩm 2"
-                                    class="product-image-small"
-                                    id="product-image"
-                                    onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')"
-                                    />
-                                
-                            </div>
-                        </c:forEach>
+                    <div class="col-10">
+                        <img
+
+                            src="images/Products/${c.getCategoryName()}/${img.getImage()}"
+                            alt="Ảnh sản phẩm 2"
+                            class="product-image-small"
+                            id="product-image"
+                            onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')"
+                            />
+
+                    </div>
+                </c:forEach>
             </div>
             <div id="policy" class="content-section">
                 <p class="col-8">The information security policy is complied with relevant legal regulations on personal information protection and Decree 52/2013/ND-CP of the government on e-commerce issued on May 16, 2013. .
@@ -384,129 +386,15 @@
             <div class="testimonial-heading text-center">
                 <h2>Feedback</h2>
             </div>
-
-            <!--testimonials-box-->
-            <div class="row justify-content-center">
-                <!--box1--------------->
-                <div class="col-md-6 col-lg-4">
-                    <div class="testimonial-box p-3">
-                        <!--top-->
-                        <div class="d-flex align-items-center mb-3">
-                            <!--profile-->
-                            <div class="profile d-flex align-items-center">
-                                <!--img-->
-
-                                <!--name-and-username-->
-                                <div class="name-user">
-                                    <strong>Nguyễn Văn A</strong>
-                                    <span>@nguyenvana</span>
-                                </div>
-                            </div>
-                            <!--review-->
-                            <div class="reviews ms-auto">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <!--Comment-->
-                        <div class="client-comment">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                                quod, voluptates, quae, quos dolorum quibusdam quia
-                                exercitationem
-                            </p>
-                            <div class="client-comment-img">
-                                <img
-                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
-                                    />
-                            </div>
-                        </div>
-                    </div>
+            <div class="media">
+                <img src="" alt="Khanh" class="mr-3" />
+                <div class="media-body">
+                    <h5>Khanh</h5>
+                    <p>hihi</p>
+                    <small>1 ngày trước • Thích · Trả lời</small>
                 </div>
-
-                <!-- Repeat the testimonial-box for more testimonials -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="testimonial-box p-3">
-                        <!--top-->
-                        <div class="d-flex align-items-center mb-3">
-                            <!--profile-->
-                            <div class="profile d-flex align-items-center">
-                                <!--img-->
-
-                                <!--name-and-username-->
-                                <div class="name-user">
-                                    <strong>Nguyễn Văn A</strong>
-                                    <span>@nguyenvana</span>
-                                </div>
-                            </div>
-                            <!--review-->
-                            <div class="reviews ms-auto">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <!--Comment-->
-                        <div class="client-comment">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                                quod, voluptates, quae, quos dolorum quibusdam quia
-                                exercitationem
-                            </p>
-                            <div class="client-comment-img">
-                                <img
-                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
-                                    />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="testimonial-box p-3">
-                        <!--top-->
-                        <div class="d-flex align-items-center mb-3">
-                            <!--profile-->
-                            <div class="profile d-flex align-items-center">
-                                <!--img-->
-
-                                <!--name-and-username-->
-                                <div class="name-user">
-                                    <strong>Nguyễn Văn A</strong>
-                                    <span>@nguyenvana</span>
-                                </div>
-                            </div>
-                            <!--review-->
-                            <div class="reviews ms-auto">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <!--Comment-->
-                        <div class="client-comment">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                                quod, voluptates, quae, quos dolorum quibusdam quia
-                                exercitationem
-                            </p>
-                            <div class="client-comment-img">
-                                <img
-                                    src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
-                                    />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
         </section>
         <%@include file="../footer.jsp" %>
 
@@ -519,10 +407,8 @@
                 var quantityInput = document.getElementById("quantity");
                 var currentQuantity = parseInt(quantityInput.value);
                 var newQuantity = currentQuantity + change;
-
                 // Lấy số lượng có sẵn từ thẻ span
                 var availableQuantity = parseInt(document.getElementById("quantitie").innerText);
-
                 if (newQuantity >= 1 && newQuantity <= 999 && newQuantity <= availableQuantity) {
                     quantityInput.value = newQuantity;
                 }
@@ -539,17 +425,16 @@
             var priceAndSizeData = [
             <c:forEach items="${priceandsize}" var="size" varStatus="status">
             {
-            size: "${size.productSize}",
+            productfulldetailid: "${size.productFullDetailID}",
+                    size: "${size.productSize}",
                     price: "${size.productPrice}",
                     quantity: "${size.productAvaiable}"
             }<c:if test="${!status.last}">,</c:if>
             </c:forEach>
             ];
-
             document.getElementById("perfume-type").addEventListener("change", function () {
                 // Lấy giá trị size được chọn
                 var selectedSize = this.value;
-
                 // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
                 for (var i = 0; i < priceAndSizeData.length; i++) {
                     if (priceAndSizeData[i].size == selectedSize) {
@@ -557,15 +442,16 @@
                         document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
                         document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
                         document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
+                        document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
                         break; // Kết thúc vòng lặp khi tìm được size tương ứng
                     }
                 }
             });
-
             function addToCart(productID) {
-                var price = document.getElementById('priceofproduct').value;
+                var productname = document.getElementById('productname').value;
                 var quantity = document.getElementById('quantity').value;
-                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&price=" + price;
+                var productfulldetailid = document.getElementById('productductFullDetailID').value;
+                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname +"&&productfulldetailid=" + productfulldetailid ;
             }
         </script>
 

@@ -64,9 +64,29 @@ public class CategoriesDAO extends DBContext {
                         rs.getString("Description"),
                         rs.getInt("status"));
             }
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return null;
+    }
+
+    public void insertCategory(String name,String description,int status) {
+        String sql = "INSERT INTO [dbo].[Categories]\n"
+                + "           ([CategoryName]\n"
+                + "           ,[Description]\n"
+                + "           ,[status])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1,name);
+            st.setString(2, description);
+            st.setInt(3, status);
+            st.executeUpdate();
+        }catch(SQLException e){
+            System.err.println(e);
+        }
     }
 }

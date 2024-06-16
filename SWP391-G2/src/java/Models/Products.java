@@ -13,12 +13,9 @@ import java.sql.Date;
 public class Products {
     private int ProductID;
     private String ProductName;
-    private Date ProductCreateDate;
-    private int ProductDetailID;
-    private boolean ProductStatus;
+    private Date ProductCreateDate;  
+    private int ProductStatus;
     private String ProductImageUrl;
-    private int OrderID;
-    private int fbID;
     private int BrandID;
     private int fk_category_id;
     private String UpdateDescription;
@@ -26,15 +23,12 @@ public class Products {
     public Products() {
     }
 
-    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductDetailID, boolean ProductStatus, String ProductImageUrl, int OrderID, int fbID, int BrandID, int fk_category_id, String UpdateDescription) {
+    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductStatus, String ProductImageUrl, int BrandID, int fk_category_id, String UpdateDescription) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.ProductCreateDate = ProductCreateDate;
-        this.ProductDetailID = ProductDetailID;
         this.ProductStatus = ProductStatus;
         this.ProductImageUrl = ProductImageUrl;
-        this.OrderID = OrderID;
-        this.fbID = fbID;
         this.BrandID = BrandID;
         this.fk_category_id = fk_category_id;
         this.UpdateDescription = UpdateDescription;
@@ -64,19 +58,11 @@ public class Products {
         this.ProductCreateDate = ProductCreateDate;
     }
 
-    public int getProductDetailID() {
-        return ProductDetailID;
-    }
-
-    public void setProductDetailID(int ProductDetailID) {
-        this.ProductDetailID = ProductDetailID;
-    }
-
-    public boolean isProductStatus() {
+    public int getProductStatus() {
         return ProductStatus;
     }
 
-    public void setProductStatus(boolean ProductStatus) {
+    public void setProductStatus(int ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
 
@@ -86,22 +72,6 @@ public class Products {
 
     public void setProductImageUrl(String ProductImageUrl) {
         this.ProductImageUrl = ProductImageUrl;
-    }
-
-    public int getOrderID() {
-        return OrderID;
-    }
-
-    public void setOrderID(int OrderID) {
-        this.OrderID = OrderID;
-    }
-
-    public int getFbID() {
-        return fbID;
-    }
-
-    public void setFbID(int fbID) {
-        this.fbID = fbID;
     }
 
     public int getBrandID() {
@@ -127,9 +97,7 @@ public class Products {
     public void setUpdateDescription(String UpdateDescription) {
         this.UpdateDescription = UpdateDescription;
     }
-    
 
-    
 
    
     
