@@ -43,13 +43,12 @@ public class ProductsDAO extends DBContext {
         return pro;
     }
 
-    public List<Products> getPaging(int index) {
+    public List<Products> getNext8Product(int amount) {
         List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products order by productID OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY;";
-        //chay lenhj truy van
+        String sql = "select * from Products order by productID OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, (index - 1) * 12);
+            ps.setInt(1,amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 pro.add(new Products(

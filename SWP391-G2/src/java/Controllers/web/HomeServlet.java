@@ -60,16 +60,17 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
-        SubCategoriesDAO subcategoriesDAO = new SubCategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
-        List<Products> products = productsDAO.getProductsByCategory(1);
-        List<SubCategories> subcategories = subcategoriesDAO.getAllSubCategories();
+        List<Products> productsMen = productsDAO.getProductsByCategory(1);
+        List<Products> productsWomen = productsDAO.getProductsByCategory(2);
+        List<Products> productsUnisex = productsDAO.getProductsByCategory(3);
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
-        request.setAttribute("subcategories", subcategories);
         request.setAttribute("categories", categories);
-        request.setAttribute("products", products);
+        request.setAttribute("productsMen", productsMen);
+        request.setAttribute("productsWomen", productsWomen);
+        request.setAttribute("productsUnisex", productsUnisex);
         request.setAttribute("brands", brands);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

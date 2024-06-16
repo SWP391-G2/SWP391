@@ -48,7 +48,7 @@ public class ProductList extends HttpServlet {
         if (count % 12 != 0) {
             endPage++;
         }
-        request.setAttribute("listProduct", Pdao.getPaging(index));
+
         request.setAttribute("endP", endPage);
         request.setAttribute("tag", index);
         request.setAttribute("category", listCate);
