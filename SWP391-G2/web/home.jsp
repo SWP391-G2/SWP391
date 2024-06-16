@@ -39,9 +39,12 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-100-h">
-                            <h1><a href="home">THE PERFUME SHOP</a></h1>
+                            <div class="logohome">
+                                <a href="home" class="logo-wrapper">
+                                    <img src="images/logo/logohome.png">
+                                </a>
+                            </div>
                         </div>
-
                         <div class="col-md-4 hidden-sm hidden-xs">
                             <div class="my-wishlist">
                                 <a href="" data-toggle="tooltip" data-placement="bottom" title="Wishlist" data-customer-id="15588985" class="smartLogin iWishView">
@@ -63,7 +66,7 @@
                             </div>     
                             <div class="my-gear">
                                 <a href="#" class="user-profile">
-                                    <i class="fa fa-solid fa-gear"></i>
+                                    <i class="fa fa-solid fa-user"></i>
                                 </a>
                             </div>
                         </div>
@@ -91,17 +94,7 @@
                                             <li class="nav-item-lv2">
                                                 <a class="nav-link" href="#">
                                                     ${category.categoryName}'s Perfumes
-                                                    <i class="fa fa-caret-right" data-toggle="dropdown"></i>
                                                 </a>
-                                                <ul class="dropdown-menu-lv2">
-                                                    <c:forEach var="sub" items="${requestScope.subcategories}">
-                                                        <c:if test="${sub.categoryID == category.categoryID}">
-                                                            <li class="nav-item-lv3">
-                                                                <a class="nav-link" href="#">${sub.subCategoryName}</a>
-                                                            </li>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </ul>
                                             </li>
                                         </c:forEach>
 
@@ -111,33 +104,47 @@
                                     <a class="nav-link" href="#">BRANDS
                                         <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <c:forEach var="brand" items="${requestScope.brands}">
-                                            <li class="nav-item-lv2">
-                                                <a class="nav-link" href="#">${brand.brandName}</a>
-                                            </li>
-                                        </c:forEach>
+                                    <ul class="dropdown-menu multi-column">
+                                        <div class="row">
+                                            <c:forEach var="brand" items="${requestScope.brands}">
+                                                <div class="col-md-4">
+                                                    <li class="nav-item-lv2">
+                                                        <a class="nav-link" href="#">${brand.brandName}</a>
+                                                    </li>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
                                     </ul>
-
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">BLOGS</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">CONTACT US</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">BLOGS</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link "href="#">ACCOUNT
                                         <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-
                                         <li class="nav-item-lv2">
-                                            <a class="nav-link" href="login">Login</a>
-                                            <a class="nav-link" href="signup.jsp">Sign Up</a>
+                                            <c:if test="${sessionScope.account == null}">
+                                                <a class="nav-link" href="login">Log In</a>
+                                                <a class="nav-link" href="signup.jsp">Sign Up</a>
+                                            </c:if>
+                                            <c:if test="${sessionScope.account != null}">
+                                                <a href="profile">Profile</a>
+                                                <a id="logout" data-toggle="modal" data-target="#modal_box" href="#" onclick="confirmLogout('modal_box')">
+                                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                                    ${sessionScope.account==null ? "": "Đăng xuất"}
+                                                </a>
+                                            </c:if>
                                         </li>
                                     </ul>                                                                          
                                 </li>
+
+                            </ul>                                                                          
+                            </li>
                             </ul>
                         </div>
                     </div>
@@ -153,31 +160,31 @@
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="8000">
-                        <a href="page1.html">
-                            <img src="images/Sliders/slider1.jpg" class="d-block w-100" alt="First slide">
-                        </a>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>THE PERFUME SHOP</h5>
-                            <p>No.1 Genuine Perfume Store in Viet Nam</p>
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="images/Sliders/slider1.jpg" class="d-block w-100" alt="First slide">
+                        <div class="carousel-caption right d-none d-md-block">
+                            <h5>MEN'S COLLECTION</h5>
+                            <h2>WILD STONE</h2>
+                            <p>The rich aromatic notes of rosemary and neroli combined with the sophistication of tonka beans and white woods to create the perfect accompaniment for the suited look.</p>
+                            <a href="123" class="btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
-                        <a href="page2.html">
-                            <img src="images/Sliders/slider2.jpg" class="d-block w-100" alt="Second slide">
-                        </a>
+                        <img src="images/Sliders/slider2.jpg" class="d-block w-100" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>THE PERFUME SHOP</h5>
-                            <p>No.1 Genuine Perfume Store in Viet Nam</p>
+                            <h5>WOMEN'S COLLECTION</h5>
+                            <h2>ELEGANT ESSENCE</h2>
+                            <p>Discover the exquisite blend of floral and citrus notes that bring a touch of elegance to every occasion.</p>
+                            <a href="123" class="btn">Shop Now</a>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <a href="page3.html">
-                            <img src="images/Sliders/slider3.jpg" class="d-block w-100" alt="Third slide">
-                        </a>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="images/Sliders/slider5.jpg" class="d-block w-100" alt="Third slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>THE PERFUME SHOP</h5>
-                            <p>No.1 Genuine Perfume Store in Viet Nam</p>
+                            <h5>UNISEX'S COLLECTION</h5>
+                            <h2>SOPHISTICATED HARMONY</h2>
+                            <p>Experience the harmonious fusion of botanical and zesty essences that elevate any moment with a refined, universal appeal.</p>
+                            <a href="123" class="btn">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -208,42 +215,11 @@
                                                     <img src="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_1.jpg?1716797210297" 
                                                          data-lazyload="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_1.jpg?1716797210297"
                                                          alt="MEN'S PERFUMES"
-                                                         class="img-responsive center-block">
+                                                         class="img-responsive center-block col-md-12">
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="section_block_product_tab">
-                                            <div class="e-tabs not-dqtab ajax-tab-1" data-section="ajax-tab-1">
-                                                <div class="content">
-                                                    <div class="tab-1 tab-content current">
-                                                        <div class="section-tour-owl products products-view-grid owl-carousel owl-loaded owl-drag"
-                                                             data-lg-items="5" data-md-items="5" data-sm-items="4" data-xs-items="3" data-xss-items="2" data-margin="0" data-nav="true" data-dot="false">
-                                                            <div class="owl-stage-outer">
-                                                                <div class="owl-stage">
-                                                                    <div class="">
-                                                                        
-                                                                    </div>         
-                                                                </div> 
-                                                            </div>
-                                                            <div class="owl-nav">
-                                                                <div class="owl-prev">
-                                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                                </div>
-                                                                <div class="owl-next disabled">
-                                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="owl-dots disabled"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-center xt">
-                                                <button>
-                                                    <a href="productMen">View All</a>
-                                                </button>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -269,50 +245,11 @@
                                                     <img src="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_2.jpg?1716797210297" 
                                                          data-lazyload="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_2.jpg?1716797210297"
                                                          alt="WOMEN'S PERFUMES"
-                                                         class="img-responsive center-block">
+                                                         class="img-responsive center-block col-md-12">
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="section_block_product_tab">
-                                            <div class="e-tabs not-dqtab ajax-tab-1"data-section="ajax-tab-1">
-                                                <div class="content">
-                                                    <div class="tab-1 tab-content current">
-                                                        <div class="section-tour-owl products products-view-grid owl-carousel owl-loaded owl-drag"
-                                                             data-lg-items="5" data-md-items="5" data-sm-items="4" data-xs-items="3" data-xss-items="2" data-margin="0" data-nav="true" data-dot="false">
-                                                            <div class="owl-stage-outer">
-                                                                <div class="owl-stage" style="transform: translate3d(-1148px, 0px, 0px); transition: all 0s ease 0s; width: 2296px;">
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                </div>                    
-                                                                <div class="owl-nav">
-                                                                    <div class="owl-prev">
-                                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                                    </div>
 
-                                                                    <div class="owl-next disabled">
-                                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="owl-dots disabled"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-center xt">
-                                                <button>
-                                                    <a href="productWomen">View All</a>
-                                                </button>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +275,7 @@
                                                     <img src="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_3.jpg?1716797210297" 
                                                          data-lazyload="//bizweb.dktcdn.net/100/429/123/themes/824870/assets/sec_group_product_banner_3.jpg?1716797210297"
                                                          alt="UNISEX'S PERFUMES"
-                                                         class="img-responsive center-block">
+                                                         class="img-responsive center-block col-md-12">
                                                 </a>
                                             </div>
                                         </div>
@@ -346,33 +283,7 @@
                                             <div class="e-tabs not-dqtab ajax-tab-1"data-section="ajax-tab-1">
                                                 <div class="content">
                                                     <div class="tab-1 tab-content current">
-                                                        <div class="section-tour-owl products products-view-grid owl-carousel owl-loaded owl-drag"
-                                                             data-lg-items="5" data-md-items="5" data-sm-items="4" data-xs-items="3" data-xss-items="2" data-margin="0" data-nav="true" data-dot="false">
-                                                            <div class="owl-stage-outer">
-                                                                <div class="owl-stage" style="transform: translate3d(-1148px, 0px, 0px); transition: all 0s ease 0s; width: 2296px;">
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                    <div class="owl-item active" style="width: 229.6px;"></div>
-                                                                </div>                    
-                                                                <div class="owl-nav">
-                                                                    <div class="owl-prev">
-                                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                                    </div>
 
-                                                                    <div class="owl-next disabled">
-                                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="owl-dots disabled"></div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -401,9 +312,6 @@
                                         <span>THE PERFUME SHOP</span>
                                     </h4>
                                     <p>
-                                        <span>Nhận tất cả các loại nước hoa từ chúng tôi trong vòng 2 ngày giao hàng. Chúng tôi thậm chí có thể đặt hàngnước hoa không có trong cơ sở dữ liệu của chúng tôi. Để làm điều đó vui lòng gửi E-mail của bạn đến E-mail của công ty.</span>
-                                    </p>
-                                    <p>
                                         <span>Địa chỉ :</span>  Hoa Lac Hi-tech Park, km 29, Đại lộ Thăng Long, Hà Nội, Vietnam
                                     </p>
                                     <p><span>Email :</span> <a href="#">swp391g2@gmail.com</a></p>
@@ -424,30 +332,35 @@
                                     <ul class="list-menu">
                                         <li><a href="home">Home</a></li>
                                         <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Perfumes</a></li>
                                         <li><a href="#">Contact Us</a></li>
                                         <li><a href="profile">Profile</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>                          
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="footer-widget">
                                     <h4>
-                                        <span>ACCOUNT</span>
+                                        <span>WAYS TO SHOP</span>
                                     </h4>
                                     <ul class="list-menu">
-                                        <c:if test="${sessionScope.account == null}">
-                                            <li><a href="login.jsp">Login</a></li>
-                                            <li><a href="signup.jsp">Register</a></li>
-                                            </c:if>
-                                            <c:if test="${sessionScope.account != null}">
-                                            <li><a href="login">Logout</a></li>
-                                            </c:if>
+
+                                        <li><a href="">Men's Perfumes</a></li>
+                                        <li><a href="">Women's Perfumes</a></li>
+                                        <li><a href="">Unisex's Perfumes</a></li>
+                                        <li><a href="">Gift Set</a></li>
                                     </ul>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="footer-widget">
+                                    <h4>POLICY</h4>
+                                    <ul class="list-menu">
+                                        <li><a href="">Purchase Policy</a></li>
+                                        <li><a href="">Information Privacy Policy </a></li>
+                                        <li><a href="">Delivery Policy</a></li>
+                                        <li><a href="">Warranty Exchange-Return Policy</a></li>
+                                    </ul>
                                     <h4>
                                         <span>PAYMENT</span>
                                     </h4>

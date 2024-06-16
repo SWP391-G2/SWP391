@@ -10,9 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Models.Categories;
-import Models.SubCategories;
-
 /**
  *
  * @author ROG
@@ -89,34 +86,11 @@ public class ProductsDAO extends DBContext {
         return 0;
     }
 
-    // List Products of Men
-    public List<Products> getProductMen() {
-        List<Products> list = new ArrayList<>();
-        String sql = "SELECT * FROM Products ";
-        return list;
-    }
-
-    // List Products of Women
-    public List<Products> getProductWomen() {
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
-    }
-
-    // List Products of Unisex
-    public List<Products> getProductUnisex() {
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
-    }
-
     // List Products by Category
     public List<Products> getProductsByCategory(int categoryid) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products p "
-                + " JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID "
-                + " JOIN Categories c ON sc.CategoryID = c.CategoryID "
-                + " WHERE c.CategoryID = ?";
+        String sql = "SELECT * FROM Products "
+                + " WHERE CategoryID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryid);
