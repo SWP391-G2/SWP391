@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Products.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerment.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/admin/AddBlogController.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Accounts.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/marketing.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/cart.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/context/DBContext.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/blogDetails.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewProduct.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/add-product.jsp</file>
         </group>
     </open-files>
 </project-private>

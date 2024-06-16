@@ -70,7 +70,11 @@
     </servlet>
     <servlet>
         <servlet-name>MarketingManagerment</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingManagerment</servlet-class>
+        <servlet-class>Controllers.marketing.MarketingManagerProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingAddNewProduct</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingAddNewProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -142,6 +146,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingManagerment</servlet-name>
-        <url-pattern>/marketinganager</url-pattern>
+        <url-pattern>/marketing-manager-products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingAddNewProduct</servlet-name>
+        <url-pattern>/add-new-product</url-pattern>
     </servlet-mapping>
 </web-app>

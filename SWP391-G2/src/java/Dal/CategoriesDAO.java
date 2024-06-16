@@ -31,7 +31,10 @@ public class CategoriesDAO extends DBContext {
         for (Categories string : caList) {
             System.out.println(string.getCategoryName());
         }
-
+        for (String categories1 : dao.getAllName()) {
+            System.out.println(categories1);
+        }
+        System.out.println("");
     }
 
     public List<Categories> loadCategory() {
@@ -62,11 +65,46 @@ public class CategoriesDAO extends DBContext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
-               category = new Categories(rs.getInt(1),
-                       rs.getString(2),
-                       rs.getString(3),
-                       rs.getInt(4));
+            while (rs.next()) {
+                category = new Categories(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4));
+                caList.add(category);
+            }
+        } catch (Exception e) {
+        }
+        return caList;
+    }
+
+    public Categories getCategoryById(int cateId) {
+        Categories category = new Categories();
+        String sql = "select * from Categories WHERE CategoryID = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, cateId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                category = new Categories(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4));
+                return category;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public List<String> getAllName() {
+        List<String> caList = new ArrayList<>();
+        String category = "";
+        String sql = "select CategoryName from Categories Where status = 1;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                category = rs.getString(1);
                 caList.add(category);
             }
         } catch (Exception e) {

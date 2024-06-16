@@ -34,13 +34,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(8)));
             }
 
         } catch (SQLException e) {
@@ -63,13 +60,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(8)));
             }
 
         } catch (SQLException e) {
@@ -130,13 +124,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(8));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -161,13 +152,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(8));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -189,13 +177,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(8));
 
                 return product;
             }
@@ -235,14 +220,12 @@ public class ProductsDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (ProductName LIKE '?')";
+                sql += " (ProductName LIKE ?)";
             }
         }
 
-
-
         sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-          System.out.println(sql);
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             int parameterIndex = 1;
@@ -274,13 +257,10 @@ public class ProductsDAO extends DBContext {
                         rs.getString(2),
                         rs.getDate(3),
                         rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getInt(6),
                         rs.getInt(7),
-                        rs.getInt(8),
-                        rs.getInt(9),
-                        rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(8));
                 listProduct.add(product);
             }
 
@@ -317,7 +297,7 @@ public class ProductsDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (ProductName LIKE '?')";
+                sql += " (ProductName LIKE ?)";
             }
         }
         System.out.println(sql);
@@ -345,7 +325,7 @@ public class ProductsDAO extends DBContext {
             if (rs.next()) {
                 int totalRecord = rs.getInt(1);
                 int totalPage = totalRecord / pageSize;
-                if (totalPage % pageSize != 0) {
+                if (totalRecord % pageSize != 0) {
                     totalPage++;
                 }
                 return totalPage;
@@ -356,12 +336,56 @@ public class ProductsDAO extends DBContext {
         return 0;
     }
 
-    public static void main(String[] args) {
-        ProductsDAO  dao = new ProductsDAO();
-        System.out.println( dao.getTotalPage(-1, -1, "", 1, 3));
-        System.out.println(dao.getListProductByFilter(-1, -1, "", 1, 1, 3).size());
+    public int getLastProductId() {
+        String sql = "select Top 1 ProductID from Products Order by ProductID DESC";
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
     }
-    
+
+    public void insertNewProduct(Products product) {
+        String sql = "INSERT INTO [dbo].[Products] (\n"
+                + "    [ProductName],\n"
+                + "    [ProductCreateDate],\n"
+                + "    [ProductStatus],\n"
+                + "    [BrandID],\n"
+                + "    [ProductImageUrl],\n"
+                + "    [fk_category_id])\n"
+                + "VALUES (?,?,?,?,?,?)";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, product.getProductName());
+            ur.setDate(2, (Date) product.getProductCreateDate());
+            ur.setInt(3, product.getProductStatus());
+            ur.setInt(4, product.getBrandID());
+            ur.setString(5, product.getProductImageUrl());
+            ur.setInt(6, product.getFk_category_id());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        ProductsDAO dao = new ProductsDAO();
+        Date date = new Date(System.currentTimeMillis());
+        Products product = new Products("test", date, 1, "1", 1, 1);
+        dao.insertNewProduct(product);
+        System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
+
+        System.out.println(dao.getListProductByFilter(-1, -1, "men", -1, 1, 10).size());
+        System.out.println(dao.getLastProductId());
+        
+    }
+
 //    public static void main(String[] args) {
 //        ProductsDAO Pdao = new ProductsDAO();
 //        /*System.out.println(Pdao.loadProducts().size());
