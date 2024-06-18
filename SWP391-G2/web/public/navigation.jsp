@@ -1,27 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .icon img {
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-
-    .title {
-        display: flex;
-        align-items: center;
-        position: relative;
-        display: block;
-        padding: 0 10px;
-        height: 60px;
-        line-height: 60px;
-        text-align: start;
-        white-space: nowrap;
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 22px;
-        font-weight: bold;
-    }
-</style>
+<link rel="stylesheet" href="../assets/css/styles.css"/>
 
 <div class="navigation" style="left:0;">
     <ul style="padding: 0;">
@@ -98,47 +77,59 @@
             </li>
         </c:if>
 
+        <c:if test="${sessionScope.role == 3}">
+            <li>
+                <a href="admincontrolaccount?roleId=3">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Marketing</span>
+                </a>
+            </li>
+        </c:if>
 
+        <c:if test="${sessionScope.role == 3}">
+            <li>
+                <a href="admincontrolaccount?roleId=2">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Sale</span>
+                </a>
+            </li>
+        </c:if>
+
+        <c:if test="${sessionScope.role == 3}">
+            <li>
+                <a href="admincontrolaccount?roleId=4">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Customer</span>
+                </a>
+            </li>
+        </c:if>
+
+        <c:if test="${sessionScope.role == 3}">
+            <li>
+                <a href="adminprofile?roleId=1">
+                    <span class="icon">
+                        <ion-icon name="person"></ion-icon>
+                    </span>
+                    <span class="title">My Profile</span>
+                </a>
+            </li>
+        </c:if>
         <li>
-            <a href="admincontrolaccount?roleId=3">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Marketing</span>
-            </a>
-        </li>
-        
-        
-         <li>
-            <a href="admincontrolaccount?roleId=2">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Sale</span>
-            </a>
-        </li>
-
-
-
-        <li>
-            <a href="admincontrolaccount?roleId=4">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Customer</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="adminprofile?roleId=1">
+            <a href="brand?brandID=1">
                 <span class="icon">
                     <ion-icon name="person"></ion-icon>
                 </span>
-                <span class="title">My Profile</span>
+                <span class="title">Manage Brand</span>
             </a>
         </li>
         <li>
-            <a href="../admin/logout">
+            <a href="${pageContext.request.contextPath}/common/login.jsp">
                 <span class="icon">
                     <ion-icon name="log-out"></ion-icon>
                 </span>

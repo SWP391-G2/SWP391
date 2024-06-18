@@ -2,16 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.admin;
+package controller.marketing;
 
 import Dal.AccountsDAO;
-import Dal.RoleDAO;
-import Models.Accounts;
-import Models.Role;
+import Dal.BrandsDAO;
+import Models.Brands;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,8 +22,7 @@ import java.util.List;
  *
  * @author hatru
  */
-@MultipartConfig
-public class AdminDetails extends HttpServlet {
+public class BrandDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class AdminDetails extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDetails</title>");
+            out.println("<title>Servlet BrandDetailController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminDetails at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BrandDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,45 +63,41 @@ public class AdminDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        int accountID = Integer.parseInt(request.getParameter("id"));
-        int roleID = Integer.parseInt(request.getParameter("roleID"));
-        AccountsDAO dao = new AccountsDAO();
-        RoleDAO daoRole = new RoleDAO();
+
+        int brandID = -1;
+        try {
+            //status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            brandID = request.getParameter("id") == null ? -1 : Integer.parseInt(request.getParameter("id"));
+        } catch (Exception e) {
+        }
 
         String search = "";
-        int roleId = -1;
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
-            roleId = request.getParameter("roleId") == null ? -1 : Integer.parseInt(request.getParameter("roleId"));
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
 
-            request.setAttribute("search", search);
-            request.setAttribute("roleId", roleId);
-            request.setAttribute("status", status);
-            request.setAttribute("currentPage", pageNo);
         } catch (Exception e) {
         }
-        if (roleID == 1 || roleID == 4) {
-            Accounts account = dao.getAccoutByID(accountID);
-            List<Role> listRole = daoRole.getAllRolesByID(roleID);
-            request.setAttribute("listRole", listRole);
-            //request.setAttribute("status", 1);
-            request.setAttribute("data", account);
 
-        } else {
-            Accounts account = dao.getAccoutByID(accountID);
-            List<Role> listRole = daoRole.getAllRolesSaleMarket();
-            request.setAttribute("listRole", listRole);
-            //request.setAttribute("status", 1);
-            request.setAttribute("data", account);
+        BrandsDAO brandDao = new BrandsDAO();
+        Brands brand = brandDao.getBrandById(brandID);
+        int totalPage = brandDao.getTotalPage(status, search, pageSize);
 
-        }
-        request.getRequestDispatcher("admin/admindetails.jsp").forward(request, response);
+        request.setAttribute("search", search);
+        request.setAttribute("status", status);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("currentPage", pageNo);
+        request.setAttribute("data", brand);
+        //response.getWriter().println(brand.getBrandID() + brand.getBrandName());
+//          response.getWriter().println(status);
+//          response.getWriter().println(brandID);
+
+        request.getRequestDispatcher("marketing/branddetails.jsp").forward(request, response);
     }
 
     /**
@@ -118,51 +111,58 @@ public class AdminDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-
-        String roleID_raw = request.getParameter("roleIDnew");
+        
+//        <input type="text" value="${requestScope.data.getBrandID()}" name="id" hidden>
+//                    <input type="text" value="${requestScope.status}" name="status" id="status" hidden> 
+//                    <input type="text" value="${requestScope.currentPage}" name="pageNo" id="pageNo" hidden>
+//                    <input type="text" value="${requestScope.search}" name="search" id="search" hidden>
+//
+//                    <div class="form-group row">
+//                        <div class="col-4">
+//                            <label for="name">Brand Name</label>
+//                            <input type="text" class="form-control" id="name" name="name" placeholder="${requestScope.data.getBrandName()}">
+//                            <div id="nameError" class="error-message"></div>
+//                        </div>
+//                        <div class="col-4">
+//                            <label for="description">Brand Description:</label>
+//                            <input type="text" class="form-control" id="description" name="description" placeholder="${requestScope.data.getDescription()}">
+//                            <div id="descriptionError" class="error-message"></div>
+//                        </div>
+//                    </div>
+//                    <div class="form-group row">
+//                        <div class="col-4">
+//                            <label>Status:</label>
+//                            <select class="form-control"  name="status">
+//                                <option value="1" ${requestScope.data.getStatus()==1 ? 'selected' : '' }>Active</option>
+//                                <option value="0" ${requestScope.data.getStatus()==0 ? 'selected' : '' }>In-Active</option>
+//                            </select>
+//                        </div>
+//                    </div>
+        
         String status_raw = request.getParameter("statusnew");
-        String accountID_raw = request.getParameter("id");
-        int roleID = -1;
+        String brandID_raw = request.getParameter("id");
+        String brandName = request.getParameter("name");
+        String brandDescription = request.getParameter("description");
         int statusnew = -1;
-        int accountID = -1;
+        int brandID = -1;
 
         String search = "";
-        int roleId = -1;
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
-        AccountsDAO dao = new AccountsDAO();
-        String imageURL = "";
-        String filename = "";
+        BrandsDAO brandDAO = new BrandsDAO();
         try {
-            roleID = Integer.parseInt(roleID_raw);
             statusnew = Integer.parseInt(status_raw);
-            accountID = Integer.parseInt(accountID_raw);
+            brandID = Integer.parseInt(brandID_raw);
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
-            roleId = request.getParameter("roleId") == null ? -1 : Integer.parseInt(request.getParameter("roleId"));
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
-
-            Part part = request.getPart("img");
-            String realPath = request.getServletContext().getRealPath("/images/Account");
-            String source = Path.of(part.getSubmittedFileName()).getFileName().toString();
-            if (!source.isEmpty()) {
-                 filename = accountID + ".png";
-
-                if (!Files.exists(Path.of(realPath))) {
-                    Files.createDirectory(Path.of(realPath));
-                }
-              
-                part.write(realPath + "/" + filename);
-                response.getWriter().print(imageURL);
-            }
         } catch (Exception e) {
 
         }
+        brandDAO.updateBrand(brandName, brandDescription, statusnew, brandID);
 
-        dao.updateAccount(statusnew, roleID, filename, accountID);
-     response.sendRedirect("./admincontrolaccount?search=" + search + "&roleId=" + roleId + "&status=" + status + "&pageNo=" + pageNo);
+        response.sendRedirect("brand?search=" + search + "&brandID=" + brandID + "&status=" + status + "&pageNo=" + pageNo);
     }
 
     /**
@@ -176,4 +176,3 @@ public class AdminDetails extends HttpServlet {
     }// </editor-fold>
 
 }
-

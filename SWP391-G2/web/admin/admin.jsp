@@ -24,7 +24,7 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <<link rel="stylesheet" href="../assets/css/admin_manager.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
     </head>
 
     <body>
@@ -313,7 +313,8 @@
                 performSearch();
             }
         });
-        const btnSearch = document.querySelector('#btnSearch');
+        
+        const btnSearch = document.querySelector('#search');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
         });

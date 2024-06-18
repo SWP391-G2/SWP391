@@ -34,12 +34,14 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 list.add(new ProductDetail(
                         rs.getInt("ProductFullDetailID"),
-                        rs.getInt("pdProductID"), rs.getString("ProductDescription"),
+                        rs.getInt("pdProductID"),
+                        rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
                         rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable")));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image")));
             }
 
         } catch (SQLException e) {
@@ -80,7 +82,9 @@ public class ProductDetailDAO extends DBContext {
                         rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable"));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image")
+                );
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -105,7 +109,8 @@ public class ProductDetailDAO extends DBContext {
                         rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable"));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image"));
                 return p.getProductFullDetailID();
             }
         } catch (SQLException e) {
@@ -114,11 +119,11 @@ public class ProductDetailDAO extends DBContext {
         return 0;
     }
 
-    public ProductDetail listProdcutDetail(int pdID) {
-       
+    public ProductDetail getInforProductDetail(int pdID) {
+
         String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
         try {
-             PreparedStatement ur = connection.prepareStatement(sql);
+            PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, pdID);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
@@ -129,10 +134,10 @@ public class ProductDetailDAO extends DBContext {
                         rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
                         rs.getFloat("ProductPrice"),
-                        rs.getInt("ProductAvaiable"));
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image"));
                 return p;
             }
-          
 
         } catch (SQLException e) {
 
@@ -156,6 +161,30 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
+    public void updateMinusAvaiableProductDetail(int avaiable, int pdID) {
+        String sql = "UPDATE ProductFullDetail set ProductAvaiable = ? -1 where ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, avaiable);
+            ur.setInt(2, pdID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateAddAvaiableProductDetail(int avaiable, int pdID) {
+        String sql = "UPDATE ProductFullDetail set ProductAvaiable = ? +1 where ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, avaiable);
+            ur.setInt(2, pdID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public List<ProductDetail> listCart() {
         List<ProductDetail> list = new ArrayList<>();
 
@@ -171,9 +200,6 @@ public class ProductDetailDAO extends DBContext {
 //            ProductDetail product = p.getProductDetailByIdAndSize(1, "100ml");
 //            System.out.println(product.getProductPrice());
         //p.insetCart(2, 2, 6, 200);
-//        List<ProductDetail> list = p.listProdcutDetail(2);
-//        for (ProductDetail productDetail : list) {
-//            System.out.println(productDetail.toString());
-//        }
+        p.updateMinusAvaiableProductDetail(100, 2);
     }
 }

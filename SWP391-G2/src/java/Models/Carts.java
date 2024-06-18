@@ -13,17 +13,17 @@ public class Carts {
     private int ProductFullDetailID;
     private int AccountID;
     private int Quantity;
-    private double Price;
+    private String Name;
 
     public Carts() {
     }
 
-    public Carts(int CardID, int ProductFullDetailID, int AccountID, int Quantity, double Price) {
+    public Carts(int CardID, int ProductFullDetailID, int AccountID, int Quantity, String Name) {
         this.CardID = CardID;
         this.ProductFullDetailID = ProductFullDetailID;
         this.AccountID = AccountID;
         this.Quantity = Quantity;
-        this.Price = Price;
+        this.Name = Name;
     }
 
     public int getCardID() {
@@ -58,17 +58,17 @@ public class Carts {
         this.Quantity = Quantity;
     }
 
-    public double getPrice() {
-        return Price;
+    public String getName() {
+        return Name;
     }
 
-    public void setPrice(double Price) {
-        this.Price = Price;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     @Override
     public String toString() {
-        return "Carts{" + "CardID=" + CardID + ", ProductFullDetailID=" + ProductFullDetailID + ", AccountID=" + AccountID + ", Quantity=" + Quantity + ", Price=" + Price + '}';
+        return "Carts{" + "CardID=" + CardID + ", ProductFullDetailID=" + ProductFullDetailID + ", AccountID=" + AccountID + ", Quantity=" + Quantity + ", Name=" + Name + '}';
     }
     
     

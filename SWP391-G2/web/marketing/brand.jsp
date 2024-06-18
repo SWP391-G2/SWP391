@@ -24,7 +24,55 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <<link rel="stylesheet" href="../assets/css/admin_manager.css"/>
+
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin_manager.css">
+
+        <style>
+            .form-control.custom-width {
+                width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+            }
+            .error-message {
+                color: red;
+                font-size: 0.9em;
+            }
+
+
+
+            .custom-button {
+                background: none; /* Không có màu nền */
+                border: none; /* Bỏ viền */
+                padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
+                font-size: 16px; /* Kích thước chữ */
+                cursor: pointer; /* Con trỏ chuột */
+                color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
+                text-decoration: none; /* Bỏ gạch chân mặc định */
+                position: relative; /* Để tạo đường gạch ngang bên dưới */
+            }
+
+            .custom-button::after {
+                content: ""; /* Nội dung giả */
+                position: absolute; /* Định vị tuyệt đối */
+                left: 0; /* Căn trái */
+                bottom: 0; /* Căn dưới */
+                width: 0; /* Chiều rộng ban đầu */
+                height: 2px; /* Độ dày của đường gạch ngang */
+                background-color: #1E90FF; /* Màu của đường gạch ngang */
+                transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
+            }
+
+            .custom-button:hover::after {
+                width: 100%; /* Chiều rộng khi hover */
+            }
+
+            .custom-button:focus {
+                outline: none; /* Bỏ viền focus mặc định */
+            }
+
+            .table-button {
+                text-align: center; /* Căn giữa nút bấm trong ô bảng */
+            }
+
+        </style>
     </head>
 
     <body>
@@ -47,9 +95,10 @@
             </div>
         </c:if>
 
-        <div class="container-fluid">
-            <!-- Navigation -->
-            
+        <jsp:include page="../public/navigation.jsp"></jsp:include>
+            <div class="container-fluid">
+                <!-- Navigation -->
+
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -79,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-         
+
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
@@ -107,7 +156,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">No</th>
                                         <th scope="col">Brand Name</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Details</th>
@@ -117,7 +166,11 @@
                                     <c:forEach items="${listbrand}" var="brand" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td>${brand.getBrandName()}</td>
+                                            <td class="table-button">
+                                                <a onclick="showDetail(${brand.getBrandID()})">
+                                                    <button type="button" class="custom-button">${brand.getBrandName()}</button>
+                                                </a>
+                                            </td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>${brand.getDescription()}</td>
                                             <td>
@@ -191,6 +244,7 @@
                         </nav>
 
 
+
                     </div>
                 </div>
 
@@ -205,87 +259,27 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="admincontrolaccount" method="post">
-
+                            <form action="brand" method="post" onsubmit="return validateForm()">
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
-                                    <div class="form-group row">
-                                        <div class="col-6">
-                                            <label for="firstName">First Name:</label>
-                                            <input type="text" class="form-control" id="firstname"
-                                                   name="firstname" required>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="lastName">Last Name:</label>
-                                            <input type="text" class="form-control" id="lastname"
-                                                   name="lastname" required>
-                                        </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Brand Name:</label>
+                                        <input type="text" class="form-control custom-width" id="name" name="name" required>
+                                        <div id="nameError" class="error-message"></div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <select class="form-control" id="gender" name="gender">
-                                            <option value="1">Male</option>
-                                            <option value="0">Female</option>
-                                        </select>
+                                        <label for="description">Brand Description:</label>
+                                        <input type="text" class="form-control custom-width" id="description" name="description" required>
+                                        <div id="descriptionError" class="error-message"></div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="phone">Image:</label>
-                                        <input type="file" class="form-control" id="image" name="image"
-                                            >
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                               required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Birthdate</label>
-                                        <input type="date" class="form-control" id=birthdates name="birthday"
-                                               required>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="phone">Phone Number:</label>
-                                        <input type="text" class="form-control" id="phone" name="phone"
-                                               required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="phone">Address:</label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                               required>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label for="password">Password:</label>
-                                        <input type="password" class="form-control" id="password"
-                                               name="password" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="roleId">Role ID:</label>
-                                        <select class="form-control" id="roleId" name="roleID">
-                                            <option value="2">Sale</option>
-                                            <option value="3">Marketing</option>
-                                        </select>
-                                    </div>
-
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="showAddNewSuccessAlert()">Add new</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add new</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -314,26 +308,66 @@
 
 
     <script>
-                                        function showAlert(message, brandID, status1) {
+                                function showAlert(message, brandID, status1) {
 
 
-                                            if (confirm(message)) {
-                                                const search = document.querySelector('#search').value;
-                                                const roleId = document.querySelector('#roleId').value;
-                                                const status = document.querySelector('#status').value;
-                                                const pageNo = document.querySelector('#pageNo').value;
-                                                window.location.href = 'brand?search=' + search +
-                                                        '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
-                                            }
-                                        }
-                                        function showDetail(accountID, accountRole) {
-                                            const search = document.querySelector('#search').value;
-                                            const roleId = document.querySelector('#roleId').value;
-                                            const status = document.querySelector('#status').value;
-                                            const pageNo = document.querySelector('#pageNo').value;
-                                            window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID='+accountRole ;
-                                        }
+                                    if (confirm(message)) {
+                                        const search = document.querySelector('#search').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'brand?search=' + search +
+                                                '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
+                                    }
+                                }
+                                function showDetail(brandID) {
+                                    const search = document.querySelector('#search').value;
+                                    const status = document.querySelector('#status').value;
+                                    const pageNo = document.querySelector('#pageNo').value;
+                                    window.location.href = 'branddetail?search=' + search +
+                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
+                                }
+
+    </script>
+
+    <script>
+        function validateForm() {
+            // Lấy giá trị của các input
+            var name = document.getElementById('name').value;
+            var description = document.getElementById('description').value;
+
+            // Lấy các phần tử để hiển thị lỗi
+            var nameError = document.getElementById('nameError');
+            var descriptionError = document.getElementById('descriptionError');
+
+            // Định nghĩa các regex cho kiểm tra input
+            var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
+            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
+
+            // Xóa thông báo lỗi trước đó
+            nameError.textContent = '';
+            descriptionError.textContent = '';
+
+            // Kiểm tra input
+            var valid = true;
+            if (!nameRegex.test(name)) {
+                nameError.textContent = 'Brand names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
+                valid = false;
+            }
+
+            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
+            if (/^\d+$/.test(name)) {
+                nameError.textContent = 'Brand Name cannot contain whole numbers.';
+                valid = false;
+            }
+
+            if (!descriptionRegex.test(description)) {
+                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters.';
+                valid = false;
+            }
+
+            // Nếu tất cả đều hợp lệ, return true để submit form
+            return valid;
+        }
     </script>
     <script>
         // handle filter search
@@ -343,51 +377,38 @@
                 performSearch();
             }
         });
+
         const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
         });
         function performSearch() {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
             window.location.href = 'brand?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
 
-        // handle filter role
-        const roleId = document.querySelector('#roleId');
-        roleId.addEventListener('change', () => {
-            const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
-            const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'brand?search=' + search +
-                    '&status=' + status + '&pageNo=1';
-        });
-
         // handle filter status
         const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'brand?search=' + search + 
+            window.location.href = 'brand?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
 
         // handle pagination
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search + 
+            window.location.href = 'brand?search=' + search +
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 
+
     </script>
+
 
 </html>

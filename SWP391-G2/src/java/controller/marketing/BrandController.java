@@ -113,7 +113,12 @@ public class BrandController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String brandName = request.getParameter("name");
+        String brandDescription = request.getParameter("description");
+        BrandsDAO brandDAO = new BrandsDAO();
+        brandDAO.insertBrand(brandName, brandDescription);
+        response.sendRedirect("brand");
     }
 
     /**
