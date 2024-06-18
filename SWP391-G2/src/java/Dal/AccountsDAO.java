@@ -39,11 +39,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 list.add(account);
             }
         } catch (SQLException e) {
@@ -70,11 +68,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 return account;
             }
         } catch (SQLException e) {
@@ -102,11 +98,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 return account;
             }
         } catch (SQLException e) {
@@ -127,11 +121,10 @@ public class AccountsDAO extends DBContext {
             ur.setString(5, account.getImage());
             ur.setInt(6, account.getGender());
             ur.setDate(7, (Date) account.getBirthday());
-            ur.setString(8, account.getPhone());
-            ur.setString(9, account.getAddress());
-            ur.setDate(10, (Date) account.getCreateDate());
-            ur.setInt(11, account.getRole());
-            ur.setInt(12, account.getStatus());
+
+            ur.setDate(8, (Date) account.getCreateDate());
+            ur.setInt(9, account.getRole());
+            ur.setInt(10, account.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -155,11 +148,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 listAccount.add(account);
             }
         } catch (SQLException e) {
@@ -187,11 +178,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 listAccount.add(account);
             }
         } catch (SQLException e) {
@@ -234,11 +223,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 return account;
             }
         } catch (SQLException e) {
@@ -299,11 +286,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 list.add(account);
             }
         } catch (SQLException e) {
@@ -325,12 +310,12 @@ public class AccountsDAO extends DBContext {
 
             ur.setInt(5, account.getGender());
             ur.setDate(6, (Date) account.getBirthday());
-            ur.setString(7, account.getPhone());
-            ur.setString(8, account.getEmail());
-            ur.setString(9, account.getAddress());
-            ur.setInt(10, account.getStatus());
-            ur.setDate(11, (Date) account.getCreateDate());
-            ur.setInt(12, account.getRole());
+
+            ur.setString(7, account.getEmail());
+
+            ur.setInt(8, account.getStatus());
+            ur.setDate(9, (Date) account.getCreateDate());
+            ur.setInt(10, account.getRole());
 
             ur.executeUpdate();
         } catch (SQLException e) {
@@ -411,11 +396,9 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getDate(12),
-                        rs.getInt(13));
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11));
                 listAccount.add(account);
             }
         } catch (Exception e) {
@@ -494,4 +477,8 @@ public class AccountsDAO extends DBContext {
         }
     }
 
+    public static void main(String[] args) {
+        AccountsDAO dao = new AccountsDAO();
+        System.out.println(dao.getAccoutByID(1));
+    }
 }

@@ -3,13 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Controllers/shop/feedback/FeedbackProduct.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Models/ProductDetail.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Models/Products.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/web/products/productDetail.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Controllers/maketing/AddNewCategories.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Models/Categories.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Controllers/maketing/CategoryController.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/web/admin.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/web/managerCategory.jsp</file>
             <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Controllers/DetailOfProduct.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/web/addCategory.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Dal/FeedbackDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Dal/CategoriesDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/web/products/productDetail.jsp</file>
             <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Models/FeedBacks.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-V3/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
         </group>
     </open-files>
 </project-private>

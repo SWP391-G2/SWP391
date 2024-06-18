@@ -386,14 +386,22 @@
             <div class="testimonial-heading text-center">
                 <h2>Feedback</h2>
             </div>
-            <div class="media">
-                <img src="" alt="Khanh" class="mr-3" />
-                <div class="media-body">
-                    <h5>Khanh</h5>
-                    <p>hihi</p>
-                    <small>1 ngày trước • Thích · Trả lời</small>
+            <c:forEach items="${fb}" var="fb" varStatus="loop"  >  
+                <div class="media">
+                    <div class="media-body">
+                        <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
+
+                        <p>${fb.getFbContent()}</p>
+                        <div>
+                            <c:if test="${fb.getFbImage() != null}" >
+                                <img src="../images/Feedback/${fb.getFbImage()}" style="width: 60px; height: 60px" />
+                        </c:if>
+                        </div>
+                        <small>${fb.getFbDate()}</small>
+                    </div>
                 </div>
-            </div>
+                    </br>
+            </c:forEach>
 
         </section>
         <%@include file="../footer.jsp" %>
@@ -451,7 +459,7 @@
                 var productname = document.getElementById('productname').value;
                 var quantity = document.getElementById('quantity').value;
                 var productfulldetailid = document.getElementById('productductFullDetailID').value;
-                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname +"&&productfulldetailid=" + productfulldetailid ;
+                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productfulldetailid;
             }
         </script>
 

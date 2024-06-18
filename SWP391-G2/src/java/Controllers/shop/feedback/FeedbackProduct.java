@@ -13,6 +13,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -77,32 +82,54 @@ public class FeedbackProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idAccount = request.getParameter("idAccount");
-        String idProduct = request.getParameter("idProduct");
+//        String idAccount = request.getParameter("idAccount");
+//        String idProduct = request.getParameter("idProduct");
+        String idProduct = "1";
+        String idAccount = "2";
         String idRating = request.getParameter("rating");
         String content = request.getParameter("content");
+        Date date = new Date(System.currentTimeMillis());
+        int rating = Integer.parseInt(idRating);
+        //upload
+
+        String uploadFolder = getServletContext().getRealPath("") + "../../web/images/Feedback/";
+
+        File folder = new File(uploadFolder);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        Part filePart = request.getPart("photo");
+        String fileName = idAccount + "_" + idProduct + ".jpg";
+        OutputStream out = null;
+        InputStream fileContent = null;
+
         try {
-            LocalDate localDate = LocalDate.now();
-            Date sqlDate = Date.valueOf(localDate);
+            out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
+            fileContent = filePart.getInputStream();
+            int read = 0;
+            final byte[] bytes = new byte[1024];
 
-            int rating = Integer.parseInt(idRating);
-            Part part = request.getPart("photo");
-
-            String realPath = request.getServletContext().getRealPath("/images");
-            String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
-
-            if (!Files.exists(Path.of(realPath))) {
-                Files.createDirectory(Path.of(realPath));
+            while ((read = fileContent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
             }
-
-            part.write(realPath + "/" + filename);
-
+        } catch (FileNotFoundException fne) {
+            fne.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (fileContent != null) {
+                fileContent.close();
+            }
+        }
+        //end
+        try {
             FeedbackDAO fbDAO = new FeedbackDAO();
-            fbDAO.insertFeedback(8, 4, rating, content, null, sqlDate, 1, null);
+            fbDAO.insertFeedback(8, 4, rating, content, fileName, date, 1, null);
         } catch (Exception e) {
 
         }
-
     }
 
     /**

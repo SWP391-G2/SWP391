@@ -77,7 +77,7 @@ public class ProductDetailDAO extends DBContext {
         }
         return null;
     }
-
+     
     public static void main(String[] args) {
         ProductDetailDAO p = new ProductDetailDAO();
         List<ProductDetail> list = p.getPriceAllowSize(1);

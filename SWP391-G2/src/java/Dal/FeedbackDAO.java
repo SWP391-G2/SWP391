@@ -9,6 +9,9 @@ import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,5 +38,49 @@ public class FeedbackDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+    public List<FeedBacks> getListFeedback(int id){
+        List<FeedBacks> list = new ArrayList<>();
+        String sql = "select * from Feedbacks fb join Accounts a on fb.fbAccountID = a.AccountID where fb.fbProductID = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new FeedBacks(
+                        rs.getInt("fbAccountID"),
+                        rs.getInt("fbProductID"),
+                        rs.getInt("fbStar"),
+                        rs.getString("fbContent"),
+                        rs.getString("fbImage"),
+                        rs.getDate("fbDate"),
+                        rs.getInt("fbStatus"), 
+                        rs.getString("reply")));
+            }
+        }catch (SQLException e){
+            
+        }
+        return list;
+    }
+    public FeedBacks getFeedback(int id){      
+        String sql = "select * from Feedbacks where fbProductID = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return  new FeedBacks(
+                        rs.getInt("fbAccountID"),
+                        rs.getInt("fbProductID"),
+                        rs.getInt("fbStar"),
+                        rs.getString("fbContent"),
+                        rs.getString("fbImage"),
+                        rs.getDate("fbDate"),
+                        rs.getInt("fbStatus"), 
+                        rs.getString("reply"));
+            }
+        }catch (SQLException e){
+            
+        }
+        return null;
+    }
 }

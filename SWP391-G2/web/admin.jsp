@@ -260,7 +260,7 @@
                                     <div class="form-group">
                                         <label for="phone">Image:</label>
                                         <input type="file" class="form-control" id="image" name="image"
-                                            >
+                                               >
                                     </div>
 
 
@@ -359,7 +359,7 @@
                                             const status = document.querySelector('#status').value;
                                             const pageNo = document.querySelector('#pageNo').value;
                                             window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID='+accountRole ;
+                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
                                         }
     </script>
     <script>

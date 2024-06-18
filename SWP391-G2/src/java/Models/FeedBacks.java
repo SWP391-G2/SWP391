@@ -22,9 +22,8 @@ public class FeedBacks {
     public FeedBacks() {
     }
 
-    
-    public FeedBacks(int fbID, int fbAccountID, int fbProductID, int fbStar, String fbContent, String fbImage, Date fbDate, int fbStatus, String reply) {
-        this.fbID = fbID;
+
+    public FeedBacks(int fbAccountID, int fbProductID, int fbStar, String fbContent, String fbImage, Date fbDate, int fbStatus, String reply) {
         this.fbAccountID = fbAccountID;
         this.fbProductID = fbProductID;
         this.fbStar = fbStar;
@@ -35,13 +34,8 @@ public class FeedBacks {
         this.reply = reply;
     }
 
-    public int getFbID() {
-        return fbID;
-    }
-
-    public void setFbID(int fbID) {
-        this.fbID = fbID;
-    }
+    
+    
 
     public int getFbAccountID() {
         return fbAccountID;
