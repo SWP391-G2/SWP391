@@ -17,7 +17,7 @@ public class Accounts {
     private String firstName, lastName, password, image;
     private int gender;
     private Date birthday;
-    private String phone, email, address;
+    private String phone,email, address;
     private int status;
     private Date createDate;
     private int role;

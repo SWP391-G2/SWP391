@@ -513,8 +513,8 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public void updatePasWord(String password, String email) {
-        String sql = "UPDATE Accounts SET password=? Where email=?";
+    public void updatePassWord(String password, String email) {
+        String sql = "UPDATE Accounts SET Password=? Where Email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, password);
