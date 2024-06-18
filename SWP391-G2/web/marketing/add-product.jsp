@@ -103,7 +103,7 @@
 
                         <!-- Submit and Cancel buttons -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-light mx-2 border-secondary" href="../marketing-manager-products">Cancel</a>
+                            <a class="btn btn-light mx-2 border-secondary" href="../SWP391-G2/marketing-manager-products">Cancel</a>
                             <button type="submit" class="btn btn-dark" onclick="validateForm()">Add new Product</button>
                         </div>
                     </form>
@@ -138,9 +138,7 @@
                                         document.getElementById('productImageError').innerText = 'Product Image is required';
                                         return false; // Prevent form submission
                                     }
-
                                     // Additional validations for other fields can be added similarly
-
                                     return true; // Allow form submission
                                 }
                                 function chooseFile(fileInput) {

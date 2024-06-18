@@ -78,73 +78,6 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <script>
-                        // handle filter search
-                        const searchInput = document.querySelector('#search');
-                        searchInput.addEventListener('keydown', (event) => {
-                            if (event.key === 'Enter') {
-                                performSearch();
-                            }
-                        });
-                        const btnSearch = document.querySelector('#btnSearch');
-                        btnSearch.addEventListener('click', () => {
-                            performSearch(); // call function
-                        });
-                        function performSearch() {
-                            const search = document.querySelector('#search').value;
-                            const status = document.querySelector('#status').value;
-                            const cateID = document.querySelector('#cateId').value;
-                            const brandId = document.querySelector('#brandId').value;
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
-                        }
-                        ;
-
-                        // handle filter status
-                        const status = document.querySelector('#status');
-                        status.addEventListener('change', () => {
-                            const search = document.querySelector('#search').value;
-                            const status = document.querySelector('#status').value;
-                            const cateID = document.querySelector('#cateId').value;
-                            const brandId = document.querySelector('#brandId').value;
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
-                        });
-
-
-                        // handle filter cateID
-                        const cateID = document.querySelector('#cateId');
-                        cateID.addEventListener('change', () => {
-                            const search = document.querySelector('#search').value;
-                            const status = document.querySelector('#status').value;
-                            const cateID = document.querySelector('#cateId').value;
-                            const brandId = document.querySelector('#brandId').value;
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
-                        });
-
-                        //handle filter brands
-                        const brandId = document.querySelector('#brandId');
-                        brandId.addEventListener('change', () => {
-                            const search = document.querySelector('#search').value;
-                            const status = document.querySelector('#status').value;
-                            const cateID = document.querySelector('#cateId').value;
-                            const brandId = document.querySelector('#brandId').value;
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
-                        });
-
-                        // handle pagination
-                        function changePage(pageNo) {
-                            const search = document.querySelector('#search').value;
-                            const status = document.querySelector('#status').value;
-                            const cateID = document.querySelector('#cateId').value;
-                            const brandId = document.querySelector('#brandId').value;
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status  + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo;
-                        }
-
-                    </script>
 
                     <div class="col-2">
                         <div class="text-right">
@@ -170,13 +103,13 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>                    
-                                    <c:forEach items="${listProduct}" var="listProduct">
-                                        <tr>
+                                <tbody>   
 
+                                    <c:forEach items="${listProduct}" varStatus="loop" var="listProduct">
+                                        <tr>
                                             <td>${listProduct.productID}</td>
                                             <td><img src="images/Products/${cateListName[listProduct.getFk_category_id()-1]}/${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td><a href="manage-productDetail?proId=${listProduct.productID}">${listProduct.productName}</a></td>
+                                            <td><a href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
                                             <td>${cateListName[listProduct.getFk_category_id()-1]}</td>                                      
                                             <td>${brListName[listProduct.getBrandID()-1]}</td>   
                                             <td>${listProduct.productCreateDate}</td>   
@@ -184,18 +117,14 @@
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${listProduct.productStatus == 1}">
-                                                        <a href="updateStatusProduct?status=0&proId=${listProduct.productID}">
-                                                            <button type="button" class="btn btn-danger">
-                                                                Hide
-                                                            </button>
-                                                        </a>
+                                                        <button type="button" onclick="changeStatus('Do you want to set hine product?',${listProduct.productID}, 0)" class="btn btn-danger">
+                                                            Hide
+                                                        </button>
                                                     </c:when>
                                                     <c:when test="${listProduct.productStatus == 0}">
-                                                        <a href="updateStatusProduct?status=1&proId=${listProduct.productID}">
-                                                            <button type="button" class="btn btn-success">
-                                                                View
-                                                            </button>
-                                                        </a>
+                                                        <button type="button" onclick="changeStatus('Do you want to set view product?',${listProduct.productID}, 1)" class="btn btn-success">
+                                                            View
+                                                        </button>
                                                     </c:when>
                                                 </c:choose>
                                             </td>
@@ -274,20 +203,92 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
     <script>
-                                                    var alertMessage = ${sessionScope.alertMessage};
-
-                                                    if (alertMessage) {
-                                                        alert("Update product detail successfully!");
-                                                    }
-
-        <%
-                session.removeAttribute("alertMessage");
-        %>
     </script>
-
     <script>
 
+        //set time for alertMessage
+        document.addEventListener('DOMContentLoaded', function () {
+            var myDiv = document.getElementById('myDiv');
+            myDiv.style.display = 'block';
+            setTimeout(function () {
+                myDiv.style.display = 'none';
+            }, 10000); // 10 giây = 10,000 miligiây
+        });
+
+        // handle filter search
+        const searchInput = document.querySelector('#search');
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+        const btnSearch = document.querySelector('#btnSearch');
+        btnSearch.addEventListener('click', () => {
+            performSearch(); // call function
+        });
+        function performSearch() {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            window.location.href = 'marketing-manager-products?search=' + search +
+                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
+        }
+        ;
+
+        // handle filter status
+        const status = document.querySelector('#status');
+        status.addEventListener('change', () => {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            window.location.href = 'marketing-manager-products?search=' + search +
+                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
+        });
+
+
+        // handle filter cateID
+        const cateID = document.querySelector('#cateId');
+        cateID.addEventListener('change', () => {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            window.location.href = 'marketing-manager-products?search=' + search +
+                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
+        });
+
+        //handle filter brands
+        const brandId = document.querySelector('#brandId');
+        brandId.addEventListener('change', () => {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            window.location.href = 'marketing-manager-products?search=' + search +
+                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&brandId=' + brandId;
+        });
+
+        // handle pagination
+        function changeStatus(message, pid, newStatus) {
+            if (confirm(message)) {
+                const search = document.querySelector('#search').value;
+                const status = document.querySelector('#status').value;
+                const cateID = document.querySelector('#cateId').value;
+                const brandId = document.querySelector('#brandId').value;
+                const pageNo = document.querySelector('#pageNo').value;
+                window.location.href = 'marketing-manager-products?search=' + search +
+                        '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
+            }
+        }
+        function changePage(pageNo) {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            window.location.href = 'marketing-manager-products?search=' + search +
+                    '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo;
+        }
+
     </script>
-
-
-</html>

@@ -25,34 +25,29 @@ import java.util.List;
  * @author nguye
  */
 public class MarketingManagerProducts extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MarketingManagerment</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MarketingManagerment at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    
+    protected void changeStatus(int proId, int status) {
+        ProductsDAO proDao = new ProductsDAO();
+        proDao.updateStatus(proId, status);
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        Accounts a = (Accounts) session.getAttribute("account");
-//        if (a == null) {
-//            
-//        } else {
-//            int accountId = a.getAccountID();
-//        }
+        HttpSession session = request.getSession();
+       session.setAttribute("role", 2);
+
+        int proId = -1;
+        int newStatus = -1;
+        try {
+            proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
+            newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
+        } catch (Exception e) {
+        }
+        if (proId != -1 && newStatus != -1) {
+            changeStatus(proId, newStatus);
+        }
+        
         String search = "";
         int cateId = -1;
         int status = -1;
@@ -82,14 +77,14 @@ public class MarketingManagerProducts extends HttpServlet {
         BrandsDAO brDao = new BrandsDAO();
         List<Brands> brList = brDao.getAll();
         List<String> brListName = brDao.getAllName();
-
+        
         request.setAttribute("search", search);
         request.setAttribute("cateId", cateId);
         request.setAttribute("status", status);
         request.setAttribute("brandId", brandId);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
-
+        
         request.setAttribute("cateListName", cateListName);
         request.setAttribute("brListName", brListName);
         request.setAttribute("listBrands", brList);
@@ -97,13 +92,13 @@ public class MarketingManagerProducts extends HttpServlet {
         request.setAttribute("listProduct", proList);
         request.getRequestDispatcher("marketing/manager-products.jsp").forward(request, response);
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";

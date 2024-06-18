@@ -21,6 +21,17 @@ public class Products {
     private int fk_category_id;
     private String UpdateDescription;
 
+    public Products(int productID, String productName, int productStatus, String productImageUrl, int BrandID, int fk_category_id) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productStatus = productStatus;
+        this.productImageUrl = productImageUrl;
+        this.BrandID = BrandID;
+        this.fk_category_id = fk_category_id;
+    }
+
+  
+    
     public Products(int productID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, int fk_category_id, String UpdateDescription) {
         this.productID = productID;
         this.productName = productName;

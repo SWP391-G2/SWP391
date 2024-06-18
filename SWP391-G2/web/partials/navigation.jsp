@@ -64,7 +64,7 @@
         <c:if test="${sessionScope.role == 2}">
             <li>
 
-                <a href="../marketing/manage-product">
+                <a href="marketing-manager-products">
 
                     <span class="icon">
                         <ion-icon name="archive"></ion-icon>
@@ -97,37 +97,41 @@
             </li>
         </c:if>
 
+        <c:if test="${sessionScope.role == 4}">
 
-        <li>
-            <a href="admincontrolaccount?roleId=3">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Marketing</span>
-            </a>
-        </li>
-        
-        
-         <li>
-            <a href="admincontrolaccount?roleId=2">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Sale</span>
-            </a>
-        </li>
+            <li>
+                <a href="admincontrolaccount?roleId=3">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Marketing</span>
+                </a>
+            </li>
 
+        </c:if>
+        <c:if test="${sessionScope.role == 4}">
 
+            <li>
+                <a href="admincontrolaccount?roleId=2">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Sale</span>
+                </a>
+            </li>
+        </c:if>
 
-        <li>
-            <a href="admincontrolaccount?roleId=4">
-                <span class="icon">
-                    <ion-icon name="people"></ion-icon>
-                </span>
-                <span class="title">Customer</span>
-            </a>
-        </li>
+        <c:if test="${sessionScope.role == 4}">
 
+            <li>
+                <a href="admincontrolaccount?roleId=4">
+                    <span class="icon">
+                        <ion-icon name="people"></ion-icon>
+                    </span>
+                    <span class="title">Customer</span>
+                </a>
+            </li>
+        </c:if>
         <li>
             <a href="adminprofile?roleId=1">
                 <span class="icon">

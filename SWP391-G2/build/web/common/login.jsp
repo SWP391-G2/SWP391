@@ -57,7 +57,7 @@
                                 </svg>  Login With Google</a>
                         </div>
                         <div class="position-relative bg-secondary-subtle mb-3 line" style="width: 100%; height: 1px;"></div>
-                        <form action="../login" method="post" >
+                        <form action="./login" method="post" >
                             <div class="input-group mb-3" >
                                 <span class="input-group-text">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">

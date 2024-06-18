@@ -27,7 +27,7 @@ public class Signup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // This method is don't use
+       response.sendRedirect("common/signup.jsp");
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Signup extends HttpServlet {
                                 date,
                                 4);
                         session.setAttribute("accountForSign", a);
-                        request.getRequestDispatcher("/email").forward(request, response);
+                        request.getRequestDispatcher("../email").forward(request, response);
                     } else {
                         throw new Exception("Password and Confirm password is not equals!!");
                     }

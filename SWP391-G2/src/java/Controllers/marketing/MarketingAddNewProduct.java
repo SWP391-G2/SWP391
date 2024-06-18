@@ -106,7 +106,6 @@ public class MarketingAddNewProduct extends HttpServlet {
         //insert product
         Products product = new Products(productName, dateInit, status, fileName, brandId, cateId);
         proDao.insertNewProduct(product);
-
         response.sendRedirect("../SWP391-G2/marketing-manager-products");
     }
 

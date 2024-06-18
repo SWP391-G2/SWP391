@@ -76,6 +76,14 @@
         <servlet-name>MarketingAddNewProduct</servlet-name>
         <servlet-class>Controllers.marketing.MarketingAddNewProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingUpdateProduct</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingUpdateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingAddProductDetail</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingAddProductDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -151,5 +159,13 @@
     <servlet-mapping>
         <servlet-name>MarketingAddNewProduct</servlet-name>
         <url-pattern>/add-new-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingUpdateProduct</servlet-name>
+        <url-pattern>/update-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingAddProductDetail</servlet-name>
+        <url-pattern>/add-product-detail</url-pattern>
     </servlet-mapping>
 </web-app>

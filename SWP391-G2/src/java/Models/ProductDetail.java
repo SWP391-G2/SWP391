@@ -4,7 +4,6 @@
  */
 package Models;
 
-
 import java.util.Date;
 
 /**
@@ -12,19 +11,21 @@ import java.util.Date;
  * @author hatru
  */
 public class ProductDetail {
+
     private int ProductFullDetailID;
     private int pdProductID;
-    private String ProductDescription; 
+    private String ProductDescription;
     private Date ProductCreateDate;
-    private Boolean ProductStatus;
+    private int ProductStatus;
     private String ProductSize;
     private Float ProductPrice;
     private int ProductAvaiable;
+    private String image;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable) {
+    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
         this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
         this.ProductDescription = ProductDescription;
@@ -33,6 +34,7 @@ public class ProductDetail {
         this.ProductSize = ProductSize;
         this.ProductPrice = ProductPrice;
         this.ProductAvaiable = ProductAvaiable;
+        this.image = image;
     }
 
     public int getProductFullDetailID() {
@@ -67,11 +69,11 @@ public class ProductDetail {
         this.ProductCreateDate = ProductCreateDate;
     }
 
-    public Boolean getProductStatus() {
+    public int getProductStatus() {
         return ProductStatus;
     }
 
-    public void setProductStatus(Boolean ProductStatus) {
+    public void setProductStatus(int ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
 
@@ -98,6 +100,13 @@ public class ProductDetail {
     public void setProductAvaiable(int ProductAvaiable) {
         this.ProductAvaiable = ProductAvaiable;
     }
-   
-   
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }

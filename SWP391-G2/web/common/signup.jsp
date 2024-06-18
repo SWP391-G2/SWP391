@@ -33,7 +33,7 @@
                     <div class="" >
                         <div class="text-center mb-5">
                             <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
-                            <form action="signup" method="post" >
+                            <form action="../signup" method="post" >
                                 <div class="input-group mb-3" >
                                     <span class="input-group-text">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">

@@ -374,16 +374,55 @@ public class ProductsDAO extends DBContext {
         }
     }
 
+    public void updateStatus(int proId, int status) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET \n"
+                + "[ProductStatus] = ?\n"
+                + " WHERE ProductID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, proId);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateProduct(Products product) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [ProductName] = ?\n"
+                + "      ,[ProductStatus] = ?\n"
+                + "      ,[ProductImageUrl] = ?\n"
+                + "      ,[BrandID] = ?\n"
+                + "      ,[fk_category_id] = ?\n"
+                + "WHERE ProductID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, product.getProductName());
+            ur.setInt(2, product.getProductStatus());
+            ur.setString(3, product.getProductImageUrl());
+            ur.setInt(4, product.getBrandID());
+            ur.setInt(5, product.getFk_category_id());
+            ur.setInt(6, product.getProductID());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         ProductsDAO dao = new ProductsDAO();
-        Date date = new Date(System.currentTimeMillis());
-        Products product = new Products("test", date, 1, "1", 1, 1);
-        dao.insertNewProduct(product);
+        Products product = new  Products(10, "d", 0, "1", 2, 1);
+        dao.updateProduct(product);
+//        Date date = new Date(System.currentTimeMillis());
+//        Products product = new Products("test", date, 1, "1", 1, 1);
+//        dao.insertNewProduct(product);
         System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
 
         System.out.println(dao.getListProductByFilter(-1, -1, "men", -1, 1, 10).size());
         System.out.println(dao.getLastProductId());
-        
+
     }
 
 //    public static void main(String[] args) {
