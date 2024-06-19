@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import javax.mail.Session;
 
 /**
  *
@@ -57,7 +58,14 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        String email = (String)session.getAttribute("email");
+        if(email == null){
+            response.sendRedirect(request.getContextPath()+"/login");
+        }else{
+            request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+        }
+        
     } 
 
     /** 
@@ -70,11 +78,10 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        
         AccountsDAO Accdao = new AccountsDAO();
-        Accounts acc = new Accounts();
-        String email= acc.getEmail();
-        System.out.println(email.toString());
-
         String button = request.getParameter("save");
         Validate validate = new Validate();
         Security security = new Security();
@@ -87,7 +94,8 @@ public class ForgotPassword extends HttpServlet {
                         if (confirmpassword.equals(newpassword)) {
                             
                             Accdao.updatePassWord(security.getPasswordSecurity(newpassword), email);
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                            session.removeAttribute("email");
+                            request.getRequestDispatcher("login.jsp").forward(request, response);                           
 
                         } else {
                             request.setAttribute("mess2", "Password Not Correct");

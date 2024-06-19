@@ -77,15 +77,16 @@ public class ForgotPasswordEmail extends HttpServlet {
 
         
         String emailget = request.getParameter("email");
+        HttpSession session = request.getSession();
+
+        String email = request.getParameter("email");
+        session.setAttribute("email", email);
         AccountsDAO accounts = new AccountsDAO();
         Accounts acc = (Accounts) accounts.getAccount(emailget);
-        
-        
-        
+
         String button = request.getParameter("save");
         
             if (button != null) {
-
                 if (acc != null) {
                    request.getRequestDispatcher("./ForgotPasswordOTP?email="+emailget).forward(request, response);
                     }

@@ -17,9 +17,9 @@
                             <h3>Change Password</h3>
                         </div>
                         <div class="card-body">
-                            <form method="Post" action="ChangePassword">
+                            <form method="Post" action="ForgotPassword">
                                 <div class="form-group">
-                                    
+                                   
                                 </div>
                                 <div class="form-group">
                                     <label for="new-password">New Password</label>
