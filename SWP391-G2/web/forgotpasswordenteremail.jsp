@@ -16,12 +16,13 @@
                         <h4>Forgot Password</h4>
                     </div>
                     <div class="card-body">
-                        <form action="/reset-password" method="POST">
+                        <form action="./ForgotPasswordEmail" method="POST">
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                            <a>${mess1}</a>
+                            <button name="save" type="submit" class="btn btn-primary btn-block">Reset Password</button>
                         </form>
                     </div>
                 </div>

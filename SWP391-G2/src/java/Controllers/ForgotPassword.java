@@ -57,13 +57,7 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Accounts account = (Accounts) session.getAttribute("account");
-        String emaill = account.getEmail();
-        AccountsDAO Accdao = new AccountsDAO();
-        Accounts acc = Accdao.getAccount(emaill);
-        request.setAttribute("ChangePassword", acc);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
     } 
 
     /** 
@@ -76,36 +70,32 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Accounts account = (Accounts) session.getAttribute("account");
-        String emaill = account.getEmail();
         AccountsDAO Accdao = new AccountsDAO();
-        Accounts acc = Accdao.getAccount(emaill);
+        Accounts acc = new Accounts();
+        String email= acc.getEmail();
+        System.out.println(email.toString());
 
-       
         String button = request.getParameter("save");
-        
+        Validate validate = new Validate();
         Security security = new Security();
 
         String newpassword = request.getParameter("newpass");
         String confirmpassword = request.getParameter("confirmpass");
         try {
             if (button != null) {
-
-                
                     if (CheckPass(newpassword)) {
                         if (confirmpassword.equals(newpassword)) {
-
-                            Accdao.updatePassWord(security.getPasswordSecurity(newpassword), emaill);
+                            
+                            Accdao.updatePassWord(security.getPasswordSecurity(newpassword), email);
                             request.getRequestDispatcher("login.jsp").forward(request, response);
 
                         } else {
                             request.setAttribute("mess2", "Password Not Correct");
-                            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                            request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
                         }
                     } else {
                         request.setAttribute("mess1", "Invalid Password");
-                        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                        request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
                     }
                 }
 
@@ -113,6 +103,7 @@ public class ForgotPassword extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     
     }

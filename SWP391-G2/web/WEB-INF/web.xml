@@ -65,11 +65,11 @@
         <servlet-class>Controllers.ChangePassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FogotPassword</servlet-name>
+        <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controllers.ForgotPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FogotPasswordEmail</servlet-name>
+        <servlet-name>ForgotPasswordEmail</servlet-name>
         <servlet-class>Controllers.ForgotPasswordEmail</servlet-class>
     </servlet>
     <servlet>

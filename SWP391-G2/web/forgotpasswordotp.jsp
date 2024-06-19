@@ -29,7 +29,7 @@
                     <div style="background-color: pink" class=" text-center p-5 ps-5 border rounded-5 shadow justify-content-center row container d-flex align-items-center justify-content-center">
 
 
-                        <form method="get" action="email" class="row g-3 justify-content-center">
+                        <form method="get" action="./ForgotPasswordOTP" class="row g-3 justify-content-center">
                             <h1 class="pb-5">VERIFY EMAIL</h1>
                             <div class="col-auto">
                                 <label for="inputPassword2" class="visually-hidden"></label>
