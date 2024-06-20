@@ -18,6 +18,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
             />
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <style>
             .product-image {
                 width: 70%;
@@ -114,7 +115,6 @@
             }
 
             <!--feedback-->
-
 
 
             .testimonial-heading span {
@@ -390,17 +390,25 @@
                 <div class="media">
                     <div class="media-body">
                         <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
+                        <div class="star-rating">
+                            <c:forEach var="i" begin="1" end="${fb.getFbStar()}">
+                                <label style="color: #ffca08;" class="fas fa-star"></label>
+                            </c:forEach>
+                            <c:forEach var="i" begin="${fb.getFbStar()+1}" end="5">
+                                <label style="color: #ddd;" class="far fa-star empty"></label>
+                            </c:forEach>
+                        </div>
 
                         <p>${fb.getFbContent()}</p>
                         <div>
                             <c:if test="${fb.getFbImage() != null}" >
-                                <img src="../images/Feedback/${fb.getFbImage()}" style="width: 60px; height: 60px" />
-                        </c:if>
+                                <img src="images/Feedback/${fb.getFbImage()}" style="width: 60px; height: 60px" />
+                            </c:if>
                         </div>
                         <small>${fb.getFbDate()}</small>
                     </div>
                 </div>
-                    </br>
+                </br>
             </c:forEach>
 
         </section>
