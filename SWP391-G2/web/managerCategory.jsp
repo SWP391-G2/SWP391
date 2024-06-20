@@ -27,52 +27,52 @@
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
     </head>
-     <style>
-            .form-control.custom-width {
-                width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
-            }
-            .error-message {
-                color: red;
-                font-size: 0.9em;
-            }
+    <style>
+        .form-control.custom-width {
+            width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
 
 
 
-            .custom-button {
-                background: none; /* Không có màu nền */
-                border: none; /* Bỏ viền */
-                padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
-                font-size: 16px; /* Kích thước chữ */
-                cursor: pointer; /* Con trỏ chuột */
-                color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
-                text-decoration: none; /* Bỏ gạch chân mặc định */
-                position: relative; /* Để tạo đường gạch ngang bên dưới */
-            }
+        .custom-button {
+            background: none; /* Không có màu nền */
+            border: none; /* Bỏ viền */
+            padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
+            font-size: 16px; /* Kích thước chữ */
+            cursor: pointer; /* Con trỏ chuột */
+            color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
+            text-decoration: none; /* Bỏ gạch chân mặc định */
+            position: relative; /* Để tạo đường gạch ngang bên dưới */
+        }
 
-            .custom-button::after {
-                content: ""; /* Nội dung giả */
-                position: absolute; /* Định vị tuyệt đối */
-                left: 0; /* Căn trái */
-                bottom: 0; /* Căn dưới */
-                width: 0; /* Chiều rộng ban đầu */
-                height: 2px; /* Độ dày của đường gạch ngang */
-                background-color: #1E90FF; /* Màu của đường gạch ngang */
-                transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
-            }
+        .custom-button::after {
+            content: ""; /* Nội dung giả */
+            position: absolute; /* Định vị tuyệt đối */
+            left: 0; /* Căn trái */
+            bottom: 0; /* Căn dưới */
+            width: 0; /* Chiều rộng ban đầu */
+            height: 2px; /* Độ dày của đường gạch ngang */
+            background-color: #1E90FF; /* Màu của đường gạch ngang */
+            transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
+        }
 
-            .custom-button:hover::after {
-                width: 100%; /* Chiều rộng khi hover */
-            }
+        .custom-button:hover::after {
+            width: 100%; /* Chiều rộng khi hover */
+        }
 
-            .custom-button:focus {
-                outline: none; /* Bỏ viền focus mặc định */
-            }
+        .custom-button:focus {
+            outline: none; /* Bỏ viền focus mặc định */
+        }
 
-            .table-button {
-                text-align: center; /* Căn giữa nút bấm trong ô bảng */
-            }
+        .table-button {
+            text-align: center; /* Căn giữa nút bấm trong ô bảng */
+        }
 
-        </style>
+    </style>
     <body>
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
@@ -127,7 +127,7 @@
                     <div class="col-3">
 
                     </div>
-                   <div class="col-3">
+                    <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
@@ -164,7 +164,7 @@
                                     <c:forEach items="${listcategory}" var="category" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>      
-                                             <td class="table-button">
+                                            <td class="table-button">
                                                 <a onclick="showDetail(${category.getCategoryID()})">
                                                     <button type="button" class="custom-button">${category.getCategoryName()}</button>
                                                 </a>
@@ -257,23 +257,25 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="addnewcategories" method="post">
+                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
 
                                 <div class="modal-body">
 
                                     <div class="form-group">
                                         <label for="categoryName">Category Name</label>
-                                        <input type="text" name="categoryName" class="form-control" id="categoryName" >
+                                        <input type="text" name="name" class="form-control" id="name" >
+                                        <div id="nameError" class="error-message"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea class="form-control" name="categoryDescription" id="description" rows="3" ></textarea>
+                                        <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
+                                        <div id="descriptionError" class="error-message"></div>
                                     </div>                                 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="showAddNewSuccessAlert()">Add new</button>
+                                    <button type="submit" class="btn btn-primary" >Add new</button>
                                 </div>
 
                             </form>
@@ -304,26 +306,26 @@
 
 
     <script>
-                function showAlert(message, categoryID, status1) {
+                                function showAlert(message, categoryID, status1) {
 
 
-                    if (confirm(message)) {
-                        const search = document.querySelector('#search').value;
-                        const status = document.querySelector('#status').value;
-                        const pageNo = document.querySelector('#pageNo').value;
-                        window.location.href = 'category?search=' + search + 
-                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
-                    }
-                }
-                function showDetail(categoryID) {
-                    const search = document.querySelector('#search').value;
-                    const status = document.querySelector('#status').value;
-                    const pageNo = document.querySelector('#pageNo').value;
-                    window.location.href = 'categorydetail?search=' + search + '&roleId=' + roleId +
-                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID ;
-                }
+                                    if (confirm(message)) {
+                                        const search = document.querySelector('#search').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'category?search=' + search +
+                                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
+                                    }
+                                }
+                                function showDetail(categoryID) {
+                                    const search = document.querySelector('#search').value;
+                                    const status = document.querySelector('#status').value;
+                                    const pageNo = document.querySelector('#pageNo').value;
+                                    window.location.href = 'categorydetail?search=' + search + '&roleId=' + roleId +
+                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
+                                }
     </script>
-      <script>
+    <script>
         function validateForm() {
             // Lấy giá trị của các input
             var name = document.getElementById('name').value;
@@ -334,28 +336,34 @@
             var descriptionError = document.getElementById('descriptionError');
 
             // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
+            //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
+            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
             var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
 
-            // Xóa thông báo lỗi trước đó
+            // Xóa thông báo lỗi trước đóx
             nameError.textContent = '';
             descriptionError.textContent = '';
 
             // Kiểm tra input
             var valid = true;
             if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
+                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
                 valid = false;
             }
 
             // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
             if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Brand Name cannot contain whole numbers.';
+                nameError.textContent = 'Category Name cannot contain whole numbers.';
+                valid = false;
+            }
+
+            if (/^\s{2,}/.test(name)) {
+                nameError.textContent = 'Category Name cannot start with multiple spaces.';
                 valid = false;
             }
 
             if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters.';
+                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
                 valid = false;
             }
 
@@ -384,7 +392,7 @@
         ;
 
         // handle filter role
-         const status = document.querySelector('#status');
+        const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
@@ -392,11 +400,11 @@
                     '&status=' + status + '&pageNo=1';
         });
 
-       
-        
+
+
 
         // handle pagination
-         function changePage(pageNo) {
+        function changePage(pageNo) {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
             window.location.href = 'category?search=' + search +

@@ -55,7 +55,7 @@ public class AddNewCategories extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("addCategory.jsp").forward(request, response);
+        request.getRequestDispatcher("managerCategory.jsp").forward(request, response);
     } 
 
     /** 
@@ -68,13 +68,13 @@ public class AddNewCategories extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String categorieName = request.getParameter("categoryName");
-        String categorieDescription = request.getParameter("categoryDescription");        
+        String categorieName = request.getParameter("name");
+        String categorieDescription = request.getParameter("description");        
         CategoriesDAO cDAO = new CategoriesDAO();
         
         cDAO.insertCategory(categorieName, categorieDescription, 1);
         
-        request.getRequestDispatcher("addCategory.jsp").forward(request, response);
+        request.getRequestDispatcher("category").forward(request, response);
     }
 
     /** 
