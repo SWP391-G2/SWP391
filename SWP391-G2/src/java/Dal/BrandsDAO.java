@@ -4,7 +4,6 @@
  */
 package Dal;
 
-import Models.Accounts;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
