@@ -15,7 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import Controllers.Validate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -93,7 +94,7 @@ public class Profile extends HttpServlet {
         String gender = request.getParameter("gender");
         String birthday = request.getParameter("birth");
         String button = request.getParameter("save");
-        Validate validate = new Validate();
+        
         if(gender != null){
             System.out.println(gender.toString());
         }
@@ -105,7 +106,7 @@ public class Profile extends HttpServlet {
 
                 acc.setFirstName(firstName);
                 acc.setLastName(lastName);
-                if (validate.isValidPhone(phone)) {
+                if (isValidPhone(phone)) {
                     acc.setPhone(phone);
                 } else {
                     request.setAttribute("mess", "invalid phone number ");
@@ -120,7 +121,12 @@ public class Profile extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
+    private static final String PHONE_REGEX = "^\\(?(\\+\\d{1,3})?\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
+    public  boolean isValidPhone(String phone) {
+        Pattern pattern = Pattern.compile(PHONE_REGEX);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
     }
 
     /**

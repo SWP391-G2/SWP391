@@ -64,8 +64,7 @@ public class ForgotPassword extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/login");
         }else{
             request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
-        }
-        
+        }     
     } 
 
     /** 
@@ -83,7 +82,7 @@ public class ForgotPassword extends HttpServlet {
         
         AccountsDAO Accdao = new AccountsDAO();
         String button = request.getParameter("save");
-        Validate validate = new Validate();
+        
         Security security = new Security();
 
         String newpassword = request.getParameter("newpass");
@@ -92,11 +91,9 @@ public class ForgotPassword extends HttpServlet {
             if (button != null) {
                     if (CheckPass(newpassword)) {
                         if (confirmpassword.equals(newpassword)) {
-                            
                             Accdao.updatePassWord(security.getPasswordSecurity(newpassword), email);
                             session.removeAttribute("email");
                             request.getRequestDispatcher("login.jsp").forward(request, response);                           
-
                         } else {
                             request.setAttribute("mess2", "Password Not Correct");
                             request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
@@ -106,8 +103,6 @@ public class ForgotPassword extends HttpServlet {
                         request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
                     }
                 }
-
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

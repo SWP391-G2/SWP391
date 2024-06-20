@@ -78,7 +78,6 @@ public class ChangePassword extends HttpServlet {
 
         String password = request.getParameter("password");
         String button = request.getParameter("save");
-        Validate validate = new Validate();
         Security security = new Security();
 
         String newpassword = request.getParameter("newpass");
