@@ -25,7 +25,7 @@ public class BrandsDAO extends DBContext {
                 Brands brand = new Brands(
                         rs.getInt("BrandID"),
                         rs.getString("BrandName"),
-                        rs.getString("Description")
+                        rs.getString("Description"),rs.getInt("status")
                 );
                 brands.add(brand);
             }
@@ -34,6 +34,22 @@ public class BrandsDAO extends DBContext {
         }
     return brands;
     }   
+    public Brands getBrandById(int id) {
+        String sql = "select * from Brands where BrandID = ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Brands(rs.getInt("BrandID"),
+                        rs.getString("BrandName"),
+                        rs.getString("Description"),rs.getInt("status"));
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
    public static void main (String[] args){
        BrandsDAO brdao = new BrandsDAO();
        List<Brands> brands = brdao.getBrands();

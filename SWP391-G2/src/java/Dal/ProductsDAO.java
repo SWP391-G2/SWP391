@@ -19,7 +19,60 @@ import Models.SubCategories;
  * @author ROG
  */
 public class ProductsDAO extends DBContext {
+    public Products getProduct(int id) {
+        String sql = "select * from Products where ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Products(
+                        rs.getInt("ProductID"),               
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public List<Products> getProductSimilar(int id) {
+        List<Products> p = new ArrayList<>();
+        String sql = "select * from Products where BrandID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                p.add(new Products(
+                        rs.getInt("ProductID"),               
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductDetailID"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("fbID"),
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
+                ));
+            }
 
+        } catch (SQLException e) {
+
+        }
+        return p;
+    }
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
@@ -28,16 +81,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
+                        rs.getInt("ProductID"),               
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
+                        rs.getString("ProductImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getInt("BrandID")
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
                 ));
             }
 
@@ -57,16 +111,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 pro.add(new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
+                        rs.getInt("ProductID"),               
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
+                        rs.getString("ProductImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getInt("BrandID")
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
                 ));
             }
 
@@ -124,16 +179,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Products product = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
+                        rs.getInt("ProductID"),               
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
+                        rs.getString("ProductImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getInt("BrandID")
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
                 );
                 products.add(product);
             }
@@ -155,16 +211,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Products product = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
+                        rs.getInt("ProductID"),               
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
+                        rs.getString("ProductImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getInt("BrandID")
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
                 );
                 products.add(product);
             }
@@ -183,16 +240,17 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Products p = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("SubCategoryID"),
+                        rs.getInt("ProductID"),               
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
                         rs.getInt("ProductDetailID"),
                         rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
+                        rs.getString("ProductImageUrl"),
                         rs.getInt("OrderID"),
                         rs.getInt("fbID"),
-                        rs.getInt("BrandID")
+                        rs.getInt("BrandID"),
+                        rs.getInt("fk_category_id"),
+                        rs.getString("UpdateDescription")
                 );
                 return p;
             }

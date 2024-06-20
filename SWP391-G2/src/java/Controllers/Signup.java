@@ -27,7 +27,7 @@ public class Signup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        // This method is don't use
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Signup extends HttpServlet {
         if (password.contains(" ")) {
             return false;
         }
-        return isNumber && islower && isspecital && isupper;
+        return isNumber && islower && isspecital && isupper; 
     }
 
     /**

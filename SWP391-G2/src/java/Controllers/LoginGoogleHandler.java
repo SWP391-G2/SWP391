@@ -6,6 +6,7 @@ package Controllers;
  * and open the template in the editor.
  */
 import Dal.AccountsDAO;
+import Models.Accounts;
 
 import Models.UserGoogleDto;
 import com.google.gson.Gson;
@@ -42,15 +43,23 @@ public class LoginGoogleHandler extends HttpServlet {
         String accessToken = getToken(code);
         UserGoogleDto user = getUserInfo(accessToken);
         AccountsDAO Adao = new AccountsDAO();
-       
-        if (Adao.getAccount(user.getEmail()) != null) {
-     
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        } else {
-                request.setAttribute("err", "Email is not exsit!!");
+        Accounts account = Adao.getAccount(user.getEmail());
+
+        try {
+            if (account != null) {
+                if (account.getStatus() == 1) {
+                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                } else {
+                    throw new Exception("Your account was ban please enter another account!!");
+                }
+            } else {
+                throw new Exception("email is not exsit, please check agian!");
+            }
+        } catch (Exception e) {
+            request.setAttribute("err", e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
- 
+
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {
