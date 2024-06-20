@@ -330,6 +330,10 @@
     </script>
 
     <script>
+        function isOnlyWhitespace(input) {
+            return /^\s*$/.test(input);
+        }
+
         function validateForm() {
             // Lấy giá trị của các input
             var name = document.getElementById('name').value;
@@ -340,8 +344,8 @@
             var descriptionError = document.getElementById('descriptionError');
 
             // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
-            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
+            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
 
             // Xóa thông báo lỗi trước đó
             nameError.textContent = '';
@@ -349,19 +353,25 @@
 
             // Kiểm tra input
             var valid = true;
-            if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
-                valid = false;
-            }
 
-            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
-            if (/^\d+$/.test(name)) {
+            // Kiểm tra name
+            if (isOnlyWhitespace(name)) {
+                nameError.textContent = 'Brand Name cannot contain only whitespace.';
+                valid = false;
+            } else if (!nameRegex.test(name)) {
+                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
+                valid = false;
+            } else if (/^\d+$/.test(name)) {
                 nameError.textContent = 'Brand Name cannot contain whole numbers.';
                 valid = false;
             }
 
-            if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters.';
+            // Kiểm tra description
+            if (isOnlyWhitespace(description)) {
+                descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
+                valid = false;
+            } else if (!descriptionRegex.test(description)) {
+                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
                 valid = false;
             }
 
