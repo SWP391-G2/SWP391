@@ -62,9 +62,7 @@ public class Signup extends HttpServlet {
                                 "",
                                 gender,
                                 birthday,
-                                "",
                                 email,
-                                "",
                                 1,
                                 date,
                                 4);
