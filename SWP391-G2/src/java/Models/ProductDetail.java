@@ -37,6 +37,17 @@ public class ProductDetail {
         this.image = image;
     }
 
+    public ProductDetail(int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
+        this.pdProductID = pdProductID;
+        this.ProductDescription = ProductDescription;
+        this.ProductCreateDate = ProductCreateDate;
+        this.ProductStatus = ProductStatus;
+        this.ProductSize = ProductSize;
+        this.ProductPrice = ProductPrice;
+        this.ProductAvaiable = ProductAvaiable;
+        this.image = image;
+    }
+
     public int getProductFullDetailID() {
         return ProductFullDetailID;
     }

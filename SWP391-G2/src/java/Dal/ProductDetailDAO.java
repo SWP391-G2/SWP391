@@ -9,6 +9,7 @@ import Models.Brands;
 import Models.ImageDetail;
 import Models.Products;
 import Models.ProductDetail;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -95,8 +96,12 @@ public class ProductDetailDAO extends DBContext {
     public int getTotalPage(int proId, int status, String size, int pageSize) {
         String sql = "select count(*) from ProductFullDetail WHERE = ?;";
         boolean whereAdded = false;
-
-        if (status != -1 || !size.isEmpty()) {
+        if (proId != -1 || status != -1 || !size.isEmpty()) {
+            sql += " WHERE";
+            if (proId != -1) {
+                sql += " pdProductID = ?";
+                whereAdded = true;
+            }
             if (status != -1) {
                 if (!whereAdded) {
                     sql += " AND";
@@ -144,7 +149,7 @@ public class ProductDetailDAO extends DBContext {
         return 0;
     }
 
-     public List<String> getSize(int id) {
+    public List<String> getSize(int id) {
         String sql = "select ProductSize from ProductFullDetail where pdProductID = ?";
         List<String> listSize = new ArrayList<>();
         try {
@@ -160,15 +165,19 @@ public class ProductDetailDAO extends DBContext {
         return listSize;
     }
 
-    
     public ArrayList<ProductDetail> getListProductByFilter(int proId, int status, String size, int pageNo, int pageSize) {
         ArrayList<ProductDetail> listProduct = new ArrayList<>();
         ProductDetail productDetail = new ProductDetail();
-        String sql = "select * from ProductFullDetail where pdProductID = ?";
+        String sql = "select * from ProductFullDetail";
         boolean whereAdded = false;
-        if (status != -1 || !size.isEmpty()) {
+        if (proId != -1 || status != -1 || !size.isEmpty()) {
+            sql += " WHERE";
+            if (proId != -1) {
+                sql += " pdProductID = ?";
+                whereAdded = true;
+            }
             if (status != -1) {
-                if (!whereAdded) {
+                if (whereAdded) {
                     sql += " AND";
                 }
                 sql += " ProductStatus = ?";
@@ -226,13 +235,82 @@ public class ProductDetailDAO extends DBContext {
         return listProduct;
     }
 
+    public int getLastProductDetailId(int proId) {
+        String sql = "select Top 1 ProductFullDetailID from ProductFullDetail where pdProductID = ? Order by ProductFullDetailID DESC";
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, proId);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
     
+    public void updateStatus(int proId, int status) {
+        String sql = "UPDATE [dbo].[ProductFullDetail]\n"
+                + "   SET \n"
+                + "[ProductStatus] = ?\n"
+                + " WHERE ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, proId);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertNewProductDetail(ProductDetail detail) {
+        String sql = "INSERT INTO [dbo].[ProductFullDetail]\n"
+                + "           ([pdProductID]\n"
+                + "           ,[ProductDescription]\n"
+                + "           ,[ProductCreateDate]\n"
+                + "           ,[ProductStatus]\n"
+                + "           ,[ProductSize]\n"
+                + "           ,[ProductPrice]\n"
+                + "           ,[ProductAvaiable]\n"
+                + "           ,[image])\n"
+                + "            VALUES"
+                + "           (?,?,?,?,?,?,?,?);";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, detail.getPdProductID());
+            ur.setString(2, detail.getProductDescription());
+            ur.setDate(3, (Date) detail.getProductCreateDate());
+            ur.setInt(4, detail.getProductStatus());
+            ur.setString(5, detail.getProductSize());
+            ur.setFloat(6, detail.getProductPrice());
+            ur.setInt(7, detail.getProductAvaiable());
+            ur.setString(8, detail.getImage());
+
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         ProductDetailDAO p = new ProductDetailDAO();
+        Date date = new Date(System.currentTimeMillis());
+        float price = 100.4f;
+        ProductDetail detail = new ProductDetail(90, "d", date, 0, "30ml", price, 0, "");
+        p.insertNewProductDetail(detail);
         List<ProductDetail> list = p.getPriceAllowSize(1);
         for (ProductDetail product : list) {
             System.out.println(product.getProductPrice());
         }
-        System.out.println(p.getListProductByFilter(1, 1, "", 1, 10).size());
+        List<ProductDetail> lists = p.getListProductByFilter(10, -1, "", 1, 10);
+        for (ProductDetail list1 : lists) {
+            System.out.println(list1.getProductStatus());
+        }
+        
+        System.out.println(p.getLastProductDetailId(90));
     }
+
 }

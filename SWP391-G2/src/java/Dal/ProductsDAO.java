@@ -413,8 +413,8 @@ public class ProductsDAO extends DBContext {
 
     public static void main(String[] args) {
         ProductsDAO dao = new ProductsDAO();
-        Products product = new  Products(10, "d", 0, "1", 2, 1);
-        dao.updateProduct(product);
+//        Products product = new  Products(10, "d", 0, "1", 2, 1);
+//        dao.updateProduct(product);
 //        Date date = new Date(System.currentTimeMillis());
 //        Products product = new Products("test", date, 1, "1", 1, 1);
 //        dao.insertNewProduct(product);
