@@ -25,9 +25,6 @@ public class Categories {
         return CategoryID;
     }
 
-    public void setCategoryID(int CategoryID) {
-        this.CategoryID = CategoryID;
-    }
 
     public String getCategoryName() {
         return CategoryName;

@@ -221,11 +221,9 @@ public class AdminControlAccount extends HttpServlet {
                     } catch (Exception ex) {
 
                     }
-                    Accounts as = new Accounts("Trung", "Anh", "123", "adfsaf", 1, birthday, "0944362986", "Hatrung03022003@gmail,com", "Thanh Ba - Phu Tho", 1, birthday, 2);
+                  
 
-                    Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, "dsf", email, address, 1, createdate, roleID);
-
-                    dao.setInsertAccount(a);
+                  
                     request.setAttribute("success", "Create successfully!");
 
                 } else {

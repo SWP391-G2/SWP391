@@ -44,14 +44,14 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="mt-4">Form Feedback Khách Hàng</h2>
+        <h2 class="mt-4">Form Feedback </h2>
         <form id="feedbackForm" action="feedbackproduct" method="post" class="mt-4" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="feedback">Nội dung feedback:</label>
+                <label for="feedback">Content feedback:</label>
                 <textarea class="form-control" id="feedback" name="content" rows="4" required></textarea>
             </div>
             <div class="form-group">
-                <label for="rating">Số sao:</label>
+                <label for="rating">Number of starsx:</label>
                 <div class="star-rating">
                     <input type="radio" id="star5" name="rating" value="5"><label for="star5" class="fas fa-star"></label>
                     <input type="radio" id="star4" name="rating" value="4"><label for="star4" class="fas fa-star"></label>
@@ -61,10 +61,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="image">Ảnh đính kèm:</label>
+                <label for="image">Picture:</label>
                 <input type="file" id="image" name="photo" accept="image/*">
             </div>
-            <button type="submit" class="btn btn-primary">Gửi Feedback</button>
+            <button type="submit" class="btn btn-primary">Send Feedback</button>
         </form>
     </div>
 
