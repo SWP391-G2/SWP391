@@ -46,4 +46,24 @@ public class CategoriesDAO extends DBContext{
         }
         return categories;
     }
+    public List<Categories> getCategoryById(int id){
+        List<Categories> categories = new ArrayList<>();
+        String sql = "SELECT [CategoryID] , [CategoryName] , [Description] "
+                + " FROM [dbo].[Categories] where CategoryID=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Categories category = new Categories(
+                        rs.getInt("CategoryID"),
+                        rs.getString("CategoryName"),
+                        rs.getString("Description") 
+                );
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return categories;
+    }
 }

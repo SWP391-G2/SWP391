@@ -5,10 +5,6 @@
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>Controllers.web.HomeServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.Signup</servlet-class>
     </servlet>
@@ -17,8 +13,8 @@
         <servlet-class>Controllers.EmailService</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductList</servlet-name>
-        <servlet-class>Controllers.web.ProductList</servlet-class>
+        <servlet-name>RefineServlet</servlet-name>
+        <servlet-class>Controllers.RefineServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
@@ -26,7 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>Controllers.web.Search</servlet-class>
+        <servlet-class>Controllers.Search</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminCustomer</servlet-name>
@@ -56,17 +52,17 @@
         <servlet-name>AdminProfile</servlet-name>
         <servlet-class>Controllers.admin.AdminProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>Controllers.HomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductList</servlet-name>
-        <url-pattern>/ProductList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <servlet-name>RefineServlet</servlet-name>
+        <url-pattern>/refine</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
@@ -111,5 +107,9 @@
     <servlet-mapping>
         <servlet-name>AdminProfile</servlet-name>
         <url-pattern>/adminprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 </web-app>
