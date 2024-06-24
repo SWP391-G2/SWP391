@@ -46,7 +46,7 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int status_new = -1;
         int categoryID = -1;
         try {
@@ -54,8 +54,8 @@ public class CategoryController extends HttpServlet {
             categoryID = request.getParameter("categoryID") == null ? -1 : Integer.parseInt(request.getParameter("categoryID"));
         } catch (Exception e) {
         }
-        
-        if(status_new != -1){
+
+        if (status_new != -1) {
             CategoriesDAO categoryDAO = new CategoriesDAO();
             categoryDAO.updateStatusCategory(status_new, categoryID);
         }
@@ -71,17 +71,17 @@ public class CategoryController extends HttpServlet {
 
         } catch (Exception e) {
         }
-        
+
         CategoriesDAO categoryDAO = new CategoriesDAO();
         List<Categories> listcategory = categoryDAO.getCategoriesByFilter(status, search, pageNo, pageSize);
         int totalPage = categoryDAO.getTotalPage(status, search, pageSize);
-        
+
         request.setAttribute("search", search);
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listcategory", listcategory);
-        
+
         request.getRequestDispatcher("managerCategory.jsp").forward(request, response);
 
     }
@@ -97,7 +97,13 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String categorieName = request.getParameter("name");
+        String categorieDescription = request.getParameter("description");
+        CategoriesDAO cDAO = new CategoriesDAO();
+
+        cDAO.insertCategory(categorieName, categorieDescription, 1);
+
+        request.getRequestDispatcher("category").forward(request, response);
     }
 
     /**
