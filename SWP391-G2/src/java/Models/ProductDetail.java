@@ -5,6 +5,7 @@
 package Models;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -18,13 +19,13 @@ public class ProductDetail {
     private Date ProductCreateDate;
     private Boolean ProductStatus;
     private String ProductSize;
-    private Float ProductPrice;
+    private BigDecimal ProductPrice;
     private int ProductAvaiable;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable) {
+    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, BigDecimal ProductPrice, int ProductAvaiable) {
         this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
         this.ProductDescription = ProductDescription;
@@ -83,11 +84,11 @@ public class ProductDetail {
         this.ProductSize = ProductSize;
     }
 
-    public Float getProductPrice() {
+    public BigDecimal getProductPrice() {
         return ProductPrice;
     }
 
-    public void setProductPrice(Float ProductPrice) {
+    public void setProductPrice(BigDecimal ProductPrice) {
         this.ProductPrice = ProductPrice;
     }
 
@@ -98,6 +99,13 @@ public class ProductDetail {
     public void setProductAvaiable(int ProductAvaiable) {
         this.ProductAvaiable = ProductAvaiable;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetail{" + "ProductFullDetailID=" + ProductFullDetailID + ", pdProductID=" + pdProductID + ", ProductDescription=" + ProductDescription + ", ProductCreateDate=" + ProductCreateDate + ", ProductStatus=" + ProductStatus + ", ProductSize=" + ProductSize + ", ProductPrice=" + ProductPrice + ", ProductAvaiable=" + ProductAvaiable + '}';
+    }
+
+   
    
    
 }

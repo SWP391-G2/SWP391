@@ -385,22 +385,6 @@ function pageRefine(x) {
     console.log(form);
 }
 
-function searchByName() {
-    var text = document.querySelector("#searchId").value;
-    $.ajax({
-        url: "/PefumeMN-Website/searchProduct",
-        type: "get",
-        data: {
-            txt: text
-        },
-        success: function (data) {
-            var row = document.getElementById("contentt");
-            row.innerHTML = data;
-        },
-        error: function (xhr) {
-        }
-    });
-}
 
 function monthNameToNumber(monthName) {
     var months = [

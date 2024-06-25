@@ -3190,19 +3190,31 @@ i.fa.fa-eye{
 
 
 /*phan trang*/
-.pagination{
+.pagination {
     display: inline-block;
 }
-.pagination a {
+
+.pagination a, .pagination span {
     color: black;
-    font-size: 22px;
+    font-size: 20px;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    font-weight: bold;
 }
 
-.pagination a:hover:not(.active) {
-    color: chocolate;
+.pagination a.active {
+    font-weight: bold;
+    color: #f6692a; /* Màu sắc khi trang đang được chọn */
+}
+
+.pagination a:hover {
+    color: #f6692a;
+}
+
+.pagination span {
+    color: grey;
+    cursor: not-allowed;
 }
 
 /*filter*/
@@ -3772,3 +3784,5 @@ a, .text-link {
 .blog_section .section_title h2 {
   background: #f8f8f8;
 }
+
+

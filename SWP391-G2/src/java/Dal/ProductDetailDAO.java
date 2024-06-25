@@ -8,6 +8,7 @@ import Models.Brands;
 import Models.ImageDetail;
 import Models.Products;
 import Models.ProductDetail;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,6 @@ import java.util.List;
  */
 public class ProductDetailDAO extends DBContext {
 
-    
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from Products p join ProductFullDetail pfd \n"
@@ -32,13 +32,13 @@ public class ProductDetailDAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add( new ProductDetail(
+                list.add(new ProductDetail(
                         rs.getInt("ProductFullDetailID"),
                         rs.getInt("pdProductID"), rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"), 
+                        rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
-                        rs.getFloat("ProductPrice"),
+                        rs.getBigDecimal("ProductPrice"),
                         rs.getInt("ProductAvaiable")));
             }
 
@@ -48,6 +48,26 @@ public class ProductDetailDAO extends DBContext {
         return list;
     }
 
+    //Get Price by Size
+    public BigDecimal getProductPriceBySize(int productId, String size) {
+        String sql = "SELECT pfd.ProductPrice "
+                + "FROM dbo.ProductFullDetail pfd "
+                + "JOIN dbo.Products p ON p.ProductID = pfd.pdProductID "
+                + "WHERE p.ProductID = ? AND pfd.ProductSize = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ps.setString(2, size);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getBigDecimal("ProductPrice");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; 
+
+    }
 
     public List<ImageDetail> getListImageDetail(int id) {
         List<ImageDetail> list = new ArrayList<>();
@@ -66,7 +86,7 @@ public class ProductDetailDAO extends DBContext {
         }
         return list;
     }
-    
+
     public ProductDetail getProductDetail(int id) {
         String sql = "select * from ProductFullDetail where pdProductID = ?";
         try {
@@ -78,9 +98,9 @@ public class ProductDetailDAO extends DBContext {
                         rs.getInt("ProductFullDetailID"),
                         rs.getInt("pdProductID"), rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"), 
+                        rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
-                        rs.getFloat("ProductPrice"),
+                        rs.getBigDecimal("ProductPrice"),
                         rs.getInt("ProductAvaiable"));
             }
         } catch (SQLException e) {
@@ -91,9 +111,21 @@ public class ProductDetailDAO extends DBContext {
 
     public static void main(String[] args) {
         ProductDetailDAO p = new ProductDetailDAO();
-        List<ProductDetail> list = p.getPriceAllowSize(1);
-        for( ProductDetail product : list){
+        List<ProductDetail> list = p.getPriceAllowSize(2);
+        for (ProductDetail product : list) {
             System.out.println(product.getProductPrice());
+        }
+        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+
+
+        int productId = 1; 
+        String size = "30ml"; 
+        BigDecimal productPrice = productDetailDAO.getProductPriceBySize(productId, size);
+
+        if (productPrice != null) {
+            System.out.println("Product Price for Product ID " + productId + " and Size " + size + ": " + productPrice);
+        } else {
+            System.out.println("Product not found for Product ID " + productId + " and Size " + size);
         }
     }
 }

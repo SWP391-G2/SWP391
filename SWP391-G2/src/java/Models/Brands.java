@@ -4,11 +4,15 @@
  */
 package Models;
 
+import Dal.ProductsDAO;
+import java.util.List;
+
 /**
  *
  * @author admin
  */
 public class Brands {
+
     private int BrandID;
     private String BrandName;
     private String BrandDescription;
@@ -46,6 +50,14 @@ public class Brands {
         this.BrandDescription = BrandDescription;
     }
 
-    
-        
+    public int getTotalProductBrand() {
+        int total = 0;
+        ProductsDAO p = new ProductsDAO();
+        List<Products> list = p.getProductsByBrand(this.BrandID);
+        for (int i = 0; i < list.size(); i++) {
+            total += 1;
+        }
+        return total;
+    }
+
 }
