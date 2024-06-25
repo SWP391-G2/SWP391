@@ -57,6 +57,18 @@
         <servlet-class>Controllers.admin.AdminProfile</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BrandController</servlet-name>
+        <servlet-class>controller.marketing.BrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>controller.customer.CartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BrandDetailController</servlet-name>
+        <servlet-class>controller.marketing.BrandDetailController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddBlogController</servlet-name>
         <servlet-class>Controllers.admin.AddBlogController</servlet-class>
     </servlet>
@@ -87,6 +99,10 @@
     <servlet>
         <servlet-name>MarketingManagerProductDetail</servlet-name>
         <servlet-class>Controllers.marketing.MarketingManagerProductDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingUpdateProductDetail</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingUpdateProductDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -145,6 +161,18 @@
         <url-pattern>/adminprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>BrandController</servlet-name>
+        <url-pattern>/brand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/cartcontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BrandDetailController</servlet-name>
+        <url-pattern>/branddetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddBlogController</servlet-name>
         <url-pattern>/addBlog</url-pattern>
     </servlet-mapping>
@@ -175,5 +203,9 @@
     <servlet-mapping>
         <servlet-name>MarketingManagerProductDetail</servlet-name>
         <url-pattern>/product-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingUpdateProductDetail</servlet-name>
+        <url-pattern>/update-product-detail</url-pattern>
     </servlet-mapping>
 </web-app>

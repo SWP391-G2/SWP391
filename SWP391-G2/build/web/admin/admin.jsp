@@ -24,7 +24,7 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
     </head>
 
     <body>
@@ -49,7 +49,7 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
-            <jsp:include page="admin-navigation.jsp"></jsp:include>
+            <jsp:include page="../public/navigation.jsp"></jsp:include>
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -227,7 +227,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new account</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -238,73 +238,16 @@
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group row">
                                         <div class="col-6">
-                                            <label for="firstName">First Name:</label>
+                                            <label for="firstName">Brand Name: </label>
                                             <input type="text" class="form-control" id="firstname"
                                                    name="firstname" required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="lastName">Last Name:</label>
+                                            <label for="lastName">Description: </label>
                                             <input type="text" class="form-control" id="lastname"
                                                    name="lastname" required>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <select class="form-control" id="gender" name="gender">
-                                            <option value="1">Male</option>
-                                            <option value="0">Female</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="phone">Image:</label>
-                                        <input type="file" class="form-control" id="image" name="image"
-                                            >
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                               required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Birthdate</label>
-                                        <input type="date" class="form-control" id=birthdates name="birthday"
-                                               required>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="phone">Phone Number:</label>
-                                        <input type="text" class="form-control" id="phone" name="phone"
-                                               required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="phone">Address:</label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                               required>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label for="password">Password:</label>
-                                        <input type="password" class="form-control" id="password"
-                                               name="password" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="roleId">Role ID:</label>
-                                        <select class="form-control" id="roleId" name="roleID">
-                                            <option value="2">Sale</option>
-                                            <option value="3">Marketing</option>
-                                        </select>
-                                    </div>
-
 
                                 </div>
                                 <div class="modal-footer">
@@ -359,7 +302,7 @@
                                             const status = document.querySelector('#status').value;
                                             const pageNo = document.querySelector('#pageNo').value;
                                             window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID='+accountRole ;
+                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
                                         }
     </script>
     <script>
@@ -370,7 +313,8 @@
                 performSearch();
             }
         });
-        const btnSearch = document.querySelector('#btnSearch');
+        
+        const btnSearch = document.querySelector('#search');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
         });

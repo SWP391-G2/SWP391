@@ -8,6 +8,7 @@ import Dal.CategoriesDAO;
 import Dal.ProductDetailDAO;
 import Dal.ProductsDAO;
 import Models.Categories;
+import Models.ProductDetail;
 import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,29 +39,53 @@ public class MarketingAddProductDetail extends HttpServlet {
             throws ServletException, IOException {
 
         int proId = -1;
+        int cateId = -1;
         try {
             proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
+            cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
         } catch (Exception e) {
         }
+        //get number of product_detail_id of with product_id
         ProductDetailDAO detailDAO = new ProductDetailDAO();
-        int lastId = detailDAO.getLastProductDetailId(proId);
-        int pdId = lastId == -1 ? 1 : lastId;
+        int lastId = detailDAO.getLastProductDetailIdByProductId(proId);
+        int pdId = lastId == -1 ? 1 : lastId + 1;
 
         request.setAttribute("lastId", pdId);
-        request.setAttribute("lastId", pdId);
+        request.setAttribute("proId", proId);
+        request.setAttribute("cateId", cateId);
+
         request.getRequestDispatcher("marketing/add-new-product-detail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductsDAO proDao = new ProductsDAO();
-        int cateId = Integer.parseInt(request.getParameter("cateId"));
-        int brandId = Integer.parseInt(request.getParameter("brandId"));
-        int status = Integer.parseInt(request.getParameter("status"));
-        String productName = request.getParameter("productName");
-        Date dateInit = new Date(System.currentTimeMillis());
 
+        int cateId = -1;
+        int lastId = -1;
+        int proId = -1;
+        int quantity = -1;
+        int status = -1;
+        String size = "";
+        String detail = "";
+        Float price = 0.0f;
+
+        try {
+            cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
+            proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
+            quantity = request.getParameter("quantity") == null ? -1 : Integer.parseInt(request.getParameter("quantity"));
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            lastId = request.getParameter("lastId") == null ? -1 : Integer.parseInt(request.getParameter("lastId"));
+            size = request.getParameter("size") == null ? "" : request.getParameter("size");
+            detail = request.getParameter("detail") == null ? "" : request.getParameter("detail");
+            price = request.getParameter("price") == null ? -1 : Float.parseFloat(request.getParameter("price"));
+        } catch (Exception e) {
+        }
+
+        
+        Date dateInit = new Date(System.currentTimeMillis());
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        int lastPdId = pddao.getLastProductDetailId();
         //file upload
         CategoriesDAO cateDao = new CategoriesDAO();
         Categories cate = cateDao.getCategoryById(cateId);
@@ -73,7 +98,7 @@ public class MarketingAddProductDetail extends HttpServlet {
         }
 
         Part filePart = request.getPart("img");
-        String fileName = String.valueOf(proDao.getLastProductId() + 1) + "_0.jpg";
+        String fileName = String.valueOf(lastPdId + 1) + "_"+lastId+".jpg";
         OutputStream out = null;
         InputStream fileContent = null;
 
@@ -98,9 +123,9 @@ public class MarketingAddProductDetail extends HttpServlet {
         }
 
         //insert product
-        Products product = new Products(productName, dateInit, status, fileName, brandId, cateId);
-        proDao.insertNewProduct(product);
-        response.sendRedirect("../SWP391-G2/marketing-manager-products");
+        ProductDetail  details = new ProductDetail(proId, detail, dateInit, status, size, price, quantity, fileName);
+        pddao.insertNewProductDetail(details);
+        response.sendRedirect("../SWP391-G2/product-detail?proId="+proId+"&cateId="+cateId);
 
     }
 

@@ -4,6 +4,7 @@
  */
 package Controllers.marketing;
 
+import Dal.CategoriesDAO;
 import Dal.ProductDetailDAO;
 import Dal.ProductsDAO;
 import Models.ProductDetail;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,8 +24,8 @@ import java.util.List;
 public class MarketingManagerProductDetail extends HttpServlet {
 
     protected void changeStatus(int detailId, int status) {
-       ProductDetailDAO detailDAO = new ProductDetailDAO();
-       detailDAO.updateStatus(detailId, status);
+        ProductDetailDAO detailDAO = new ProductDetailDAO();
+        detailDAO.updateStatus(detailId, status);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
         } catch (Exception e) {
         }
 
-          if (detailId != -1 && newStatus != -1) {
+        if (detailId != -1 && newStatus != -1) {
             changeStatus(detailId, newStatus);
         }
         ProductsDAO proDao = new ProductsDAO();
@@ -61,7 +63,11 @@ public class MarketingManagerProductDetail extends HttpServlet {
         List<ProductDetail> details = detailDAO.getListProductByFilter(proId, status, size, pageNo, pageSize);
         int totalPage = detailDAO.getTotalPage(proId, status, size, pageSize);
         List<String> listSize = detailDAO.getSize(proId);
+        
+        CategoriesDAO cateDao = new CategoriesDAO();
+        String cateName = cateDao.getCategoryById(cateId).getCategoryName();
 
+        request.setAttribute("cateName", cateName);
         request.setAttribute("size", size);
         request.setAttribute("cateId", cateId);
         request.setAttribute("proId", proId);
@@ -73,8 +79,18 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         request.setAttribute("listSize", listSize);
         request.setAttribute("listDetail", details);
-        response.getWriter().print(details.get(0).getProductStatus());
-        request.getRequestDispatcher("marketing/product-detail.jsp").forward(request, response);
+      
+//        response.getWriter().println(size);
+//        response.getWriter().println(cateId);
+//        response.getWriter().println(proId);
+//        response.getWriter().println(search);
+//        response.getWriter().println(product.getProductID());
+//        response.getWriter().println(status);
+//        response.getWriter().println(totalPage);
+//        response.getWriter().println(pageNo);
+//        response.getWriter().println(listSize.get(1));
+//        response.getWriter().println(details.get(1).toString());
+        request.getRequestDispatcher("./marketing/product-detail.jsp").forward(request, response);
 
     }
 

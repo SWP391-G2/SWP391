@@ -104,7 +104,7 @@ public class AdminDetails extends HttpServlet {
             request.setAttribute("data", account);
 
         }
-        request.getRequestDispatcher("admindetails.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admindetails.jsp").forward(request, response);
     }
 
     /**

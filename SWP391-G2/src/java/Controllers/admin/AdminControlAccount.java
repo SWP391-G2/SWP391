@@ -137,7 +137,7 @@ public class AdminControlAccount extends HttpServlet {
 
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
 
     }
 
@@ -256,7 +256,7 @@ public class AdminControlAccount extends HttpServlet {
 
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
 
     }
 

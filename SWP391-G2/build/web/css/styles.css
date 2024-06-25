@@ -420,3 +420,79 @@ header nav ul li.active::after{
     cursor: pointer;
 }
 
+/* General styles for the navigation bar */
+    .navigation {
+        background-color: #000; /* Black background */
+        color: #fff; /* White text */
+        width: 250px; /* Adjust the width as needed */
+        height: 100vh; /* Full height */
+        position: fixed; /* Fix it to the left side */
+        top: 0;
+        left: 0;
+        overflow-y: auto; /* Enable vertical scrolling if necessary */
+    }
+
+    /* Remove default padding and margin from the list */
+    .navigation ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+    /* Styles for each list item */
+    .navigation li {
+        margin: 0;
+    }
+
+    /* Link styles */
+    .navigation a {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        text-decoration: none;
+        color: #fff; /* White text for links */
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for links */
+    .navigation a:hover {
+        background-color: #333; /* Dark grey background on hover */
+    }
+
+    /* Icon styles */
+    .navigation .icon {
+        margin-right: 10px;
+    }
+
+    .navigation .icon img,
+    .navigation .icon ion-icon {
+        vertical-align: middle;
+        width: 24px; /* Adjust icon size if needed */
+        height: 24px; /* Adjust icon size if needed */
+    }
+
+    /* Title styles */
+    .navigation .title {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Style for the logo and title at the top */
+    .navigation .navigation-header {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .navigation .navigation-header .icon img {
+        margin-right: 10px;
+    }
+
+    .navigation .navigation-header .title {
+        font-size: 22px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+

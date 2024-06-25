@@ -19,6 +19,8 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
 
     <body>
@@ -54,12 +56,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-1"></div>
                     <div class="col-2">
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
-                            <option value="1" ${status==1 ? 'selected' : '' }>View</option>
-                            <option value="0" ${status==0 ? 'selected' : '' }>Hide</option>
+                            <option value="1" ${status==1 ? 'selected' : '' }>Show</option>
+                            <option value="0" ${status==0 ? 'selected' : '' }>Hidden</option>
                         </select>
                     </div>
                     <div class="col-2">
@@ -81,19 +83,18 @@
 
                     <div class="col-2">
                         <div class="text-right">
-                            <button type="button" class="btn btn-success" data-toggle="modal"
+                            <button type="button" class="btn btn-info w-100" data-toggle="modal"
                                     data-target="#addnewModal">
-                                <a style="color: white;" href="add-new-product"><ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New</a>
+                                <a style="color: white;" href="add-new-product">Add New</a>
                             </button>
                         </div>
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped align-items-center">
 
                                 <thead>
                                     <tr>
-
                                         <th scope="col">Product ID</th>
                                         <th scope="col">Product Image</th>
                                         <th scope="col">Product Name</th>
@@ -104,7 +105,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>   
-
                                     <c:forEach items="${listProduct}" varStatus="loop" var="listProduct">
                                         <tr>
                                             <td>${listProduct.productID}</td>
@@ -116,14 +116,14 @@
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${listProduct.productStatus == 1}">
-                                                        <button type="button" onclick="changeStatus('Do you want to set hine product?',${listProduct.productID}, 0)" class="btn btn-danger">
-                                                            Hide
+                                                    <c:when test="${listProduct.productStatus == 0}">
+                                                        <button type="button" onclick="changeStatus('Do you want to set view product?',${listProduct.productID}, 1)" class="btn w-75 btn-warning">
+                                                            Hidden
                                                         </button>
                                                     </c:when>
-                                                    <c:when test="${listProduct.productStatus == 0}">
-                                                        <button type="button" onclick="changeStatus('Do you want to set view product?',${listProduct.productID}, 1)" class="btn btn-success">
-                                                            View
+                                                    <c:when test="${listProduct.productStatus == 1}">
+                                                        <button type="button" onclick="changeStatus('Do you want to set hine product?',${listProduct.productID}, 0)" class="btn w-75 btn-success">
+                                                            Show
                                                         </button>
                                                     </c:when>
                                                 </c:choose>
@@ -272,15 +272,48 @@
 
         // handle pagination
         function changeStatus(message, pid, newStatus) {
-            if (confirm(message)) {
-                const search = document.querySelector('#search').value;
-                const status = document.querySelector('#status').value;
-                const cateID = document.querySelector('#cateId').value;
-                const brandId = document.querySelector('#brandId').value;
-                const pageNo = document.querySelector('#pageNo').value;
-                window.location.href = 'marketing-manager-products?search=' + search +
-                        '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
-            }
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            const cateID = document.querySelector('#cateId').value;
+            const brandId = document.querySelector('#brandId').value;
+            const pageNo = document.querySelector('#pageNo').value;
+            Swal.fire({
+                title: message,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Update"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let timerInterval;
+                    Swal.fire({
+                        title: "Product is changing state",
+                        html: "",
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+                                timer.textContent = `${Swal.getTimerLeft()}`;
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                            window.location.href = 'marketing-manager-products?search=' + search +
+                                    '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
+                        }
+                    }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("I was closed by the timer");
+                        }
+                    });
+
+                }
+            });
+
         }
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;

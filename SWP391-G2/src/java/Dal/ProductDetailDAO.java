@@ -70,7 +70,7 @@ public class ProductDetailDAO extends DBContext {
     }
 
     public ProductDetail getProductDetail(int id) {
-        String sql = "select * from ProductFullDetail where pdProductID = ?";
+        String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -85,7 +85,9 @@ public class ProductDetailDAO extends DBContext {
                         rs.getString(6),
                         rs.getFloat(7),
                         rs.getInt(8),
-                        rs.getString(9));
+                        rs.getString(9)
+                );
+
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -94,16 +96,17 @@ public class ProductDetailDAO extends DBContext {
     }
 
     public int getTotalPage(int proId, int status, String size, int pageSize) {
-        String sql = "select count(*) from ProductFullDetail WHERE = ?;";
+        String sql = "select * from ProductFullDetail";
         boolean whereAdded = false;
         if (proId != -1 || status != -1 || !size.isEmpty()) {
             sql += " WHERE";
             if (proId != -1) {
+
                 sql += " pdProductID = ?";
                 whereAdded = true;
             }
             if (status != -1) {
-                if (!whereAdded) {
+                if (whereAdded) {
                     sql += " AND";
                 }
                 sql += " ProductStatus = ?";
@@ -145,6 +148,34 @@ public class ProductDetailDAO extends DBContext {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        return 1;
+    }
+
+    public int getProductDetailID(int pdID, String size) {
+        List<ProductDetail> list = new ArrayList<>();
+        String sql = "select * from ProductFullDetail where pdProductID = ? and ProductSize like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pdID);
+            st.setString(2, size);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ProductDetail p = new ProductDetail(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getFloat(7),
+                        rs.getInt(8),
+                        rs.getString(9));
+                return p.getProductFullDetailID();
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+
         }
         return 0;
     }
@@ -235,8 +266,8 @@ public class ProductDetailDAO extends DBContext {
         return listProduct;
     }
 
-    public int getLastProductDetailId(int proId) {
-        String sql = "select Top 1 ProductFullDetailID from ProductFullDetail where pdProductID = ? Order by ProductFullDetailID DESC";
+    public int getLastProductDetailIdByProductId(int proId) {
+        String sql = "select count(*) ProductFullDetailID from ProductFullDetail where pdProductID = ? Order by ProductFullDetailID DESC";
 
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -250,7 +281,22 @@ public class ProductDetailDAO extends DBContext {
         }
         return -1;
     }
-    
+
+    public int getLastProductDetailId() {
+        String sql = "select count(*) from ProductFullDetail";
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
+
     public void updateStatus(int proId, int status) {
         String sql = "UPDATE [dbo].[ProductFullDetail]\n"
                 + "   SET \n"
@@ -265,7 +311,7 @@ public class ProductDetailDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public void insertNewProductDetail(ProductDetail detail) {
         String sql = "INSERT INTO [dbo].[ProductFullDetail]\n"
                 + "           ([pdProductID]\n"
@@ -295,22 +341,105 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
+    public void updateProductDetail(ProductDetail detail) {
+        String sql = "UPDATE [dbo].[ProductFullDetail]\n"
+                + "     set [ProductDescription] = ?\n"
+                + "      ,[ProductStatus] = ?\n"
+                + "      ,[ProductSize] = ?\n"
+                + "      ,[ProductPrice] = ?\n"
+                + "      ,[ProductAvaiable] = ?\n"
+                + "      ,[image] = ?\n"
+                + " WHERE ProductFullDetailID = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, detail.getProductDescription());
+            ur.setInt(2, detail.getProductStatus());
+            ur.setString(3, detail.getProductSize());
+            ur.setFloat(4, detail.getProductPrice());
+            ur.setInt(5, detail.getProductAvaiable());
+            ur.setString(6, detail.getImage());
+            ur.setInt(7, detail.getProductFullDetailID());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         ProductDetailDAO p = new ProductDetailDAO();
+
+        System.out.println(p.getProductDetail(90));
         Date date = new Date(System.currentTimeMillis());
-        float price = 100.4f;
-        ProductDetail detail = new ProductDetail(90, "d", date, 0, "30ml", price, 0, "");
-        p.insertNewProductDetail(detail);
-        List<ProductDetail> list = p.getPriceAllowSize(1);
-        for (ProductDetail product : list) {
-            System.out.println(product.getProductPrice());
+        ProductDetail detail = new ProductDetail(90, "", 1, "100ml", 106.0f, 100, "5_2.jpg");
+        p.updateProductDetail(detail);
+        System.out.println(p.getProductDetail(90));
+    }
+
+    public ProductDetail getInforProductDetail(int pdID) {
+
+        String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, pdID);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                ProductDetail p = new ProductDetail(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getFloat(7),
+                        rs.getInt(8),
+                        rs.getString(9));
+                return p;
+            }
+
+        } catch (SQLException e) {
+
         }
-        List<ProductDetail> lists = p.getListProductByFilter(10, -1, "", 1, 10);
-        for (ProductDetail list1 : lists) {
-            System.out.println(list1.getProductStatus());
+        return null;
+    }
+
+    public void insetCart(int pdID, int accountID, int quantity, double totalPrice) {
+        String sql = "insert into Cart(ProductFullDetailID, AccountID, Quantity, TotalPrice) \n"
+                + "values (?,?,?,?);";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, pdID);
+            ur.setInt(2, accountID);
+            ur.setInt(3, quantity);
+            ur.setDouble(4, totalPrice);
+
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-        
-        System.out.println(p.getLastProductDetailId(90));
+    }
+
+    public void updateMinusAvaiableProductDetail(int avaiable, int pdID) {
+        String sql = "UPDATE ProductFullDetail set ProductAvaiable = ? -1 where ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, avaiable);
+            ur.setInt(2, pdID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateAddAvaiableProductDetail(int avaiable, int pdID) {
+        String sql = "UPDATE ProductFullDetail set ProductAvaiable = ? +1 where ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, avaiable);
+            ur.setInt(2, pdID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
 }

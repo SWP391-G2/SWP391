@@ -46,7 +46,7 @@
     <body>
         <div class="container-fluid">
             <!-- Navigation -->
-            <jsp:include page="admin-navigation.jsp"></jsp:include>
+            <jsp:include page="admin/admin-navigation.jsp"></jsp:include>
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">

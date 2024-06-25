@@ -54,6 +54,8 @@
                         </c:if>
                     </div>
                     <form action="add-product-detail" method="post" enctype="multipart/form-data">
+                        <input type="text" value="${proId}" name="proId"  hidden="">
+                        <input type="text" value="${cateId}" name="cateId" hidden="">
                         <!-- Product image -->
                         <div class="form-group row">
                             <label for="productID">Product image:</label>
@@ -82,7 +84,7 @@
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Quantity:
-                                <input type="number" required="" name="quanity" class="ms-2 form-control">
+                                <input type="number" required="" name="quantity" class="ms-2 form-control">
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Size:
@@ -103,7 +105,7 @@
 
                         <!-- Submit and Cancel buttons -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-light mx-2 border-secondary" href="../SWP391-G2/marketing-manager-products">Cancel</a>
+                            <a class="btn btn-light mx-2 border-secondary" href="../SWP391-G2/product-detail?proId=${proId}&cateId=${cateId}">Cancel</a>
                             <button type="submit" class="btn btn-dark" onclick="validateForm()">Add new Product</button>
                         </div>
                     </form>

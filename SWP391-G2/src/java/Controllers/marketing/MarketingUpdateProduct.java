@@ -126,26 +126,28 @@ public class MarketingUpdateProduct extends HttpServlet {
         String fileName = String.valueOf(proId) + "_0.jpg";
         OutputStream out = null;
         InputStream fileContent = null;
+        if (filePart != null) {
+            try {
+                out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
+                fileContent = filePart.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
 
-        try {
-            out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-            fileContent = filePart.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
-            while ((read = fileContent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-        } catch (FileNotFoundException fne) {
-            fne.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (fileContent != null) {
-                fileContent.close();
+                while ((read = fileContent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+            } catch (FileNotFoundException fne) {
+                fne.printStackTrace();
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+                if (fileContent != null) {
+                    fileContent.close();
+                }
             }
         }
+
         response.getWriter().println(proId);
         response.getWriter().println(fileName);
         response.getWriter().println(newBrandId);

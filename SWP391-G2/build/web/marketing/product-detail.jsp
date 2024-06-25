@@ -18,7 +18,9 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <jsp:useBean id="proDao" class="Dal.ProductDetailDAO" scope="request"></jsp:useBean> 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
 
         <style>
             .image-preview-container {
@@ -53,12 +55,7 @@
                 <!<!-- product detail list -->
 
                 <div class="topbar mb-2">
-                    <nav aria-label="breadcrumb" style="background-color: #FFFFFF">
-                        <ol class="breadcrumb" style="background-color: #FFFFFF">
-                            <li class="breadcrumb-item"><a href="./update-product?proId=${proId}">product</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">detail list</li>
-                        </ol>
-                    </nav>
+                    <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-5 font-weight-bold" href="./update-product?proId=${proId}">> Products</a></li>
                 </div>
 
                 <div class="row" style="margin-right: 70px;  padding: 10px; border: 1px solid #cccc;">
@@ -81,8 +78,8 @@
                             <div class="col-2">
                                 <select class="form-control" id="status" name="status">
                                     <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
-                                    <option value="1" ${status==1 ? 'selected' : '' }>View</option>
-                                    <option value="0" ${status==0 ? 'selected' : '' }>Hide</option>
+                                    <option value="1" ${status==1 ? 'selected' : '' }>Show</option>
+                                    <option value="0" ${status==0 ? 'selected' : '' }>Hidden</option>
                                 </select>
                             </div>
                             <div class="col-2">
@@ -94,10 +91,10 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-info text-center" data-toggle="modal"
                                             data-target="#addnewModal">
-                                        <a href="add-product-detail" style="color: white;" ><ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New Product Detail</a>
+                                        <a href="add-product-detail?proId=${proId}&cateId=${cateId}" class="text-center p-2 text-decoration-none" style="color: white;" >Add New Product Detail</a>
                                     </button>
                                 </div>
                             </div>
@@ -106,12 +103,10 @@
 
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-
+                        <div class="table-responsive mt-3">
+                            <table class="table">
                                 <thead>
                                     <tr>
-
                                         <th scope="col">#</th>
                                         <th scope="col">Product Image</th>
                                         <th scope="col">Description</th>
@@ -122,85 +117,87 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>   
-                                    <c:forEach items="${listDetail}" varStatus="loop" var="detail">
+                                <tbody>
+                                    <c:forEach items="${requestScope.listDetail}" varStatus="loop" var="detail">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
                                             <td><img src="images/Products/${cateName}/${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
                                             <td class="w-50" >${detail.getProductDescription()}</td>
-                                            <td>${detail.getProductCreateDate()}</td>                                      
-                                            <td>${detail.getProductSize()}</td>   
+                                            <td>${detail.getProductCreateDate()}</td>  
+                                            <td>${detail.getProductSize()}</td> 
                                             <td>${detail.getProductPrice()}</td>   
                                             <td>${detail.getProductAvaiable()}</td>   
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${detail.productStatus == 1}">
-                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 0)" class="btn btn-danger">
-                                                            Hide
+                                                    <c:when test="${detail.productStatus == 0}">
+                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 1)" class=" w-75 btn btn-warning">
+                                                            Hidden
                                                         </button>
                                                     </c:when>
-                                                    <c:when test="${detail.productStatus == 0}">
-                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 1)"  class="btn btn-success">
-                                                            View
+                                                    <c:when test="${detail.productStatus == 1}">
+                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 0)"  class="w-75 btn btn-success">
+                                                            Show
                                                         </button>
                                                     </c:when>
                                                 </c:choose>
+                                                <a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                                    </svg></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
-
                                 </tbody>
                             </table>
+
                         </div>
 
-
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-start">
-                                <c:if test="${currentPage == 1}">
-                                    <li class="page-item disabled">
-                                        <button class="page-link" onclick="changePage(${currentPage - 1})">
-                                            Previous
-                                        </button>
-                                    </li>
-                                </c:if>
-                                <c:if test="${currentPage != 1}">
-                                    <li class="page-item">
-                                        <button  class="page-link" onclick="changePage(${currentPage - 1})">
-                                            Previous
-                                        </button>
-                                    </li>
-                                </c:if>
-                                <c:forEach begin="1" end="${totalPage}" var="i">
-                                    <c:if test="${currentPage == i}">
-                                        <li class="page-item active" aria-current="page">
-                                            <button type="button" class="page-link" ">
-                                                ${i}
-                                                <span class="sr-only">(current)</span>
-                                            </button>
-                                        </li>
-                                    </c:if>
-                                    <c:if test="${currentPage != i}">
-                                        <li class="page-item">
-                                            <button class="page-link" type="button" onclick="changePage(${i})">${i}</button>
-                                        </li>
-                                    </c:if>
-                                </c:forEach>
-                                <c:if test="${currentPage == totalPage+1}">
-                                    <li class="page-item disabled">
-                                        <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
-                                    </li>
-                                </c:if>
-                                <c:if test="${currentPage != totalPage+1}">
-                                    <li class="page-item">
-                                        <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
-                                    </li>
-                                </c:if>
-                            </ul>
-                        </nav>
                     </div>
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-start">
+                            <c:if test="${currentPage == 1}">
+                                <li class="page-item disabled">
+                                    <button class="page-link" onclick="changePage(${currentPage - 1})">
+                                        Previous
+                                    </button>
+                                </li>
+                            </c:if>
+                            <c:if test="${currentPage != 1}">
+                                <li class="page-item">
+                                    <button  class="page-link" onclick="changePage(${currentPage - 1})">
+                                        Previous
+                                    </button>
+                                </li>
+                            </c:if>
+                            <c:forEach begin="1" end="${totalPage}" var="i">
+                                <c:if test="${currentPage == i}">
+                                    <li class="page-item active" aria-current="page">
+                                        <button type="button" class="page-link" ">
+                                            ${i}
+                                            <span class="sr-only">(current)</span>
+                                        </button>
+                                    </li>
+                                </c:if>
+                                <c:if test="${currentPage != i}">
+                                    <li class="page-item">
+                                        <button class="page-link" type="button" onclick="changePage(${i})">${i}</button>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${currentPage == totalPage}">
+                                <li class="page-item disabled">
+                                    <button class="page-link"
+                                            onclick="changePage(${currentPage + 1})">Next</button>
+                                </li>
+                            </c:if>
+                            <c:if test="${currentPage != totalPage}">
+                                <li class="page-item">
+                                    <button class="page-link"
+                                            onclick="changePage(${currentPage + 1})">Next</button>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
                 </div>
 
             </div>
@@ -225,81 +222,109 @@
     crossorigin="anonymous"></script>
 
     <script>                                  //set time for alertMessage
-                                                    document.addEventListener('DOMContentLoaded', function () {
-                                                        var myDiv = document.getElementById('myDiv');
-                                                        myDiv.style.display = 'block';
-                                                        setTimeout(function () {
-                                                            myDiv.style.display = 'none';
-                                                        }, 10000); // 10 giây = 10,000 miligiây
-                                                    });
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    var myDiv = document.getElementById('myDiv');
+                                                    myDiv.style.display = 'block';
+                                                    setTimeout(function () {
+                                                        myDiv.style.display = 'none';
+                                                    }, 10000); // 10 giây = 10,000 miligiây
+                                                });
 
-                                                    // handle filter search
-                                                    const searchInput = document.querySelector('#search');
-                                                    searchInput.addEventListener('keydown', (event) => {
-                                                        if (event.key === 'Enter') {
-                                                            performSearch();
+                                                // handle filter search
+                                                const searchInput = document.querySelector('#search');
+                                                searchInput.addEventListener('keydown', (event) => {
+                                                    if (event.key === 'Enter') {
+                                                        performSearch();
+                                                    }
+                                                });
+                                                const btnSearch = document.querySelector('#btnSearch');
+                                                btnSearch.addEventListener('click', () => {
+                                                    performSearch(); // call function
+                                                });
+                                                function performSearch() {
+                                                    const size = document.querySelector('#size').value;
+                                                    const search = document.querySelector('#search').value;
+                                                    const status = document.querySelector('#status').value;
+                                                    const cateId = document.querySelector('#cateId').value;
+                                                    const proId = document.querySelector('#proId').value;
+                                                    window.location.href = 'product-detail?search=' + search +
+                                                            '&status=' + status + '&pageNo=1' + '&cateId=' + cateId + '&proId=' + proId + '&size=' + size;
+                                                }
+                                                ;
+
+                                                // handle filter status
+                                                const status = document.querySelector('#status');
+                                                status.addEventListener('change', () => {
+                                                    const size = document.querySelector('#size').value;
+                                                    const search = document.querySelector('#search').value;
+                                                    const status = document.querySelector('#status').value;
+                                                    const cateId = document.querySelector('#cateId').value;
+                                                    const proId = document.querySelector('#proId').value;
+                                                    window.location.href = 'product-detail?search=' + search +
+                                                            '&status=' + status + '&pageNo=1' + '&cateId=' + cateId + '&proId=' + proId + '&size=' + size;
+                                                });
+
+
+                                                // handle filter cateID
+                                                const size = document.querySelector('#size');
+                                                size.addEventListener('change', () => {
+                                                    const size = document.querySelector('#size').value;
+                                                    const search = document.querySelector('#search').value;
+                                                    const status = document.querySelector('#status').value;
+                                                    const cateID = document.querySelector('#cateId').value;
+                                                    const proId = document.querySelector('#proId').value;
+                                                    window.location.href = 'product-detail?search=' + search +
+                                                            '&status=' + status + '&pageNo=1' + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size;
+                                                });
+
+
+                                                // handle pagination
+                                                function changeStatus(message, detailId, newStatus) {
+                                                    const size = document.querySelector('#size').value;
+                                                    const search = document.querySelector('#search').value;
+                                                    const status = document.querySelector('#status').value;
+                                                    const cateID = document.querySelector('#cateId').value;
+                                                    const proId = document.querySelector('#proId').value;
+                                                    Swal.fire({
+                                                        title: message,
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: "#3085d6",
+                                                        cancelButtonColor: "#d33",
+                                                        confirmButtonText: "Update"
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            let timerInterval;
+                                                            Swal.fire({
+                                                                title: "Product is changing state",
+                                                                html: "",
+                                                                timer: 1000,
+                                                                timerProgressBar: true,
+                                                                didOpen: () => {
+                                                                    Swal.showLoading();
+                                                                },
+                                                                willClose: () => {
+                                                                    clearInterval(timerInterval);
+                                                                    window.location.href = 'product-detail?search=' + search +
+                                                                            '&status=' + status + '&pageNo=1' + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size + '&detailId=' + detailId + '&newstatus=' + newStatus;
+                                                                }
+                                                            }).then((result) => {
+                                                                /* Read more about handling dismissals below */
+                                                                if (result.dismiss === Swal.DismissReason.timer) {
+                                                                    console.log("I was closed by the timer");
+                                                                }
+                                                            });
+
                                                         }
                                                     });
-                                                    const btnSearch = document.querySelector('#btnSearch');
-                                                    btnSearch.addEventListener('click', () => {
-                                                        performSearch(); // call function
-                                                    });
-                                                    function performSearch() {
-                                                        const size = document.querySelector('#size').value;
-                                                        const search = document.querySelector('#search').value;
-                                                        const status = document.querySelector('#status').value;
-                                                        const cateId = document.querySelector('#cateId').value;
-                                                        const proId = document.querySelector('#proId').value;
-                                                        window.location.href = 'product-detail?search=' + search +
-                                                                '&status=' + status + '&pageNo=1' + '&cateId=' + cateId + '&proId=' + proId + '&size=' + size;
-                                                    }
-                                                    ;
-
-                                                    // handle filter status
-                                                    const status = document.querySelector('#status');
-                                                    status.addEventListener('change', () => {
-                                                        const size = document.querySelector('#size').value;
-                                                        const search = document.querySelector('#search').value;
-                                                        const status = document.querySelector('#status').value;
-                                                        const cateId = document.querySelector('#cateId').value;
-                                                        const proId = document.querySelector('#proId').value;
-                                                        window.location.href = 'product-detail?search=' + search +
-                                                                '&status=' + status + '&pageNo=1' + '&cateId=' + cateId + '&proId=' + proId + '&size=' + size;
-                                                    });
-
-
-                                                    // handle filter cateID
-                                                    const size = document.querySelector('#size');
-                                                    size.addEventListener('change', () => {
-                                                        const size = document.querySelector('#size').value;
-                                                        const search = document.querySelector('#search').value;
-                                                        const status = document.querySelector('#status').value;
-                                                        const cateID = document.querySelector('#cateId').value;
-                                                        const proId = document.querySelector('#proId').value;
-                                                        window.location.href = 'product-detail?search=' + search +
-                                                                '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&proId=' + proId + '&size=' + size;
-                                                    });
-
-
-                                                    // handle pagination
-                                                    function changeStatus(message, detailId, newStatus) {
-                                                        if (confirm(message)) {
-                                                            const size = document.querySelector('#size').value;
-                                                            const search = document.querySelector('#search').value;
-                                                            const status = document.querySelector('#status').value;
-                                                            const cateID = document.querySelector('#cateId').value;
-                                                            const proId = document.querySelector('#proId').value;
-                                                            window.location.href = 'product-detail?search=' + search +
-                                                                    '&status=' + status + '&pageNo=1' + '&cateID=' + cateID + '&proId=' + proId + '&size=' + size + '&detailId=' + detailId + '&newstatus=' + newStatus;
-                                                        }
-                                                    }
-                                                    function changePage(pageNo) {
-                                                        const size = document.querySelector('#size').value;
-                                                        const search = document.querySelector('#search').value;
-                                                        const status = document.querySelector('#status').value;
-                                                        const cateID = document.querySelector('#cateId').value;
-                                                        const proId = document.querySelector('#proId').value;
-                                                        window.location.href = 'product-detail?search=' + search +
-                                                                '&status=' + status + '&pageNo=' + pageNo + '&cateID=' + cateID + '&proId=' + proId + '&size=' + size;
-                                                    }</script>
+                                                }
+                                                function changePage(pageNo) {
+                                                    const size = document.querySelector('#size').value;
+                                                    const search = document.querySelector('#search').value;
+                                                    const status = document.querySelector('#status').value;
+                                                    const cateID = document.querySelector('#cateId').value;
+                                                    const proId = document.querySelector('#proId').value;
+                                                    window.location.href = 'product-detail?search=' + search +
+                                                            '&status=' + status + '&pageNo=' + pageNo + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size;
+                                                }</script>
 </html>

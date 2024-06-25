@@ -19,7 +19,7 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .image-preview-container {
                 display: flex;
@@ -54,7 +54,7 @@
                         </c:if>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <a class="btn btn-secondary mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.fk_category_id}">View Product Detail</a>
+                        <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.fk_category_id}">View Product Detail</a>
                     </div>
                     <form action="update-product" method="post" id="productForm" enctype="multipart/form-data">
                         <input name="productId" value="${product.getProductID()}" hidden=""/>
@@ -110,13 +110,12 @@
 
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-secondary mx-2" href="./marketing-manager-products">Cancel</a>
-                            <button type="button" class="btn btn-dark" id="updateButton"  onclick="enableEditing()">Update</button>
+                            <a class="btn btn-danger ps-2 mx-2" href="./marketing-manager-products">Cancel</a>
+                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="enableEditing()">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
-
         </div>
     </body>
 
@@ -161,19 +160,49 @@
                                 }
 
                                 function enableEditing() {
-                                    if (confirm('Do you want to update')) {
-                                        var formElements = document.getElementById('productForm').elements;
-                                        for (var i = 0; i < formElements.length; i++) {
-                                            formElements[i].disabled = false;
+                                    Swal.fire({
+                                        title: "Do you want to update?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Update"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            let timerInterval;
+                                            Swal.fire({
+                                                title: "Updated form is in preparation",
+                                                html: "",
+                                                timer: 1500,
+                                                timerProgressBar: true,
+                                                didOpen: () => {
+                                                    Swal.showLoading();
+                                                    const timer = Swal.getPopup().querySelector("b");
+                                                    timerInterval = setInterval(() => {
+                                                        timer.textContent = `${Swal.getTimerLeft()}`;
+                                                    }, 100);
+                                                },
+                                                willClose: () => {
+                                                    clearInterval(timerInterval);
+                                                    var formElements = document.getElementById('productForm').elements;
+                                                    for (var i = 0; i < formElements.length; i++) {
+                                                        formElements[i].disabled = false;
+                                                    }
+                                                    var button = document.getElementById('updateButton');
+                                                    button.setAttribute('onclick', 'updateForm()');
+                                                    var button = document.getElementById('updateButton');
+                                                    button.type = 'submit';
+                                                    button.innerText = 'Submit';
+                                                }
+                                            }).then((result) => {
+                                                /* Read more about handling dismissals below */
+                                                if (result.dismiss === Swal.DismissReason.timer) {
+                                                    console.log("I was closed by the timer");
+                                                }
+                                            });
+
                                         }
-
-
-                                        var button = document.getElementById('updateButton');
-                                        button.setAttribute('onclick', 'updateForm()');
-                                        var button = document.getElementById('updateButton');
-                                        button.type = 'submit';
-                                        button.innerText = 'Submit';
-                                    }
+                                    });
                                 }
                                 function updateForm() {
                                     var form = document.getElementById('productForm');
