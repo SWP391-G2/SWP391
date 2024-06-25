@@ -23,37 +23,21 @@ public class Login extends HttpServlet {
 
     /**
      * This function use for logout function
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
-    @Override 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        if (email != null) {
-            request.setAttribute("err", "hoang");
-            request.getRequestDispatcher("../common/login.jsp").forward(request, response);
-        }
         HttpSession session = request.getSession();
-        Cookie arrayCookie[] = request.getCookies();
-        for (Cookie cookie : arrayCookie) {
-            if (cookie.getName().equals("em")) {
-                request.setAttribute("email", cookie.getValue());
-                continue;
-            }
-            if (cookie.getName().equals("cp")) {
-                if (session.getAttribute("save") != null) {
-                    request.setAttribute("password", cookie.getValue());
-                } else {
-                    cookie.setMaxAge(0);
-                }
-            }
+        if (session.getAttribute("account") != null) {
+            rememberMe(request, response);
         }
-
         session.invalidate();
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        request.getRequestDispatcher("common/login.jsp").forward(request, response);
     }
 
     @Override
@@ -66,9 +50,10 @@ public class Login extends HttpServlet {
         boolean remember = request.getParameter("remember") != null;
         String password = request.getParameter("password");
         Accounts account = Adao.getAccount(email);
-
+        request.setAttribute("email", email);
         try {
             if (account != null) {
+
                 if (account.getStatus() == 1) {
                     if (account.getPassword().equals(security.getPasswordSecurity(password))) {
                         session.setAttribute("account", account);
@@ -86,7 +71,7 @@ public class Login extends HttpServlet {
                         }
                         switch (account.getRole()) {
                             case 4 ->
-                                request.getRequestDispatcher("home.jsp").forward(request, response);
+                                request.getRequestDispatcher("shop/home.jsp").forward(request, response);
                             case 3 ->
                                 request.getRequestDispatcher("marketing.jsp").forward(request, response);
                             case 2 ->
@@ -105,8 +90,25 @@ public class Login extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("err", e.getMessage());
-            request.getRequestDispatcher("./common/login.jsp").forward(request, response);
+            request.getRequestDispatcher("common/login.jsp").forward(request, response);
+        }
+    }
 
+    protected void rememberMe(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Cookie arrayCookie[] = request.getCookies();
+        for (Cookie cookie : arrayCookie) {
+            if (cookie.getName().equals("em")) {
+                request.setAttribute("email", cookie.getValue());
+                continue;
+            }
+            if (cookie.getName().equals("cp")) {
+                if (session.getAttribute("save") != null) {
+                    request.setAttribute("password", cookie.getValue());
+                } else {
+                    cookie.setMaxAge(0);
+                }
+            }
         }
 
     }

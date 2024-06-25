@@ -132,7 +132,7 @@ public class MarketingUpdateProductDetail extends HttpServlet {
 
         //insert product
         ProductDetailDAO pddao = new ProductDetailDAO();
-        ProductDetail details = new ProductDetail(detailId, detail, status, size, price, quantity, size);
+        ProductDetail details = new ProductDetail(detailId, detail, status, size, price, quantity, fileName);
         pddao.updateProductDetail(details);
        response.sendRedirect("../SWP391-G2/update-product-detail?proId=" + proId + "&cateId=" + cateId + "&detailId=" + detailId);
 

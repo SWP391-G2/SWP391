@@ -16,8 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-
-
 /**
  *
  * @author nguye
@@ -27,7 +25,7 @@ public class Signup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.sendRedirect("common/signup.jsp");
+        request.getRequestDispatcher("common/signup.jsp").forward(request, response);
     }
 
     @Override
@@ -62,14 +60,12 @@ public class Signup extends HttpServlet {
                                 "",
                                 gender,
                                 birthday,
-                                "",
                                 email,
-                                "",
                                 1,
                                 date,
                                 4);
                         session.setAttribute("accountForSign", a);
-                        request.getRequestDispatcher("../email").forward(request, response);
+                        request.getRequestDispatcher("email").forward(request, response);
                     } else {
                         throw new Exception("Password and Confirm password is not equals!!");
                     }
@@ -81,7 +77,7 @@ public class Signup extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("err", e.getMessage());
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            request.getRequestDispatcher("common/signup.jsp").forward(request, response);
         }
 
     }
@@ -108,7 +104,7 @@ public class Signup extends HttpServlet {
         if (password.contains(" ")) {
             return false;
         }
-        return isNumber && islower && isspecital && isupper; 
+        return isNumber && islower && isspecital && isupper;
     }
 
     /**

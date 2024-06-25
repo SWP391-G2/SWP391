@@ -57,7 +57,7 @@
                                 </svg>  Login With Google</a>
                         </div>
                         <div class="position-relative bg-secondary-subtle mb-3 line" style="width: 100%; height: 1px;"></div>
-                        <form action="./login" method="post" >
+                        <form action="login" method="post" >
                             <div class="input-group mb-3" >
                                 <span class="input-group-text">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
@@ -94,7 +94,7 @@
 
                         </form>
                         <div class="text-center">
-                            <small>Don't have an accout? <a href="${pageContext.request.contextPath}/common/signup.jsp" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
+                            <small>Don't have an accout? <a href="${pageContext.request.contextPath}/signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
                         </div>
                     </div>
                 </div>

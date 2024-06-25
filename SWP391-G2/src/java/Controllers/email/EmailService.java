@@ -20,7 +20,8 @@ import jakarta.servlet.http.HttpSession;
  * @author nguye
  */
 public class EmailService extends HttpServlet {
-
+    
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,8 +35,8 @@ public class EmailService extends HttpServlet {
         // Compare both OTP
         if (otp.equals(ots)) {
             Accounts account = (Accounts) session.getAttribute("accountForSign");
-            Adao.setInsert(account);
-            response.sendRedirect("common/login.jsp");
+            Adao.setInsertAccount(account);
+            request.getRequestDispatcher("login").forward(request, response);
         } else {
             request.setAttribute("err", "OTP is incorrect!!");
             request.getRequestDispatcher("common/email.jsp").forward(request, response);
