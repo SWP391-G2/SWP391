@@ -99,7 +99,9 @@ public class DetailOfProduct extends HttpServlet {
 
             listAccount.add(a);
         }
-
+        int averageStart = fbDAO.getAverageStartByProductID(id);
+        int getTotalFeedback = fbDAO.getTotalFeedbackByProductId(id);
+        
         request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
 
@@ -109,7 +111,10 @@ public class DetailOfProduct extends HttpServlet {
         request.setAttribute("p", product);
         request.setAttribute("fb", feedbacks);
         request.setAttribute("listAccount", listAccount);
-
+        
+        request.setAttribute("averageStart", averageStart);
+        request.setAttribute("getTotalFeedback", getTotalFeedback);
+        
         request.getRequestDispatcher("products/productDetail.jsp").forward(request, response);
     }
 

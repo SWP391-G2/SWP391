@@ -29,7 +29,19 @@ public class CategoriesDAO extends DBContext {
         }
 
     }
-
+     public void updateCategory(String name, String description, int status, int categoryId){
+        String sql = "Update Brands set CategoryName= ?, Description = ? , status = ? where CategoryID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+           ur.setString(1, name);
+           ur.setString(2, description);
+           ur.setInt(3, status);
+           ur.setInt(4, categoryId);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     public List<Categories> loadCategory() {
         List<Categories> categories = new ArrayList<>();
         String sql = "SELECT * FROM [dbo].[Categories]";

@@ -18,7 +18,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
             />
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <style>
             .product-image {
                 width: 70%;
@@ -213,6 +213,17 @@
                         <p><input type="text" id="productductFullDetailID" value="${priceandsize[0].productFullDetailID}" hidden=""></p>
                         <h1 id="produc-tname" class="custom-link">${p.getProductName()}</h1>
                         <input type="text" id="productname" value="${p.getProductName()}" hidden="">
+                        <div class="d-flex mb-3">
+                            <div class="mr-2">
+                                <c:forEach var="i" begin="1" end="${averageStart}">
+                                    <small style="color: #ffca08;" class="fas fa-star"></small>
+                                </c:forEach>
+                                <c:forEach var="i" begin="${averageStart + 1}" end="5">
+                                    <small  style="color: #ddd;" class="far fa-star empty"></small>
+                                </c:forEach>
+                            </div>
+                            <small style="padding-top: 0.25rem;">(${getTotalFeedback} Review)</small>
+                        </div>
                         <p>
                             <strong>Trademark:</strong>
                             <span id="brand">${b.getBrandName()}</span>

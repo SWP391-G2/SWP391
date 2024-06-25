@@ -130,6 +130,7 @@ public class FeedbackProduct extends HttpServlet {
         } catch (Exception e) {
 
         }
+        response.sendRedirect("home.jsp");
     }
 
     /**

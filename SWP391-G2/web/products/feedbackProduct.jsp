@@ -49,9 +49,10 @@
             <div class="form-group">
                 <label for="feedback">Content feedback:</label>
                 <textarea class="form-control" id="feedback" name="content" rows="4" required></textarea>
+                <div id="descriptionError" class="error-message"></div>
             </div>
             <div class="form-group">
-                <label for="rating">Number of starsx:</label>
+                <label for="rating">Number of stars:</label>
                 <div class="star-rating">
                     <input type="radio" id="star5" name="rating" value="5"><label for="star5" class="fas fa-star"></label>
                     <input type="radio" id="star4" name="rating" value="4"><label for="star4" class="fas fa-star"></label>
