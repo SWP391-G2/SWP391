@@ -8,9 +8,9 @@ package Dal;
  *
  * @author TNO
  */
-import context.DBContext;
 import static Constant.constant.RECORD_PER_PAGE;
 import Models.BlogResponseDTO;
+import context.DBContext;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,6 +178,89 @@ public class BlogDAO extends DBContext {
             }
         }
 
+    }
+
+    public boolean updateBlog(int id, String title, String brief, String content, int status, String imgPath, int updateImageMode) {
+        String sql = "";
+        switch (updateImageMode) {
+            case 1:
+                sql = "UPDATE [dbo].[Blog]\n"
+                        + "   SET [title] = ?,\n"
+                        + "       [brief_infor] = ?,\n"
+                        + "       [content_blog] = ?,\n"
+                        + "       [thumbnail] = ?,\n"
+                        + "       [status] = ?\n"
+                        + " WHERE [blog_id] = ?";
+                break;
+            case 0:
+                sql = "UPDATE [dbo].[Blog]\n"
+                        + "   SET [title] = ?,\n"
+                        + "       [brief_infor] = ?,\n"
+                        + "       [content_blog] = ?,\n"
+                        + "       [status] = ?\n"
+                        + " WHERE [blog_id] = ?";
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+        try (Connection connection = new DBContext().connection) {
+            ps = connection.prepareStatement(sql);
+
+            // Set common parameters
+            ps.setString(1, title);
+            ps.setString(2, brief);
+            ps.setString(3, content);
+
+            if (updateImageMode == 1) {
+                ps.setString(4, imgPath);
+                ps.setInt(5, status);
+                ps.setInt(6, id);
+            } else {
+                ps.setInt(4, status);
+                ps.setInt(5, id);
+            }
+
+            int rowAffected = ps.executeUpdate();
+
+            if (rowAffected > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            closeResultSetAndStatement(rs, ps);
+        }
+
+        return false;
+    }
+
+    public boolean deleteBlog(int id, int status) {
+        String sql = "UPDATE [dbo].[Blog]\n"
+                + "   SET [status] = ?\n"
+                + " WHERE [blog_id] = ?";
+
+        try (Connection connection = new DBContext().connection) {
+
+            ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, status);
+            ps.setInt(2, id);
+
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            closeResultSetAndStatement(rs, ps);
+        }
+        return false;
     }
 
 }
