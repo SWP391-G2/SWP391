@@ -4,10 +4,9 @@
  */
 package Controllers;
 
-import Dal.AccountsDAO;
+import Dal.AddressDAO;
 import Models.Accounts;
-import Util.Email;
-import Util.Security;
+import Models.Address;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,12 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author ROG
  */
-public class ForgotPasswordEmail extends HttpServlet {
+public class AddressDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class ForgotPasswordEmail extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FogotPasswordEmail</title>");
+            out.println("<title>Servlet AddressDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FogotPasswordEmail at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddressDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +61,15 @@ public class ForgotPasswordEmail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      request.getRequestDispatcher("forgotpasswordenteremail.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+        int accountid = account.getAccountID();
+        Address address = new Address();
+        AddressDAO addressdao = new AddressDAO();
+        address = addressdao.getAdress(accountid);
+        request.setAttribute("address",address );
+        
+        request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
     }
 
     /**
@@ -74,31 +83,50 @@ public class ForgotPasswordEmail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        
-        String emailget = request.getParameter("email");
         HttpSession session = request.getSession();
-
-        String email = request.getParameter("email");
-        session.setAttribute("email", email);
-        AccountsDAO accounts = new AccountsDAO();
-        Accounts acc = (Accounts) accounts.getAccount(emailget);
-
-        String button = request.getParameter("save");
+        Accounts account = (Accounts) session.getAttribute("account");
+        int accountid = account.getAccountID();
+        AddressDAO Addressdao = new AddressDAO();
+        Address address = Addressdao.getAdress(accountid);
+        request.setAttribute("addressdetail", address);
         
-            if (button != null) {
-                if (acc != null) {
-                   request.getRequestDispatcher("./ForgotPasswordOTP?email="+emailget).forward(request, response);
-                    }
-                 else {
-                    request.setAttribute("mess1", "Email does not exist");
-                    request.getRequestDispatcher("forgotpasswordenteremail.jsp").forward(request, response);
-                }
+        String phone = request.getParameter("phone");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String homeaddress = request.getParameter("homeaddress");
+        String button = request.getParameter("save");
+        int status = Integer.parseInt(request.getParameter("status"));
+        try {
+         
+        if (button != null) {
+            if (isValidPhone(phone)) {
+                address.setPhone(phone);
+            } else {
+                request.setAttribute("mess", "invalid phone number ");
             }
-    }
+            address.setCity(city);
+            address.setDistrict(district);
+            address.setAddress_line(homeaddress);
+            if(status == 1){
+               address.setStatus(1);
+            }else{
+                address.setStatus(0);
+            }
+            Addressdao.setInsertAddress(address);
+            request.setAttribute("address", address);
+            request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
+        }
+        } catch (Exception e) {
+        }
+        
+response.getWriter().print(city);    }
+    private static final String PHONE_REGEX = "^\\(?(\\+\\d{1,3})?\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
 
-       
-    
+    public boolean isValidPhone(String phone) {
+        Pattern pattern = Pattern.compile(PHONE_REGEX);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+    }
 
     /**
      * Returns a short description of the servlet.

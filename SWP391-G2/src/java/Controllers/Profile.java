@@ -9,10 +9,17 @@ import Models.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
@@ -22,43 +29,11 @@ import java.util.regex.Pattern;
  *
  * @author ROG
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class Profile extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Profile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Profile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,14 +46,6 @@ public class Profile extends HttpServlet {
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -88,16 +55,48 @@ public class Profile extends HttpServlet {
         AccountsDAO Accdao = new AccountsDAO();
         Accounts acc = Accdao.getAccount(emaill);
 
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-        String phone = request.getParameter("phone");
+        String firstName = request.getParameter("firstname").trim();
+        String lastName = request.getParameter("lastname").trim();
         String gender = request.getParameter("gender");
         String birthday = request.getParameter("birth");
         String button = request.getParameter("save");
-        
-        if(gender != null){
-            System.out.println(gender.toString());
+        Part filePart = request.getPart("img");
+
+        //upload image start
+        String uploadFolder = getServletContext().getRealPath("") + "../../web/images/Account/";
+
+        File folder = new File(uploadFolder);
+        if (!folder.exists()) {
+            folder.mkdirs();
         }
+
+        String fileName = "";
+        OutputStream out = null;
+        InputStream fileContent = null;
+        if (filePart != null) {
+            try {
+                fileName = String.valueOf(acc.getAccountID()) + ".jpg";
+                out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
+                fileContent = filePart.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = fileContent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+            } catch (FileNotFoundException fne) {
+                fne.printStackTrace();
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+                if (fileContent != null) {
+                    fileContent.close();
+                }
+            }
+        }
+
+        //end upload
         try {
             SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date utilDate = formatdate.parse(birthday);
@@ -106,27 +105,20 @@ public class Profile extends HttpServlet {
 
                 acc.setFirstName(firstName);
                 acc.setLastName(lastName);
-                if (isValidPhone(phone)) {
-                    acc.setPhone(phone);
-                } else {
-                    request.setAttribute("mess", "invalid phone number ");
-                }
+
                 acc.setGender(Integer.parseInt(gender));
                 acc.setBirthday(dob);
+                if (!fileName.isEmpty()) {
+                    acc.setImage(fileName);
+                }
                 acc.setEmail(emaill);
-                Accdao.updateProfile(acc);
-                request.setAttribute("profile", acc);
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
             }
+            Accdao.updateProfile(acc);
+            request.setAttribute("profile", acc);
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    private static final String PHONE_REGEX = "^\\(?(\\+\\d{1,3})?\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
-    public  boolean isValidPhone(String phone) {
-        Pattern pattern = Pattern.compile(PHONE_REGEX);
-        Matcher matcher = pattern.matcher(phone);
-        return matcher.matches();
     }
 
     /**

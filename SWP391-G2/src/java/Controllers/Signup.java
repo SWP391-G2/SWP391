@@ -54,7 +54,8 @@ public class Signup extends HttpServlet {
                         Security security = new Security();
                         java.util.Date utilDate = formatdate.parse(datebirthday);
                         Date birthday = new Date(utilDate.getTime());
-
+                        
+                       
                         Accounts a = new Accounts(
                                 firstname,
                                 lastname,
@@ -62,9 +63,7 @@ public class Signup extends HttpServlet {
                                 "",
                                 gender,
                                 birthday,
-                                "",
                                 email,
-                                "",
                                 1,
                                 date,
                                 4);

@@ -95,11 +95,11 @@ public class ForgotPassword extends HttpServlet {
                             session.removeAttribute("email");
                             request.getRequestDispatcher("login.jsp").forward(request, response);                           
                         } else {
-                            request.setAttribute("mess2", "Password Not Correct");
+                            request.setAttribute("mess2", "Confirm password Not Correct");
                             request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
                         }
                     } else {
-                        request.setAttribute("mess1", "Invalid Password");
+                        request.setAttribute("mess1", "Password is not in correct format");
                         request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
                     }
                 }

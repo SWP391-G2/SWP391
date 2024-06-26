@@ -8,6 +8,7 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
+        
 
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -21,18 +22,19 @@
                                 <div class="form-group">
                                     <label for="current-password">Current Password</label>
                                     <input name="password" type="password" class="form-control" id="current-password" placeholder="Enter your current password">
+                                    <a style="color: red">${mess3}</a>
                                 </div>
                                 <div class="form-group">
                                     <label for="new-password">New Password</label>
                                     <input required="" name="newpass" type="password" class="form-control" id="new-password" placeholder="Enter your new password">
-                                    <a>${mess1}</a>
+                                    <a style="color: red">${mess1}</a>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm-password">Confirm New Password</label>
                                     <input required="" name="confirmpass" type="password" class="form-control" id="confirm-password" placeholder="Confirm your new password">
-                                    <a>${mess2}</a>
+                                    <a style="color: red">${mess2}</a>
                                 </div>
-                                <button name="save" type="submit" class="btn btn-primary btn-block">Change Password</button>
+                                <button name="save" style="background-color: black" type="submit" class="btn btn-primary btn-block">Change Password</button>
                             </form>
                                  <ul type="none" class="text-start pe-3 requiement-list">
                                     <p>Password must contains</p>

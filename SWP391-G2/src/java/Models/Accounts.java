@@ -17,7 +17,7 @@ public class Accounts {
     private String firstName, lastName, password, image;
     private int gender;
     private Date birthday;
-    private String phone,email, address;
+    private String email;
     private int status;
     private Date createDate;
     private int role;
@@ -25,7 +25,22 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
+    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String email, int status, Date createDate, int role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.status = status;
+        this.createDate = createDate;
+        this.role = role;
+    }
+    
+    
+
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String email, int status, Date createDate, int role) {
         this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,24 +48,7 @@ public class Accounts {
         this.image = image;
         this.gender = gender;
         this.birthday = birthday;
-        this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
-    }
-
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String phone, String email, String address, int status, Date createDate, int role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.status = status;
         this.createDate = createDate;
         this.role = role;
@@ -112,28 +110,12 @@ public class Accounts {
         this.birthday = birthday;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public int getStatus() {
@@ -162,7 +144,9 @@ public class Accounts {
 
     @Override
     public String toString() {
-        return "Accounts{" + "accountID=" + accountID + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", image=" + image + ", gender=" + gender + ", birthday=" + birthday + ", phone=" + phone + ", email=" + email + ", address=" + address + ", status=" + status + ", createDate=" + createDate + ", role=" + role + '}';
+        return "Accounts{" + "accountID=" + accountID + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", image=" + image + ", gender=" + gender + ", birthday=" + birthday + ", email=" + email + ", status=" + status + ", createDate=" + createDate + ", role=" + role + '}';
     }
+
+    
     
 }

@@ -93,13 +93,17 @@ public class ChangePassword extends HttpServlet {
                             request.getRequestDispatcher("login.jsp").forward(request, response);
 
                         } else {
-                            request.setAttribute("mess2", "Password Not Correct");
+                            request.setAttribute("mess2", "Confirm password Not Correct");
                             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                         }
                     } else {
-                        request.setAttribute("mess1", "Invalid Password");
+                        request.setAttribute("mess1", "Password is not in correct format");
                         request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                     }
+                }
+                else{
+                     request.setAttribute("mess3", "Incorrect password");
+                     request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                 }
 
             }

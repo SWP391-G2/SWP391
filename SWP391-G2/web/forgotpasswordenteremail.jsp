@@ -21,13 +21,13 @@
                                 <label for="email">Email address</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                             </div>
-                            <a>${mess1}</a>
-                            <button name="save" type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                            <a style="color: red">${mess1}</a>
+                            <button name="save" type="submit" style="background-color: black" class="btn btn-primary btn-block">Reset Password</button>
                         </form>
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <a href="/login">Back to Login</a>
+                    <a href="./login">Back to Login</a>
                 </div>
             </div>
         </div>
