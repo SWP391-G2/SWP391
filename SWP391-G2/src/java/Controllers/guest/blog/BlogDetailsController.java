@@ -25,7 +25,7 @@ public class BlogDetailsController extends HttpServlet {
         BlogDAO blogDAO = new BlogDAO();
         BlogResponseDTO blog = blogDAO.findBlogById(idBlog);
         request.setAttribute("blog", blog);
-        request.getRequestDispatcher("blogDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("./blog/blogDetails.jsp").forward(request, response);
     }
 
     @Override

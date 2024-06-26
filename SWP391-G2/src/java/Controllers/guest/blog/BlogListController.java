@@ -28,7 +28,7 @@ public class BlogListController extends HttpServlet {
         List<BlogResponseDTO> blogList = pagination(request, pageControl);
         request.setAttribute("blogList", blogList);
         request.setAttribute("pageControl", pageControl);
-        request.getRequestDispatcher("blog.jsp").forward(request, response);
+        request.getRequestDispatcher("./blog/blog.jsp").forward(request, response);
     }
 
     @Override
