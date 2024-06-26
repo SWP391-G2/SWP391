@@ -57,7 +57,8 @@
                                         <label for="thumbnail">Thumbnail:</label>
                                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
                                     </div>
-                                    <button type="submit" class="btn btn-main btn-round-full">Submit</button>
+                                    <button type="submit" class="btn btn-main btn-round-full">Add Blog</button>
+                                    <a href="manageBlog" class="btn btn-main btn-round-full">List Blog</a>
                                 </form>
                             </div>
                         </div>
