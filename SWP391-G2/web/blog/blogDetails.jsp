@@ -39,7 +39,7 @@
         <!-- Header Close --> 
 
         <div class="main-wrapper ">
-            
+
             <section class="section blog-wrap bg-gray">
                 <div class="container">
                     <div class="row">
@@ -248,7 +248,7 @@
 
 
             <!-- footer Start -->
- 
+
 
         </div>
 
