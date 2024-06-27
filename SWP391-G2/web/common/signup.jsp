@@ -154,7 +154,11 @@
         const today = new Date();
 
         // Lấy các thành phần của ngày
+<<<<<<< HEAD:SWP391-G2/web/common/signup.jsp
         const year = today.getFullYear() - 16;
+=======
+        const year = today.getFullYear() -16;
+>>>>>>> remotes/origin/HoangNV:SWP391-G2/web/signup.jsp
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
         const day = String(today.getDate()).padStart(2, '0'); // Ngày của tháng
 

@@ -133,8 +133,14 @@
                                     <ul class="dropdown-menu">
 
                                         <li class="nav-item-lv2">
-                                            <a class="nav-link" href="login">Login</a>
-                                            <a class="nav-link" href="signup.jsp">Sign Up</a>
+                                            <c:if test="${sessionScope.account == null}">
+                                                 <a class="nav-link" href="login">Login</a>
+                                                 <a class="nav-link" href="signup.jsp">Sign Up</a>
+                                            </c:if>
+                                            <c:if test="${sessionScope.account != null}">
+                                                 <a class="nav-link" href="./Profile">Profile</a>
+                                                 <a class="nav-link" href="login?logout=1">Logout</a>
+                                            </c:if>
                                         </li>
                                     </ul>                                                                          
                                 </li>

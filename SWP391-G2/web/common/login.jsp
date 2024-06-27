@@ -87,14 +87,18 @@
                                     <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
                                 </div>
                                 <div>
-                                    <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
+                                    <small><a href="./ForgotPasswordEmail" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
                                 </div>
                             </div>
                             <button class="btn btn-dark btn-lg  w-100 mb-3" name="login"> Login</button>
 
                         </form>
                         <div class="text-center">
+<<<<<<< HEAD:SWP391-G2/web/common/login.jsp
                             <small>Don't have an accout? <a href="${pageContext.request.contextPath}/signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
+=======
+                            <small>Don't have an account? <a href="signup.jsp" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
+>>>>>>> remotes/origin/HoangNV:SWP391-G2/web/login.jsp
                         </div>
                     </div>
                 </div>

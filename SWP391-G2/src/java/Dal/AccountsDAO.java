@@ -50,7 +50,7 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccount(String email) {
 
-        String sql = "select * from Accounts where email=?";
+        String sql = "select * from Accounts where Email=?";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccountFull(String email, String pass) {
 
-        String sql = "select * from Accounts where email=?";
+        String sql = "select * from Accounts where Email=?";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -108,7 +108,7 @@ public class AccountsDAO extends DBContext {
     }
 
     public void setInsert(Accounts account) {
-        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?);";
         try {
 
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -231,7 +231,7 @@ public class AccountsDAO extends DBContext {
         return null;
     }
 
-    //Update 
+    //Update
     public int update(Accounts account) {
         for (int i = 0; i < listImage.size(); i++) {
             if (listImage.get(i).getAccountID() == account.getAccountID()) {
@@ -298,7 +298,6 @@ public class AccountsDAO extends DBContext {
     public void setInsertAccount(Accounts account) {
         String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Password],[Image],[Gender],[BirthDay],[Email],[Status],[CreateDate],[RoleID]) VALUES (?,?,?,?,?,?,?,?,?,?);";
         try {
-
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, account.getFirstName());
             ur.setString(2, account.getLastName());
@@ -310,6 +309,10 @@ public class AccountsDAO extends DBContext {
             ur.setInt(8, account.getStatus());
             ur.setDate(9, (Date) account.getCreateDate());
             ur.setInt(10, account.getRole());
+<<<<<<< HEAD
+=======
+
+>>>>>>> remotes/origin/HoangNV
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -469,10 +472,55 @@ public class AccountsDAO extends DBContext {
             System.out.println(e);
         }
     }
+<<<<<<< HEAD
     public static void main(String[] args) {
         AccountsDAO a = new AccountsDAO();
         Date date = new Date(System.currentTimeMillis());
         Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
         
+=======
+    
+     
+     public void updateProfile(Accounts account) {
+        String sql = "UPDATE Accounts SET FirstName=?, LastName=?, Gender=?, BirthDay=? Where Email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, account.getFirstName());
+            st.setString(2, account.getLastName());
+            st.setInt(3, account.getGender());
+            st.setString(4, account.getBirthday().toString());
+            st.setString(5, account.getEmail());
+                    
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
+    public void updatePassWord(String password, String email) {
+        String sql = "UPDATE Accounts SET Password=? Where Email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+     public static void main(String[] args) {
+        AccountsDAO Adao = new AccountsDAO();
+//         Accounts account = Adao.getAccount("hoangnvhe171612@fpt.edu.vn");
+//         System.out.println(account.toString());
+//         account.setFirstName("Nguyen");
+//         account.setLastName("Hoang");
+//         account.setBirthday(account.getBirthday());
+//         account.setGender(1);
+//         account.setEmail(account.getEmail());
+         Accounts Accout = Adao.getAccount("hoangnvhe171612@fpt.edu.vn");
+         Adao.getAll();
+         System.out.println(Adao.getAll());
+         System.out.println(Accout);
+>>>>>>> remotes/origin/HoangNV
     }
 }
