@@ -57,12 +57,20 @@
                 padding: 10px;
             }
 
-            #refineBrands {
+            #refineProduct {
                 max-height: 200px; /* Adjust this value as needed */
                 overflow-y: auto;
-                
+                width: max-content;
                 padding: 10px;
             }
+            input[type=checkbox], input[type=radio] {
+                box-sizing: border-box;
+                padding: 0;
+                width:20px;
+                height: 20px;
+            }
+
+
         </style>
     </head>
     <body style="background: #f8f8f8">
@@ -151,8 +159,8 @@
         </header>
         <div class="home_section_two color_two mb-70" style="margin-top: 100px; margin-bottom: 50px">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-12">
+                <div class="row" style="width: 1360px;">
+                    <div class="col-lg-2 col-md-12">
                         <div class="home_section_left">      
                             <c:set var="cat" value="${requestScope.categories}"/>
                             <div class="testimonial_style_two mb-60 rightleft">
@@ -162,87 +170,138 @@
                                         <i style="font-size: 25px; margin-left: 5px; color:#f6692a" class="fa fa-filter"></i>
                                     </div>
                                     <form id="f1" action="refine" method="get">
-                                        <div class="section_title section_title_style2" >
-                                            <h2 style="font-size: 16px;"><span  class="ani-fire">Categories</span></h2>
-                                        </div>
-                                        <fieldset class="responsiveFacets_sectionContent " aria-hidden="false">
-                                            <div class="responsiveFacets_sectionItemLabel">
-                                                <input type="checkbox" class="responsiveFacets_sectionItemCheckbox" 
-                                                       ${chid[0]?"checked":""} 
-                                                       id="c0" 
-                                                       name="cid_refinee"
-                                                       value="${0}" onclick="setCheck(this)">
-                                                <label class="responsiveFacets_sectionItem" for="brand" style="font-weight: bold">
-                                                    ALL (${allproduct.size()})
-                                                </label>
-                                            </div>
-                                            <c:if test="${cat!=null}">
-                                                <c:forEach begin="0" end="${cat.size()-1}" var="i">
-                                                    <div class="responsiveFacets_sectionItemLabel">
-                                                        <input
-                                                            type="checkbox"
-                                                            ${cat.get(i).getCategoryID()==cid_refine?"checked":""}
-                                                            class="responsiveFacets_sectionItemCheckbox"
-                                                            id="cm" 
-                                                            name="cid_refinee"
-                                                            value="${cat.get(i).getCategoryID()}"
-                                                            ${chid[i+1]?"checked":""}
-                                                            onclick="setCheck(this)"/>
-                                                        <label class="responsiveFacets_sectionItem" for="brand" style="font-weight: bold">
-                                                            ${cat.get(i).categoryName} (${cat.get(i).getTotalProduct()})
-                                                        </label>
-                                                    </div>
-                                                </c:forEach>
-                                            </c:if>
-                                        </fieldset>  
-                                        <div class="section_title section_title_style2" >
-                                            <h2 style="font-size: 16px;"><span  class="ani-fire">Brands</span></h2>
-                                        </div>
-                                        <div id="refineBrands">
-                                            <div class="responsiveFacets_sectionItemLabel">
-                                                <form action="refine" method="get">
-                                                    <c:forEach var="brand" items="${brands}">
-                                                        <input type="checkbox" name="bid_refinee" value="${brand.brandID}" onclick="setBrandCheck(this)" <c:if test="${bhid[brand.brandID]}">checked</c:if> />
-                                                        <label class="responsiveFacets_sectionItem" style="font-weight: bold" for="bid_refinee">${brand.brandName}</label><br>
+                                        <div class="section_title section_title_style2">
+                                            <h2 style="font-size: 16px;"><span class="ani-fire">Categories</span></h2>
+                                            <fieldset class="responsiveFacets_sectionContent" aria-hidden="false">
+                                                <c:if test="${cat != null}">
+                                                    <c:forEach var="category" items="${cat}">
+                                                        <div class="responsiveFacets_sectionItemLabel">
+                                                            <input
+                                                                type="checkbox"
+                                                                name="cid_refinee"
+                                                                value="${category.categoryID}"
+                                                                ${category.categoryID == cid_refine ? "checked" : ""}
+                                                                class="responsiveFacets_sectionItemCheckbox"
+                                                                ${chid[category.categoryID] ? "checked" : ""}
+                                                                onclick="setCheck(this)"/>
+                                                            <label class="responsiveFacets_sectionItem" for="brand" style="font-weight: bold">
+                                                                ${category.categoryName}
+                                                            </label>
+                                                        </div>
                                                     </c:forEach>
-
-                                                </form>
-                                            </div>
+                                                </c:if>
+                                            </fieldset>
+                                        </div>
+                                        <div class="section_title section_title_style2">
+                                            <h2 style="font-size: 16px;"><span class="ani-fire">Brands</span></h2>
+                                            <fieldset id="refineProduct" class="responsiveFacets_sectionContent" aria-hidden="false">
+                                                <c:if test="${brands != null}">
+                                                    <c:forEach var="brand" items="${brands}">
+                                                        <div class="responsiveFacets_sectionItemLabel">
+                                                            <input
+                                                                type="checkbox"
+                                                                name="bid_refinee"
+                                                                value="${brand.brandID}"
+                                                                ${bhid[brand.brandID] ? "checked" : ""}
+                                                                class="responsiveFacets_sectionItemCheckbox"
+                                                                onclick="setCheck(this)"/>
+                                                            <label class="responsiveFacets_sectionItem" for="brand" style="font-size: 13px; font-weight: bold">
+                                                                ${brand.brandName}
+                                                            </label>
+                                                        </div>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </fieldset>  
+                                        </div> 
+                                        <div class="section_title section_title_style2">
+                                            <h2 style="font-size: 16px;"><span class="ani-fire">Price Range</span></h2>
+                                            <fieldset id="refinePrice" class="responsiveFacets_sectionContent" aria-hidden="false">
+                                                <div class="responsiveFacets_sectionItemLabel">
+                                                    <input type="checkbox"
+                                                           name="priceRange"
+                                                           value="under25"
+                                                           ${param.priceRange == 'under25' ? 'checked' : ''}
+                                                           class="responsiveFacets_sectionItemCheckbox"
+                                                           onclick="setCheck(this)"/>
+                                                    <label class="responsiveFacets_sectionItem" for="under25" style="font-size: 13px; font-weight: bold">
+                                                        Under $25
+                                                    </label>
+                                                </div>
+                                                <div class="responsiveFacets_sectionItemLabel">
+                                                    <input type="checkbox"
+                                                           name="priceRange"
+                                                           value="25to50"
+                                                           ${param.priceRange == '25to50' ? 'checked' : ''}
+                                                           class="responsiveFacets_sectionItemCheckbox"
+                                                           onclick="setCheck(this)"/>
+                                                    <label class="responsiveFacets_sectionItem" for="25to50" style="font-size: 13px; font-weight: bold">
+                                                        $25 - $50
+                                                    </label>
+                                                </div>
+                                                <div class="responsiveFacets_sectionItemLabel">
+                                                    <input type="checkbox"
+                                                           name="priceRange"
+                                                           value="50to100"
+                                                           ${param.priceRange == '50to100' ? 'checked' : ''}
+                                                           class="responsiveFacets_sectionItemCheckbox"
+                                                           onclick="setCheck(this)"/>
+                                                    <label class="responsiveFacets_sectionItem" for="50to100" style="font-size: 13px; font-weight: bold">
+                                                        $50 - $100
+                                                    </label>
+                                                </div>
+                                                <div class="responsiveFacets_sectionItemLabel">
+                                                    <input type="checkbox"
+                                                           name="priceRange"
+                                                           value="100to150"
+                                                           ${param.priceRange == '100to150' ? 'checked' : ''}
+                                                           class="responsiveFacets_sectionItemCheckbox"
+                                                           onclick="setCheck(this)"/>
+                                                    <label class="responsiveFacets_sectionItem" for="100to150" style="font-size: 13px; font-weight: bold">
+                                                        $100 - $150
+                                                    </label>
+                                                </div>
+                                                <div class="responsiveFacets_sectionItemLabel">
+                                                    <input type="checkbox"
+                                                           name="priceRange"
+                                                           value="over150"
+                                                           ${param.priceRange == 'over150' ? 'checked' : ''}
+                                                           class="responsiveFacets_sectionItemCheckbox"
+                                                           onclick="setCheck(this)"/>
+                                                    <label class="responsiveFacets_sectionItem" for="over150" style="font-size: 13px; font-weight: bold">
+                                                        Over $150
+                                                    </label>
+                                                </div>
+                                            </fieldset>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-9 col-md-12">
+                    <div class="col-lg-10 col-md-12">
                         <div class="home_section_right">
-                            <div class="product_area" >
+                            <div class="product_area">
                                 <div class="section_title_style2" style="margin-top: 50px">
-                                    <c:if test="${requestScope.cat.categoryName == null}">
-                                        <div style="text-align: start; font-size: 18px; text-transform: uppercase" class="ani-fire">
-                                            Products Avaiable
-                                        </div>
-                                    </c:if>
-                                    <h3 style="font-weight: 600; text-decoration: underline">${requestScope.cat.categoryName}</h3>
-                                    <div style="text-align: center; font-size: 15px">
-                                        ${requestScope.cat.description}
+
+                                    <div style="text-align: start; font-size: 18px; text-transform: uppercase" class="ani-fire">
+                                        Products Available
                                     </div>
+
                                 </div>
                                 <c:set var="page" value="${requestScope.page}"/>
-                                <div id="contentt" class="row" style="border-radius: 3px;border: 3px solid #ecf2f4;">
+                                <div id="contentt" class="row">
                                     <c:set var="proA" value=""/>
-                                    <c:forEach items="${requestScope.productPage}" var="i">
+                                    <c:forEach items="${requestScope.productPage}" var="product">
                                         <div class="product_items col-lg-3" style="margin: 30px 0">
-                                            <article class="single_product">
+                                            <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                                 <figure>
                                                     <div class="product_thumb">
                                                         <a href="#" class="primary_img">
-                                                            <img src="${i.productImageUrl}" alt="">
+                                                            <img src="${product.productImageUrl}" alt="">
                                                         </a>
                                                         <div class="action_links">
                                                             <ul>
-                                                                <li class="add_to_cart" 
-                                                                    onclick="" >
+                                                                <li class="add_to_cart">
                                                                     <a href="#" data-toggle="modal" data-target="#modal_box" title="Thêm vào giỏ hàng">
                                                                         <i class="fa fa-shopping-cart"></i>
                                                                     </a>
@@ -252,23 +311,20 @@
                                                                         <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                                                     </a>
                                                                 </li>
-                                                                <li style="border-color: orange" class="quick_button"
-                                                                    onclick="" 
-                                                                    >
-                                                                    <a  href="#" data-toggle="modal"
-                                                                        data-target="#modal_box" title="Xem sản phẩm">
-                                                                        <i style="" class="fa fa-eye"></i>
+                                                                <li style="border-color: orange" class="quick_button">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal_box" title="Xem sản phẩm">
+                                                                        <i class="fa fa-eye"></i>
                                                                     </a>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <figcaption class="product_content">
-                                                        <h4 class="product_name ani-fire" style="font-size: 13px">                                             
-                                                            <a href="#">${i.productName}</a>
+                                                        <h4 class="product_name ani-fire" style="font-size: 13px">
+                                                            <a href="#">${product.productName}</a>
                                                         </h4>
                                                         <div class="price_box">
-
+                                                            <span class="current_price">$${product.priceMin} - $${product.priceMax}</span>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
@@ -277,7 +333,7 @@
                                     </c:forEach>
                                 </div>
                                 <div class="pagination col-md-12 active" style="margin-top: 20px; display: flex; justify-content: center">
-                                    <c:if test="${requestScope.cid_refinee == null}">
+                                    <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
                                                 <a href="refine?page=${requestScope.currentPage - 1}">&laquo;</a>
@@ -286,8 +342,8 @@
                                                 <span>&laquo;</span>
                                             </c:otherwise>
                                         </c:choose>
-                                        <c:forEach begin="${1}" end="${requestScope.numberpage}" var="i">
-                                            <a href="refine?page=${i}" class="${requestScope.currentPage == i ? "active" : ""}">${i}</a>
+                                        <c:forEach begin="1" end="${requestScope.numberpage}" var="i">
+                                            <a href="refine?page=${i}" class="${requestScope.currentPage == i ? 'active' : ''}">${i}</a>
                                         </c:forEach>
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage < requestScope.numberpage}">
@@ -298,21 +354,21 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
-                                    <c:if test="${requestScope.cid_refinee != null}">
+                                    <c:if test="${requestScope.cid_refinee != null || requestScope.bid_refinee != null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
-                                                <a href="refine?${stringForLink}&pricefrom=${price1}&priceto=${price2}&page=${requestScope.currentPage - 1}">&laquo;</a>
+                                                <a href="refine?${stringForLink}&page=${requestScope.currentPage - 1}">&laquo;</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <span>&laquo;</span>
                                             </c:otherwise>
                                         </c:choose>
-                                        <c:forEach begin="${1}" end="${requestScope.numberpage}" var="i">
-                                            <a href="refine?${stringForLink}&pricefrom=${price1}&priceto=${price2}&page=${i}" class="${requestScope.currentPage == i ? "active" : ""}">${i}</a>
+                                        <c:forEach begin="1" end="${requestScope.numberpage}" var="i">
+                                            <a href="refine?${stringForLink}&page=${i}" class="${requestScope.currentPage == i ? 'active' : ''}">${i}</a>
                                         </c:forEach>
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage < requestScope.numberpage}">
-                                                <a href="refine?${stringForLink}&pricefrom=${price1}&priceto=${price2}&page=${requestScope.currentPage + 1}">&raquo;</a>
+                                                <a href="refine?${stringForLink}&page=${requestScope.currentPage + 1}">&raquo;</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <span>&raquo;</span>
@@ -326,6 +382,7 @@
                 </div>
             </div>
         </div>
+
         <footer class="footer">
             <div class="site-footer">
                 <div class="container">
@@ -424,41 +481,31 @@
         <script src="js/clickevents.js"></script>
         <script src="js/main.js"></script>
         <script type="text/javascript">
-                                                        function setCheck(obj) {
-                                                            var fries = document.getElementsByName('cid_refinee');
-                                                            if ((obj.id == 'c0') && (fries[0].checked) == true) {
-                                                                for (var i = 1; i < fries.length; i++) {
-                                                                    fries[i].checked = false;
-                                                                }
-                                                            } else {
-                                                                for (var i = 1; i < fries.length; i++) {
-                                                                    if (fries[i].checked == true) {
-                                                                        fries[0].checked = false;
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            document.getElementById('f1').submit();
-                                                        }
-                                                        function setBrandCheck(obj) {
-                                                            document.getElementById('f1').submit();
-                                                        }
-                                                        function searchByName() {
-                                                            var text = document.querySelector("#searchId").value;
-                                                            $.ajax({
-                                                                url: "/SWP391-G2/search",
-                                                                type: "get",
-                                                                data: {
-                                                                    txt: text
-                                                                },
-                                                                success: function (data) {
-                                                                    var row = document.getElementById("contentt");
-                                                                    row.innerHTML = data;
-                                                                },
-                                                                error: function (xhr) {
-                                                                }
-                                                            });
-                                                        }
+
+                                                               function setCheck(obj) {
+
+                                                                   document.getElementById('f1').submit();
+                                                               }
+
+                                                               function searchByName() {
+                                                                   var text = document.querySelector("#searchId").value;
+                                                                   $.ajax({
+                                                                       url: "/SWP391-G2/search",
+                                                                       type: "get",
+                                                                       data: {
+                                                                           txt: text
+                                                                       },
+                                                                       success: function (data) {
+                                                                           var row = document.getElementById("contentt");
+                                                                           row.innerHTML = data;
+                                                                       },
+                                                                       error: function (xhr) {
+                                                                       }
+                                                                   });
+                                                               }
+                                                               function submitForm() {
+                                                                   document.getElementById("refineForm").submit();
+                                                               }
         </script>
     </body>
 </html>

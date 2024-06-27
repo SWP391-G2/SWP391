@@ -25,8 +25,8 @@ public class ProductDetailDAO extends DBContext {
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from Products p join ProductFullDetail pfd \n"
-                + "                 on p.ProductID = pfd.ProductFullDetailID \n"
-                + "                 where pfd.pdProductID = ?";
+                + " on p.ProductID = pfd.ProductFullDetailID \n"
+                + " where pfd.pdProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -34,7 +34,8 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 list.add(new ProductDetail(
                         rs.getInt("ProductFullDetailID"),
-                        rs.getInt("pdProductID"), rs.getString("ProductDescription"),
+                        rs.getInt("pdProductID"), 
+                        rs.getString("ProductDescription"),
                         rs.getDate("ProductCreateDate"),
                         rs.getBoolean("ProductStatus"),
                         rs.getString("ProductSize"),
@@ -46,6 +47,33 @@ public class ProductDetailDAO extends DBContext {
 
         }
         return list;
+    }
+
+    public List<ProductDetail> getProductDetailsByProductId(int productId) {
+        List<ProductDetail> productDetails = new ArrayList<>();
+        String sql = "SELECT * FROM ProductFullDetail WHERE pdProductID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productDetails.add(new ProductDetail(
+                        rs.getInt("ProductFullDetailID"),
+                        rs.getInt("pdProductID"), 
+                        rs.getString("ProductDescription"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("ProductSize"),
+                        rs.getBigDecimal("ProductPrice"),
+                        rs.getInt("ProductAvaiable")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productDetails;
+
     }
 
     //Get Price by Size
@@ -65,7 +93,7 @@ public class ProductDetailDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; 
+        return null;
 
     }
 
@@ -117,9 +145,8 @@ public class ProductDetailDAO extends DBContext {
         }
         ProductDetailDAO productDetailDAO = new ProductDetailDAO();
 
-
-        int productId = 1; 
-        String size = "30ml"; 
+        int productId = 1;
+        String size = "30ml";
         BigDecimal productPrice = productDetailDAO.getProductPriceBySize(productId, size);
 
         if (productPrice != null) {

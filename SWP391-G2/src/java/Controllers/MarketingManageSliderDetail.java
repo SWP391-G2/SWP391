@@ -90,7 +90,7 @@ public class MarketingManageSliderDetail extends HttpServlet {
         slider.setSliderImage(fileName);
         slider.setSliderTitle(title);
         slider.setSliderStatus(Integer.parseInt(status));
-        slider.setUpdatedAt(updateAt); 
+//        slider.setUpdatedAt(updateAt); 
 
         new SliderDAO().updateSlider(slider);
 

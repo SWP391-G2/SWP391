@@ -66,145 +66,178 @@ public class RefineServlet extends HttpServlet {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
+
+        // Load categories, brands, and all products initially
         List<Categories> categories = categoriesDAO.loadCategory();
-        List<Products> productsAll = productsDAO.loadProducts();
-        List<Products> allproduct = productsDAO.loadProducts();
         List<Brands> brands = brandsDAO.getBrands();
+        List<Products> allProducts = productsDAO.loadProducts();
 
+        // Retrieve parameters from request
         String nameSearch = request.getParameter("nameSearch");
+        String cidRefineRaw = request.getParameter("cid_refine");
+        String bidRefineRaw = request.getParameter("bid_refine");
+        String[] cidRefineeRaw = request.getParameterValues("cid_refinee");
+        String[] bidRefineeRaw = request.getParameterValues("bid_refinee");
+        String priceRange = request.getParameter("priceRange");
 
+        // Initialize variables for category and brand refinement
+        int cidRefine = 0;
+        int bidRefine = 0;
+        int[] cidRefinee = null;
+        int[] bidRefinee = null;
+
+        // Parse and process category refinement parameters
+        if (cidRefineRaw != null) {
+            cidRefine = Integer.parseInt(cidRefineRaw);
+            if (cidRefine != 0) {
+                allProducts = productsDAO.getProductsByCategory(cidRefine);
+            }
+        }
+
+        if (cidRefineeRaw != null) {
+            cidRefinee = new int[cidRefineeRaw.length];
+            for (int i = 0; i < cidRefineeRaw.length; i++) {
+                cidRefinee[i] = Integer.parseInt(cidRefineeRaw[i]);
+            }
+        }
+
+        // Parse and process brand refinement parameters
+        if (bidRefineRaw != null) {
+            bidRefine = Integer.parseInt(bidRefineRaw);
+            if (bidRefine != 0) {
+                allProducts = productsDAO.getProductsByBrand(bidRefine);
+            }
+        }
+
+        if (bidRefineeRaw != null) {
+            bidRefinee = new int[bidRefineeRaw.length];
+            for (int i = 0; i < bidRefineeRaw.length; i++) {
+                bidRefinee[i] = Integer.parseInt(bidRefineeRaw[i]);
+            }
+        }
+
+        // Parse and process price range refinement parameters
+        if (priceRange != null && !priceRange.isEmpty()) {
+            switch (priceRange) {
+                case "under25":
+                    allProducts = productsDAO.getProductsByPriceRange(0, 25);
+                    break;
+                case "25to50":
+                    allProducts = productsDAO.getProductsByPriceRange(25, 50);
+                    break;
+                case "50to100":
+                    allProducts = productsDAO.getProductsByPriceRange(50, 100);
+                    break;
+                case "100to150":
+                    allProducts = productsDAO.getProductsByPriceRange(100, 150);
+                    break;
+                case "over150":
+                    allProducts = productsDAO.getProductsByPriceRange(150, Integer.MAX_VALUE);
+                    break;
+                default:
+                    // Handle default case or do nothing
+                    break;
+            }
+        }
+
+        // Apply both category and brand refinements if selected
+        if (cidRefinee != null || bidRefinee != null) {
+            allProducts = productsDAO.getProductsByCategoriesAndBrands(cidRefinee, bidRefinee);
+        }
+
+        // Initialize variables for checkbox states
         Boolean[] chid = new Boolean[categories.size() + 1];
-        String cid_refine_raw = request.getParameter("cid_refine");
-
-        String stringForLink = "";
-        int cid_refine = 0;
-
-        /*
-         * **********************REFINE CATEGORIES********************
-         */
-        String[] cid_refinee_raw = request.getParameterValues("cid_refinee");
-        int[] cid_refinee = null;
-        if (cid_refine_raw != null) {
-            cid_refine = Integer.parseInt(cid_refine_raw);
-            productsAll = productsDAO.getProductsByCategory(cid_refine);
-            if (cid_refine == 0) {
-                chid[0] = true;
-            }
-        }
-
-        if (cid_refinee_raw != null) {
-            cid_refinee = new int[cid_refinee_raw.length];
-            for (int i = 0; i < cid_refinee.length; i++) {
-                cid_refinee[i] = Integer.parseInt(cid_refinee_raw[i]);
-            }
-            productsAll = productsDAO.searchByCheckbox(cid_refinee);
-        }
-
-        if ((cid_refinee_raw != null) && (cid_refinee[0] != 0)) {
-            chid[0] = false;
-            for (int i = 1; i < chid.length; i++) {
-                if (isCheck(categories.get(i - 1).getCategoryID(), cid_refinee)) {
-                    stringForLink += "cid_refinee=" + i + "&";
-                    chid[i] = true;
-                } else {
-                    chid[i] = false;
-                }
-            }
-        }
-        if (stringForLink.endsWith("&")) {
-            stringForLink = stringForLink.substring(0, stringForLink.length() - 1);
-        } else if (stringForLink.isEmpty()) {
-            stringForLink = "cid_refinee=0";
-        }
-
-        Categories ca = categoriesDAO.getCategoryById(cid_refine);
-
-        /*
-         * **********************REFINE BRANDS********************
-         */
         Boolean[] bhid = new Boolean[brands.size() + 1];
-        String bid_refine_raw = request.getParameter("bid_refine");
-        String[] bid_refinee_raw = request.getParameterValues("bid_refinee");
-        int bid_refine = 0;
-        int[] bid_refinee = null;
 
-        if (bid_refine_raw != null) {
-            bid_refine = Integer.parseInt(bid_refine_raw);
-            productsAll = productsDAO.getProductsByBrand(bid_refine);
-            if (bid_refine == 0) {
-                bhid[0] = true;
+        // Process the checkboxes for categories and brands
+        if (cidRefineeRaw != null) {
+            for (int i = 0; i < chid.length; i++) {
+                chid[i] = false;
             }
-        }
-
-        if (bid_refinee_raw != null) {
-            bid_refinee = new int[bid_refinee_raw.length];
-            for (int i = 0; i < bid_refinee.length; i++) {
-                bid_refinee[i] = Integer.parseInt(bid_refinee_raw[i]);
-            }
-            productsAll = productsDAO.searchByCheckboxBrand(bid_refinee);
-        }
-
-        if ((bid_refinee_raw != null) && (bid_refinee[0] != 0)) {
-            bhid[0] = false;
-            for (int i = 1; i < bhid.length; i++) {
-                if (isCheck(brands.get(i - 1).getBrandID(), bid_refinee)) {
-                    stringForLink += "bid_refinee=" + i + "&";
-                    bhid[i] = true;
-                } else {
-                    bhid[i] = false;
+            for (int i = 0; i < cidRefineeRaw.length; i++) {
+                int cid = Integer.parseInt(cidRefineeRaw[i]);
+                for (int j = 0; j < categories.size(); j++) {
+                    if (categories.get(j).getCategoryID() == cid) {
+                        chid[j + 1] = true;
+                        break;
+                    }
                 }
             }
         }
 
+        if (bidRefineeRaw != null) {
+            for (int i = 0; i < bhid.length; i++) {
+                bhid[i] = false;
+            }
+            for (int i = 0; i < bidRefineeRaw.length; i++) {
+                int bid = Integer.parseInt(bidRefineeRaw[i]);
+                for (int j = 0; j < brands.size(); j++) {
+                    if (brands.get(j).getBrandID() == bid) {
+                        bhid[j + 1] = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Update the stringForLink for pagination and refine links
+        StringBuilder stringForLinkBuilder = new StringBuilder();
+        if (cidRefineeRaw != null) {
+            for (String cid : cidRefineeRaw) {
+                stringForLinkBuilder.append("cid_refinee=").append(cid).append("&");
+            }
+        }
+        if (bidRefineeRaw != null) {
+            for (String bid : bidRefineeRaw) {
+                stringForLinkBuilder.append("bid_refinee=").append(bid).append("&");
+            }
+        }
+        if (priceRange != null) {
+            stringForLinkBuilder.append("priceRange=").append(priceRange).append("&");
+        }
+
+        String stringForLink = stringForLinkBuilder.toString();
         if (stringForLink.endsWith("&")) {
             stringForLink = stringForLink.substring(0, stringForLink.length() - 1);
-        } else if (stringForLink.isEmpty()) {
-            stringForLink = "cid_refinee=0&bid_refinee=0";
         }
-        Brands ba = brandsDAO.getBrandById(bid_refine);
 
-        //Paging
+        // Paging
         int page = 1, numPerPage = 12;
-        int size = productsAll.size();
-        int numberpage = ((size % numPerPage == 0) ? (size / 12) : (size / 12) + 1);
+        int size = allProducts.size();
+        int numberpage = ((size % numPerPage == 0) ? (size / numPerPage) : (size / numPerPage) + 1);
         String xpage = request.getParameter("page");
-        if (xpage == null) {
-            page = 1;
-        } else {
+        if (xpage != null) {
             page = Integer.parseInt(xpage);
         }
-        int start, end;
-        start = (page - 1) * 12;
-        end = Math.min(page * numPerPage, size);
+        int start = (page - 1) * numPerPage;
+        int end = Math.min(page * numPerPage, size);
 
-        int currentPage = 1;
-        if (request.getParameter("page") != null) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
-        }
+        List<Products> listByPage = productsDAO.getListByPage(allProducts, start, end);
 
-        List<Products> listByPage = productsDAO.getListByPage(productsAll, start, end);
-
-        if (nameSearch != null) {
+        if (nameSearch != null && !nameSearch.isEmpty()) {
             listByPage = productsDAO.searchByName(nameSearch);
         }
-        request.setAttribute("stringForLink", stringForLink);
 
+        // Set attributes and forward to refine.jsp
+        request.setAttribute("stringForLink", stringForLink);
         request.setAttribute("searchAtHome", nameSearch);
-        request.setAttribute("cat", ca);
+
         request.setAttribute("chid", chid);
-        request.setAttribute("cid_refinee", cid_refinee);
-        request.setAttribute("cid_refine", cid_refine);
-        request.setAttribute("brand", ba);
+        request.setAttribute("cid_refinee", cidRefinee);
+        request.setAttribute("cid_refine", cidRefine);
+
         request.setAttribute("bhid", bhid);
-        request.setAttribute("bid_refinee", bid_refinee);
-        request.setAttribute("bid_refine", bid_refine);
+        request.setAttribute("bid_refinee", bidRefinee);
+        request.setAttribute("bid_refine", bidRefine);
+
         request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
-        request.setAttribute("products", productsAll);
+        request.setAttribute("products", allProducts);
         request.setAttribute("productPage", listByPage);
-        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("currentPage", page);
         request.setAttribute("numberpage", numberpage);
-        request.setAttribute("allproduct", allproduct);
+        request.setAttribute("allproduct", allProducts);
+
         request.getRequestDispatcher("refine.jsp").forward(request, response);
     }
 

@@ -120,8 +120,8 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="header_search search_form">
-                                    <form class="input-group search-bar search_form has-validation-callback " action="/search" method="get" role="search"> 
-                                        <input type="search" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
                                         <span class="input-group-btn">
                                             <button class="btn icon-fallback-text">
                                                 <i class="fa fa-search"></i>
@@ -278,8 +278,7 @@
                                                                         <a href="#">${giftSet.productName}</a>
                                                                     </h4>
                                                                     <div class="price_box">
-                                                                        <span class="old_price">$</span>
-                                                                        <span class="current_price">$</span>
+                                                                        <span class="current_price"> $${giftSet.priceMin} - $${giftSet.priceMax}</span>
                                                                     </div>
                                                                 </figcaption>
                                                             </figure>
@@ -312,11 +311,11 @@
                                     <div class="product_carousel product_column3 owl-carousel">
                                         <c:forEach items="${requestScope.productsTopSellers}" var="t">
                                             <div class="col-lg-3">
-                                                <article class="single_product">
+                                                <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                                     <figure>
                                                         <div class="product_thumb">
                                                             <a href="#" class="primary_img">
-                                                                <img src="${t.productImageUrl}" alt="">
+                                                                <img src="${t.getProductImageUrl()}" alt="">
                                                             </a>
                                                             <div class="action_links">
                                                                 <ul>
@@ -343,10 +342,10 @@
                                                         </div>
                                                         <figcaption class="product_content">
                                                             <h4 class="product_name ani-fire" style="font-size: 13px">
-                                                                <a href="#">${t.productName}</a>
+                                                                <a href="#">${t.getProductName()}</a>
                                                             </h4>
                                                             <div class="price_box">
-                                                                <span class="current_price">${price30ml}$ - ${price100ml}$</span>
+                                                                <span class="current_price">$${t.priceMin} - $${t.priceMax}</span>
                                                             </div>
                                                         </figcaption>
                                                     </figure>
@@ -459,7 +458,7 @@
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsMen}" var="p">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -494,7 +493,7 @@
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price"> $${p.priceMin} - $${p.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>
@@ -524,7 +523,7 @@
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsWomen}" var="p">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -559,7 +558,7 @@
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price">  $${p.priceMin} - $${p.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>
@@ -590,7 +589,7 @@
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsUnisex}" var="pUnisex">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;" >
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -625,7 +624,7 @@
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price">  $${pUnisex.priceMin} - $${pUnisex.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>

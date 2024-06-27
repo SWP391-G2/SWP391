@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 /**
  *
@@ -20,8 +19,14 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 public class ProductsDAO extends DBContext {
 
     public List<Products> loadProducts() {
-        List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products";
+        List<Products> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "LEFT JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -31,23 +36,34 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
-                pro.add(product);
+                products.add(product);
             }
-
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-        return pro;
+        return products;
     }
 
     //Top best seller 
     public List<Products> getTopBestSellers(String number) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT TOP " + number + " * FROM Products WHERE CategoryID <> 4 ORDER BY NEWID()";
+        String sql = "SELECT TOP " + number + " p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE p.CategoryID <> 4 "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription "
+                + "ORDER BY NEWID()";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -57,54 +73,33 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return products;
     }
 
-
-    //Get Product by ProductID
-    public Products getProductByProductID(int id) {
-        String sql = "select * from Products where ProductID=?";
-        try {
-            PreparedStatement ur = connection.prepareStatement(sql);
-            ur.setInt(1, id);
-            ResultSet rs = ur.executeQuery();
-            while (rs.next()) {
-                Products p = new Products(
-                        rs.getInt("ProductID"),
-                        rs.getInt("CategoryID"),
-                        rs.getString("ProductName"),
-                        rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
-                );
-                return p;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return null;
-    }
     // List Products by Category
-
     public List<Products> getProductsByCategory(int categoryid) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products";
-        if (categoryid != 0) {
-            sql += " WHERE CategoryID = ?";
-        } else {
-            sql += " WHERE 0 = ?";
-        }
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN Categories c ON p.CategoryID = c.CategoryID "
+                + "WHERE p.CategoryID = ? AND c.Status = 1 "
+                + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryid);
@@ -115,9 +110,12 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
@@ -126,16 +124,19 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
-    
+
     //List Products by Brand
-    public List<Products> getProductsByBrand(int brandid){
+    public List<Products> getProductsByBrand(int brandid) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products";
-        if (brandid != 0) {
-            sql += " WHERE BrandID = ?";
-        } else {
-            sql += " WHERE 0 = ?";
-        }
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN Categories c ON p.CategoryID = c.CategoryID "
+                + "WHERE p.BrandID = ? AND c.Status = 1 "
+                + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, brandid);
@@ -146,9 +147,12 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
@@ -159,19 +163,26 @@ public class ProductsDAO extends DBContext {
     }
 
     //Search by check box BrandID
-    public List<Products> searchByCheckboxBrand(int[] brandid) {
+    public List<Products> searchByCheckboxBrand(int[] brandIds) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products WHERE 1=1 ";
-        if ((brandid != null) && (brandid[0] != 0)) {
-            sql += " AND BrandID in(";
-            for (int i = 0; i < brandid.length; i++) {
-                sql += brandid[i] + ",";
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ";
+        if (brandIds != null && brandIds.length > 0) {
+            sql += "AND p.BrandID IN (";
+            for (int i = 0; i < brandIds.length; i++) {
+                sql += brandIds[i];
+                if (i < brandIds.length - 1) {
+                    sql += ",";
+                }
             }
-            if (sql.endsWith(",")) {
-                sql = sql.substring(0, sql.length() - 1);
-            }
-            sql += ")";
+            sql += ") ";
         }
+        sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -181,9 +192,12 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
@@ -192,21 +206,28 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
-    
+
     //Search by check box CategoryID
-    public List<Products> searchByCheckbox(int[] categoryid) {
+    public List<Products> searchByCheckbox(int[] categoryIds) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products WHERE 1=1 ";
-        if ((categoryid != null) && (categoryid[0] != 0)) {
-            sql += " AND CategoryID in(";
-            for (int i = 0; i < categoryid.length; i++) {
-                sql += categoryid[i] + ",";
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ";
+        if (categoryIds != null && categoryIds.length > 0) {
+            sql += "AND p.CategoryID IN (";
+            for (int i = 0; i < categoryIds.length; i++) {
+                sql += categoryIds[i];
+                if (i < categoryIds.length - 1) {
+                    sql += ",";
+                }
             }
-            if (sql.endsWith(",")) {
-                sql = sql.substring(0, sql.length() - 1);
-            }
-            sql += ")";
+            sql += ") ";
         }
+        sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -216,9 +237,12 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
@@ -227,24 +251,94 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
-    //Search by name 
-    public List<Products> searchByName(String text){
+
+    //Get products by category and brand
+    public List<Products> getProductsByCategoriesAndBrands(int[] categoryIds, int[] brandIds) {
         List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products "
-                + " WHERE ProductName LIKE ?";
+        StringBuilder sql = new StringBuilder("SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ");
+
+        if (categoryIds != null && categoryIds.length > 0) {
+            sql.append("AND p.CategoryID IN (");
+            for (int i = 0; i < categoryIds.length; i++) {
+                sql.append(categoryIds[i]);
+                if (i < categoryIds.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        if (brandIds != null && brandIds.length > 0) {
+            sql.append("AND p.BrandID IN (");
+            for (int i = 0; i < brandIds.length; i++) {
+                sql.append(brandIds[i]);
+                if (i < brandIds.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription");
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Products product = new Products(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+    //Search by name ajax in refine
+    public List<Products> searchByName(String text) {
+        List<Products> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE p.ProductName LIKE ? "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + text + "%");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Products product = new Products(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
-                        rs.getBoolean("ProductStatus"),
-                        rs.getString("productImageUrl"),
-                        rs.getInt("BrandID")
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
                 );
                 products.add(product);
             }
@@ -253,7 +347,7 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
-    
+
     // Get list product by page
     public List<Products> getListByPage(List<Products> list, int start, int end) {
         ArrayList<Products> arr = new ArrayList<>();
@@ -262,16 +356,51 @@ public class ProductsDAO extends DBContext {
         }
         return arr;
     }
+    public List<Products> getProductsByPriceRange(int minPrice, int maxPrice) {
+    List<Products> products = new ArrayList<>();
+    String sql = "SELECT * FROM Products pd "
+               + "JOIN ProductFullDetail pfd ON pd.ProductID = pfd.pdProductID "
+               + "WHERE pfd.ProductPrice >= ? AND pfd.ProductPrice <= ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, minPrice);
+        ps.setInt(2, maxPrice);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Products product = new Products(
+                     rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getString("UpdateDescription"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+            );
+            products.add(product);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return products;
+}
+
 
     public static void main(String[] args) {
-        ProductsDAO Pdao = new ProductsDAO();
-//        int categoryId = 1; // example category ID
-//        List<Products> products = Pdao.getProductsByCategory(categoryId);
-//        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
-//                + ", Name: " + product.getProductName()));
-        List<Products> products = Pdao.getProductsByBrand(1);
-        for (Products product : products) {
-            System.out.println(product.getProductName());
+        ProductsDAO productsDAO = new ProductsDAO();
+
+        // Fetch top best sellers
+        List<Products> topBestSellers = productsDAO.getTopBestSellers("5");
+
+        // Print the products
+        for (Products product : topBestSellers) {
+            System.out.println("Product ID: " + product.getProductID());
+            System.out.println("Product Name: " + product.getProductName());
+            System.out.println("Price Min: " + product.getPriceMin());
+            System.out.println("Price Max: " + product.getPriceMax());
+            System.out.println("-------------");
         }
     }
 

@@ -4,7 +4,7 @@
  */
 package Models;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -83,14 +83,5 @@ public class Sliders {
         return "Sliders{" + "sliderID=" + sliderID + ", sliderImage=" + sliderImage + ", sliderStatus=" + sliderStatus + ", sliderTitle=" + sliderTitle + ", updateAt=" + updateAt + ", accountId=" + accountId + '}';
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
 
 }

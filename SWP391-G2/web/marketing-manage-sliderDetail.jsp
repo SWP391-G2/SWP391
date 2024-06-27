@@ -12,125 +12,92 @@
         <title>JSP Page</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/admin.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f8f9fa;
+            img{
+                width: 200px;
+                height: 120px;
+            }
+
+            select {
+                width: 32.3%;
                 margin: 0;
-                padding: 0;
-            }
-
-            .container-fluid {
-                margin: 0 auto;
-                padding: 20px;
-            }
-
-            .main {
-                margin-left: 50px;
-                margin-right: 50px;
-            }
-
-            .slider-details {
-                margin-right: 70px;
-                padding: 20px;
-                border: 1.5px solid #000;
-                background-color: #fff;
-            }
-
-            h1 {
-                margin-bottom: 40px;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-            }
-
-            .image-preview-container {
-                display: flex;
-                align-items: center;
-            }
-
-            .image-preview {
-                width: 100px;
-                height: 100px;
-                object-fit: cover;
-                margin-right: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-
-
-            .btn {
-                padding: 10px 20px;
-                border-radius: 4px;
-                text-decoration: none;
-                color: #fff;
-                cursor: pointer;
-            }
-
-            .btn-primary {
-                background-color: #007bff;
-                border: none;
-            }
-
-            .btn-secondary {
-                background-color: #6c757d;
-                border: none;
-            }
-
-            .mt-5 {
-                margin-top: 20px;
+                font-size: 100%;
+                padding: 5px 10px 5px 10px;
+                font-family: Segoe UI, Helvetica, sans-serif;
+                border: 1px solid #D0D0D0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border-radius: 20px;
+                outline: none;
             }
 
         </style>
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="main">
-                <div class="row slider-details">
-                    <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
-                    <div class="col-12">
-                        <h1>Slider Details</h1>
-                    </div>
-
-                    <div class="col-6">
-                        <form class="table-responsive" action="./sliderDetails" method="post" enctype="multipart/form-data">
-                            <input type="text" hidden="" name="id" value="${slider.getSliderID()}" class="form-control" >
-                            <input type="text" hidden="" name="imageName" value="${slider.sliderImage}" class="form-control" >
-
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input type="text" name="title" value="${slider.sliderTitle}" class="form-control" required>
+        <div class="container">      
+            <div id="editEmployeeModal">
+                <div class="modal-dialog" style="width: 100%">
+                    <div class="modal-content">
+                        <form id="form" class="table-responsive" action="./sliderDetails" method="post" enctype="multipart/form-data">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Edit Product</h4>
+                                <a href="manageSlider">
+                                    <button style="position: absolute; right: 20px; top: 20px; color: black" type="button" class="close" data-dismiss="modal" 
+                                            aria-hidden="true">&times;
+                                    </button> 
+                                </a>
                             </div>
-
-                            <div class="form-group">
-                                <label for="status">Status:</label>
-                                <select class="form-control" id="status" name="status">
-                                    <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
-                                    <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="updateAt">Update At:</label>
-                                <input type="text" id="updatedAt" value="${slider.updateAt}" class="form-control" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="productID">Picture Product:</label>
-                                <div class="image-preview-container">
-                                    <img id="previewImage" class="image-preview" src="${slider.sliderImage}" alt="Preview Image"/>
-                                    <div class="file-input">
-                                        <input type="file" name="image" id="image" onchange="updatePreview(event)">
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    <label>ID</label> 
+                                    <input value="${slider.getSliderID()}" name="id" type="text" class="form-control" readonly required>
+                                </div> 
+                                <div class="form-group">
+                                    <label>Slider Title</label>
+                                    <input value="${slider.sliderTitle}" name="name" type="text" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
+                                        <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productID">Picture Product:</label>
+                                    <div class="image-preview-container">
+                                        <img id="previewImage" class="image-preview" src="${slider.sliderImage}" alt="Preview Image"/>
+                                        <div class="file-input">
+                                            <input type="file" name="image" id="image" onchange="updatePreview(event)">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <input type="hidden" id="stringdateolb" value="${slider.updateAt}">
+                                    <label style="margin-bottom: 10px; width: 100%">Update At:</label>
+                                    <input type="hidden" name="date" value="" id="here"/>
+                                    <select class="bear-dates" id="dobDay"></select>
+                                    <select class="bear-months" id="dobMonth"></select>
+                                    <select class="bear-years" id="dobYear"></select>
+                                </div>                                          
                             </div>
+                            <div class="modal-footer">
 
-                            <button type="submit" class="btn btn-primary mt-5">Update</button>
-                            <a href="manageSlider" class="btn btn-secondary mt-5">Cancel</a>
+                                <input onclick="submitForm()" type="button" class="btn btn-success" value="Edit">
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -142,24 +109,81 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
+        <script src="js/clickevents.js"></script>
+        <script src="js/calender.js"></script>
+        <script  type="text/javascript">
+                                    function addOption(selectElement, value, text) {
+                                        var option = document.createElement("option");
+                                        option.value = value;
+                                        option.text = text;
+                                        selectElement.add(option);
+                                    }
 
+                                    var defaultReleaseDate = document.getElementById("stringdateolb").value;
+                                    var defaultDateArray = defaultReleaseDate.split('-');
+                                    var defaultDay = parseInt(defaultDateArray[2]);
+                                    var defaultMonth = parseInt(defaultDateArray[1]);
+                                    var defaultYear = parseInt(defaultDateArray[0]);
+
+                                    var daysSelect = document.getElementById('dobDay');
+                                    var monthsSelect = document.getElementById('dobMonth');
+                                    var yearsSelect = document.getElementById('dobYear');
+
+                                    for (var day = 1; day <= 31; day++) {
+                                        addOption(daysSelect, day, day);
+                                    }
+
+                                    for (var month = 1; month <= 12; month++) {
+                                        addOption(monthsSelect, month, month);
+                                    }
+
+                                    var currentYear = new Date().getFullYear();
+                                    for (var year = currentYear; year >= 1900; year--) {
+                                        addOption(yearsSelect, year, year);
+                                    }
+
+                                    daysSelect.value = defaultDay;
+                                    monthsSelect.value = defaultMonth;
+                                    yearsSelect.value = defaultYear;
+                                    function submitForm() {
+                                        var here = document.querySelector('#here');
+                                        var form = document.getElementById('form');
+                                        var dobDay = document.getElementById('dobDay').value;
+                                        var dobMonthText = document.getElementById('dobMonth').value;
+                                        var dobMonth = monthNameToNumber(dobMonthText);
+                                        var dobYear = document.getElementById('dobYear').value;
+                                        if (dobMonth < 10 && dobDay < 10) {
+                                            dobFull = dobYear + '-0' + dobMonth + '-0' + dobDay;
+                                        } else if (dobMonth < 10 && !(dobDay < 10)) {
+                                            dobFull = dobYear + '-0' + dobMonth + '-' + dobDay;
+                                        } else if (dobDay < 10 && !(dobMonth < 10)) {
+                                            dobFull = dobYear + '-' + dobMonth + '-0' + dobDay;
+                                        } else {
+                                            dobFull = dobYear + '-' + dobMonth + '-' + dobDay;
+                                        }
+
+                                        here.value = dobFull;
+                                        form.submit();
+                                    }
+        </script>
         <script>
-                                            function updatePreview(event) {
-                                                var input = event.target;
-                                                var reader = new FileReader();
+            function updatePreview(event) {
+                var input = event.target;
+                var reader = new FileReader();
 
-                                                reader.onload = function () {
-                                                    var imgElement = document.getElementById('previewImage');
-                                                    imgElement.src = reader.result;
-                                                }
+                reader.onload = function () {
+                    var imgElement = document.getElementById('previewImage');
+                    imgElement.src = reader.result;
+                }
 
-                                                reader.readAsDataURL(input.files[0]);
-                                            }
-                                            function updateUpdatedAt() {
-                                                const updatedAtField = document.getElementById('updatedAt');
-                                                const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                                                updatedAtField.value = currentDate;
-                                            }
+                reader.readAsDataURL(input.files[0]);
+            }
+            function updateUpdatedAt() {
+                const updatedAtField = document.getElementById('updatedAt');
+                const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+                updatedAtField.value = currentDate;
+            }
 
         </script>
     </body>

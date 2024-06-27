@@ -1973,7 +1973,9 @@ i.fa.fa-eye{
 
 .product_content {
     margin-top: 19px;
-    overflow: hidden;
+    white-space: nowrap;      
+    overflow: hidden;        
+    text-overflow: ellipsis;
 }
 
 .product_content h4 {

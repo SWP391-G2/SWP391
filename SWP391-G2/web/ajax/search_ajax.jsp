@@ -14,49 +14,50 @@
     </head>
     <body>
 
-    <c:forEach items="${requestScope.productPage}" var="i">
-        <div class="product_items ${(requestScope.col == 4)?"col-lg-4":"col-lg-3"}" style="margin: 30px 0">
-            <article class="single_product">
-                <figure>
-                    <div class="product_thumb">
-                        <a href="#" class="primary_img">
-                            <img src="${i.productImageUrl}" alt="">
-                        </a>
-                        <div class="action_links">
-                            <ul>
-                                <li class="add_to_cart" 
-                                    onclick="" >
-                                    <a href="#" data-toggle="modal" data-target="#modal_box" title="Thêm vào giỏ hàng">
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </a>
-                                </li>
-                                <li class="wishlist">
-                                    <a href="#" onclick="" title="Thêm vào mục yêu thích">
-                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
-                                    </a>
-                                </li>
-                                <li style="border-color: orange" class="quick_button"
-                                    onclick="" 
-                                    >
-                                    <a  href="#" data-toggle="modal"
-                                        data-target="#modal_box" title="Xem sản phẩm">
-                                        <i style="" class="fa fa-eye"></i>
-                                    </a>
-                                </li>
-                            </ul>
+        <c:forEach items="${requestScope.productPage}" var="i">
+            <div class="product_items ${(requestScope.col == 4)?"col-lg-4":"col-lg-3"}" style="margin: 30px 0">
+                <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
+                    <figure>
+                        <div class="product_thumb">
+                            <a href="#" class="primary_img">
+                                <img src="${i.productImageUrl}" alt="">
+                            </a>
+                            <div class="action_links">
+                                <ul>
+                                    <li class="add_to_cart" 
+                                        onclick="" >
+                                        <a href="#" data-toggle="modal" data-target="#modal_box" title="Thêm vào giỏ hàng">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li class="wishlist">
+                                        <a href="#" onclick="" title="Thêm vào mục yêu thích">
+                                            <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                        </a>
+                                    </li>
+                                    <li style="border-color: orange" class="quick_button"
+                                        onclick="" 
+                                        >
+                                        <a  href="#" data-toggle="modal"
+                                            data-target="#modal_box" title="Xem sản phẩm">
+                                            <i style="" class="fa fa-eye"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <figcaption class="product_content">
-                        <h4 class="product_name ani-fire" style="font-size: 13px">                                             
-                            <a href="#">${i.productName}</a>
-                        </h4>
-                        <div class="price_box">
+                        <figcaption class="product_content">
+                            <h4 class="product_name ani-fire" style="font-size: 13px">                                             
+                                <a href="#">${i.productName}</a>
+                            </h4>
+                            <div class="price_box">
 
-                        </div>
-                    </figcaption>
-                </figure>
-            </article>
-        </div>
-    </c:forEach>
-</body>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </article>
+            </div>
+        </c:forEach>
+       
+    </body>
 </html>
