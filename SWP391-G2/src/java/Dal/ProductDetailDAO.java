@@ -191,6 +191,31 @@ public class ProductDetailDAO extends DBContext {
         return list;
     }
 
+    public List<ProductDetail> getAll() {
+        List<ProductDetail> list = new ArrayList<>();
+        String sql = "select * from ProductFullDetail ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProductDetail(
+                        rs.getInt("ProductFullDetailID"),
+                        rs.getInt("pdProductID"),
+                        rs.getString("ProductDescription"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getBoolean("ProductStatus"),
+                        rs.getString("ProductSize"),
+                        rs.getFloat("ProductPrice"),
+                        rs.getInt("ProductAvaiable"),
+                        rs.getString("image")));
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ProductDetailDAO p = new ProductDetailDAO();
 //        List<ProductDetail> list = p.getPriceAllowSize(1);

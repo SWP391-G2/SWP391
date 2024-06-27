@@ -67,7 +67,7 @@ public class BrandController extends HttpServlet {
         int brandID = -1;
         try {
             status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
-            brandID  = request.getParameter("brandID") == null ? -1 : Integer.parseInt(request.getParameter("brandID"));
+            brandID = request.getParameter("brandID") == null ? -1 : Integer.parseInt(request.getParameter("brandID"));
         } catch (Exception e) {
         }
 
@@ -88,7 +88,7 @@ public class BrandController extends HttpServlet {
 
         } catch (Exception e) {
         }
-        
+
         BrandsDAO brandDao = new BrandsDAO();
         List<Brands> listbrand = brandDao.getBrandByFilter(status, search, pageNo, pageSize);
         int totalPage = brandDao.getTotalPage(status, search, pageSize);
@@ -117,8 +117,15 @@ public class BrandController extends HttpServlet {
         String brandName = request.getParameter("name");
         String brandDescription = request.getParameter("description");
         BrandsDAO brandDAO = new BrandsDAO();
-        brandDAO.insertBrand(brandName, brandDescription);
-        response.sendRedirect("brand");
+        if (brandDAO.checkExistBrandName(brandName) != null) {
+            request.setAttribute("nameError", "Brand Name already exists.");
+            request.setAttribute("descriptionError", "");
+            request.getRequestDispatcher("marketing/brand.jsp").forward(request, response); // Forward back to the form page
+        } else {
+            brandDAO.insertBrand(brandName, brandDescription);
+            response.sendRedirect("brand");
+        }
+
     }
 
     /**

@@ -73,21 +73,20 @@
                         </thead>
 
                         <tbody class="align-middle">
-                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                            <c:set var="o" value="${requestScope.cart}"/>
+                            <c:set var="tt" value="0"/>
+                            <c:forEach items="${o.getItems()}" var="i" >
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${listproduct[loop.index].getImage()}</td>
-                                    <td class="align-middle">${listcart[loop.index].getName()}</td>
-                                    <td class="align-middle">${listproduct[loop.index].getProductSize()}</td>
-                                    <td class="align-middle">${ listproduct[loop.index].getProductPrice()}</td>
+                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"><c:set var="tt" value="${tt+1}"/></td>
+                                    <td class="align-middle">${i.product.getName()}</td>
+                                    <td class="align-middle">${i.product.getProductSize()}</td>
+                                    <td class="align-middle">${i.product.getProductPrice()}</td>
                                     <td class="align-middle">
-                                        <form action="cartcontroller" method="post" id="myForm${loop.index}" class="form">
+                                        <form action="show" method="post" class="form">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
-                                                <input type ="hidden"  value="${listcart[loop.index].getProductFullDetailID()}" name="pdID"/>
-                                                <input type ="hidden" value="${listcart[loop.index].getQuantity()}" name="quantity"/>
-                                                <input type ="hidden" value="${listcart[loop.index].getCardID()}" name="cartID"/>
-                                                <input type ="hidden" id="quantity${loop.index}" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable1"/>
-                                                <input type ="hidden"  value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
-                                                <input type ="hidden" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable"/> 
+                                                <input type ="hidden"  value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                                <input type ="hidden" value="${i.product.getQuantity()}" name="quantity"/>
+                                                <input type ="hidden" value="${i.product.getProductAvaiable()}" name="avaiable"/> 
                                                 <input type ="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
                                                 <span id="quanError${loop.index}" class="text-danger"></span>
                                                 <div class="input-group-btn">
@@ -104,8 +103,8 @@
                                             </div>
                                         </form>
                                     </td>
-                                    <td class="align-middle">${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity()}$</td>
-                                    <td class="align-middle"><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE </a></td>
+                                    <td class="align-middle">${ i.product.getProductPrice()* i.product.getQuantity()}$</td>
+                                    <td class="align-middle"><a onclick="deleteCart()" href="cartcontroller?deletecard=${i.product.getCardID()}">DELETE </a></td>
 
                                 </tr>
 

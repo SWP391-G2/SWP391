@@ -1,133 +1,274 @@
-<%-- 
-    Document   : cart
-    Created on : Oct 15, 2023, 4:22:02 PM
-    Author     : windy
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>EShopper - Bootstrap Shop Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
 
-        <title>Cart | iLocal Shop</title>
-        <link rel="icon" type="image/x-icon" href="img/logo.png">
-        <!-- Link Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
 
-        <!-- Link File CSS -->
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
-        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
-        <link href="css/cssCart.css" rel="stylesheet" type="text/css"/>
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="assets/css/testcss/css/style.css" rel="stylesheet">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        -->
+        <style>
+            .form-control-sm.custom-width {
+                width: 40px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+            }
+        </style>
     </head>
+
     <body>
-        <jsp:include page="header.jsp"></jsp:include>
-        <div class="cart_section" style="padding-bottom:30%;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-10 offset-lg-1">
-                            <div class="cart_container">
-                                <div class="cart_title">Shopping Cart<small> </small></div>
-                                <div class="cart_items">
-                                    <ul class="cart_list">
-                                    <c:if test="${requestScope.listItem == null}">
-                                        <p style="text-align: center; font-size: 30px; margin-top: 5px">No product</p>
-                                    </c:if>
-                                    <c:if test="${requestScope.listItem != null}">
-                                        <c:forEach items="${requestScope.listItem}" var="i">
-                                            <li class="cart_item clearfix">
-                                                <div class="cart_item_image"><img src="pdimg/${i.proImage}" alt=""></div>
-                                                <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-                                                    <div class="cart_item_name cart_info_col">
-                                                        <div class="cart_item_text">${i.proName}</div>
-                                                    </div>
-                                                    <div class="cart_item_color cart_info_col">
-                                                        <div class="cart_item_text">${i.pdColor}</div>
-                                                    </div>
-                                                    <div class="cart_item_quantity cart_info_col">
 
-                                                        <div class="cart_item_quantity cart_info_col">
-                                                            <div class="cart_item_text">
-                                                                <form action="cart" method="post" class="form">
-                                                                    <input type ="hidden" value="${i.pdID}" name="pdID"/>
-                                                                    <input type ="hidden" value="${i.getQuantity()}" name="quantity"/> 
-                                                                    <button type="submit" class="changeQuantity" name="action" value="-">-</button>
 
-                                                                    <input class="quantity" name="quantity" type="text" value="${i.quantity}"/> 
-                                                                    <button type="submit" class="changeQuantity" name="action" value="+">+</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
+        <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a href="">Home</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Shopping Cart</p>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
 
-                                                    </div>
-                                                    <div class="cart_item_price cart_info_col">
-                                                        <div class="cart_item_text"><fmt:formatNumber value="${i.proPrice}" type="number" pattern="#,##0" /></div>
-                                                    </div>
-                                                    <div class="cart_item_total cart_info_col">
-                                                        <div class="cart_item_text" style="color:red"><fmt:formatNumber value="${i.proPrice*i.quantity}" type="number" pattern="#,##0" /></div>
-                                                    </div>
-                                                    <div class="cart_item_action cart_info_col">
-                                                        <div class="cart_item_text"><form action="cart" method="post">
-                                                                <input type="hidden" name="pdID" value="${i.pdID}"/>
-                                                                <input type="submit" value="Delete" name="delete"/>
-                                                            </form></div>
-                                                    </div>
+
+        <!-- Cart Start -->
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5">
+                <div class="col-lg-8 table-responsive mb-5">
+                    <table class="table table-bordered text-center mb-0">
+                        <thead class="bg-secondary text-dark">
+                            <tr>
+                                <th>Product Image</th>
+                                <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="align-middle">
+                            <c:set var="o" value="${requestScope.cart}"/>
+                            <c:set var="tt" value="0"/>
+                            <c:forEach items="${o.getItems()}" var="i" >
+                                <tr>
+                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"><c:set var="tt" value="${tt+1}"/></td>
+                                    <td class="align-middle">${i.product.getName()}</td>
+                                    <td class="align-middle">${i.product.getProductSize()}</td>
+                                    <td class="align-middle">${i.product.getProductPrice()}</td>
+                                    <td class="align-middle">
+                                        <form action="show" method="post" class="form">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <input type ="hidden"  value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                                <input type ="hidden" value="${i.product.getQuantity()}" name="quantity"/>
+                                                <input type ="hidden" value="${i.product.getProductAvaiable()}" name="avaiable"/> 
+                                                <input type ="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
+                                                <span id="quanError${loop.index}" class="text-danger"></span>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-primary btn-minus"  type="submit" class="changeQuantity" name="minus" value="1">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
                                                 </div>
-                                            </li>
-                                        </c:forEach>
-                                        <form action="cart" method="post" id="deleteForm">
-                                            <input type="hidden" value="true" name="deleteAll"/>
-                                            <input onclick="notice()" class="deleteAll" type="button" value="Empty Cart" name="deleteAll"/>
+                                                <input type="text" pattern="[0-9]*" maxlength="3"  class="form-control form-control-sm bg-secondary text-center"  id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-primary btn-plus"  type="submit" class="changeQuantity" name="add" value="1">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </form>
+                                    </td>
+                                    <td class="align-middle">${ i.product.getProductPrice()* i.product.getQuantity()}$</td>
+                                    <td class="align-middle"><a onclick="deleteCart()" href="cartcontroller?deletecard=${i.product.getCardID()}">DELETE </a></td>
 
-                                    </c:if>
+                                </tr>
 
-                                </ul>
-                            </div>
-                            <c:if test="${requestScope.listItem != null}">
-                                <div class="order_total">
-                                    <div class="order_total_content text-md-right">
-                                        <div class="order_total_title">Order Total:</div>
-                                        <c:set var="sum" value="0"></c:set>
-                                        <c:forEach items="${listItem}" var="i" varStatus="status">
-                                            <c:if test="${status.last eq true}">
-                                                <div class="order_total_amount"><fmt:formatNumber value="${sum + i.proPrice*i.quantity}" type="number" pattern="#,##0" /></div>
-                                            </c:if>
-                                            <c:set var="sum" value="${sum + i.proPrice*i.quantity}"></c:set>
-                                        </c:forEach>
-                                    </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="mb-5" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">Apply Coupon</button>
                                 </div>
-                            </c:if>
-
-                            <div class="cart_buttons"> 
-                                <button type="button" class="button cart_button_clear"><a href="home">Continue Shopping</a></button>
-                                <c:if test="${requestScope.listItem != null}">
-                                    <button type="button" class="button cart_button_checkout"><a href="order">Check out</a></button> 
-                                </c:if>
-
                             </div>
+                        </form>
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                                <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                    <h6 class="font-weight-medium">Subtotal</h6>
+                                    <h6 class="font-weight-medium">$${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity()}</h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-medium">Shipping</h6>
+                                    <h6 class="font-weight-medium">$10</h6>
+                                </div>
+                            </div>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <h5 class="font-weight-bold">Total</h5>
+                                    <h5 class="font-weight-bold">$${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity() +10}</h5>
+                                </div>
+                                <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <!-- Cart End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+            <div class="row px-xl-5 pt-5">
+                <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                    <a href="" class="text-decoration-none">
+                        <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                    </a>
+                    <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                    <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="row">
+                        <div class="col-md-4 mb-5">
+                            <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                            <div class="d-flex flex-column justify-content-start">
+                                <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                                <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                                <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                                <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                                <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                                <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                            <div class="d-flex flex-column justify-content-start">
+                                <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                                <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                                <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                                <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                                <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                                <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-5">
+                            <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                            <form action="">
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                           required="required" />
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row border-top border-light mx-xl-5 py-4">
+                <div class="col-md-6 px-xl-0">
+                    <p class="mb-md-0 text-center text-md-left text-dark">
+                        &copy; <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed
+                        by
+                        <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
+                        Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    </p>
+                </div>
+                <div class="col-md-6 px-xl-0 text-center text-md-right">
+                    <img class="img-fluid" src="img/payments.png" alt="">
+                </div>
+            </div>
         </div>
+        <!-- Footer End -->
 
 
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
         <script>
-            function notice() {
-                if (confirm("Delete all items in cart?")) {
-                    document.getElementById("deleteForm").submit();
-                }
-            }
+                                        function notice() {
+                                            if (confirm("Delete all items in cart?")) {
+                                                document.getElementById("deleteForm").submit();
+                                            }
+                                        }
+
+                                        function deleteCart() {
+                                            if (confirm("Do you want delete product?")) {
+                                                document.getElementById("myForm${loop.index}").submit();
+                                            }
+                                        }
+
+
+
+                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                            inputElement.addEventListener('keypress', (event) => {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                    const value = document.getElementById('newquant' + index).value;
+                                                    const value1 = document.getElementById('quantity' + index).value;
+                                                    if (value1 < value) {
+                                                        document.getElementById('quanError' + index).innerText = 'fail';
+                                                        return false;
+                                                    } else {
+                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                        document.getElementById('myForm' + index).submit();
+                                                    }
+
+                                                }
+                                            });
+                                        });
         </script>
     </body>
+
 </html>

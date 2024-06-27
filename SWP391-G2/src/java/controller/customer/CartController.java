@@ -145,7 +145,6 @@ public class CartController extends HttpServlet {
         if (minus_raw != null) {
 
             if (quantity - 1 <= 0) {
-                session.setAttribute("error", "error");
                 response.sendRedirect("cartcontroller");
             } else {
                 session.invalidate();
@@ -157,7 +156,6 @@ public class CartController extends HttpServlet {
         } else if (add_raw != null) {
 
             if (quantity + 1 > avaiable) {
-                session.setAttribute("error", "error");
                 response.sendRedirect("cartcontroller");
 
             } else {

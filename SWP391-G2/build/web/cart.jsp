@@ -71,80 +71,87 @@
                                 <th>Remove</th>
                             </tr>
                         </thead>
-
-                        <tbody class="align-middle">
-                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                        <c:set var="total" value="0"/>
+                        <c:set var="total" value="0"/>
+                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                            <tbody class="align-middle">
                                 <tr>
                                     <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${listproduct[loop.index].getImage()}</td>
                                     <td class="align-middle">${listcart[loop.index].getName()}</td>
                                     <td class="align-middle">${listproduct[loop.index].getProductSize()}</td>
-                                    <td class="align-middle">${ listproduct[loop.index].getProductPrice()}</td>
+                                    <td class="align-middle">${listproduct[loop.index].getProductPrice()}</td>
                                     <td class="align-middle">
                                         <form action="cartcontroller" method="post" id="myForm${loop.index}" class="form">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
-                                                <input type ="hidden"  value="${listcart[loop.index].getProductFullDetailID()}" name="pdID"/>
+                                                <input type ="hidden" value="${listcart[loop.index].getProductFullDetailID()}" name="pdID"/>
                                                 <input type ="hidden" value="${listcart[loop.index].getQuantity()}" name="quantity"/>
                                                 <input type ="hidden" value="${listcart[loop.index].getCardID()}" name="cartID"/>
                                                 <input type ="hidden" id="quantity${loop.index}" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable1"/>
-                                                <input type ="hidden"  value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
+                                                <input type ="hidden" value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
                                                 <input type ="hidden" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable"/> 
                                                 <input type ="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
                                                 <span id="quanError${loop.index}" class="text-danger"></span>
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary btn-minus"  type="submit" class="changeQuantity" name="minus" value="1">
+                                                    <button class="btn btn-sm btn-primary btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
-                                                <input type="text" pattern="[0-9]*" maxlength="3"  class="form-control form-control-sm bg-secondary text-center"  id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
+                                                <input type="text" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm bg-secondary text-center" id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary btn-plus"  type="submit" class="changeQuantity" name="add" value="1">
+                                                    <button class="btn btn-sm btn-primary btn-plus" type="submit" class="changeQuantity" name="add" value="1">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         </form>
                                     </td>
-                                    <td class="align-middle">${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity()}$</td>
-                                    <td class="align-middle"><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE </a></td>
-
+                                    <td class="align-middle">
+                                        <c:set var="itemTotal" value="${listproduct[loop.index].getProductPrice() * listcart[loop.index].getQuantity()}"/>
+                                        ${itemTotal}$
+                                    </td>
+                                    <td class="align-middle"><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
                                 </tr>
-
+                                <c:set var="total" value="${total + itemTotal}"/>
                             </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-4">
-                        <form class="mb-5" action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary">Apply Coupon</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="card border-secondary mb-5">
-                            <div class="card-header bg-secondary border-0">
-                                <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Subtotal</h6>
-                                    <h6 class="font-weight-medium">$${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity()}</h6>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">$10</h6>
-                                </div>
-                            </div>
-                            <div class="card-footer border-secondary bg-transparent">
-                                <div class="d-flex justify-content-between mt-2">
-                                    <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold">$${ listproduct[loop.index].getProductPrice()* listcart[loop.index].getQuantity() +10}</h5>
-                                </div>
-                                <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                        </c:forEach>
+                    </table>
+                </div>
+                <div class="col-lg-4">
+                    <form class="mb-5" action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">Apply Coupon</button>
                             </div>
                         </div>
+                    </form>
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                                <h6 class="font-weight-medium">Subtotal</h6>
+                                <h6 class="font-weight-medium">${total}$</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Shipping</h6>
+                                <h6 class="font-weight-medium">Freeship</h6>
+                            </div>
+                        </div>
+                        <form action="checkout">
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Total</h5>
+                                <h5 class="font-weight-bold">${total}$</h5>
+                            </div>
+                            <input type ="hidden" value="${total}" name="totalprice"/>
+                            <button  class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                        </div>
+                        </form>
                     </div>
-                </c:forEach>
+                </div>
+
             </div>
         </div>
         <!-- Cart End -->

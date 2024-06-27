@@ -75,8 +75,8 @@
                         <div class="col-4">
                             <label>Status:</label>
                             <select class="form-control"  name="statusnew">
-                                <option value="1" ${requestScope.data.getStatus()==1 ? 'selected' : '' }>Active</option>
-                                <option value="0" ${requestScope.data.getStatus()==0 ? 'selected' : '' }>In-Active</option>
+                                <option value="1" ${requestScope.data.getStatus()==1 ? 'selected' : '' }>View</option>
+                                <option value="0" ${requestScope.data.getStatus()==0 ? 'selected' : '' }>Hide</option>
                             </select>
                         </div>
                     </div>

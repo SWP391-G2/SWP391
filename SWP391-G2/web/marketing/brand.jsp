@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Manage Admin | The Perfume Shop</title>
+        <title>  Marketing | The Perfume Shop</title>
         <link rel="icon" type="image/x-icon" href="img/logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
@@ -26,6 +26,7 @@
         <!-- ======= Styles ====== -->
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin_manager.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <style>
             .form-control.custom-width {
@@ -174,16 +175,16 @@
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>${brand.getDescription()}</td>
                                             <td>
-                                                <c:choose>
+                                                 <c:choose>
                                                     <c:when test="${brand.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Marketing blocked successfully!',${brand.getBrandID()}, 0)">
+                                                        <a  onclick="showAlert('View brand successfully!',${brand.getBrandID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
                                                                 View
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                     <c:when test="${brand.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
+                                                        <a  onclick="showAlert('Hide brand successfully!',${brand.getBrandID()}, 1);">
                                                             <button type="button" class="btn btn-success">
                                                                 Hide
                                                             </button>
@@ -254,7 +255,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new account</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -307,7 +308,7 @@
 
 
 
-    <script>
+     <script>
                                 function showAlert(message, brandID, status1) {
 
 
@@ -330,54 +331,53 @@
     </script>
 
     <script>
-        function isOnlyWhitespace(input) {
-            return /^\s*$/.test(input);
-        }
-
         function validateForm() {
-            // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
+            
+            var name = document.getElementById('name').value.trim();
+            var description = document.getElementById('description').value.trim();
 
-            // Lấy các phần tử để hiển thị lỗi
             var nameError = document.getElementById('nameError');
             var descriptionError = document.getElementById('descriptionError');
 
-            // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{0,198}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 2 đến 200 ký tự
+            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập toàn khoảng trắng
 
-            // Xóa thông báo lỗi trước đó
             nameError.textContent = '';
             descriptionError.textContent = '';
 
-            // Kiểm tra input
             var valid = true;
 
-            // Kiểm tra name
             if (isOnlyWhitespace(name)) {
                 nameError.textContent = 'Brand Name cannot contain only whitespace.';
                 valid = false;
             } else if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
+                nameError.textContent = 'Brand names must be between 2 and 200 characters, and contain only letters, numbers, and spaces.';
                 valid = false;
             } else if (/^\d+$/.test(name)) {
                 nameError.textContent = 'Brand Name cannot contain whole numbers.';
                 valid = false;
             }
 
-            // Kiểm tra description
             if (isOnlyWhitespace(description)) {
                 descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
                 valid = false;
             } else if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
+                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters.';
                 valid = false;
             }
 
-            // Nếu tất cả đều hợp lệ, return true để submit form
+            if (valid) {
+                document.getElementById('name').value = name;
+                document.getElementById('description').value = description;
+            }
+
             return valid;
         }
+
+        function isOnlyWhitespace(input) {
+            return /^\s*$/.test(input);
+        }
+
     </script>
     <script>
         // handle filter search

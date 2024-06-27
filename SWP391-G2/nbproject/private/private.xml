@@ -3,9 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Controllers/Constants.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Controllers/common/LoginGoogleHandler.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/checkout.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/payment.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/mycart.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Models/Brands.java</file>
             <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Dal/CategoriesDAO.java</file>
-            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Models/Cart.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/cart.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/cart1.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/controller/customer/CartController.java</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/marketing/brand.jsp</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/web/checkout.html</file>
+            <file>file:/D:/Semester%205/SWP391/SWP391/SWP391-G2/src/java/Dal/CartsDAO.java</file>
         </group>
     </open-files>
 </project-private>
