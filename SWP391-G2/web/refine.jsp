@@ -214,11 +214,12 @@
                                             </fieldset>  
                                         </div> 
                                         <div class="section_title section_title_style2">
-                                            <h2 style="font-size: 16px;"><span class="ani-fire">Price Range</span></h2>
-                                            <fieldset id="refinePrice" class="responsiveFacets_sectionContent" aria-hidden="false">
+                                            <h2 style="font-size: 16px;"><span class="ani-fire">Price</span></h2>
+                                            <fieldset id="refineProduct" class="responsiveFacets_sectionContent" aria-hidden="false">
                                                 <div class="responsiveFacets_sectionItemLabel">
-                                                    <input type="checkbox"
+                                                    <input type="radio"
                                                            name="priceRange"
+                                                           id="under25"
                                                            value="under25"
                                                            ${param.priceRange == 'under25' ? 'checked' : ''}
                                                            class="responsiveFacets_sectionItemCheckbox"
@@ -228,8 +229,9 @@
                                                     </label>
                                                 </div>
                                                 <div class="responsiveFacets_sectionItemLabel">
-                                                    <input type="checkbox"
+                                                    <input type="radio"
                                                            name="priceRange"
+                                                           id="25to50"
                                                            value="25to50"
                                                            ${param.priceRange == '25to50' ? 'checked' : ''}
                                                            class="responsiveFacets_sectionItemCheckbox"
@@ -239,8 +241,9 @@
                                                     </label>
                                                 </div>
                                                 <div class="responsiveFacets_sectionItemLabel">
-                                                    <input type="checkbox"
+                                                    <input type="radio"
                                                            name="priceRange"
+                                                           id="50to100"
                                                            value="50to100"
                                                            ${param.priceRange == '50to100' ? 'checked' : ''}
                                                            class="responsiveFacets_sectionItemCheckbox"
@@ -250,8 +253,9 @@
                                                     </label>
                                                 </div>
                                                 <div class="responsiveFacets_sectionItemLabel">
-                                                    <input type="checkbox"
+                                                    <input type="radio"
                                                            name="priceRange"
+                                                           id="100to150"
                                                            value="100to150"
                                                            ${param.priceRange == '100to150' ? 'checked' : ''}
                                                            class="responsiveFacets_sectionItemCheckbox"
@@ -261,8 +265,9 @@
                                                     </label>
                                                 </div>
                                                 <div class="responsiveFacets_sectionItemLabel">
-                                                    <input type="checkbox"
+                                                    <input type="radio"
                                                            name="priceRange"
+                                                           id="over150"
                                                            value="over150"
                                                            ${param.priceRange == 'over150' ? 'checked' : ''}
                                                            class="responsiveFacets_sectionItemCheckbox"
@@ -333,7 +338,8 @@
                                     </c:forEach>
                                 </div>
                                 <div class="pagination col-md-12 active" style="margin-top: 20px; display: flex; justify-content: center">
-                                    <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null}">
+                                    
+                                    <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null && requestScope.priceRange == null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
                                                 <a href="refine?page=${requestScope.currentPage - 1}">&laquo;</a>
@@ -354,21 +360,21 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
-                                    <c:if test="${requestScope.cid_refinee != null || requestScope.bid_refinee != null}">
+                                    <c:if test="${requestScope.cid_refinee != null || requestScope.bid_refinee != null || requestScope.priceRange != null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
-                                                <a href="refine?${stringForLink}&page=${requestScope.currentPage - 1}">&laquo;</a>
+                                                <a href="refine?page=${requestScope.currentPage - 1}&${requestScope.stringForLink}">&laquo;</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <span>&laquo;</span>
                                             </c:otherwise>
                                         </c:choose>
                                         <c:forEach begin="1" end="${requestScope.numberpage}" var="i">
-                                            <a href="refine?${stringForLink}&page=${i}" class="${requestScope.currentPage == i ? 'active' : ''}">${i}</a>
+                                            <a href="refine?page=${i}&${requestScope.stringForLink}" class="${requestScope.currentPage == i ? 'active' : ''}">${i}</a>
                                         </c:forEach>
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage < requestScope.numberpage}">
-                                                <a href="refine?${stringForLink}&page=${requestScope.currentPage + 1}">&raquo;</a>
+                                                <a href="refine?page=${requestScope.currentPage + 1}&${requestScope.stringForLink}">&raquo;</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <span>&raquo;</span>
@@ -503,9 +509,7 @@
                                                                        }
                                                                    });
                                                                }
-                                                               function submitForm() {
-                                                                   document.getElementById("refineForm").submit();
-                                                               }
+
         </script>
     </body>
 </html>

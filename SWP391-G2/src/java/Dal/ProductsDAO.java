@@ -356,19 +356,32 @@ public class ProductsDAO extends DBContext {
         }
         return arr;
     }
+
     public List<Products> getProductsByPriceRange(int minPrice, int maxPrice) {
-    List<Products> products = new ArrayList<>();
-    String sql = "SELECT * FROM Products pd "
-               + "JOIN ProductFullDetail pfd ON pd.ProductID = pfd.pdProductID "
-               + "WHERE pfd.ProductPrice >= ? AND pfd.ProductPrice <= ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, minPrice);
-        ps.setInt(2, maxPrice);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Products product = new Products(
-                     rs.getInt("ProductID"),
+        List<Products> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "origPrices.priceMin AS priceMin, "
+                + "origPrices.priceMax AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN (SELECT pdProductID, "
+                + "             MIN(ProductPrice) AS priceMin, "
+                + "             MAX(ProductPrice) AS priceMax "
+                + "      FROM ProductFullDetail "
+                + "      GROUP BY pdProductID) origPrices "
+                + "ON p.ProductID = origPrices.pdProductID "
+                + "WHERE pd.ProductPrice BETWEEN ? AND ? "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "         origPrices.priceMin, origPrices.priceMax";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, minPrice);
+            ps.setInt(2, maxPrice);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Products product = new Products(
+                        rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
                         rs.getDate("ProductCreateDate"),
@@ -378,29 +391,32 @@ public class ProductsDAO extends DBContext {
                         rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
-            );
-            products.add(product);
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return products;
     }
-    return products;
-}
-
 
     public static void main(String[] args) {
         ProductsDAO productsDAO = new ProductsDAO();
 
         // Fetch top best sellers
-        List<Products> topBestSellers = productsDAO.getTopBestSellers("5");
-
-        // Print the products
-        for (Products product : topBestSellers) {
-            System.out.println("Product ID: " + product.getProductID());
-            System.out.println("Product Name: " + product.getProductName());
-            System.out.println("Price Min: " + product.getPriceMin());
-            System.out.println("Price Max: " + product.getPriceMax());
-            System.out.println("-------------");
+//        List<Products> topBestSellers = productsDAO.getTopBestSellers("5");
+//
+//        // Print the products
+//        for (Products product : topBestSellers) {
+//            System.out.println("Product ID: " + product.getProductID());
+//            System.out.println("Product Name: " + product.getProductName());
+//            System.out.println("Price Min: " + product.getPriceMin());
+//            System.out.println("Price Max: " + product.getPriceMax());
+//            System.out.println("-------------");
+//        }
+        List<Products> priceRange = productsDAO.getProductsByPriceRange(25, 50);
+        for (Products products : priceRange) {
+            System.out.println(products.getPriceMax());
         }
     }
 
