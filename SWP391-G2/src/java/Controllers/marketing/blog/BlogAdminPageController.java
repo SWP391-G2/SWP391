@@ -2,24 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.guest.blog;
+package Controllers.marketing.blog;
 
+import static Constant.constant.RECORD_PER_PAGE;
 import Dal.BlogDAO;
 import Models.BlogResponseDTO;
 import Models.PageControl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import static Constant.constant.RECORD_PER_PAGE;
 
 /**
  *
  * @author TNO
  */
-public class BlogListController extends HttpServlet {
+@WebServlet(name = "BlogAdminPageController", urlPatterns = {"/manageBlog"})
+public class BlogAdminPageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +30,7 @@ public class BlogListController extends HttpServlet {
         List<BlogResponseDTO> blogList = pagination(request, pageControl);
         request.setAttribute("blogList", blogList);
         request.setAttribute("pageControl", pageControl);
-        request.getRequestDispatcher("./blog/blog.jsp").forward(request, response);
+        request.getRequestDispatcher("./blog/manageBlog.jsp").forward(request, response);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class BlogListController extends HttpServlet {
                 totalRecord = blogDAO.findTotalRecord(1);
                 listBlog = blogDAO.findBlogByPage(page, 1);
 
-                pageControl.setUrlPattern("blog?");
+                pageControl.setUrlPattern("manageBlog?");
 
         }
 

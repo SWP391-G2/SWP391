@@ -1,11 +1,13 @@
 <%-- 
-    Document   : addBlog
-    Created on : Jun 10, 2024, 9:42:03 AM
+    Document   : formInforBlog
+    Created on : Jun 18, 2024, 9:58:26 AM
     Author     : TNO
 --%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
-<html lang="en">
+<html lang="en"> 
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -14,7 +16,7 @@
 
         <meta name="author" content="themefisher.com">
 
-        <title>Add Blog | Megakit</title>
+        <title>View details Blog | Megakit</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
@@ -31,16 +33,17 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <div class="card border-0 p-5">
-                                <h4 class="mb-4">Add New Blog Post</h4>
+                                <h4 class="mb-4">View details Blog Post</h4>
                                 <h3>${msg}</h3>
-                                <form action="addBlog" method="post" enctype="multipart/form-data">
+                                <form action="updateBlog" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="title">Title:</label>
-                                        <input type="text" class="form-control" id="title" name="title" required>
+                                        <input type="text" class="form-control" id="title" value="${blog.title}" name="title" required>
+                                        <input style="display: none" type="text" class="form-control" id="title" value="${blog.id}" name="id" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="brief">Brief Information:</label>
-                                        <input type="text" class="form-control" id="brief" name="brief" required>
+                                        <input type="text" class="form-control" id="brief" value="${blog.brief}" name="brief" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="content">Content:</label>
@@ -49,16 +52,20 @@
                                     <div class="form-group">
                                         <label for="status">Status:</label>
                                         <select class="form-control" id="status" name="status" required>
-                                            <option value="0">Draft</option>
-                                            <option value="1">Published</option>
+                                            <option ${blog.status == false ? 'selected' : ""} value="0">Draft</option>
+                                            <option ${blog.status == true ? 'selected' : ""} value="1">Published</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="thumbnail">Thumbnail:</label>
-                                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
+                                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" class="img-fluid responsive-image" accept="image/*">
                                     </div>
-                                    <button type="submit" class="btn btn-main btn-round-full">Add Blog</button>
-                                    <a href="manageBlog" class="btn btn-main btn-round-full">List Blog</a>
+                                    <div class="mt-2">
+                                        <img src="${blog.thumbnail}" alt="Current Additional Image" class="img-fluid" id="currentAdditionalImage">
+                                    </div>
+                                    <div style="padding-top: 20px">
+                                        <button type="submit" class="btn btn-main btn-round-full">Submit</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -86,9 +93,12 @@
                 height: 300,
                 language: 'vi',
                 plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
-                toolbar: 'undo redo | formatselect | bold italic backcolor | \
-                alignleft aligncenter alignright alignjustify | \
-                bullist numlist outdent indent | removeformat | help'
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                setup: function (editor) {
+                    editor.on('init', function (e) {
+                        editor.setContent(`${blog.content}`);
+                    });
+                }
             });
         </script>
     </body>

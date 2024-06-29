@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.guest.blog;
+package Controllers.marketing.blog;
 
 import Dal.BlogDAO;
 import Models.BlogResponseDTO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author TNO
  */
-public class BlogDetailsController extends HttpServlet {
+@WebServlet(name = "FormInforBlog", urlPatterns = {"/formInforBlog"})
+public class FormInforBlog extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +27,7 @@ public class BlogDetailsController extends HttpServlet {
         BlogDAO blogDAO = new BlogDAO();
         BlogResponseDTO blog = blogDAO.findBlogById(idBlog);
         request.setAttribute("blog", blog);
-        request.getRequestDispatcher("./blog/blogDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("./blog/formInforBlog.jsp").forward(request, response);
     }
 
     @Override
