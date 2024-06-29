@@ -49,13 +49,24 @@ CREATE TABLE [dbo].[Accounts](
 [Gender] int NOT NULL,
 [BirthDay] date NOT NULL,
 [Email] [nvarchar](50) NULL,
-[Phone] [varchar](11),
 [Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
 /*======= INSERT VALUE OF [Accounts] TABLE =======*/
+
+INSERT INTO [dbo].[Accounts] (FirstName, LastName, Password, Image, Gender, BirthDay, Email, Status, CreateDate, RoleID) VALUES
+('Nguyễn', 'Văn A', 'PasswordHash1', 'image1.png', 1, '1985-07-14', 'nguyenvana@example.com', 1, '2023-01-01', 1),
+('Trần', 'Thị B', 'PasswordHash2', 'image2.png', 2, '1990-03-22', 'tranthib@example.com', 1, '2023-01-02', 2),
+('Lê', 'Quang C', 'PasswordHash3', NULL, 1, '1983-11-05', 'lequangc@example.com', 1, '2023-01-03', 1),
+('Phạm', 'Thị D', 'PasswordHash4', 'image4.png', 2, '1995-09-18', 'phamthid@example.com', 1, '2023-01-04', 2),
+('Hoàng', 'Văn E', 'PasswordHash5', NULL, 1, '1988-04-12', 'hoangvane@example.com', 1, '2023-01-05', 1),
+('Võ', 'Thị F', 'PasswordHash6', 'image6.png', 2, '1992-07-23', 'vothif@example.com', 1, '2023-01-06', 2),
+('Đỗ', 'Minh G', 'PasswordHash7', NULL, 1, '1987-10-15', 'dohminhg@example.com', 1, '2023-01-07', 1),
+('Vũ', 'Thị H', 'PasswordHash8', 'image8.png', 2, '1993-12-30', 'vuthih@example.com', 1, '2023-01-08', 2),
+('Bùi', 'Văn I', 'PasswordHash9', NULL, 1, '1989-05-27', 'buivani@example.com', 1, '2023-01-09', 1),
+('Ngô', 'Thị J', 'PasswordHash10', 'image10.png', 2, '1991-08-16', 'ngothij@example.com', 1, '2023-01-10', 2);
 
 GO
 
