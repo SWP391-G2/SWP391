@@ -98,7 +98,6 @@
                 display: block;
             }
             .content-section p{
-                width: 60%;
                 font-size: 22px;
             }
             .product-block .row div {
@@ -182,6 +181,7 @@
                         </div>
                     </div>
                     <div class="row">
+                        
                         <div class="col-3">
                             <img
                                 src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
@@ -230,7 +230,7 @@
                         </p>
                         <p>
                             <strong>Status:</strong>
-                            <span id="status">${(pd.getProductStatus()?'In Stock':'Out Of Stock')}</span>
+                            <span id="status">${(priceandsize[0].productStatus ? 'In Stock' : 'Out Of Stock')}</span>
                         </p>
                         <p>
                             <strong>Quantity:</strong>
@@ -252,9 +252,10 @@
                             <input type="number" id="quantity" value="1" min="1" readonly="" />
                             <button onclick="changeQuantity(1)">+</button> 
                         </div>
-                        <button class="btn btn-primary btn-lg" onclick="addToCart(${p.productID})">
+                        <button class="btn btn-primary btn-lg" id="addToCartBtn" ${priceandsize[0].productAvaiable == 0 ? 'disabled' : ''}  onclick="addToCart(${p.productID})">
                             Add to Cart
                         </button>
+
                     </div>
                 </div>
 
@@ -264,12 +265,14 @@
             <div class="product-block">
                 <div class="row">
                     <div
-                        class="col-md-2 product-title"
+                        class="col-md-2 product-title" style="font-size: larger;
+                        margin-top: 10px;"
                         onclick="showSection('description')"
                         >
                         Describe
                     </div>
-                    <div class="col-md-2 product-title" onclick="showSection('policy')">
+                    <div class="col-md-2 product-title" style="font-size: larger;
+                         margin-top: 10px;" onclick="showSection('policy')">
                         Policy
                     </div>
                 </div>
@@ -277,16 +280,15 @@
         </div>
         <div class="container mt-2 mb-5">
             <div id="description" class="content-section active">
-                <p class="col-8">
+                <p >
                     ${pd.getProductDescription()}
                 </p>
                 <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
-                <p class="col-8">
+                <p >
                     ${b.getBrandDescription()}
                 </p>
 
-
-                <p class="col-8">
+                <p >
                     Perfume has been present in human culture and history for thousands of years. In ancient cultures, essential oils and aromas were used to make perfumes and were used in religious ceremonies and prayer rites. Kings, emperors and aristocrats often used perfume to show nobility and wealth.
 
                     During the Middle Ages, perfume was used as a means to protect health and fight epidemics. Fragrances are said to have antiseptic and antiseptic properties, and are used to mask odors during pandemics.
@@ -312,7 +314,7 @@
                 </c:forEach>
             </div>
             <div id="policy" class="content-section">
-                <p class="col-8">The information security policy is complied with relevant legal regulations on personal information protection and Decree 52/2013/ND-CP of the government on e-commerce issued on May 16, 2013. .
+                <p >The information security policy is complied with relevant legal regulations on personal information protection and Decree 52/2013/ND-CP of the government on e-commerce issued on May 16, 2013. .
 
                     Customers who register personal profile information at the website of Perfume World company agree to the terms and conditions of membership of Perfume World company. As follows:
 
@@ -398,9 +400,17 @@
                 <h2>Feedback</h2>
             </div>
             <c:forEach items="${fb}" var="fb" varStatus="loop"  >  
-                <div class="media">
-                    <div class="media-body">
-                        <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
+                <div class="media" style="align-items: flex-start;
+                     border-bottom: 1px solid rgba(0, 0, 0, .09);
+                     padding: 1rem 0 1rem 1.25rem;">
+                    <div class="media-body">                     
+                        <c:if test="${fb.getFbAccountID() != null}">
+                            <div class="d-flex">
+                                <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
+                                <i class="fa-solid fa-heart" style="color: rgb(255, 68, 59)"></i>
+                            </div>
+                        </c:if>
+
                         <div class="star-rating">
                             <c:forEach var="i" begin="1" end="${fb.getFbStar()}">
                                 <label style="color: #ffca08;" class="fas fa-star"></label>
@@ -408,20 +418,24 @@
                             <c:forEach var="i" begin="${fb.getFbStar()+1}" end="5">
                                 <label style="color: #ddd;" class="far fa-star empty"></label>
                             </c:forEach>
-                        </div>
 
-                        <p>${fb.getFbContent()}</p>
-                        <div>
+                        </div>
+                        <div style="font-size: 15px;">${fb.getFbDate()}</div>
+                        <div style="font-size: 27px;
+                             line-height: 20px;
+                             color: rgba(0, 0, 0, 0.87);
+                             margin-top: 0.75rem;
+                             white-space: pre-wrap;">${fb.getFbContent()}</div>
+                        <div style="margin-top: 0.95rem;">
                             <c:if test="${fb.getFbImage() != null}" >
-                                <img src="images/Feedback/${fb.getFbImage()}" style="width: 60px; height: 60px" />
+                                <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
                             </c:if>
                         </div>
-                        <small>${fb.getFbDate()}</small>
+
                     </div>
                 </div>
                 </br>
             </c:forEach>
-
         </section>
         <%@include file="../footer.jsp" %>
 
@@ -453,6 +467,7 @@
             <c:forEach items="${priceandsize}" var="size" varStatus="status">
             {
             productfulldetailid: "${size.productFullDetailID}",
+                    status: "${size.productStatus}",
                     size: "${size.productSize}",
                     price: "${size.productPrice}",
                     quantity: "${size.productAvaiable}"
@@ -470,6 +485,21 @@
                         document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
                         document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                         document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
+
+                        var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == false) ? 'Out Of Stock' : 'In Stock';
+                        document.getElementById("status").innerText = statusText;
+
+                        // Cập nhật trạng thái của nút "Add to Cart"
+                        var addToCartBtn = document.getElementById("addToCartBtn");
+                        if (priceAndSizeData[i].quantity == 0) {
+                            addToCartBtn.setAttribute("disabled", "true");
+                            addToCartBtn.removeAttribute("onclick");
+                        } else {
+                            addToCartBtn.removeAttribute("disabled");
+                            addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
+                        }
+
+
                         break; // Kết thúc vòng lặp khi tìm được size tương ứng
                     }
                 }

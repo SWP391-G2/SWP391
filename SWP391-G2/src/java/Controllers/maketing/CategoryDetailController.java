@@ -88,7 +88,7 @@ public class CategoryDetailController extends HttpServlet {
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("data", category);
 
-        request.getRequestDispatcher("categoryDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("category/categoryDetail.jsp").forward(request, response);
     } 
 
     /** 
@@ -122,7 +122,7 @@ public class CategoryDetailController extends HttpServlet {
         } catch (Exception e) {
 
         }
-        categoryDAO.updateCategory(categoryName, categoryDescription, status, categoryID);
+        categoryDAO.updateCategory(categoryName, categoryDescription, statusnew, categoryID);
         response.sendRedirect("category?search=" + search + "&categoryID=" + categoryID + "&status=" + status + "&pageNo=" + pageNo);
     }
 

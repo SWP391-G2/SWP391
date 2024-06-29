@@ -91,7 +91,124 @@ public class FeedbackDAO extends DBContext {
         }
         return list;
     }
+    public ArrayList<FeedBacks> getCategoriesByFilter(int status, String search, int pageNo, int pageSize) {
+        ArrayList<FeedBacks> listFeedback = new ArrayList<>();
+        String sql = "SELECT * FROM Feedbacks";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " fbStatus = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (fbContent LIKE ?)";
+            }
+        }
 
+        sql += " ORDER BY fbID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 2; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            // Set the limit and offset parameters for pagination
+            ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
+            parameterIndex++;
+            ur.setInt(parameterIndex, pageSize);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                FeedBacks category = new FeedBacks(rs.getInt(1),
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getString(4), 
+                        rs.getString(5),
+                        rs.getDate(6), 
+                        rs.getInt(7), 
+                        rs.getString(8));
+                       
+                listFeedback.add(category);
+            }
+        } catch (Exception e) {
+        }
+
+        return listFeedback;
+    }
+    public int getTotalPage(int status, String search, int pageSize) {
+        String sql = "SELECT COUNT(*) FROM Feedbacks";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " fbStatus = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (fbContent LIKE ?)";
+            }
+        }
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 2; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                int totalRecord = rs.getInt(1);
+                int totalPage = totalRecord / pageSize;
+                if (totalRecord % pageSize != 0) {
+                    totalPage++;
+                }
+                return totalPage;
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+    public void updateStatusFeedback(int status, int categoryID) {
+        String sql = "UPDATE [dbo].[Categories]\n"
+                + "   SET [fbStatus] = ?\n"
+                + " WHERE [fbID] = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, categoryID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
     public FeedBacks getFeedback(int id) {
         String sql = "select * from Feedbacks where fbProductID = ?";
         try {

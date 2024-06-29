@@ -68,7 +68,7 @@ public class FeedbackProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("products/feedbackProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("feedbacks/feedbackProduct.jsp").forward(request, response);
     }
 
     /**
@@ -84,8 +84,8 @@ public class FeedbackProduct extends HttpServlet {
             throws ServletException, IOException {
 //        String idAccount = request.getParameter("idAccount");
 //        String idProduct = request.getParameter("idProduct");
-        String idProduct = "1";
-        String idAccount = "2";
+        String idProduct = "10";
+        String idAccount = "4";
         String idRating = request.getParameter("rating");
         String content = request.getParameter("content");
         Date date = new Date(System.currentTimeMillis());
@@ -126,7 +126,7 @@ public class FeedbackProduct extends HttpServlet {
         //end
         try {
             FeedbackDAO fbDAO = new FeedbackDAO();
-            fbDAO.insertFeedback(8, 4, rating, content, fileName, date, 1, null);
+            fbDAO.insertFeedback(10, 4, rating, content, fileName, date, 1, null);
         } catch (Exception e) {
 
         }

@@ -73,10 +73,6 @@
         <servlet-class>Controllers.shop.feedback.FeedbackProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddNewCategories</servlet-name>
-        <servlet-class>Controllers.maketing.AddNewCategories</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CategoryController</servlet-name>
         <servlet-class>Controllers.maketing.CategoryController</servlet-class>
     </servlet>
@@ -155,10 +151,6 @@
     <servlet-mapping>
         <servlet-name>FeedbackProduct</servlet-name>
         <url-pattern>/feedbackproduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddNewCategories</servlet-name>
-        <url-pattern>/addnewcategories</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CategoryController</servlet-name>
