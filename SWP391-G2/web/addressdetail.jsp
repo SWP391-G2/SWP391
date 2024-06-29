@@ -33,7 +33,7 @@
             <form method="POST" action="./AddressDetail">
                 <div class="form-group">
                     <label for="soDienThoai">Phone Number</label>
-                    <input type="tel" class="form-control" id="Phone" name="phone" value="${address.phone}" required>
+                    <input type="tel" class="form-control" id="Phone" name="phone" value="" required>
                     <a>${mess}</a>
                 </div>
                 <div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group form-check">
                     <div>
-                        <input type="checkbox" id="status" name="status" value="1">
+                        <input type="checkbox" id="status" name="status">
                         <label for="status">Set as default address</label><br>
                     </div>
                 </div>

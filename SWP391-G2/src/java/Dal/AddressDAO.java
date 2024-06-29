@@ -4,6 +4,7 @@
  */
 package Dal;
 
+import Models.Accounts;
 import Models.Address;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,6 +94,20 @@ public class AddressDAO  extends DBContext{
         } catch (SQLException e) {
             System.err.println(e);
         }
+    }
+      public static void main(String[] args) {
+        AddressDAO addressdao = new AddressDAO();
+        Address address = new Address();
+        address.setAccount_id(11);
+        address.setPhone("0975375262");
+        address.setAddress_line("nha 24");
+        address.setCity("ha noi");
+        address.setDistrict("Nam Tu Liem");
+        address.setStatus(1);
+        addressdao.setInsertAddress(address);
+          
+        
+        
     }
       
 }

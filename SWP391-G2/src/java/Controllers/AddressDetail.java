@@ -67,8 +67,8 @@ public class AddressDetail extends HttpServlet {
         Address address = new Address();
         AddressDAO addressdao = new AddressDAO();
         address = addressdao.getAdress(accountid);
-        request.setAttribute("address",address );
-        
+        request.setAttribute("address", address);
+
         request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
     }
 
@@ -88,38 +88,38 @@ public class AddressDetail extends HttpServlet {
         int accountid = account.getAccountID();
         AddressDAO Addressdao = new AddressDAO();
         Address address = Addressdao.getAdress(accountid);
-        request.setAttribute("addressdetail", address);
-        
+
         String phone = request.getParameter("phone");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
         String homeaddress = request.getParameter("homeaddress");
         String button = request.getParameter("save");
-        int status = Integer.parseInt(request.getParameter("status"));
+        boolean status = request.getParameter("status") != null;
         try {
-         
-        if (button != null) {
-            if (isValidPhone(phone)) {
-                address.setPhone(phone);
-            } else {
-                request.setAttribute("mess", "invalid phone number ");
+
+            if (button != null) {
+                if (isValidPhone(phone)) {
+                    address.setPhone(phone);
+                } else {
+                    request.setAttribute("mess", "phone number fail syntax");
+                }
+                address.setCity(city);
+                address.setDistrict(district);
+                address.setAddress_line(homeaddress);
+                if (status) {
+                    address.setStatus(1);
+                } else {
+                    address.setStatus(0);
+                }
+                Addressdao.setInsertAddress(address);
+                request.setAttribute("address", address);
+                request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
             }
-            address.setCity(city);
-            address.setDistrict(district);
-            address.setAddress_line(homeaddress);
-            if(status == 1){
-               address.setStatus(1);
-            }else{
-                address.setStatus(0);
-            }
-            Addressdao.setInsertAddress(address);
-            request.setAttribute("address", address);
-            request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
-        }
         } catch (Exception e) {
+            response.getWriter().print(e.getMessage());
         }
-        
-response.getWriter().print(city);    }
+
+    }
     private static final String PHONE_REGEX = "^\\(?(\\+\\d{1,3})?\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
 
     public boolean isValidPhone(String phone) {
