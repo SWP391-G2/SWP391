@@ -19,6 +19,7 @@ import Models.Brands;
 import Models.Categories;
 import Models.ProductDetail;
 import Models.Products;
+import Models.ProductsHome;
 import Models.Sliders;
 import jakarta.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -78,11 +79,11 @@ public class HomeServlet extends HttpServlet {
         
 
         List<Sliders> sliders = sliDAO.getAll();
-        List<Products> productsMen = productsDAO.getProductsByCategory(1);
-        List<Products> productsWomen = productsDAO.getProductsByCategory(2);
-        List<Products> productsUnisex = productsDAO.getProductsByCategory(3);
-        List<Products> giftSet = productsDAO.getProductsByCategory(4);
-        List<Products> productsTop5Sellers = productsDAO.getTopBestSellers("5");
+        List<ProductsHome> productsMen = productsDAO.getProductsByCategory(1);
+        List<ProductsHome> productsWomen = productsDAO.getProductsByCategory(2);
+        List<ProductsHome> productsUnisex = productsDAO.getProductsByCategory(3);
+        List<ProductsHome> giftSet = productsDAO.getProductsByCategory(4);
+        List<ProductsHome> productsTop5Sellers = productsDAO.getTopBestSellers("5");
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
  

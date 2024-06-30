@@ -4,9 +4,6 @@
  */
 package Models;
 
-import java.util.List;
-import Dal.ProductsDAO;
-
 public class Categories {
 
     private int categoryID;
@@ -44,16 +41,6 @@ public class Categories {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getTotalProduct() {
-        int total = 0;
-        ProductsDAO p = new ProductsDAO();
-        List<Products> list = p.getProductsByCategory(this.categoryID);
-        for (int i = 0; i < list.size(); i++) {
-            total += 1;
-        }
-        return total;
     }
 
 }

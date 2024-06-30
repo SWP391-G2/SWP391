@@ -10,6 +10,7 @@ import Dal.ProductsDAO;
 import Models.Categories;
 import Models.Brands;
 import Models.Products;
+import Models.ProductsHome;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -69,7 +70,7 @@ public class RefineServlet extends HttpServlet {
     // Load categories, brands, and all products initially
     List<Categories> categories = categoriesDAO.loadCategory();
     List<Brands> brands = brandsDAO.getBrands();
-    List<Products> allProducts = productsDAO.loadProducts();
+    List<ProductsHome> allProducts = productsDAO.loadProducts();
 
     // Retrieve parameters from request
 String nameSearch = request.getParameter("nameSearch");
@@ -211,7 +212,7 @@ if (xpage != null) {
 int start = (page - 1) * numPerPage;
 int end = Math.min(page * numPerPage, size);
 
-List<Products> listByPage = productsDAO.getListByPage(allProducts, start, end);
+List<ProductsHome> listByPage = productsDAO.getListByPage(allProducts, start, end);
 
 if (nameSearch != null && !nameSearch.isEmpty()) {
     listByPage = productsDAO.searchByName(nameSearch);

@@ -5,6 +5,7 @@
 package Dal;
 
 import Models.Products;
+import Models.ProductsHome;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +19,8 @@ import java.util.List;
  */
 public class ProductsDAO extends DBContext {
 
-    public List<Products> loadProducts() {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> loadProducts() {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -31,7 +32,7 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -39,7 +40,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -52,8 +52,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //Top best seller 
-    public List<Products> getTopBestSellers(String number) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> getTopBestSellers(String number) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT TOP " + number + " p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
                 + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
@@ -68,7 +68,7 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -76,7 +76,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -89,8 +88,8 @@ public class ProductsDAO extends DBContext {
     }
 
     // List Products by Category
-    public List<Products> getProductsByCategory(int categoryid) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> getProductsByCategory(int categoryid) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -105,7 +104,7 @@ public class ProductsDAO extends DBContext {
             ps.setInt(1, categoryid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -113,7 +112,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -126,8 +124,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //List Products by Brand
-    public List<Products> getProductsByBrand(int brandid) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> getProductsByBrand(int brandid) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -142,7 +140,7 @@ public class ProductsDAO extends DBContext {
             ps.setInt(1, brandid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -150,7 +148,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -163,8 +160,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //Search by check box BrandID
-    public List<Products> searchByCheckboxBrand(int[] brandIds) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> searchByCheckboxBrand(int[] brandIds) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -187,7 +184,7 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -195,7 +192,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -208,8 +204,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //Search by check box CategoryID
-    public List<Products> searchByCheckbox(int[] categoryIds) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> searchByCheckbox(int[] categoryIds) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -232,7 +228,7 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -240,7 +236,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -253,8 +248,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //Get products by category and brand
-    public List<Products> getProductsByCategoriesAndBrands(int[] categoryIds, int[] brandIds) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> getProductsByCategoriesAndBrands(int[] categoryIds, int[] brandIds) {
+        List<ProductsHome> products = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -291,7 +286,7 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -299,7 +294,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -313,8 +307,8 @@ public class ProductsDAO extends DBContext {
     }
 
     //Search by name ajax in refine
-    public List<Products> searchByName(String text) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> searchByName(String text) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
@@ -328,7 +322,7 @@ public class ProductsDAO extends DBContext {
             ps.setString(1, "%" + text + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -336,7 +330,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -349,16 +342,16 @@ public class ProductsDAO extends DBContext {
     }
 
     // Get list product by page
-    public List<Products> getListByPage(List<Products> list, int start, int end) {
-        ArrayList<Products> arr = new ArrayList<>();
+    public List<ProductsHome> getListByPage(List<ProductsHome> list, int start, int end) {
+        ArrayList<ProductsHome> arr = new ArrayList<>();
         for (int i = start; i < end; i++) {
             arr.add(list.get(i));
         }
         return arr;
     }
 
-    public List<Products> getProductsByPriceRange(int minPrice, int maxPrice) {
-        List<Products> products = new ArrayList<>();
+    public List<ProductsHome> getProductsByPriceRange(int minPrice, int maxPrice) {
+        List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "origPrices.priceMin AS priceMin, "
                 + "origPrices.priceMax AS priceMax "
@@ -380,7 +373,7 @@ public class ProductsDAO extends DBContext {
             ps.setInt(2, maxPrice);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
+                ProductsHome product = new ProductsHome(
                         rs.getInt("ProductID"),
                         rs.getInt("CategoryID"),
                         rs.getString("ProductName"),
@@ -388,7 +381,6 @@ public class ProductsDAO extends DBContext {
                         rs.getInt("ProductStatus"),
                         rs.getString("ProductImageUrl"),
                         rs.getInt("BrandID"),
-                        rs.getString("UpdateDescription"),
                         rs.getBigDecimal("priceMin"),
                         rs.getBigDecimal("priceMax")
                 );
@@ -414,8 +406,8 @@ public class ProductsDAO extends DBContext {
 //            System.out.println("Price Max: " + product.getPriceMax());
 //            System.out.println("-------------");
 //        }
-        List<Products> priceRange = productsDAO.getProductsByPriceRange(25, 50);
-        for (Products products : priceRange) {
+        List<ProductsHome> priceRange = productsDAO.getProductsByPriceRange(25, 50);
+        for (ProductsHome products : priceRange) {
             System.out.println(products.getPriceMax());
         }
     }

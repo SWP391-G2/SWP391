@@ -9,23 +9,23 @@ import java.sql.Date;
 
 /**
  *
- * @author ROG
+ * @author pna29
  */
-public class Products {
-
-    private int productID;
+public class ProductsHome {
+     private int productID;
     private int CategoryID;
     private String productName;
     private Date productCreateDate;
     private int productStatus;
     private String productImageUrl;
     private int BrandID;
+    private BigDecimal priceMin;
+    private BigDecimal priceMax;
 
-
-    public Products() {
+    public ProductsHome() {
     }
 
-    public Products(int productID, int CategoryID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID) {
+    public ProductsHome(int productID, int CategoryID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, BigDecimal priceMin, BigDecimal priceMax) {
         this.productID = productID;
         this.CategoryID = CategoryID;
         this.productName = productName;
@@ -33,6 +33,8 @@ public class Products {
         this.productStatus = productStatus;
         this.productImageUrl = productImageUrl;
         this.BrandID = BrandID;
+        this.priceMin = priceMin;
+        this.priceMax = priceMax;
     }
 
     public int getProductID() {
@@ -91,5 +93,21 @@ public class Products {
         this.BrandID = BrandID;
     }
 
-   
+    public BigDecimal getPriceMin() {
+        return priceMin;
+    }
+
+    public void setPriceMin(BigDecimal priceMin) {
+        this.priceMin = priceMin;
+    }
+
+    public BigDecimal getPriceMax() {
+        return priceMax;
+    }
+
+    public void setPriceMax(BigDecimal priceMax) {
+        this.priceMax = priceMax;
+    }
+
+    
 }
