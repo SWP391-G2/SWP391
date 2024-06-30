@@ -26,8 +26,8 @@ public class ProductDetailDAO extends DBContext {
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from Products p join ProductFullDetail pfd \n"
-                + "                 on p.ProductID = pfd.ProductFullDetailID \n"
-                + "                 where pfd.pdProductID = ?";
+                + " on p.ProductID = pfd.ProductFullDetailID \n"
+                + " where pfd.pdProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -85,8 +85,7 @@ public class ProductDetailDAO extends DBContext {
                         rs.getString(6),
                         rs.getFloat(7),
                         rs.getInt(8),
-                        rs.getString(9)
-                );
+                        rs.getString(9));
 
             }
         } catch (SQLException e) {
@@ -196,7 +195,8 @@ public class ProductDetailDAO extends DBContext {
         return listSize;
     }
 
-    public ArrayList<ProductDetail> getListProductByFilter(int proId, int status, String size, int pageNo, int pageSize) {
+    public ArrayList<ProductDetail> getListProductByFilter(int proId, int status, String size, int pageNo,
+            int pageSize) {
         ArrayList<ProductDetail> listProduct = new ArrayList<>();
         ProductDetail productDetail = new ProductDetail();
         String sql = "select * from ProductFullDetail";
@@ -240,7 +240,7 @@ public class ProductDetailDAO extends DBContext {
                 parameterIndex++;
 
             }
-            //set the limit and offset parameters for pagination
+            // set the limit and offset parameters for pagination
             st.setInt(parameterIndex, (pageNo - 1) * pageSize);
             parameterIndex++;
             st.setInt(parameterIndex, pageSize);
@@ -255,8 +255,7 @@ public class ProductDetailDAO extends DBContext {
                         rs.getString(6),
                         rs.getFloat(7),
                         rs.getInt(8),
-                        rs.getString(9)
-                );
+                        rs.getString(9));
                 listProduct.add(productDetail);
             }
 
@@ -309,6 +308,25 @@ public class ProductDetailDAO extends DBContext {
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+=======
+
+    public static void main(String[] args) {
+        ProductDetailDAO p = new ProductDetailDAO();
+        List<ProductDetail> list = p.getPriceAllowSize(2);
+        for (ProductDetail product : list) {
+            System.out.println(product.getProductPrice());
+>>>>>>> HaPN
+        }
+        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+
+        int productId = 1;
+        String size = "30ml";
+        BigDecimal productPrice = productDetailDAO.getProductPriceBySize(productId, size);
+
+        if (productPrice != null) {
+            System.out.println("Product Price for Product ID " + productId + " and Size " + size + ": " + productPrice);
+        } else {
+            System.out.println("Product not found for Product ID " + productId + " and Size " + size);
         }
     }
 

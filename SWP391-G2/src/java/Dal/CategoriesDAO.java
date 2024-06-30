@@ -6,7 +6,6 @@ package Dal;
 
 import context.DBContext;
 import Models.Categories;
-import Models.SubCategories;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,14 +26,6 @@ public class CategoriesDAO extends DBContext {
             System.out.println("Category Name: " + category.getCategoryName());
             System.out.println("Category Description: " + category.getDescription());
         }
-        List<Categories> caList = dao.getAll();
-        for (Categories string : caList) {
-            System.out.println(string.getCategoryName());
-        }
-        for (String categories1 : dao.getAllName()) {
-            System.out.println(categories1);
-        }
-        System.out.println("");
     }
 
     public List<Categories> loadCategory() {
@@ -48,8 +39,9 @@ public class CategoriesDAO extends DBContext {
                         rs.getInt("CategoryID"),
                         rs.getString("CategoryName"),
                         rs.getString("Description"),
-                        rs.getInt(4)
+                        rs.getInt("status")
                 );
+                
                 categories.add(category);
             }
         } catch (SQLException e) {
@@ -58,57 +50,25 @@ public class CategoriesDAO extends DBContext {
         return categories;
     }
 
-    public List<Categories> getAll() {
-        List<Categories> caList = new ArrayList<>();
-        Categories category = new Categories();
-        String sql = "select * from Categories Where status = 1;";
+    public Categories getCategoryById(int id) {
+        String sql = "SELECT [CategoryID] , [CategoryName] , [Description] "
+                + " FROM [dbo].[Categories] where CategoryID=? AND status = 1";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                category = new Categories(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4));
-                caList.add(category);
-            }
-        } catch (Exception e) {
-        }
-        return caList;
-    }
-
-    public Categories getCategoryById(int cateId) {
-        Categories category = new Categories();
-        String sql = "select * from Categories WHERE CategoryID = ?;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, cateId);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                category = new Categories(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4));
+                Categories category = new Categories(
+                        rs.getInt("CategoryID"),
+                        rs.getString("CategoryName"),
+                        rs.getString("Description"),
+                rs.getInt("status"));
                 return category;
             }
-        } catch (Exception e) {
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return null;
-    }
-
-    public List<String> getAllName() {
-        List<String> caList = new ArrayList<>();
-        String category = "";
-        String sql = "select CategoryName from Categories Where status = 1;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                category = rs.getString(1);
-                caList.add(category);
-            }
-        } catch (Exception e) {
-        }
-        return caList;
     }
 }

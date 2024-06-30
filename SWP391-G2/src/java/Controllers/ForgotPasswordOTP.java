@@ -11,6 +11,9 @@ import Util.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import Dal.SliderDAO;
+import Models.Sliders;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +23,12 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author ROG
  */
+<<<<<<<< HEAD:SWP391-G2/src/java/Controllers/ForgotPasswordOTP.java
 public class ForgotPasswordOTP extends HttpServlet {
+========
+@WebServlet(name="UpdateStatusSlider", urlPatterns={"/updateStatusSlider"})
+public class UpdateStatusSlider extends HttpServlet {
+>>>>>>>> HaPN:SWP391-G2/src/java/Controllers/UpdateStatusSlider.java
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +45,17 @@ public class ForgotPasswordOTP extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+<<<<<<<< HEAD:SWP391-G2/src/java/Controllers/ForgotPasswordOTP.java
             out.println("<title>Servlet ForgotPasswordOTP</title>");  
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ForgotPasswordOTP at " + request.getContextPath () + "</h1>");
+========
+            out.println("<title>Servlet UpdateStatusSlider</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateStatusSlider at " + request.getContextPath () + "</h1>");
+>>>>>>>> HaPN:SWP391-G2/src/java/Controllers/UpdateStatusSlider.java
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,6 +72,7 @@ public class ForgotPasswordOTP extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+<<<<<<<< HEAD:SWP391-G2/src/java/Controllers/ForgotPasswordOTP.java
         AccountsDAO Adao = new AccountsDAO();
         HttpSession session = request.getSession();
         // get OTP from user
@@ -70,6 +86,17 @@ public class ForgotPasswordOTP extends HttpServlet {
             request.setAttribute("err", "OTP is incorrect!!");
             request.getRequestDispatcher("forgotpasswordotp.jsp").forward(request, response);
         }
+========
+        String statusParam = request.getParameter("status");
+        String sliderIdParam = request.getParameter("sliderId");
+        int status = Integer.parseInt(statusParam);
+        int sliderId = Integer.parseInt(sliderIdParam);       
+        Sliders slider = new SliderDAO().getSliderById(sliderId);
+        slider.setSliderStatus(status);
+        new SliderDAO().updateSlider(slider);
+        
+        response.sendRedirect("manageSlider");
+>>>>>>>> HaPN:SWP391-G2/src/java/Controllers/UpdateStatusSlider.java
     } 
 
     /** 

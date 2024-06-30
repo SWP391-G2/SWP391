@@ -4,25 +4,30 @@
  */
 package Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author nguye
  */
 public class Sliders {
-
-    private int sliderID;
+   private int sliderID;
     private String sliderImage;
-    private boolean sliderStatus;
+    private int sliderStatus;
     private String sliderTitle;
+    private Date updateAt;
+    private int accountId;
 
     public Sliders() {
     }
 
-    public Sliders(int sliderID, String sliderImage, boolean sliderStatus, String sliderTitle) {
+    public Sliders(int sliderID, String sliderImage, int sliderStatus, String sliderTitle, Date updateAt, int accountId) {
         this.sliderID = sliderID;
         this.sliderImage = sliderImage;
         this.sliderStatus = sliderStatus;
         this.sliderTitle = sliderTitle;
+        this.updateAt = updateAt;
+        this.accountId = accountId;
     }
 
     public int getSliderID() {
@@ -41,11 +46,11 @@ public class Sliders {
         this.sliderImage = sliderImage;
     }
 
-    public boolean isSliderStatus() {
+    public int getSliderStatus() {
         return sliderStatus;
     }
 
-    public void setSliderStatus(boolean sliderStatus) {
+    public void setSliderStatus(int sliderStatus) {
         this.sliderStatus = sliderStatus;
     }
 
@@ -56,5 +61,27 @@ public class Sliders {
     public void setSliderTitle(String sliderTitle) {
         this.sliderTitle = sliderTitle;
     }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    @Override
+    public String toString() {
+        return "Sliders{" + "sliderID=" + sliderID + ", sliderImage=" + sliderImage + ", sliderStatus=" + sliderStatus + ", sliderTitle=" + sliderTitle + ", updateAt=" + updateAt + ", accountId=" + accountId + '}';
+    }
+
 
 }

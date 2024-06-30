@@ -4,7 +4,6 @@
  */
 package Models;
 
-import java.util.BitSet;
 import java.util.Date;
 
 /**
@@ -25,25 +24,8 @@ public class Accounts {
     public Accounts() {
     }
 
-<<<<<<< HEAD
-=======
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String email, int status, Date createDate, int role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
-    }
-    
-    
-
->>>>>>> remotes/origin/HoangNV
-    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender, Date birthday, String email, int status, Date createDate, int role) {
+    public Accounts(int accountID, String firstName, String lastName, String password, String image, int gender,
+            Date birthday, String email, int status, Date createDate, int role) {
         this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,22 +34,6 @@ public class Accounts {
         this.gender = gender;
         this.birthday = birthday;
         this.email = email;
-<<<<<<< HEAD
-        this.status = status;
-        this.createDate = createDate;
-        this.role = role;
-    }
-
-    public Accounts(String firstName, String lastName, String password, String image, int gender, Date birthday, String email, int status, Date createDate, int role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-=======
->>>>>>> remotes/origin/HoangNV
         this.status = status;
         this.createDate = createDate;
         this.role = role;
@@ -161,16 +127,4 @@ public class Accounts {
         this.role = role;
     }
 
-<<<<<<< HEAD
-  
-
-=======
-    @Override
-    public String toString() {
-        return "Accounts{" + "accountID=" + accountID + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", image=" + image + ", gender=" + gender + ", birthday=" + birthday + ", email=" + email + ", status=" + status + ", createDate=" + createDate + ", role=" + role + '}';
-    }
-
-    
-    
->>>>>>> remotes/origin/HoangNV
 }
