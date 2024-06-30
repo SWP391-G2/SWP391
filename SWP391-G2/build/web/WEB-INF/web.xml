@@ -71,7 +71,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
         <servlet-name>BrandController</servlet-name>
-        <servlet-class>controller.marketing.BrandController</servlet-class>
+        <servlet-class>Controllers.marketing.BrandController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Cart</servlet-name>
@@ -79,7 +79,7 @@
     </servlet>
     <servlet>
         <servlet-name>BrandDetailController</servlet-name>
-        <servlet-class>controller.marketing.BrandDetailController</servlet-class>
+        <servlet-class>Controllers.marketing.BrandDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BlogListController</servlet-name>
