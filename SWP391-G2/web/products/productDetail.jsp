@@ -437,7 +437,7 @@
                 </br>
             </c:forEach>
         </section>
-        <%@include file="../footer.jsp" %>
+       
 
         <script>
             function showImage(imagePath) {
