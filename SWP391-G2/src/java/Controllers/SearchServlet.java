@@ -7,6 +7,7 @@ package Controllers;
 
 import Dal.ProductsDAO;
 import Models.Products;
+import Models.ProductsHome;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -63,7 +64,7 @@ public class SearchServlet extends HttpServlet {
         String txtSearch = request.getParameter("txt");
         String home_raw = request.getParameter("home");
         ProductsDAO productsDAO = new ProductsDAO();
-        List<Products> list = productsDAO.searchByName(txtSearch);
+        List<ProductsHome> list = productsDAO.searchByName(txtSearch);
         int home;
         if(home_raw != null) {
             home = Integer.parseInt(home_raw);

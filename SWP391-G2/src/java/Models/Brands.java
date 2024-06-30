@@ -53,7 +53,7 @@ public class Brands {
     public int getTotalProductBrand() {
         int total = 0;
         ProductsDAO p = new ProductsDAO();
-        List<Products> list = p.getProductsByBrand(this.BrandID);
+        List<ProductsHome> list = p.getProductsByBrand(this.BrandID);
         for (int i = 0; i < list.size(); i++) {
             total += 1;
         }

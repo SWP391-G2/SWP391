@@ -10,6 +10,7 @@ import Dal.ProductsDAO;
 import Models.Brands;
 import Models.Categories;
 import Models.Products;
+import Models.ProductsHome;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -75,7 +76,7 @@ public class SearchHome extends HttpServlet {
         String searchText = request.getParameter("query");
         
         ProductsDAO productsDAO = new ProductsDAO();
-        List<Products> productList = productsDAO.searchByName(searchText);
+        List<ProductsHome> productList = productsDAO.searchByName(searchText);
         
         int totalResult = productList.size();
         
