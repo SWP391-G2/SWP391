@@ -85,7 +85,7 @@ public class DetailOfProduct extends HttpServlet {
         AccountsDAO accDAO = new AccountsDAO();
 
         Products product = pDAO.getProduct(id);
-        Categories categories = cDAO.getCategoryById(product.getFk_category_id());
+        Categories categories = cDAO.getCategoryById(product.getCategoryID());
         ProductDetail productDetail = pdtDAO.getProductDetail(id);
 
         Brands brand = bDAO.getBrandById(product.getBrandID());

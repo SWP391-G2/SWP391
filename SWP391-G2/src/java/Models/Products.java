@@ -3,35 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Models;
-import java.sql.Date;
 
+import java.sql.Date;
 
 /**
  *
  * @author ROG
  */
 public class Products {
+
     private int ProductID;
     private String ProductName;
-    private Date ProductCreateDate;  
+    private Date ProductCreateDate;
     private int ProductStatus;
     private String ProductImageUrl;
     private int BrandID;
-    private int fk_category_id;
-    private String UpdateDescription;
+    private int CategoryID;
 
     public Products() {
     }
 
-    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductStatus, String ProductImageUrl, int BrandID, int fk_category_id, String UpdateDescription) {
+    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductStatus, String ProductImageUrl, int BrandID, int CategoryID) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.ProductCreateDate = ProductCreateDate;
         this.ProductStatus = ProductStatus;
         this.ProductImageUrl = ProductImageUrl;
         this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-        this.UpdateDescription = UpdateDescription;
+        this.CategoryID = CategoryID;
     }
 
     public int getProductID() {
@@ -82,23 +81,12 @@ public class Products {
         this.BrandID = BrandID;
     }
 
-    public int getFk_category_id() {
-        return fk_category_id;
+    public int getCategoryID() {
+        return CategoryID;
     }
 
-    public void setFk_category_id(int fk_category_id) {
-        this.fk_category_id = fk_category_id;
+    public void setCategoryID(int CategoryID) {
+        this.CategoryID = CategoryID;
     }
 
-    public String getUpdateDescription() {
-        return UpdateDescription;
-    }
-
-    public void setUpdateDescription(String UpdateDescription) {
-        this.UpdateDescription = UpdateDescription;
-    }
-
-
-   
-    
 }
