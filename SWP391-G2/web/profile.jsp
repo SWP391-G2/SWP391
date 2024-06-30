@@ -220,7 +220,7 @@
                     </div>
                     <div class="col-md-4 col-4">
                         <div class="p-3 py-5">
-                            <div class="mt-5 text-center"> <a style="color: black" class="nav-link" href="./AddressDetail">Your Address</a></div>
+                            <div class="mt-5 text-center"> <a style="color: black" class="nav-link" href="./AddressMain">Your Address</a></div>
                         </div>
                     </div> 
                 </form>

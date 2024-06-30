@@ -4,7 +4,6 @@
  */
 package Dal;
 
-import Models.Accounts;
 import Models.Address;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,12 +16,13 @@ import java.util.List;
  * @author ROG
  */
 public class AddressDAO  extends DBContext{
-     public List<Address> getAll() {
+     public List<Address> getAllAddress(int account_id) {
         List<Address> list = new ArrayList<>();
-        String sql = "select * from Address";
+        String sql = "select * from Address where account_id=?";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, account_id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Address address = new Address(
