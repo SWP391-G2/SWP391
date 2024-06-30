@@ -4,31 +4,27 @@
  */
 package Controllers;
 
-import Dal.ProductDetailDAO;
 import Dal.BrandsDAO;
+import Dal.CategoriesDAO;
+import Dal.ProductsDAO;
+import Models.Brands;
+import Models.Categories;
+import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Dal.CategoriesDAO;
-import Dal.ProductsDAO;
-import Dal.SliderDAO;
-import Models.Brands;
-import Models.Categories;
-import Models.ProductDetail;
-import Models.Products;
-import Models.Sliders;
-import jakarta.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
  *
  * @author pna29
  */
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "SearchHome", urlPatterns = {"/searchHome"})
+public class SearchHome extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +43,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");
+            out.println("<title>Servlet SearchHome</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchHome at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,34 +65,28 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
-        ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
-        SliderDAO sliDAO = new SliderDAO();
 
-        
-
-        
-
-        List<Sliders> sliders = sliDAO.getAll();
-        List<Products> productsMen = productsDAO.getProductsByCategory(1);
-        List<Products> productsWomen = productsDAO.getProductsByCategory(2);
-        List<Products> productsUnisex = productsDAO.getProductsByCategory(3);
-        List<Products> giftSet = productsDAO.getProductsByCategory(4);
-        List<Products> productsTop5Sellers = productsDAO.getTopBestSellers("5");
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
- 
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("sliders", sliders);
         request.setAttribute("categories", categories);
-        request.setAttribute("productsMen", productsMen);
-        request.setAttribute("productsWomen", productsWomen);
-        request.setAttribute("productsUnisex", productsUnisex);
-        request.setAttribute("productGiftset", giftSet);
-        request.setAttribute("productsTopSellers", productsTop5Sellers);
         request.setAttribute("brands", brands);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        
+        String searchText = request.getParameter("query");
+        
+        ProductsDAO productsDAO = new ProductsDAO();
+        List<Products> productList = productsDAO.searchByName(searchText);
+        
+        int totalResult = productList.size();
+        
+         if (searchText == null || searchText.trim().isEmpty()) {         
+            request.getRequestDispatcher("searchHome.jsp").forward(request, response);
+            return;
+        }
+        
+        request.setAttribute("productList", productList);
+        request.setAttribute("totalResult", totalResult);
+        request.getRequestDispatcher("searchHome.jsp").forward(request, response);
     }
 
     /**
@@ -110,7 +100,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        doGet(request, response);
     }
 
     /**

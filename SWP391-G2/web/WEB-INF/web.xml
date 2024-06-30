@@ -21,10 +21,6 @@
         <servlet-class>Controllers.DetailOfProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Search</servlet-name>
-        <servlet-class>Controllers.Search</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminCustomer</servlet-name>
         <servlet-class>Controllers.AdminCustomer</servlet-class>
     </servlet>
@@ -56,6 +52,10 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>Controllers.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <servlet-class>Controllers.MakertingManageSlider</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -75,10 +75,6 @@
     <servlet-mapping>
         <servlet-name>DetailOfProduct</servlet-name>
         <url-pattern>/detailofproduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Search</servlet-name>
-        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminCustomer</servlet-name>
@@ -111,5 +107,9 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <url-pattern>/manageSlider</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -58,13 +58,13 @@
                                                 <a class="nav-link" href="#">ABOUT US</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="refine">PERFUMES
+                                                <a class="nav-link" href="refine?cid_refine=${0}">PERFUMES
                                                     <i class="fa fa-caret-down" data-toggle="dropdown"></i>
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <c:forEach var="category" items="${requestScope.categories}">
                                                         <li class="nav-item-lv2">
-                                                            <a class="nav-link" href="#">
+                                                            <a class="nav-link" href="refine?cid_refinee=${category.categoryID}">
                                                                 ${category.categoryName}'s Perfumes
                                                             </a>
                                                         </li>
@@ -80,7 +80,7 @@
                                                         <c:forEach var="brand" items="${requestScope.brands}">
                                                             <div class="col-md-4">
                                                                 <li class="nav-item-lv2">
-                                                                    <a class="nav-link" href="#">${brand.brandName}</a>
+                                                                    <a class="nav-link" href="refine?bid_refinee=${brand.getBrandID()}">${brand.getBrandName()}</a>
                                                                 </li>
                                                             </div>
                                                         </c:forEach>
@@ -120,8 +120,8 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="header_search search_form">
-                                    <form class="input-group search-bar search_form has-validation-callback " action="/search" method="get" role="search"> 
-                                        <input type="search" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
                                         <span class="input-group-btn">
                                             <button class="btn icon-fallback-text">
                                                 <i class="fa fa-search"></i>
@@ -141,56 +141,25 @@
 
         <!-- slider section starts  -->
 
-        <section class="slider_section slider_section2 mb-66">
-            <div class="slider_area owl-carousel">
-                <div class="single_slider d-flex align-items-center" data-bgimg="images/Sliders/slider1.jpg">
+         <section class="slider_section slider_section2 mb-66">
+        <div class="slider_area owl-carousel">
+            <c:forEach var="slider" items="${sessionScope.sliders}">
+                <div class="single_slider d-flex align-items-center" data-bgimg="${slider.sliderImage}">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-6 offset-lg-6 col-md-6 offset-md-6">
                                 <div class="slider_content slider_content2 content_right">
-                                    <h1 style="text-align: left">Men's Collection</h1>
-                                    <h2>Wild Stone</h2>
-                                    <p>The rich aromatic notes of rosemary and nerolu combined with the sophistication of
-                                        tonka beans and white beans and white woods to create the perfect accompaniment for
-                                        the suited look.</p>
-                                    <a href="#" class="button">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="single_slider d-flex align-items-center" data-bgimg="images/Sliders/slider2.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7">
-                                <div class="slider_content slider_content2 content_left">
-                                    <h1 style="text-align: left">Women's Collection</h1>
-                                    <h2>Maison Micallef</h2>
-                                    <p>This perfume is a wonderful elixir that heightens both the scents of gourmet Bourbon
-                                        vanilla and those refined of tuberose and jasmine. The delightful alliance reminds
-                                        of tropical paradise.</p>
+                                    <h1 style="text-align: left">${slider.sliderTitle}</h1>
+                                    <!-- Add more dynamic content here if needed -->
                                     <a href="#" class="button">Shop Now <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="single_slider d-flex align-items-center" data-bgimg="images/Sliders/slider5.png">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-6 offset-lg-6 col-md-6 offset-md-6">
-                                <div class="slider_content slider_content2 content_right">
-                                    <h1 style="text-align: left">Unisex's Collection</h1>
-                                    <h2>SOPHISTICATED HARMONY</h2>
-                                    <p>Experience the harmonious fusion of botanical and zesty essences that elevate any moment with a refined, universal appeal.</p>
-                                    <a href="#" class="button">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>            
-        </section>           
+            </c:forEach>
+        </div>
+    </section>
 
         <!-- home section area starts  -->
         <div class="home_section_two color_two mb-70">
@@ -242,7 +211,7 @@
                                                     <figcaption class="product_content">
                                                         <!-- for deals timing -->
                                                         <div class="product_timing">
-                                                            <div id="countdown" data-countdown="2024-06-22T00:00:00">
+                                                            <div id="countdown" data-countdown="2024-06-29T00:00:00">
                                                                 <div class="countdown_area">
                                                                     <div class="single_countdown ani-fire">
                                                                         <div id="day" class="countdown_number"></div>
@@ -263,7 +232,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <h4 class="product_name ani-fire">
+                                                        <h4 class="product_name ani-fire"style="font-size: 13px">
                                                             <a href="#">DIOR JOY EDP FOR WOMEN</a>
                                                         </h4>
 
@@ -305,12 +274,11 @@
                                                                     </a>
                                                                 </div>
                                                                 <figcaption class="product_content">
-                                                                    <h4 class="product_name ani-fire">
+                                                                    <h4 class="product_name ani-fire" style="font-size: 13px">
                                                                         <a href="#">${giftSet.productName}</a>
                                                                     </h4>
                                                                     <div class="price_box">
-                                                                        <span class="old_price">$</span>
-                                                                        <span class="current_price">$</span>
+                                                                        <span class="current_price"> $${giftSet.priceMin} - $${giftSet.priceMax}</span>
                                                                     </div>
                                                                 </figcaption>
                                                             </figure>
@@ -343,11 +311,11 @@
                                     <div class="product_carousel product_column3 owl-carousel">
                                         <c:forEach items="${requestScope.productsTopSellers}" var="t">
                                             <div class="col-lg-3">
-                                                <article class="single_product">
+                                                <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                                     <figure>
                                                         <div class="product_thumb">
                                                             <a href="#" class="primary_img">
-                                                                <img src="${t.productImageUrl}" alt="">
+                                                                <img src="${t.getProductImageUrl()}" alt="">
                                                             </a>
                                                             <div class="action_links">
                                                                 <ul>
@@ -373,12 +341,11 @@
                                                             </div>
                                                         </div>
                                                         <figcaption class="product_content">
-                                                            <h4 class="product_name ani-fire" style="">
-                                                                <a href="#">${t.productName}</a>
+                                                            <h4 class="product_name ani-fire" style="font-size: 13px">
+                                                                <a href="#">${t.getProductName()}</a>
                                                             </h4>
                                                             <div class="price_box">
-                                                                <span class="old_price">100$</span>
-                                                                <span class="current_price">200$</span>
+                                                                <span class="current_price">$${t.priceMin} - $${t.priceMax}</span>
                                                             </div>
                                                         </figcaption>
                                                     </figure>
@@ -487,11 +454,11 @@
                 </div>
                 <div  class="tab-content">
                     <div class="tab-pane fade show active" id="Men" role="tabpanel">
-                        <div class="row">
+                        <div class="row" >
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsMen}" var="p">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -521,12 +488,12 @@
                                                     </div>
                                                 </div>
                                                 <figcaption class="product_content">
-                                                    <h4 class="product_name ani-fire" style="">
+                                                    <h4 class="product_name ani-fire" style="font-size: 13px">
                                                         <a href="#">${p.productName}</a>
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price"> $${p.priceMin} - $${p.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>
@@ -556,7 +523,7 @@
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsWomen}" var="p">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -586,12 +553,12 @@
                                                     </div>
                                                 </div>
                                                 <figcaption class="product_content">
-                                                    <h4 class="product_name ani-fire" style="">
+                                                    <h4 class="product_name ani-fire" style="font-size: 13px">
                                                         <a href="#">${p.productName}</a>
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price">  $${p.priceMin} - $${p.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>
@@ -622,7 +589,7 @@
                             <div  class="product_carousel product_column4 owl-carousel">
                                 <c:forEach items="${requestScope.productsUnisex}" var="pUnisex">
                                     <div class="col-lg-3">
-                                        <article class="single_product">
+                                        <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;" >
                                             <figure>
                                                 <div class="product_thumb">
                                                     <a href="#" class="primary_img">
@@ -652,12 +619,12 @@
                                                     </div>
                                                 </div>
                                                 <figcaption class="product_content">
-                                                    <h4 class="product_name ani-fire" style="">
+                                                    <h4 class="product_name ani-fire" style="font-size: 13px">
                                                         <a href="#">${pUnisex.productName}</a>
                                                     </h4>
 
                                                     <div class="price_box">                                                       
-                                                        <span class="current_price ani-fire"> 122 $
+                                                        <span class="current_price">  $${pUnisex.priceMin} - $${pUnisex.priceMax}
                                                         </span>
                                                     </div>                                                  
                                                 </figcaption>
