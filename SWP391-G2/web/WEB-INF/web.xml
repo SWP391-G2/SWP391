@@ -58,7 +58,7 @@
     </servlet>
     <servlet>
         <servlet-name>BrandController</servlet-name>
-        <servlet-class>controller.marketing.BrandController</servlet-class>
+        <servlet-class>Controllers.marketing.BrandController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Cart</servlet-name>
@@ -66,11 +66,7 @@
     </servlet>
     <servlet>
         <servlet-name>BrandDetailController</servlet-name>
-        <servlet-class>controller.marketing.BrandDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddBlogController</servlet-name>
-        <servlet-class>Controllers.admin.AddBlogController</servlet-class>
+        <servlet-class>Controllers.marketing.BrandDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BlogListController</servlet-name>
@@ -171,10 +167,6 @@
     <servlet-mapping>
         <servlet-name>BrandDetailController</servlet-name>
         <url-pattern>/branddetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddBlogController</servlet-name>
-        <url-pattern>/addBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogListController</servlet-name>

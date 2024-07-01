@@ -38,7 +38,7 @@ public class LoginGoogleHandler extends HttpServlet {
         try {
             if (account != null) {
                 if (account.getStatus() == 1) {
-                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                    request.getRequestDispatcher("shop/home.jsp").forward(request, response);
                 } else {
                     throw new Exception("Your account was ban please enter another account!!");
                 }
