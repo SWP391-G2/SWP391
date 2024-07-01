@@ -9,7 +9,6 @@ import Dal.CategoriesDAO;
 import Dal.ProductsDAO;
 import Models.Categories;
 import Models.Brands;
-import Models.Products;
 import Models.ProductsHome;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

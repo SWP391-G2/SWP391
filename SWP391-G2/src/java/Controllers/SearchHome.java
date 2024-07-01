@@ -9,7 +9,6 @@ import Dal.CategoriesDAO;
 import Dal.ProductsDAO;
 import Models.Brands;
 import Models.Categories;
-import Models.Products;
 import Models.ProductsHome;
 import java.io.IOException;
 import java.io.PrintWriter;

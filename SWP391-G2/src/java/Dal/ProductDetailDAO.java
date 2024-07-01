@@ -6,7 +6,6 @@ package Dal;
 
 import Models.Brands;
 import Models.ImageDetail;
-import Models.Products;
 import Models.ProductDetail;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;

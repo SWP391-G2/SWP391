@@ -4,23 +4,20 @@
  */
 package Models;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
  *
- * @author ROG
+ * @author pna29
  */
 public class Products {
-
-    private int productID;
+         private int productID;
     private int CategoryID;
     private String productName;
     private Date productCreateDate;
     private int productStatus;
     private String productImageUrl;
     private int BrandID;
-
 
     public Products() {
     }
@@ -90,6 +87,5 @@ public class Products {
     public void setBrandID(int BrandID) {
         this.BrandID = BrandID;
     }
-
-   
+    
 }

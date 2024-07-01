@@ -6,7 +6,6 @@
 package Controllers;
 
 import Dal.ProductsDAO;
-import Models.Products;
 import Models.ProductsHome;
 import java.io.IOException;
 import java.io.PrintWriter;
