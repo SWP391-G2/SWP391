@@ -23,9 +23,10 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Brands brand = new Brands(
-                        rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),rs.getInt("status")
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
                 );
                 brands.add(brand);
             }
@@ -41,20 +42,15 @@ public class BrandsDAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                return new Brands(rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),rs.getInt("status"));
+                return new Brands(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4));
             }
         } catch (SQLException e) {
 
         }
         return null;
     }
-   public static void main (String[] args){
-       BrandsDAO brdao = new BrandsDAO();
-       List<Brands> brands = brdao.getBrands();
-       for(Brands brand : brands){
-           System.out.println(brand.getBrandID()+ " " + brand.getBrandName() + " " + brand.getBrandDescription());
-       }
-   }
 }
