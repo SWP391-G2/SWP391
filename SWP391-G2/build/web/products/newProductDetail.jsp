@@ -95,7 +95,7 @@
                     </div>
                     <h3 class="font-weight-semi-bold mb-4" id="price">
                         <input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden="">
-                       $ ${priceandsize[0].productPrice}
+                        $ ${priceandsize[0].productPrice}
                     </h3>
                     <p class="mb-4">
                         ${pd.getProductDescription()}
@@ -103,65 +103,48 @@
                     <div class="d-flex mb-3">
                         <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                         <form>
-                              <c:forEach items="${priceandsize}" var="size">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input
-                                    type="radio"
-                                    class="custom-control-input"
-                                    id="size-1"
-                                    name="size"
-                                    value="${size.productSize}"
-                                    />
-                                <label class="custom-control-label" for="size-1">${size.productSize}</label>
-                            </div>
-                             </c:forEach>
-                           
-<!--                            <div class="custom-control custom-radio custom-control-inline">
-                                <input
-                                    type="radio"
-                                    class="custom-control-input"
-                                    id="size-2"
-                                    name="size"
-                                    />
-                                <label class="custom-control-label" for="size-2">S</label>
-                            </div>-->
+                            <c:forEach items="${priceandsize}" var="size">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input
+                                        type="radio"
+                                        class="custom-control-input"
+                                        id="size-1"
+                                        name="size"
+                                        value="${size.productSize}"
+                                        />
+                                    <label class="custom-control-label" for="size-1">${size.productSize}</label>
+                                </div>
+                            </c:forEach>
+
+                            <!--                            <div class="custom-control custom-radio custom-control-inline">
+                                                            <input
+                                                                type="radio"
+                                                                class="custom-control-input"
+                                                                id="size-2"
+                                                                name="size"
+                                                                />
+                                                            <label class="custom-control-label" for="size-2">S</label>
+                                                        </div>-->
                         </form>
                     </div>
                     <div class="d-flex mb-4">                                  
                         <div class="d-flex align-items-center mb-4 pt-2">
                             <div class="input-group quantity mr-3" style="width: 130px">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
+                                    <button class="btn btn-primary btn-minus" onclick="changeQuantity(-1)">
+                                        <i  class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control bg-secondary text-center" value="1" />
+                                <input type="text" id="quantity" class="form-control bg-secondary text-center" value="1" />
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus">
+                                    <button class="btn btn-primary btn-plus" onclick="changeQuantity(1)">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <button class="btn btn-primary px-3">
-                                <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+                            <button class="btn btn-primary px-3" id="addToCartBtn" ${priceandsize[0].productAvaiable == 0 ? 'disabled' : ''}  onclick="addToCart(${p.productID})">
+                                <i class="fa fa-shopping-cart mr-1" ></i> Add To Cart
                             </button>
-                        </div>
-                        <div class="d-flex pt-2">
-                            <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
-                            <div class="d-inline-flex">
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-pinterest"></i>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,89 +154,75 @@
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1"
                                >Description</a
                             >
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Policy</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Feedback</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
                                 <h4 class="mb-3">Product Description</h4>
                                 <p>
-                                    Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
-                                    Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea
-                                    vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et,
-                                    lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam
-                                    stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
-                                    sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit
-                                    sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum
-                                    kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum
-                                    lorem elitr sanctus eirmod takimata dolor ea invidunt.
+                                    ${pd.getProductDescription()}
                                 </p>
                                 <p>
-                                    Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum.
-                                    Amet dolore tempor consetetur sed lorem dolor sit lorem tempor.
-                                    Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet
-                                    et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat
-                                    sed et diam takimata sed justo. Magna takimata justo et amet magna et.
+                                    ${b.getBrandDescription()}
                                 </p>
                             </div>
                             <div class="tab-pane fade" id="tab-pane-2">
-                                <h4 class="mb-3">Additional Information</h4>
-                                <p>
-                                    Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
-                                    Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea
-                                    vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et,
-                                    lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam
-                                    stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
-                                    sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit
-                                    sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum
-                                    kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum
-                                    lorem elitr sanctus eirmod takimata dolor ea invidunt.
+                                <h4 class="mb-3">Policy Information</h4>
+                                <p >The information security policy is complied with relevant legal regulations on personal information protection and Decree 52/2013/ND-CP of the government on e-commerce issued on May 16, 2013. .
+
+                                    Customers who register personal profile information at the website of Perfume World company agree to the terms and conditions of membership of Perfume World company. As follows:
+
+                                    1. Purpose: clearly stipulates the website user agreement when registering to purchase or become a member of this website. A member who registers an account in TPS is a person who has registered an account according to the steps prescribed by the World of Perfume company and has been accepted by the company for that registration.
+
+                                    When you register as a member on the website, the information we collect includes:
+
+                                    First and last name
+                                    Phone number
+                                    Email address
+                                    Delivery address
+                                    2. Scope of information use: the information we collect as above is only used to provide sales information, delivery, order processing, online payment transactions, promotional programs, company's services to customers. We may share information about your name, address, and phone number with our courier service or partners to deliver your goods.
+
+                                    3. The collection and use of each customer's information is only carried out with that customer's consent, unless otherwise prescribed by law.
+
+                                    4. After registering, members are responsible for self-managing their accounts, passwords and personal information.
+
+                                    5. In case our company confirms that a member violates the following, we may stop or cancel that member's eligibility to use the account, and we are not responsible for such violations. damage arising from the above suspension or cancellation. In case a member damages the interests of our company, or a third person, by violating the provisions stated below, the violating member must be responsible for compensating for those damages.
+
+                                    Registering untrue information when registering as a member.
+                                    There are acts that violate these laws and regulations.
+                                    Use your account and password for nefarious purposes, or let a third person use it.
+                                    Cause harm to our company
+                                    Behavior that our company considers inappropriate
+                                    6. Complaint mechanism for Customers: Customers have the right to submit complaints to TGNH sales and promotion website. Upon receiving this feedback, TGNH sales and promotion website will confirm the information. In case the buyer's feedback is correct, depending on the level, TGNH sales and promotion website will take corrective measures. promptly to protect the interests of customers.
+
+                                    7. The company can change the agreement/policy. When there is a change, we will post it on www.thegioinuochoa.com.vn, and after posting, the agreement will be considered effective. In case of changes or updates to information/policies, if the member uses the service, we consider the member to have accepted all such agreements.
+
+                                    8. Customer information is stored on the company's private server and the Company is authorized/authorized to manage and secure customer information.
+
+                                    9. All customer information is collected and stored at Perfume World company.
+
+                                    10. Purchase information and personal/organizational information on the TGNH sales and promotion website are confidential and are not disclosed to third parties. Perfume World Company is committed to protecting customer information according to in accordance with current laws.
+
+                                    11. TGNH is committed to protecting customers' private information through the website's security system, not using it for commercial purposes or any other purpose. We use information security measures to prevent loss, confusion or alteration of data in the system.
+
+                                    12. TGNH commits to only using information to create a safe, convenient, professional shopping environment and improve the quality of customer service. In addition, the information is only used by us to resolve issues related to disputes arising in buying, selling, and paying through the website, and to prevent activities that violate Vietnamese law.
+
+                                    13. TGNH commits not to share, sell or rent personal information with anyone, in any form except companies and third parties directly related to the delivery of the products you have purchased. in the world of perfume. The information you send to us is only managed and used by TGNH staff for the purpose of contacting or sending emails to provide information to you.
+
+                                    We will send personal information about you to other companies or individuals in the following cases:
+
+                                    We have your consent to disclose that information
+                                    We need to disclose your information to provide products or services related to communicating with you.
+                                    We comply with subpoenas, court orders or legal process.
+                                    We see that your actions on our websites
                                 </p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item px-0">
-                                                Sit erat duo lorem duo ea consetetur, et eirmod
-                                                takimata.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Amet kasd gubergren sit sanctus et lorem eos
-                                                sadipscing at.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Takimata ea clita labore amet ipsum erat justo
-                                                voluptua. Nonumy.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item px-0">
-                                                Sit erat duo lorem duo ea consetetur, et eirmod
-                                                takimata.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Amet kasd gubergren sit sanctus et lorem eos
-                                                sadipscing at.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Takimata ea clita labore amet ipsum erat justo
-                                                voluptua. Nonumy.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+                                        <h4 class="mb-4">review for "${p.getProductName()}"</h4>
                                         <div class="media mb-4">
                                             <img
                                                 src="img/user.jpg"

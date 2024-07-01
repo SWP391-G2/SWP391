@@ -72,7 +72,7 @@ public class DetailOfProduct extends HttpServlet {
         String id_raw = request.getParameter("product");
         int id = -1;
         try {
-            id = 4;
+            id = 2;
         } catch (NumberFormatException e) {
             System.out.println("");
         }

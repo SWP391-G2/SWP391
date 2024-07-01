@@ -285,7 +285,7 @@
                 </p>
                 <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
                 <p >
-                    ${b.getBrandDescription()}
+                    ${b.getDescription()}
                 </p>
 
                 <p >
@@ -368,7 +368,7 @@
         <div class="container">
             <h2 class="my-4 custom-link text-center" >Similar Products</h2>
             <div class="row">
-                <c:forEach items="${psimilar}" var="pl">
+                <c:forEach items="${psimilar}" var="pl" varStatus="loop">
                     <div class="col-md-3">
                         <div class="card mb-4">
                             <img
@@ -379,13 +379,7 @@
                             <div class="card-body">
                                 <h5 class="card-title" >
                                     <a href="detailofproduct?product=${pl.getProductID() }" class="custom-link">${pl.getProductName()}</a>
-                                </h5>                               
-                                <c:forEach var="pd" items="${priceandsize}" varStatus="status">
-                                    <span class="card-text">${pd.getProductPrice()} $</span>
-                                    <c:if test="${!status.last}">
-                                        -
-                                    </c:if>
-                                </c:forEach>
+                                </h5>                                               
                             </div>
                         </div>
                     </div>
