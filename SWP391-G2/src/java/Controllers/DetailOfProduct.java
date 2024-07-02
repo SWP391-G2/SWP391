@@ -77,7 +77,6 @@ public class DetailOfProduct extends HttpServlet {
             System.out.println("");
         }
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
-
         ProductsDAO pDAO = new ProductsDAO();
         BrandsDAO bDAO = new BrandsDAO();
         CategoriesDAO cDAO = new CategoriesDAO();
@@ -92,17 +91,24 @@ public class DetailOfProduct extends HttpServlet {
 
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
         List<Products> psimilar = pDAO.getProductSimilar(product.getBrandID());
+        for (Products products : psimilar) {
+            List<ProductDetail> getPriceProduct = pdtDAO.getPriceProductSimilar(products.getProductID());
+        }
         List<FeedBacks> feedbacks = fbDAO.getListFeedback(id);
+        
         List<Accounts> listAccount = new ArrayList<>();
         for (FeedBacks listfb : feedbacks) {
             Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
 
             listAccount.add(a);
         }
+       
+        
         int averageStart = fbDAO.getAverageStartByProductID(id);
         int getTotalFeedback = fbDAO.getTotalFeedbackByProductId(id);
         
         request.setAttribute("psimilar", psimilar);
+        
         request.setAttribute("priceandsize", priceandsize);
 
         request.setAttribute("c", categories);

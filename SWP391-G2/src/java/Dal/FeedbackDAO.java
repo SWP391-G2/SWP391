@@ -18,19 +18,21 @@ import java.util.List;
  * @author admin
  */
 public class FeedbackDAO extends DBContext {
-    public int getTotalFeedbackByProductId(int id){
+
+    public int getTotalFeedbackByProductId(int id) {
         String sql = "select COUNT(fbProductID) from Feedbacks where fbProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-             while (rs.next()) {
-                 return rs.getInt(1);
-             }
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
         } catch (Exception e) {
         }
         return 0;
     }
+
     public int getAverageStartByProductID(int productid) {
         String sql = "  select AVG(fbStar * 1) AS AverageStars\n"
                 + "  from Feedbacks where fbProductID = ?";
@@ -77,20 +79,22 @@ public class FeedbackDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new FeedBacks(
-                        rs.getInt("fbAccountID"),
-                        rs.getInt("fbProductID"),
-                        rs.getInt("fbStar"),
-                        rs.getString("fbContent"),
-                        rs.getString("fbImage"),
-                        rs.getDate("fbDate"),
-                        rs.getInt("fbStatus"),
-                        rs.getString("reply")));
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getString(9)));
             }
         } catch (SQLException e) {
 
         }
         return list;
     }
+
     public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, int pageNo, int pageSize) {
         ArrayList<FeedBacks> listFeedback = new ArrayList<>();
         String sql = "select * from Feedbacks";
@@ -108,7 +112,7 @@ public class FeedbackDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (fbContent LIKE ?)";
+                sql += " (fbContent LIKE ? OR reply LIKE ?)";
             }
         }
 
@@ -134,14 +138,16 @@ public class FeedbackDAO extends DBContext {
             while (rs.next()) {
                 FeedBacks feedback = new FeedBacks(
                         rs.getInt(1),
-                        rs.getInt(2), 
-                        rs.getInt(3), 
-                        rs.getString(4), 
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
                         rs.getString(5),
-                        rs.getDate(6), 
-                        rs.getInt(7), 
-                        rs.getString(8));
-                       
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getString(9)       
+                );
+
                 listFeedback.add(feedback);
             }
         } catch (Exception e) {
@@ -149,6 +155,7 @@ public class FeedbackDAO extends DBContext {
 
         return listFeedback;
     }
+
     public int getTotalPage(int status, String search, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Feedbacks";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
@@ -195,7 +202,7 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-    
+
     public void updateStatusFeedback(int status, int categoryID) {
         String sql = "UPDATE [dbo].[Feedbacks]\n"
                 + "   SET [fbStatus] = ?\n"
@@ -209,7 +216,7 @@ public class FeedbackDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public FeedBacks getFeedback(int id) {
         String sql = "select * from Feedbacks where fbProductID = ?";
         try {
@@ -219,13 +226,14 @@ public class FeedbackDAO extends DBContext {
             while (rs.next()) {
                 return new FeedBacks(
                         rs.getInt(1),
-                        rs.getInt(2), 
-                        rs.getInt(3), 
-                        rs.getString(4), 
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
                         rs.getString(5),
-                        rs.getDate(6), 
-                        rs.getInt(7), 
-                        rs.getString(8));
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getString(9));
             }
         } catch (SQLException e) {
 
@@ -236,7 +244,8 @@ public class FeedbackDAO extends DBContext {
     public static void main(String[] args) {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         int productId = 4; // Thay bằng fbProductID cần kiểm tra
-        int avgStars = feedbackDAO.getAverageStartByProductID(productId);
-        System.out.println("Average Stars for Product ID " + productId + ": " + avgStars);
+//        int avgStars = feedbackDAO.getAverageStartByProductID(productId);
+//        System.out.println("Average Stars for Product ID " + productId + ": " + avgStars);
+
     }
 }

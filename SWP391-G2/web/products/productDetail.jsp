@@ -1,6 +1,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="" %>
 <!DOCTYPE html>
 <html lang="vi">
     <head>
@@ -181,7 +182,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        
+
                         <div class="col-3">
                             <img
                                 src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
@@ -369,7 +370,7 @@
             <h2 class="my-4 custom-link text-center" >Similar Products</h2>
             <div class="row">
                 <c:forEach items="${psimilar}" var="pl" varStatus="loop">
-                    <div class="col-md-3">
+                    <div class="col-md-3">.
                         <div class="card mb-4">
                             <img
                                 src="images/Products/${c.getCategoryName()}/${pl.getProductImageUrl()}"
@@ -381,132 +382,139 @@
                                     <a href="detailofproduct?product=${pl.getProductID() }" class="custom-link">${pl.getProductName()}</a>
                                 </h5>                                               
                             </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
+                            <c:forEach >
+                                <div class="card-body">
+                                    <h5 class="card-title" >
 
-
-        <section id="testimonials" class="container my-5">
-            <!--heading-->
-            <div class="testimonial-heading text-center">
-                <h2>Feedback</h2>
-            </div>
-            <c:forEach items="${fb}" var="fb" varStatus="loop"  >  
-                <div class="media" style="align-items: flex-start;
-                     border-bottom: 1px solid rgba(0, 0, 0, .09);
-                     padding: 1rem 0 1rem 1.25rem;">
-                    <div class="media-body">                     
-                        <c:if test="${fb.getFbAccountID() != null}">
-                            <div class="d-flex">
-                                <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
-                                <i class="fa-solid fa-heart" style="color: rgb(255, 68, 59)"></i>
-                            </div>
-                        </c:if>
-
-                        <div class="star-rating">
-                            <c:forEach var="i" begin="1" end="${fb.getFbStar()}">
-                                <label style="color: #ffca08;" class="fas fa-star"></label>
+                                    </h5>                                               
+                                </div>
                             </c:forEach>
-                            <c:forEach var="i" begin="${fb.getFbStar()+1}" end="5">
-                                <label style="color: #ddd;" class="far fa-star empty"></label>
-                            </c:forEach>
-                        </div>
-                        <div style="font-size: 15px;">${fb.getFbDate()}</div>
-                        <div style="font-size: 27px;
-                             line-height: 20px;
-                             color: rgba(0, 0, 0, 0.87);
-                             margin-top: 0.75rem;
-                             white-space: pre-wrap;">${fb.getFbContent()}</div>
-                        <div style="margin-top: 0.95rem;">
-                            <c:if test="${fb.getFbImage() != null}" >
-                                <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
-                            </c:if>
-                        </div>
 
-                    </div>
+                        </div>
+                    </c:forEach>
                 </div>
-                </br>
-            </c:forEach>
-        </section>
-       
+            </div>
 
-        <script>
-            function showImage(imagePath) {
-                document.getElementById("product-image").src = imagePath;
-            }
 
-            function changeQuantity(change) {
-                var quantityInput = document.getElementById("quantity");
-                var currentQuantity = parseInt(quantityInput.value);
-                var newQuantity = currentQuantity + change;
-                // Lấy số lượng có sẵn từ thẻ span
-                var availableQuantity = parseInt(document.getElementById("quantitie").innerText);
-                if (newQuantity >= 1 && newQuantity <= 999 && newQuantity <= availableQuantity) {
-                    quantityInput.value = newQuantity;
+            <section id="testimonials" class="container my-5">
+                <!--heading-->
+                <div class="testimonial-heading text-center">
+                    <h2>Feedback</h2>
+                </div>
+                <c:forEach items="${fb}" var="fb" varStatus="loop"  >  
+                    <div class="media" style="align-items: flex-start;
+                         border-bottom: 1px solid rgba(0, 0, 0, .09);
+                         padding: 1rem 0 1rem 1.25rem;">
+                        <div class="media-body">                     
+                            <c:if test="${fb.getFbAccountID() != null}">
+                                <div class="d-flex">
+                                    <h5>${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</h5>
+                                    <i class="fa-solid fa-heart" style="color: rgb(255, 68, 59)"></i>
+                                </div>
+                            </c:if>
+
+                            <div class="star-rating">
+                                <c:forEach var="i" begin="1" end="${fb.getFbStar()}">
+                                    <label style="color: #ffca08;" class="fas fa-star"></label>
+                                </c:forEach>
+                                <c:forEach var="i" begin="${fb.getFbStar()+1}" end="5">
+                                    <label style="color: #ddd;" class="far fa-star empty"></label>
+                                </c:forEach>
+                            </div>
+                            <div style="font-size: 15px;">${fb.getFbDate()}</div>
+                            <div style="font-size: 27px;
+                                 line-height: 20px;
+                                 color: rgba(0, 0, 0, 0.87);
+                                 margin-top: 0.75rem;
+                                 white-space: pre-wrap;">${fb.getFbContent()}</div>
+                            <div style="margin-top: 0.95rem;">
+                                <c:if test="${fb.getFbImage() != null}" >
+                                    <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
+                                </c:if>
+                            </div>
+
+                        </div>
+                    </div>
+                    </br>
+                </c:forEach>
+            </section>
+
+
+            <script>
+                function showImage(imagePath) {
+                    document.getElementById("product-image").src = imagePath;
                 }
-            }
 
-            function showSection(sectionId) {
-                var sections = document.getElementsByClassName("content-section");
-                for (var i = 0; i < sections.length; i++) {
-                    sections[i].classList.remove("active");
-                }
-                document.getElementById(sectionId).classList.add("active");
-            }
-
-            var priceAndSizeData = [
-            <c:forEach items="${priceandsize}" var="size" varStatus="status">
-            {
-            productfulldetailid: "${size.productFullDetailID}",
-                    status: "${size.productStatus}",
-                    size: "${size.productSize}",
-                    price: "${size.productPrice}",
-                    quantity: "${size.productAvaiable}"
-            }<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-            ];
-            document.getElementById("perfume-type").addEventListener("change", function () {
-                // Lấy giá trị size được chọn
-                var selectedSize = this.value;
-                // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
-                for (var i = 0; i < priceAndSizeData.length; i++) {
-                    if (priceAndSizeData[i].size == selectedSize) {
-                        // Hiển thị giá của size được chọn
-                        document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
-                        document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
-                        document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
-                        document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
-
-                        var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == false) ? 'Out Of Stock' : 'In Stock';
-                        document.getElementById("status").innerText = statusText;
-
-                        // Cập nhật trạng thái của nút "Add to Cart"
-                        var addToCartBtn = document.getElementById("addToCartBtn");
-                        if (priceAndSizeData[i].quantity == 0) {
-                            addToCartBtn.setAttribute("disabled", "true");
-                            addToCartBtn.removeAttribute("onclick");
-                        } else {
-                            addToCartBtn.removeAttribute("disabled");
-                            addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
-                        }
-
-
-                        break; // Kết thúc vòng lặp khi tìm được size tương ứng
+                function changeQuantity(change) {
+                    var quantityInput = document.getElementById("quantity");
+                    var currentQuantity = parseInt(quantityInput.value);
+                    var newQuantity = currentQuantity + change;
+                    // Lấy số lượng có sẵn từ thẻ span
+                    var availableQuantity = parseInt(document.getElementById("quantitie").innerText);
+                    if (newQuantity >= 1 && newQuantity <= 999 && newQuantity <= availableQuantity) {
+                        quantityInput.value = newQuantity;
                     }
                 }
-            });
-            function addToCart(productID) {
-                var productname = document.getElementById('productname').value;
-                var quantity = document.getElementById('quantity').value;
-                var productfulldetailid = document.getElementById('productductFullDetailID').value;
-                window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productfulldetailid;
-            }
-        </script>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                function showSection(sectionId) {
+                    var sections = document.getElementsByClassName("content-section");
+                    for (var i = 0; i < sections.length; i++) {
+                        sections[i].classList.remove("active");
+                    }
+                    document.getElementById(sectionId).classList.add("active");
+                }
+
+                var priceAndSizeData = [
+                <c:forEach items="${priceandsize}" var="size" varStatus="status">
+                {
+                productfulldetailid: "${size.productFullDetailID}",
+                        status: "${size.productStatus}",
+                        size: "${size.productSize}",
+                        price: "${size.productPrice}",
+                        quantity: "${size.productAvaiable}"
+                }<c:if test="${!status.last}">,</c:if>
+                </c:forEach>
+                ];
+                document.getElementById("perfume-type").addEventListener("change", function () {
+                    // Lấy giá trị size được chọn
+                    var selectedSize = this.value;
+                    // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
+                    for (var i = 0; i < priceAndSizeData.length; i++) {
+                        if (priceAndSizeData[i].size == selectedSize) {
+                            // Hiển thị giá của size được chọn
+                            document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
+                            document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
+                            document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
+                            document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
+
+                            var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == false) ? 'Out Of Stock' : 'In Stock';
+                            document.getElementById("status").innerText = statusText;
+
+                            // Cập nhật trạng thái của nút "Add to Cart"
+                            var addToCartBtn = document.getElementById("addToCartBtn");
+                            if (priceAndSizeData[i].quantity == 0) {
+                                addToCartBtn.setAttribute("disabled", "true");
+                                addToCartBtn.removeAttribute("onclick");
+                            } else {
+                                addToCartBtn.removeAttribute("disabled");
+                                addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
+                            }
+
+
+                            break; // Kết thúc vòng lặp khi tìm được size tương ứng
+                        }
+                    }
+                });
+                function addToCart(productID) {
+                    var productname = document.getElementById('productname').value;
+                    var quantity = document.getElementById('quantity').value;
+                    var productfulldetailid = document.getElementById('productductFullDetailID').value;
+                    window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productfulldetailid;
+                }
+            </script>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

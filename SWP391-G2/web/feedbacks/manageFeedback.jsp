@@ -25,6 +25,7 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <style>
         .form-control.custom-width {
@@ -168,46 +169,48 @@
                                                 </a>
                                             </td>
                                             <td>${feedback.getFbContent()}</td>
+
                                             <c:if test="${feedback.getReply() != null}">
                                                 <td>${feedback.getReply()}</td>
                                             </c:if>
                                             <c:if test="${feedback.getReply() == null}">
-                                        <button type="button" class="btn btn-success" data-toggle="modal"
-                                                data-target="#addnewModal">
-                                            <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Reply
-                                        </button>
-                                    </c:if>
-                                    <td>
-                                        <div class="star-rating">
-                                            <c:forEach var="i" begin="1" end="${feedback.getFbStar()}">
-                                                <label style="color: #ffca08;" class="fas fa-star"></label>
-                                            </c:forEach>
-                                            <c:forEach var="i" begin="${feedback.getFbStar()+1}" end="5">
-                                                <label style="color: #ddd;" class="far fa-star empty"></label>
-                                            </c:forEach>
-                                        </div>
-                                    </td>
-                                    <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                    <td>    
-                                        <c:choose>
-                                            <c:when test="${feedback.getFbStatus() == 1}">
-                                                <a  onclick="showAlert('Maketing blocked successfully!',${feedback.getFbID()}, 0)">
-                                                    <button type="button" class="btn btn-danger">
-                                                        View
+                                                <td> <button type="button" class="btn btn-success" data-toggle="modal"
+                                                             data-target="#addnewModal">
+                                                        <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Reply
                                                     </button>
-                                                </a>
-                                            </c:when>
-                                            <c:when test="${feedback.getFbStatus() == 0}">
-                                                <a  onclick="showAlert('Maketing unblocked successfully!',${feedback.getFbID()}, 1);">
-                                                    <button type="button" class="btn btn-success">
-                                                        Hide
-                                                    </button>
-                                                </a>
-                                            </c:when>
-                                        </c:choose>
-                                    </td>
-                                    </tr>
-                                </c:forEach>
+                                                </td>
+                                            </c:if>
+                                            <td>
+                                                <div class="star-rating">
+                                                    <c:forEach var="i" begin="1" end="${feedback.getFbStar()}">
+                                                        <label style="color: #ffca08;" class="fas fa-star"></label>
+                                                    </c:forEach>
+                                                    <c:forEach var="i" begin="${feedback.getFbStar()+1}" end="5">
+                                                        <label style="color: #ddd;" class="far fa-star empty"></label>
+                                                    </c:forEach>
+                                                </div>
+                                            </td>
+                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                            <td>    
+                                                <c:choose>
+                                                    <c:when test="${feedback.getFbStatus() == 1}">
+                                                        <a  onclick="showAlert('Maketing blocked successfully!',${feedback.getFbID()}, 0)">
+                                                            <button type="button" class="btn btn-danger">
+                                                                View
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${feedback.getFbStatus() == 0}">
+                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${feedback.getFbID()}, 1);">
+                                                            <button type="button" class="btn btn-success">
+                                                                Hide
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -273,13 +276,13 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" method="post" onsubmit="return validateForm()">
+                            <form action="#" method="post" onsubmit="return validateForm()">
 
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="description">Reply</label>
                                         <textarea class="form-control" name="reply" id="reply" rows="3" ></textarea>
-                                        <div id="descriptionError" class="error-message"></div>
+                                        <div id="replyError" class="error-message"></div>
                                     </div>                                 
                                 </div>
                                 <div class="modal-footer">
@@ -287,7 +290,6 @@
                                             data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary" >Add</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -338,42 +340,37 @@
     <script>
         function validateForm() {
             // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
+          
+            var reply = document.getElementById('reply').value;
 
             // Lấy các phần tử để hiển thị lỗi
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
+           
+            var replyError = document.getElementById('replyError');
 
             // Định nghĩa các regex cho kiểm tra input
             //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
-            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
-            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
+         
+            var reply = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
 
             // Xóa thông báo lỗi trước đóx
-            nameError.textContent = '';
-            descriptionError.textContent = '';
+            replyError.textContent = '';
 
             // Kiểm tra input
             var valid = true;
-            if (!nameRegex.test(name)) {
-                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
-                valid = false;
-            }
-
+           
             // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
-            if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Category Name cannot contain whole numbers.';
+            if (/^\d+$/.test(reply)) {
+                reply.textContent = 'Reply cannot contain whole numbers.';
                 valid = false;
             }
 
             if (/^\s{2,}/.test(name)) {
-                nameError.textContent = 'Category Name cannot start with multiple spaces.';
+                reply.textContent = 'Reply cannot start with multiple spaces.';
                 valid = false;
             }
 
             if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
+                reply.textContent = 'Reply must be from 10 to 200 characters.';
                 valid = false;
             }
 
@@ -383,6 +380,7 @@
     </script>
     <script>
         // handle filter search
+
         const searchInput = document.querySelector('#search');
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
@@ -400,6 +398,11 @@
                     '&status=' + status + '&pageNo=1';
         }
         ;
+       
+
+
+
+
 
         // handle filter role
         const status = document.querySelector('#status');
