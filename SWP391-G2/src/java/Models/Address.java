@@ -10,19 +10,20 @@ package Models;
  */
 public class Address {
     private int address_id, account_id;
-    private String phone, address_line ,city, district;
+    private String phone, address_line ,city, district, wards;
     private int status;
 
     public Address() {
     }
 
-    public Address(int address_id, int account_id, String phone, String address_line, String city, String district, int status) {
+    public Address(int address_id, int account_id, String phone, String address_line, String city, String district, String wards, int status) {
         this.address_id = address_id;
         this.account_id = account_id;
         this.phone = phone;
         this.address_line = address_line;
         this.city = city;
         this.district = district;
+        this.wards = wards;
         this.status = status;
     }
 
@@ -74,6 +75,14 @@ public class Address {
         this.district = district;
     }
 
+    public String getWards() {
+        return wards;
+    }
+
+    public void setWards(String wards) {
+        this.wards = wards;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -84,9 +93,10 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" + "address_id=" + address_id + ", account_id=" + account_id + ", phone=" + phone + ", address_line=" + address_line + ", city=" + city + ", district=" + district + ", status=" + status + '}';
+        return "Address{" + "address_id=" + address_id + ", account_id=" + account_id + ", phone=" + phone + ", address_line=" + address_line + ", city=" + city + ", district=" + district + ", wards=" + wards + ", status=" + status + '}';
     }
 
+    
    
    
     
