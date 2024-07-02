@@ -92,15 +92,16 @@ public class AddressDAO  extends DBContext{
         }
         return null;
     }
-      public void updateAddress( String phone, String address_line, String city, String district, int status) {
-        String sql = "Update Address set address_id = ?,phone = ?, address_line= ?, city= ?, district=?, status=? where account_id = ?";
+      public void updateAddress( String phone, String address_line, String city, String district, String wards, int status) {
+        String sql = "Update Address set address_id = ?,phone = ?, address_line= ?, city= ?, district=?, wards=? status=? where account_id = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, phone);
             ur.setString(2, address_line);
             ur.setString(3, city);
             ur.setString(4, district);
-            ur.setInt(5, status);
+            ur.setString(5, wards);
+            ur.setInt(6, status);
 
             ur.executeUpdate();
         } catch (SQLException e) {
@@ -108,7 +109,7 @@ public class AddressDAO  extends DBContext{
         }
     }
       public void setInsertAddress(Address address) {
-        String sql = "INSERT INTO [dbo].[Address] ([account_id],[phone],[address_line],[city],[district],[status]) VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO [dbo].[Address] ([account_id],[phone],[address_line],[city],[district],[wards],[status]) VALUES (?,?,?,?,?,?,?);";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, address.getAccount_id());
@@ -116,7 +117,8 @@ public class AddressDAO  extends DBContext{
             ur.setString(3, address.getAddress_line());
             ur.setString(4, address.getCity());
             ur.setString(5, address.getDistrict());
-            ur.setInt(6, address.getStatus());
+            ur.setString(6, address.getWards());
+            ur.setInt(7, address.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -140,6 +142,7 @@ public class AddressDAO  extends DBContext{
         address.setAddress_line("nha 24");
         address.setCity("ha noi");
         address.setDistrict("Nam Tu Liem");
+        address.setWards("daimo");
         address.setStatus(1);
         addressdao.setInsertAddress(address);
           System.out.println(addressdao.getAllAddress(11));

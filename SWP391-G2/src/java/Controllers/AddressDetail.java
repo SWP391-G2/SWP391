@@ -116,7 +116,6 @@ public class AddressDetail extends HttpServlet {
                     address.setStatus(0);
                 }
                 addressdao.setInsertAddress(address);
-                request.setAttribute("address", address);
                 response.sendRedirect("./AddressMain");
             }
         } catch (Exception e) {

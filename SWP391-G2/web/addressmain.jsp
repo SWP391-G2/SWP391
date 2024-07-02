@@ -52,6 +52,7 @@
                             <th>Phone</th>
                             <th>City/Province</th>
                             <th>District</th>
+                            <th>wards</th>
                             <th>Home Address</th>
                             <th>Actions</th>
                         </tr>
@@ -72,6 +73,9 @@
                                 </td>
                                 <td>
                                     ${o.district}
+                                </td>
+                                <td>
+                                    ${o.wards}
                                 </td>
                                 <td>${o.address_line} $</td>
                                 <td>
