@@ -92,6 +92,7 @@ public class AddressDetail extends HttpServlet {
         String phone = request.getParameter("phone");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
+        String ward = request.getParameter("wards");
         String homeaddress = request.getParameter("homeaddress");
         String button = request.getParameter("save");
         boolean status = request.getParameter("status") != null;

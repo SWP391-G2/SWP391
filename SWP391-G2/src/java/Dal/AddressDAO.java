@@ -32,7 +32,8 @@ public class AddressDAO  extends DBContext{
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7));
+                        rs.getString(7),
+                        rs.getInt(8));
                 list.add(address);
             }
         } catch (SQLException e) {
@@ -57,7 +58,8 @@ public class AddressDAO  extends DBContext{
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7));
+                        rs.getString(7),
+                        rs.getInt(8));
                 return address;
             }
         } catch (SQLException e) {
@@ -82,7 +84,8 @@ public class AddressDAO  extends DBContext{
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7));
+                        rs.getString(7),
+                        rs.getInt(8));
                 return address;
             }
         } catch (SQLException e) {
