@@ -22,7 +22,7 @@
         <div class="header_right">
             <div class="header_top_right">
                 <div class="my-wishlist">
-                    <a href="">
+                    <a href="viewWishlist">
                         <i class="fa fa-heart"></i>
                     </a>
                 </div>   

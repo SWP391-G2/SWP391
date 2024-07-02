@@ -1868,7 +1868,7 @@ h6 {
 }
 
 .product_thumb {
-    position: relative;
+    position: fixed;
 }
 
 .product_thumb a.secondary_img {
@@ -2034,7 +2034,7 @@ i.fa.fa-eye{
 }
 .price_box span.current_price {
     font-weight: 700;
-    font-size: 17px;
+    font-size: 12px;
     color: #000;
 }
 

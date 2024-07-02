@@ -1,37 +1,44 @@
-﻿use [master]
-GO
-IF EXISTS (SELECT * FROM sys.databases WHERE name = 'TPS')
-	DROP DATABASE TPS
-GO
---drop database TPS
-CREATE DATABASE TPS
-GO
-USE TPS
+﻿USE [master];
 GO
 
-CREATE TABLE [dbo].[Categories](
-[CategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-[CategoryName] [nvarchar](50) NOT NULL,
-[Description] [ntext] NULL,
-	[status] [int]
+DECLARE @databaseName NVARCHAR(128) = 'TPS';
+
+IF EXISTS (
+    SELECT name 
+    FROM sys.databases 
+    WHERE name = @databaseName
 )
+BEGIN
+    DECLARE @kill varchar(8000) = '';
+    SELECT @kill = @kill + 'KILL ' + CONVERT(varchar(5), session_id) + ';'
+    FROM sys.dm_exec_sessions
+    WHERE database_id  = DB_ID(@databaseName);
+    EXEC(@kill);
+    EXEC('DROP DATABASE ' + @databaseName);
+END;
 
-INSERT INTO [dbo].[Categories] ([CategoryName],[Description],[status])
-VALUES
-('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.',1),
-('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...',1),
-('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.',1),
-('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.',1);
+EXEC('CREATE DATABASE ' + @databaseName);
+GO
+
+USE [TPS]
+GO
+/* ============[Roles] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Roles];
 
 CREATE TABLE [dbo].[Roles] (
     roleID INT PRIMARY KEY IDENTITY(1,1),
     roleName NVARCHAR(50) NOT NULL UNIQUE
 )
+/*======= INSERT VALUE OF [Roles] TABLE =======*/
 INSERT INTO [dbo].[Roles] (roleName) VALUES
 ('Admin'),
 ('Sale'),
 ('Marketing'),
 ('Customer');
+GO
+
+/* ============[Accounts] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Accounts];
 
 CREATE TABLE [dbo].[Accounts](
 [AccountID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -42,11 +49,13 @@ CREATE TABLE [dbo].[Accounts](
 [Gender] int NOT NULL,
 [BirthDay] date NOT NULL,
 [Email] [nvarchar](50) NULL,
+[Phone] [varchar](11),
 [Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
+/*======= INSERT VALUE OF [Accounts] TABLE =======*/
 INSERT INTO [dbo].[Accounts] (
     [FirstName],
     [LastName],
@@ -55,59 +64,101 @@ INSERT INTO [dbo].[Accounts] (
     [Gender],
     [BirthDay],
     [Email],
+	[Phone],
     [Status],
     [CreateDate],
     [RoleID]
 )
 VALUES
-    (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com', 1, '2022-01-01', 1),
-    (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com', 1, '2022-01-02', 2),
-    (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com', 1, '2022-01-03', 1),
-    (N'Ngô', N'Thị Nga', 'password123', NULL, 2, '1995-04-04', 'ngothinga@example.com', 1, '2022-01-04', 2),
-    (N'Phạm', N'Văn Minh', 'password123', NULL, 1, '1985-05-05', 'phamvanminh@example.com', 1, '2022-01-05', 1),
-    (N'Hồ', N'Thị Thu', 'password123', NULL, 2, '1998-06-06', 'hothithu@example.com', 1, '2022-01-06', 2),
-    (N'Đặng', N'Văn Tùng', 'password123', NULL, 1, '1990-07-07', 'dangvantung@example.com', 1, '2022-01-07', 1),
-    (N'Lê', N'Thị Loan', 'password123', NULL, 2, '1992-08-08', 'lethiloan@example.com', 1, '2022-01-08', 2),
-    (N'Nguyễn', N'Văn Hùng', 'password123', NULL, 1, '1982-09-09', 'nguyenvanhung@example.com', 1, '2022-01-09', 1),
-    (N'Trần', N'Thị Linh', 'password123', NULL, 2, '1995-10-10', 'tranthilinh@example.com', 1, '2022-01-10', 2);
+    (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com','01234567891', 1, '2022-01-01', 1),
+    (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com','01234567891', 1, '2022-01-02', 4),
+    (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com','01234567891', 1, '2022-01-03', 4),
+    (N'Ngô', N'Thị Nga', 'password123', NULL, 2, '1995-04-04', 'ngothinga@example.com','01234567891', 1, '2022-01-04', 4),
+    (N'Phạm', N'Văn Minh', 'password123', NULL, 1, '1985-05-05', 'phamvanminh@example.com','01234567891', 1, '2022-01-05', 4);
+GO
+
+/* ============[Vouchers] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Vouchers];
+
+CREATE TABLE [dbo].[Vouchers] (
+    VoucherID INT PRIMARY KEY IDENTITY(1,1),
+    Code NVARCHAR(50) NOT NULL UNIQUE,
+    Discount DECIMAL(5, 2) NOT NULL,
+    ExpiryDate DATE NOT NULL,
+	Quantity INT,
+	CreateAt DATE
+)
+/*======= INSERT VALUE OF [Vouchers] TABLE =======*/
+INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, Quantity, CreateAt) VALUES
+('NEWYEAR2024', 10.00, '2024-12-31', 100, '2024-01-01'),
+('SUMMERSALE', 15.00, '2024-06-30', 50, '2024-06-01');
+GO
+
+/* ============[Categories] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Categories];
+
+CREATE TABLE [dbo].[Categories](
+[CategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+[CategoryName] [nvarchar](50) NOT NULL,
+[Description] [ntext] NULL,
+[CreateAt] DATE,
+[Status] [int]
+)
+/*======= INSERT VALUE OF [Categories] TABLE =======*/
+INSERT INTO [dbo].[Categories] ([CategoryName],[Description],[CreateAt],[Status])
+VALUES
+('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.','2024-01-01',1),
+('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...','2024-01-01',1),
+('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.','2024-01-01',1),
+('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.','2024-01-01',1);
+
+GO
 
 
+/* ============[Brands] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Brands];
 CREATE TABLE [dbo].[Brands] (
     [BrandID] INT PRIMARY KEY IDENTITY(1,1),
     [BrandName] NVARCHAR(100) NOT NULL UNIQUE,
     [Description] NVARCHAR(MAX),
+	[CreateAt] DATE,
 	[status] [int]
 )
-
-INSERT INTO [dbo].[Brands]([BrandName],[Description],[status])
+/*======= INSERT VALUE OF [Brands] TABLE =======*/
+INSERT INTO [dbo].[Brands]([BrandName],[Description],[status],[CreateAt])
 VALUES
-('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.',1),
-('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.',1),
-('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.',1),
-('LOUIS VUITTON', 'Louis Vuitton, famous for its luxury and class in fashion and accessories, also offers high-end perfume lines with delicate and unique scents. Louis Vuitton perfumes are Created by leading perfumers, using rare and high quality ingredients.',1),
-('DIOR','Dior is a famous brand in the field of perfume, with many iconic product lines. Dior perfume stands out with its sophisticated combination of high-quality ingredients, bringing the fragrance is diverse and rich.',1),
-('TOMMY HILFIGER','Tommy Hilfiger is a famous brand, not only in the fashion field but also in the perfume industry. Tommy Hilfiger perfumes often have a youthful, dynamic and fresh style.' ,1),
-('ISSEY MIYAKE',N'Issey Miyake is a famous brand with modern, minimalist and sophisticated perfume lines. Issey Miyake perfumes often stand out with their fresh, elegant and creative, inspired by nature and natural elements.',1),
-('CREED', 'Creed is a high-end French perfume brand, famous for its handmade, sophisticated and luxurious perfume lines. Each Creed product is usually made from quality natural ingredients. high quality, providing a unique and long-lasting fragrance.',1),
-('YVES SAINT LAURENT','Yves Saint Laurent (YSL) is a famous perfume brand, standing out with products that have a seductive, bold and modern style. YSL perfumes are often highly appreciated for the creativity in blending aromas, bringing unique and impressive scents.',1),
-('ARMAF','Armaf is a famous perfume brand with high quality products at affordable prices. Armaf perfumes often have diverse styles, from fresh to passionate, suitable for everyone. Suitable for many different tastes and occasions.',1),
-('ROJA PARFUMS', 'Roja Parfums is a high-end and luxurious perfume brand of perfume creator Roja Dove. Roja Parfums products are often known for their sophistication in the way they combine scents. materials, ensuring the highest quality and uniqueness. Each bottle of Roja Parfums perfume is often handmade and limited, creating works of art in the world of perfume.',1),
-('LE LABO','Le Labo is a high-end and unique perfume brand, famous for creating handmade and personalized products. Each bottle of Le Labo perfume is made in-house products, ensuring sophistication and quality. This brand focuses on using natural and high-quality ingredients, along with unique flavor blends.',1),
-('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure ',1),
-('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . ',1),
-('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1);
+('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.',1,'2024-01-01'),
+('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.',1,'2024-01-01'),
+('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.',1,'2024-01-01'),
+('LOUIS VUITTON', 'Louis Vuitton, famous for its luxury and class in fashion and accessories, also offers high-end perfume lines with delicate and unique scents. Louis Vuitton perfumes are Created by leading perfumers, using rare and high quality ingredients.',1,'2024-01-01'),
+('DIOR','Dior is a famous brand in the field of perfume, with many iconic product lines. Dior perfume stands out with its sophisticated combination of high-quality ingredients, bringing the fragrance is diverse and rich.',1,'2024-01-01'),
+('TOMMY HILFIGER','Tommy Hilfiger is a famous brand, not only in the fashion field but also in the perfume industry. Tommy Hilfiger perfumes often have a youthful, dynamic and fresh style.' ,1,'2024-01-01'),
+('ISSEY MIYAKE',N'Issey Miyake is a famous brand with modern, minimalist and sophisticated perfume lines. Issey Miyake perfumes often stand out with their fresh, elegant and creative, inspired by nature and natural elements.',1,'2024-01-01'),
+('CREED', 'Creed is a high-end French perfume brand, famous for its handmade, sophisticated and luxurious perfume lines. Each Creed product is usually made from quality natural ingredients. high quality, providing a unique and long-lasting fragrance.',1,'2024-01-01'),
+('YVES SAINT LAURENT','Yves Saint Laurent (YSL) is a famous perfume brand, standing out with products that have a seductive, bold and modern style. YSL perfumes are often highly appreciated for the creativity in blending aromas, bringing unique and impressive scents.',1,'2024-01-01'),
+('ARMAF','Armaf is a famous perfume brand with high quality products at affordable prices. Armaf perfumes often have diverse styles, from fresh to passionate, suitable for everyone. Suitable for many different tastes and occasions.',1,'2024-01-01'),
+('ROJA PARFUMS', 'Roja Parfums is a high-end and luxurious perfume brand of perfume creator Roja Dove. Roja Parfums products are often known for their sophistication in the way they combine scents. materials, ensuring the highest quality and uniqueness. Each bottle of Roja Parfums perfume is often handmade and limited, creating works of art in the world of perfume.',1,'2024-01-01'),
+('LE LABO','Le Labo is a high-end and unique perfume brand, famous for creating handmade and personalized products. Each bottle of Le Labo perfume is made in-house products, ensuring sophistication and quality. This brand focuses on using natural and high-quality ingredients, along with unique flavor blends.',1,'2024-01-01'),
+('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure ',1,'2024-01-01'),
+('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . ',1,'2024-01-01'),
+('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1,'2024-01-01');
+
+
+
+/* ============[Products] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Products];
 CREATE TABLE [dbo].[Products] (
-     [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
+    [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductStatus] int NOT NULL,
     [ProductImageUrl] [nvarchar](255) NOT NULL,
 	[BrandID] [int] NULL,
 	[CategoryID][int],
-	[UpdateDescription] nvarchar(max) NULL,
 	FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories](CategoryID),
 	FOREIGN KEY (BrandID) REFERENCES [dbo].[Brands](BrandID),
 )
+/*======= INSERT VALUE OF [Products] TABLE =======*/
 INSERT INTO [dbo].[Products] (
     [ProductName],
     [ProductCreateDate],
@@ -188,7 +239,11 @@ VALUES
 ('SET OF 5 LANCOME PARIS PERFUMES','2024-01-01',1,15,'images/Products/Giftset/3_0.jpg',4),
 ('BVLGARI OMNIA AMETHYSTE','2024-01-01',1,13,'images/Products/Giftset/4_0.jpg',4),
 ('VERSACE BRIGHT CRYSTAL ABSOLU','2024-01-01',1,14,'images/Products/Giftset/5_0.jpg',4);
+GO
 
+
+/* ============[ProductFullDetail] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[ProductFullDetail];
 CREATE TABLE [dbo].[ProductFullDetail] (
     [ProductFullDetailID] [int] PRIMARY KEY IDENTITY(1,1),
     [pdProductID] [int] NOT NULL,
@@ -201,7 +256,7 @@ CREATE TABLE [dbo].[ProductFullDetail] (
 	[image] varchar(100),
 	FOREIGN KEY ([pdProductID]) REFERENCES [dbo].[Products]([ProductID])
 )
-
+/*======= INSERT VALUE OF [ProductFullDetail] TABLE =======*/
 INSERT INTO [dbo].[ProductFullDetail] (
     [pdProductID],
     [ProductDescription],
@@ -345,6 +400,10 @@ VALUES
 (65, 'Versace Absolute Gift Set 4 items: Versace Bright Crystal Absolu EDP 90ml perfume Versace Bright Crystal Absolu EDP 10ml Versace Perfumed Body Lotion 100ml Versace Perfumed Shower Gel 100ml', '2024-01-01', 1, NULL, 139.00, 50, '5_1.jpg');
 
 
+GO
+
+/* ============[Cart] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart] (
     CartID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
@@ -357,23 +416,38 @@ CREATE TABLE [dbo].[Cart] (
 	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
+/*======= INSERT VALUE OF [Cart] TABLE =======*/
 
--- Sample data for insertion into Cart table
+GO
+/* ============[WishList] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[WishList];
+CREATE TABLE [dbo].[Wishlist] (
+    [WishlistID] [INT] PRIMARY KEY IDENTITY(1,1),
+    [AccountID] [INT] NOT NULL,
+    [ProductID] [INT] NOT NULL,
+    [WishlistDate] DATE NOT NULL, 
+    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts](AccountID),
+    FOREIGN KEY (ProductID) REFERENCES [dbo].[Products](ProductID)
+);
+/*======= INSERT VALUE OF [WishList] TABLE =======*/
 
 
-
+/* ============[StatusOrder] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[StatusOrder];
 CREATE TABLE [dbo].[StatusOrder] (
     SOID INT PRIMARY KEY IDENTITY(1,1),
     SOName NVARCHAR(255) NOT NULL
 )
-
-INSERT INTO [dbo].[StatusOrder] (SOName)
-VALUES 
-('Process'),
+/*======= INSERT VALUE OF [StatusOrder] TABLE =======*/
+INSERT INTO [dbo].[StatusOrder] (SOName) VALUES
+('Processing'),
 ('Done'),
-('Cancel');
+('Cancelled');
+GO
 
 
+/* ============[Orders] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Orders];
 CREATE TABLE [dbo].[Orders] (
     OrderID INT PRIMARY KEY IDENTITY(1,1),
     AccountID INT NOT NULL,
@@ -386,25 +460,19 @@ CREATE TABLE [dbo].[Orders] (
     OrderReceiveDate DATE NULL,
     OrderNote NVARCHAR(255) NULL,
     OrderSoID INT NOT NULL,
+	VoucherID INT NOT NULL,
+	 FOREIGN KEY (VoucherID) REFERENCES [dbo].[Vouchers](VoucherID),
     FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts](AccountID),
     FOREIGN KEY (OrderSoID) REFERENCES [dbo].[StatusOrder](SOID)
 )
+/*======= INSERT VALUE OF [Orders] TABLE =======*/
+INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
+(1, '2024-01-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-01-05', 'Please deliver in the morning', 1, 1),
+(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-02-05', 'Leave at the front door', 2, 2);
+GO
 
--- Inserting sample orders with full names in Vietnamese
-INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID)
-VALUES
-(1, '2024-06-15', 1500000.00, N'Nguyễn Văn A', '0987654321', N'123 Đường ABC, Quận 1, TP. HCM', 1, NULL, N'Ghi chú 1', 1),
-(2, '2024-06-16', 2500000.00, N'Trần Thị Bích', '0123456789', N'456 Đường XYZ, Quận 2, TP. HCM', 2, NULL, N'Ghi chú 2', 2),
-(3, '2024-06-17', 1800000.00, N'Lê Văn Cường', '0909090909', N'789 Đường MNO, Quận 3, TP. HCM', 1, NULL, N'Ghi chú 3', 1),
-(4, '2024-06-18', 1200000.00, N'Phạm Thị Dung', '0998877665', N'321 Đường PQR, Quận 4, TP. HCM', 3, NULL, N'Ghi chú 4', 3),
-(5, '2024-06-19', 2000000.00, N'Huỳnh Văn Eo', '0888777666', N'654 Đường GHI, Quận 5, TP. HCM', 2, NULL, N'Ghi chú 5', 2),
-(6, '2024-06-20', 3000000.00, N'Ngô Thị Fong', '0123999888', N'987 Đường KLM, Quận 6, TP. HCM', 1, NULL, N'Ghi chú 6', 1),
-(7, '2024-06-21', 1500000.00, N'Lương Văn Gấm', '0777888999', N'741 Đường DEF, Quận 7, TP. HCM', 3, NULL, N'Ghi chú 7', 3),
-(8, '2024-06-22', 1700000.00, N'Đặng Thị Hà', '0333444555', N'852 Đường LMN, Quận 8, TP. HCM', 2, NULL, N'Ghi chú 8', 2),
-(9, '2024-06-23', 2200000.00, N'Bùi Văn Iên', '0666777888', N'963 Đường UVW, Quận 9, TP. HCM', 1, NULL, N'Ghi chú 9', 1),
-(10, '2024-06-24', 1900000.00, N'Vũ Thị Kính', '0111222333', N'159 Đường STU, Quận 10, TP. HCM', 3, NULL, N'Ghi chú 10', 3);
-
-
+/* ============[Orders] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[OrderDetail];
 CREATE TABLE [dbo].[OrderDetail] (
     odID INT PRIMARY KEY IDENTITY(1,1),
     odOrderID INT NOT NULL,
@@ -414,23 +482,18 @@ CREATE TABLE [dbo].[OrderDetail] (
     FOREIGN KEY (odOrderID) REFERENCES [dbo].[Orders](OrderID),
     FOREIGN KEY (odProductID) REFERENCES [dbo].[Products](ProductID)
 )
--- Sample data for insertion into OrderDetail table
 
-CREATE TABLE [dbo].[Sliders](
-[SliderID] int PRIMARY KEY IDENTITY(1,1),
-[SliderImage] nvarchar(255) NOT NULL,
-[SliderStatus] int NOT NULL,
-[SliderTitle] nvarchar(max) NOT NULL,
-[UpdateAt] date,
-[AccountID] [int],
-FOREIGN KEY ([AccountID]) REFERENCES [dbo].[Accounts]([AccountID]
-))
-INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[UpdateAt],[SliderStatus],[AccountID])
-VALUES
-('images/Sliders/slider1.jpg','Men Collections','2024-01-01',1,5),
-('images/Sliders/slider2.jpg','Women Collections','2024-01-01',1,5),
-('images/Sliders/slider3.jpg','Unisex Collections','2024-01-01',1,3)
+/*======= INSERT VALUE OF [OrderDetail] TABLE =======*/
+INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductID, odQuantity, odPrice) VALUES
+(1, 1, 2, 100.00),
+(2, 2, 1, 150.00);
+GO
 
+
+
+
+/* ============[Blog] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Blog];
 CREATE TABLE [dbo].[Blog](
 	[blog_id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[title] [nvarchar](max) NULL,
@@ -443,7 +506,12 @@ CREATE TABLE [dbo].[Blog](
 	[status] [int] NULL,
 	FOREIGN KEY ([author_id]) REFERENCES [dbo].[Accounts]([AccountID])
 )
---create table address 
+/*======= INSERT VALUE OF [Blog] TABLE =======*/
+
+GO
+
+/* ============[Address] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Address];
 CREATE TABLE [dbo].[Address] (
     [address_id] INT PRIMARY KEY IDENTITY(1,1),
     [account_id] INT,
@@ -451,23 +519,19 @@ CREATE TABLE [dbo].[Address] (
     [address_line] NVARCHAR(MAX),
     [city] NVARCHAR(MAX),
     [district] NVARCHAR(MAX),
+	[wards] NVARCHAR(MAX),
     [status] INT,
+	[create_at] DATE,
     FOREIGN KEY ([account_id]) REFERENCES [dbo].[Accounts]([AccountID])
-);
---insert value in table address
-INSERT INTO [dbo].[Address] ([account_id], [phone], [address_line], [city], [district], [status])
-VALUES
-( 1,'0912345678', '123 Đường Nguyễn Trãi', 'Hà Nội', 'Thanh Xuân', 1),
-( 1,'0987654321', '456 Đường Lê Lợi', 'Hồ Chí Minh', 'Quận 1', 1),
-( 1,'0934567890', '789 Đường Trần Phú', 'Đà Nẵng', 'Hải Châu', 0),
-( 1,'0923456789', '101 Đường Phạm Ngũ Lão', 'Hà Nội', 'Hoàn Kiếm', 1),
-( 2,'0945678901', '202 Đường Trường Chinh', 'Hồ Chí Minh', 'Quận 3', 0),
-( 3,'0912345679', '303 Đường Bạch Đằng', 'Đà Nẵng', 'Thanh Khê', 1),
-( 2,'0987654320', '404 Đường Hùng Vương', 'Hà Nội', 'Ba Đình', 1),
-( 2,'0934567891', '505 Đường Nguyễn Văn Cừ', 'Hồ Chí Minh', 'Quận 5', 0),
-( 2,'0923456788', '606 Đường Lý Thái Tổ', 'Đà Nẵng', 'Liên Chiểu', 1),
-( 3,'0945678902', '707 Đường Võ Văn Kiệt', 'Hà Nội', 'Cầu Giấy', 1);
+)
+/*======= INSERT VALUE OF [Address] TABLE =======*/
+INSERT INTO [dbo].[Address] (account_id, phone, address_line, city, district, wards, status, create_at) VALUES
+(1, '1234567890', 'N 123 Ba Đình', 'Hà Nội', 'Đống Đa', 'Ward A', 1, '2024-01-01'),
+(2, '0987654321', 'N 456 Hai Bà Trưng ', 'Hà Nội', 'Đống Đa', 'Ward B', 1, '2024-02-01');
+GO
 
+/* ============[Feedbacks] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Feedbacks];
 CREATE TABLE [dbo].[Feedbacks] (
     fbID INT PRIMARY KEY IDENTITY(1,1),
     fbAccountID INT NOT NULL,
@@ -481,3 +545,21 @@ CREATE TABLE [dbo].[Feedbacks] (
 	FOREIGN KEY (fbProductID) REFERENCES [dbo].[Products]([ProductID]),
     FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts](AccountID)
 )
+/*======= INSERT VALUE OF [Feedbacks] TABLE =======*/
+INSERT INTO [dbo].[Feedbacks] (fbAccountID, fbProductID, fbStar, fbContent, fbImage, fbDate, fbStatus, reply) VALUES
+(1, 1, 5, 'Great product!', 'feedback1.png', '2024-01-01', 1, 'Thank you!'),
+(2, 2, 4, 'Good quality', 'feedback2.png', '2024-02-01', 1, 'Glad you liked it!');
+GO
+
+/* ============[HistoriesChange] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[HistoriesChange];
+CREATE TABLE [dbo].[HistoriesChange] (
+	[account_id] INT IDENTITY(1,1),
+	[date] DATE,
+	[text_change] NVARCHAR (MAX),
+	[local_change] VARCHAR (MAX),
+    FOREIGN KEY ([account_id]) REFERENCES [dbo].[Accounts](AccountID)
+)
+/*======= INSERT VALUE OF [[HistoriesChange]] TABLE =======*/
+
+GO

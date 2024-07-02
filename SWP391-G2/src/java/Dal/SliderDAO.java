@@ -4,13 +4,13 @@
  */
 package Dal;
 
-import Models.Sliders;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import Models.Sliders;
 
 /**
  *
@@ -137,6 +137,5 @@ public class SliderDAO extends DBContext {
         Sliders slider = Sdao.getSliderById(sliderID);
         System.out.println(slider);
 
-        System.out.println(Sdao.getAll());
     }
 }

@@ -293,15 +293,16 @@
                                     </div>
 
                                 </div>
+
                                 <c:set var="page" value="${requestScope.page}"/>
                                 <div id="contentt" class="row">
                                     <c:set var="proA" value=""/>
                                     <c:forEach items="${requestScope.productPage}" var="product">
                                         <div class="product_items col-lg-3" style="margin: 30px 0">
-                                            <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; padding: 20px; width: 100%; height: auto;">
+                                            <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px;; width: 100%; height: auto;">
                                                 <figure>
                                                     <div class="product_thumb">
-                                                        <a href="#" class="primary_img">
+                                                        <a href="#" class="primary_img"  >
                                                             <img src="${product.productImageUrl}" alt="">
                                                         </a>
                                                         <div class="action_links">
@@ -325,10 +326,10 @@
                                                         </div>
                                                     </div>
                                                     <figcaption class="product_content">
-                                                        <h4 class="product_name ani-fire" style="font-size: 13px">
+                                                        <h4 class="product_name ani-fire" style="font-size: 15px; padding: 10px">
                                                             <a href="#">${product.productName}</a>
                                                         </h4>
-                                                        <div class="price_box">
+                                                        <div class="price_box" style=" padding-left: 10px">
                                                             <span class="current_price">$${product.priceMin} - $${product.priceMax}</span>
                                                         </div>
                                                     </figcaption>
@@ -338,7 +339,7 @@
                                     </c:forEach>
                                 </div>
                                 <div class="pagination col-md-12 active" style="margin-top: 20px; display: flex; justify-content: center">
-                                    
+
                                     <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null && requestScope.priceRange == null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
@@ -390,92 +391,7 @@
         </div>
 
         <footer class="footer">
-            <div class="site-footer">
-                <div class="container">
-                    <div class="footer-inner">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>
-                                        <span>THE PERFUME SHOP</span>
-                                    </h4>
-                                    <p>
-                                        <span>Địa chỉ :</span>  Hoa Lac Hi-tech Park, km 29, Đại lộ Thăng Long, Hà Nội, Vietnam
-                                    </p>
-                                    <p><span>Email :</span> <a href="#">swp391g2@gmail.com</a></p>
-                                    <p><span>Phone :</span> <a href="tel: +91 8888884444">0986686686</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>
-                                        <span>INFORMATION</span>
-                                    </h4>
-                                    <ul class="list-menu">
-                                        <li><a href="home">Home</a></li>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="profile">Profile</a></li>
-                                    </ul>
-                                </div>
-                            </div>                          
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>
-                                        <span>WAYS TO SHOP</span>
-                                    </h4>
-                                    <ul class="list-menu">
 
-                                        <li><a href="">Men's Perfumes</a></li>
-                                        <li><a href="">Women's Perfumes</a></li>
-                                        <li><a href="">Unisex's Perfumes</a></li>
-                                        <li><a href="">Gift Set</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>POLICY</h4>
-                                    <ul class="list-menu">
-                                        <li><a href="">Purchase Policy</a></li>
-                                        <li><a href="">Information Privacy Policy </a></li>
-                                        <li><a href="">Delivery Policy</a></li>
-                                        <li><a href="">Warranty Exchange-Return Policy</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>
-                                        <span>PAYMENT</span>
-                                    </h4>
-                                    <ul class="list-menu">
-                                        <li>
-                                            <div class="footer-nav">
-                                                <i class="fab fa-cc-visa"></i>
-                                                <i class="fab fa-cc-mastercard"></i>
-                                                <i class="fas fa-money-bill-wave"></i>
-                                                <i class="fas fa-university"></i>
-                                        </li>                                       
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-6 col-md-2">
-                                <div class="footer-widget">
-                                    <h4>
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.494053017802!2d105.52340642545694!3d21.012908838322463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc60e7d3f19%3A0x2be9d7d0b5abcbf4!2sFPT%20University!5e0!3m2!1sen!2s!4v1710438011585!5m2!1sen!2s" 
-                                                width="280" height="230" style="border:1px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-
-                                        </iframe>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <jsp:include page="footer.jsp"/>
         </footer>
         <div class="modal fade" id="modal_box" role="dialog"></div>

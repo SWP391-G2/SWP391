@@ -78,10 +78,7 @@ public class Sliders {
         this.accountId = accountId;
     }
 
-    @Override
-    public String toString() {
-        return "Sliders{" + "sliderID=" + sliderID + ", sliderImage=" + sliderImage + ", sliderStatus=" + sliderStatus + ", sliderTitle=" + sliderTitle + ", updateAt=" + updateAt + ", accountId=" + accountId + '}';
-    }
+   
 
 
 }
