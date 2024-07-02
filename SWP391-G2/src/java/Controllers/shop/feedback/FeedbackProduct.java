@@ -4,7 +4,10 @@
  */
 package Controllers.shop.feedback;
 
+import Dal.AccountsDAO;
 import Dal.FeedbackDAO;
+import Models.Accounts;
+import Models.FeedBacks;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -68,7 +73,47 @@ public class FeedbackProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("feedbacks/feedbackProduct.jsp").forward(request, response);
+        int status_new = -1;
+        int feedbackID = -1;
+
+        try {
+            status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            feedbackID = request.getParameter("feedbackID") == null ? -1 : Integer.parseInt(request.getParameter("feedbackID"));
+        } catch (Exception e) {
+
+        }
+        if (status_new != -1) {
+            FeedbackDAO feedbackDAO = new FeedbackDAO();
+            feedbackDAO.updateStatusFeedback(status_new, feedbackID);
+        }
+        String search = "";
+        int status = -1;
+        int pageNo = 1;
+        final int pageSize = 10;
+        try {
+            search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+        } catch (Exception e) {
+
+        }
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        List<FeedBacks> listfeedback = feedbackDAO.getFeedbacksByFilter(status, search, pageNo, pageSize);
+        int totalPage = feedbackDAO.getTotalPage(status, search, pageSize);
+        List<Accounts> listAccount = new ArrayList<>();
+        AccountsDAO accDAO = new AccountsDAO();
+        for (FeedBacks listfb : listfeedback) {
+            Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
+
+            listAccount.add(a);
+        }
+        request.setAttribute("search", search);
+        request.setAttribute("status", status);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("currentPage", pageNo);
+        request.setAttribute("listfeedback", listfeedback);
+        request.setAttribute("listAccount", listAccount);
+       request.getRequestDispatcher("feedbacks/manageFeedback.jsp").forward(request, response);
     }
 
     /**

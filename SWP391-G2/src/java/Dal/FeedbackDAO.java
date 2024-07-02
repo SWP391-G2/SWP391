@@ -91,9 +91,9 @@ public class FeedbackDAO extends DBContext {
         }
         return list;
     }
-    public ArrayList<FeedBacks> getCategoriesByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, int pageNo, int pageSize) {
         ArrayList<FeedBacks> listFeedback = new ArrayList<>();
-        String sql = "SELECT * FROM Feedbacks";
+        String sql = "select * from Feedbacks";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (status != -1 || !search.isEmpty()) {
             sql += " WHERE";
@@ -132,7 +132,8 @@ public class FeedbackDAO extends DBContext {
             ur.setInt(parameterIndex, pageSize);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                FeedBacks category = new FeedBacks(rs.getInt(1),
+                FeedBacks feedback = new FeedBacks(
+                        rs.getInt(1),
                         rs.getInt(2), 
                         rs.getInt(3), 
                         rs.getString(4), 
@@ -141,7 +142,7 @@ public class FeedbackDAO extends DBContext {
                         rs.getInt(7), 
                         rs.getString(8));
                        
-                listFeedback.add(category);
+                listFeedback.add(feedback);
             }
         } catch (Exception e) {
         }
@@ -196,7 +197,7 @@ public class FeedbackDAO extends DBContext {
     }
     
     public void updateStatusFeedback(int status, int categoryID) {
-        String sql = "UPDATE [dbo].[Categories]\n"
+        String sql = "UPDATE [dbo].[Feedbacks]\n"
                 + "   SET [fbStatus] = ?\n"
                 + " WHERE [fbID] = ?;";
         try {
@@ -217,14 +218,14 @@ public class FeedbackDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new FeedBacks(
-                        rs.getInt("fbAccountID"),
-                        rs.getInt("fbProductID"),
-                        rs.getInt("fbStar"),
-                        rs.getString("fbContent"),
-                        rs.getString("fbImage"),
-                        rs.getDate("fbDate"),
-                        rs.getInt("fbStatus"),
-                        rs.getString("reply"));
+                        rs.getInt(1),
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getString(4), 
+                        rs.getString(5),
+                        rs.getDate(6), 
+                        rs.getInt(7), 
+                        rs.getString(8));
             }
         } catch (SQLException e) {
 

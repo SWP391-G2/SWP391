@@ -34,8 +34,13 @@ public class FeedBacks {
         this.reply = reply;
     }
 
-    
-    
+    public int getFbID() {
+        return fbID;
+    }
+
+    public void setFbID(int fbID) {
+        this.fbID = fbID;
+    }
 
     public int getFbAccountID() {
         return fbAccountID;

@@ -412,7 +412,6 @@
                             <c:forEach var="i" begin="${fb.getFbStar()+1}" end="5">
                                 <label style="color: #ddd;" class="far fa-star empty"></label>
                             </c:forEach>
-
                         </div>
                         <div style="font-size: 15px;">${fb.getFbDate()}</div>
                         <div style="font-size: 27px;
