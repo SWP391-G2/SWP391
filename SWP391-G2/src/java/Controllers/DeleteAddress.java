@@ -5,6 +5,7 @@
 
 package Controllers;
 
+import Dal.AddressDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -53,6 +54,10 @@ public class DeleteAddress extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String addressid = request.getParameter("address_id");
+        AddressDAO addressdao = new AddressDAO();
+        addressdao.DeleteAddress(addressid);
+        response.sendRedirect("./AddressMain");
     } 
 
     /** 

@@ -120,6 +120,16 @@ public class AddressDAO  extends DBContext{
             System.err.println(e);
         }
     }
+      public void  DeleteAddress(String address_id){
+          String sql = "delete from Address where address_id = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, address_id);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+      }
       public static void main(String[] args) {
         AddressDAO addressdao = new AddressDAO();
         Address address = new Address();
