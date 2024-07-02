@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Dal.AccountsDAO;
 import Dal.AddressDAO;
 import Models.Accounts;
 import Models.Address;
@@ -84,15 +85,16 @@ public class AddressDetail extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Accounts account = (Accounts) session.getAttribute("account");
-        int accountid = account.getAccountID();
+        String emaill = account.getEmail();
+        AccountsDAO Accdao = new AccountsDAO();
+        Accounts acc = Accdao.getAccount(emaill);
+        int accountid = acc.getAccountID();
         AddressDAO addressdao = new AddressDAO();
         Address address = addressdao.getAll(accountid);
-        int addressid = address.getAddress_id();
-        Address addressidd = addressdao.getAdress(accountid, addressid);
         String phone = request.getParameter("phone");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
-        String ward = request.getParameter("wards");
+        String ward = request.getParameter("ward");
         String homeaddress = request.getParameter("homeaddress");
         String button = request.getParameter("save");
         boolean status = request.getParameter("status") != null;
@@ -106,6 +108,7 @@ public class AddressDetail extends HttpServlet {
                 }
                 address.setCity(city);
                 address.setDistrict(district);
+                address.setWards(ward);
                 address.setAddress_line(homeaddress);
                 if (status) {
                     address.setStatus(1);
@@ -114,7 +117,7 @@ public class AddressDetail extends HttpServlet {
                 }
                 addressdao.setInsertAddress(address);
                 request.setAttribute("address", address);
-                request.getRequestDispatcher("addressmain.jsp").forward(request, response);
+                response.sendRedirect("./AddressMain");
             }
         } catch (Exception e) {
             response.getWriter().print(e.getMessage());

@@ -67,14 +67,13 @@ public class AddressDAO  extends DBContext{
         }
         return null;
     }
-     public Address getAdress(int account_id, int address_id) {
+     public Address getAdress(int account_id) {
 
-        String sql = "select  * from Address where account_id = ? and address_id = ?";
+        String sql = "select  * from Address where account_id = ?";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, account_id);
-            ur.setInt(2, address_id);
             ResultSet rs = ur.executeQuery();
             if (rs.next()) {
                  Address address = new Address(
@@ -143,7 +142,7 @@ public class AddressDAO  extends DBContext{
         address.setDistrict("Nam Tu Liem");
         address.setStatus(1);
         addressdao.setInsertAddress(address);
-          
+          System.out.println(addressdao.getAllAddress(11));
         
         
     }

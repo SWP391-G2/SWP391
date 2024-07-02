@@ -5,6 +5,7 @@
 
 package Controllers;
 
+import Dal.AccountsDAO;
 import Dal.AddressDAO;
 import Models.Accounts;
 import Models.Address;
@@ -60,8 +61,10 @@ public class AddressMain extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         Accounts account = (Accounts) session.getAttribute("account");
-        int accountid = account.getAccountID();
-        Address address = new Address();
+        String emaill = account.getEmail();
+        AccountsDAO Accdao = new AccountsDAO();
+        Accounts acc = Accdao.getAccount(emaill);
+        int accountid = acc.getAccountID();
         AddressDAO addressdao = new AddressDAO();
         List<Address> addresslist = addressdao.getAllAddress(accountid);
         request.setAttribute("address", addresslist);

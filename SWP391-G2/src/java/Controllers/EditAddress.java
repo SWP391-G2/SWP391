@@ -68,8 +68,7 @@ public class EditAddress extends HttpServlet {
         int accountid = acc.getAccountID();
         AddressDAO addressdao = new AddressDAO();
         Address address = addressdao.getAll(accountid);
-        int addressid = address.getAddress_id();
-        Address addressidd = addressdao.getAdress(accountid, addressid);
+        Address addressid = addressdao.getAdress(accountid);
         String defaultCity = address.getCity();
         String defaultDistrict = address.getDistrict();
 

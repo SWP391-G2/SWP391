@@ -46,8 +46,8 @@
                         <option value="" selected>Select District</option>
                     </select>
 
-                    <select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm" hidden="">
-                        <option value="" selected>Chọn phường xã</option>
+                    <select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm">
+                        <option value="" selected>Select Wards</option>
                     </select>
                 </div> 
                 <div class="form-group">
