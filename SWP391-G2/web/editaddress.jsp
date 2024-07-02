@@ -66,63 +66,83 @@
                 <div class="mt-5 text-center"> <a class="nav-link" href="./Profile">Back to profile</a></div>
             </form>
         </div>
+                
+                <h1><%= request.getAttribute("defaultCity") %></h1>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
+        // Gán giá trị từ JSP vào JavaScript
+       var defaultCity = "<%= request.getAttribute("defaultCity") %>";
+        var defaultDistrict = "<%= request.getAttribute("defaultDistrict") %>";
+       
         var citis = document.getElementById("city");
         var districts = document.getElementById("district");
-        var wards = document.getElementById("ward");
-        var addressInput = document.getElementById("diaChi");
+        
 
-        var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
+        // Fetch city, district, and ward data
+        fetchAddressData();
 
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            renderCity(result.data);
-        });
+        function fetchAddressData() {
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
+
+            axios(Parameter).then(function (result) {
+                renderCity(result.data);
+            });
+        }
 
         function renderCity(data) {
             for (const x of data) {
                 citis.options[citis.options.length] = new Option(x.Name, x.Id);
             }
 
-            citis.onchange = function () {
-                districts.length = 1;
-                wards.length = 1;
-                if (this.value != "") {
-                    const result = data.filter(n => n.Id === this.value);
-                    for (const k of result[0].Districts) {
-                        districts.options[districts.options.length] = new Option(k.Name, k.Id);
-                    }
-                }
-                const city = citis.options[citis.selectedIndex].text;
-                document.getElementById('c').setAttribute('value', city);
+            // Set default city
+            citis.value = data.find(city => city.Name === defaultCity)?.Id || "";
+            renderDistricts(data);
 
+            citis.onchange = function () {
+                renderDistricts(data);
             };
 
             districts.onchange = function () {
-                wards.length = 1;
-                const dataCity = data.filter((n) => n.Id === citis.value);
-                if (this.value != "") {
-                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
-                    for (const w of dataWards) {
-                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
-                    }
-                }
-                const district = districts.options[districts.selectedIndex]?.text || "";
-                document.getElementById('d').setAttribute('value', district);
-
-            };
-
-            wards.onchange = function () {
-                updateAddress();
+                renderWards(data);
             };
         }
 
+        function renderDistricts(data) {
+            districts.length = 1;  // Clear existing options except for the first one
+            wards.length = 1;  // Clear existing options except for the first one
 
+            if (citis.value != "") {
+                const result = data.filter(n => n.Id === citis.value);
+
+                for (const k of result[0].Districts) {
+                    districts.options[districts.options.length] = new Option(k.Name, k.Id);
+                }
+
+                // Set default district
+                districts.value = result[0].Districts.find(district => district.Name === defaultDistrict)?.Id || "";
+                renderWards(data);
+            }
+        }
+
+        function renderWards(data) {
+            wards.length = 1;  // Clear existing options except for the first one
+
+            if (districts.value != "") {
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === districts.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+
+                // Set default ward
+                wards.value = dataWards.find(ward => ward.Name === defaultWard)?.Id || "";
+            }
+        }
     </script>
 </html>

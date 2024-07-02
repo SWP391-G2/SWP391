@@ -40,14 +40,39 @@ public class AddressDAO  extends DBContext{
         }
         return list;
     }
-     
-     public Address getAdress(int account_id) {
+    
+     public Address getAll(int account_id) {
 
-        String sql = "select * from Address where address_id=?";
+        String sql = "select  * from Address where account_id = ?";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, account_id);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                 Address address = new Address(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7));
+                return address;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+     public Address getAdress(int account_id, int address_id) {
+
+        String sql = "select  * from Address where account_id = ? and address_id = ?";
+        //chay lenhj truy van
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, account_id);
+            ur.setInt(2, address_id);
             ResultSet rs = ur.executeQuery();
             if (rs.next()) {
                  Address address = new Address(

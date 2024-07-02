@@ -85,9 +85,10 @@ public class AddressDetail extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts account = (Accounts) session.getAttribute("account");
         int accountid = account.getAccountID();
-        AddressDAO Addressdao = new AddressDAO();
-        Address address = Addressdao.getAdress(accountid);
-
+        AddressDAO addressdao = new AddressDAO();
+        Address address = addressdao.getAll(accountid);
+        int addressid = address.getAddress_id();
+        Address addressidd = addressdao.getAdress(accountid, addressid);
         String phone = request.getParameter("phone");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
@@ -110,9 +111,9 @@ public class AddressDetail extends HttpServlet {
                 } else {
                     address.setStatus(0);
                 }
-                Addressdao.setInsertAddress(address);
+                addressdao.setInsertAddress(address);
                 request.setAttribute("address", address);
-                request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
+                request.getRequestDispatcher("addressmain.jsp").forward(request, response);
             }
         } catch (Exception e) {
             response.getWriter().print(e.getMessage());
