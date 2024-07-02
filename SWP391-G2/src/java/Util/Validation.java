@@ -13,23 +13,22 @@ import java.util.regex.Pattern;
  */
 public class Validation {
 
-    public boolean isValidNameLess50(String str) {
-        boolean check = false;
-        check = !str.trim().isEmpty() && str != null;
-        check = !str.startsWith(" ");
+    public boolean isValidStartWithSpace(String str) {
+        return str.startsWith(" ");
+    }
+
+    public boolean isValidVietnameseAndEnglish(String str) {
         String regex = constant.VIETNAMESE;
         Pattern pattern = Pattern.compile(regex);
-        check = pattern.matcher(str).matches();
-
-        return check;
-    }
-    public boolean isValidSpace(String str){
-        return  !str.trim().isEmpty() && str != null;
+        return !pattern.matcher(str).matches();
     }
 
-    
-    
+    public boolean isValidEmpty(String str) {
+        return str.trim().isEmpty() || str == null;
+    }
+
     public static void main(String[] args) {
-        System.out.println();
+        Validation validation = new Validation();
+
     }
 }
