@@ -173,7 +173,7 @@
                                                 </a>
                                             </td>
                                             <td>${category.getDescription()}</td>
-                                            <td style="width: 20px">${category.getCreateAt()}</td>
+                                            <td>${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
 

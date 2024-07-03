@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-
 /**
  *
  * @author ROG
@@ -30,20 +29,22 @@ public class CategoriesDAO extends DBContext {
         }
 
     }
-     public void updateCategory(String name, String description, int status, Date date,int categoryId){
+
+    public void updateCategory(String name, String description, int status, Date date, int categoryId) {
         String sql = "Update Categories set CategoryName= ?, Description = ? , CreateAt = ?,status = ? where CategoryID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
-           ur.setString(1, name);
-           ur.setString(2, description);
-           ur.setDate(3,  (Date) date);
-           ur.setInt(4, status);
-           ur.setInt(5, categoryId);
+            ur.setString(1, name);
+            ur.setString(2, description);
+            ur.setDate(3, (Date) date);
+            ur.setInt(4, status);
+            ur.setInt(5, categoryId);
             ur.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
     public List<Categories> loadCategory() {
         List<Categories> categories = new ArrayList<>();
         String sql = "SELECT * FROM [dbo].[Categories]";
@@ -202,20 +203,20 @@ public class CategoriesDAO extends DBContext {
         return null;
     }
 
-    public void insertCategory(String name, String description, int status) {
+    public void insertCategory(String name, String description, Date date,int status) {
         String sql = "INSERT INTO [dbo].[Categories]\n"
                 + "           ([CategoryName]\n"
                 + "           ,[Description]\n"
-                + "           ,[status])\n"
+                + "           ,[CreateAt]\n"
+                + "           ,[Status])\n"
                 + "     VALUES\n"
-                + "           (?\n"
-                + "           ,?\n"
-                + "           ,?)";
+                + "           (?,?,?,?) ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, name);
             st.setString(2, description);
-            st.setInt(3, status);
+            st.setDate(3, date);
+            st.setInt(4, status);
             st.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);

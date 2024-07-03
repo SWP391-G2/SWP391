@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class CategoryController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,8 +101,8 @@ public class CategoryController extends HttpServlet {
         String categorieName = request.getParameter("name");
         String categorieDescription = request.getParameter("description");
         CategoriesDAO cDAO = new CategoriesDAO();
-
-        cDAO.insertCategory(categorieName, categorieDescription, 1);
+        Date date = new Date(System.currentTimeMillis());
+        cDAO.insertCategory(categorieName, categorieDescription, date, 1);
 
         request.getRequestDispatcher("category").forward(request, response);
     }
