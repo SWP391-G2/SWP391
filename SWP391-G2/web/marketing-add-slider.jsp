@@ -97,7 +97,13 @@
 
                             <label>Title</label>
                             <input type="text" name="title" class="form-control" required>
-
+                            <div class="form-group">
+                                <label for="status">Status:</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
+                                    <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="productID">Image:</label>
                                 <div class="image-preview-container">
@@ -131,17 +137,17 @@
         crossorigin="anonymous"></script>
 
         <script>
-                                                function updatePreview(event) {
-                                                    var input = event.target;
-                                                    var reader = new FileReader();
+                                            function updatePreview(event) {
+                                                var input = event.target;
+                                                var reader = new FileReader();
 
-                                                    reader.onload = function () {
-                                                        var imgElement = document.getElementById('previewImage');
-                                                        imgElement.src = reader.result;
-                                                    }
-
-                                                    reader.readAsDataURL(input.files[0]);
+                                                reader.onload = function () {
+                                                    var imgElement = document.getElementById('previewImage');
+                                                    imgElement.src = reader.result;
                                                 }
+
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
 
         </script>
     </body>

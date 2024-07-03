@@ -165,7 +165,12 @@
 
                         </div>
 
-
+                        <% String message = (String) request.getAttribute("message"); %>
+                        <% if (message != null && !message.isEmpty()) { %>
+                        <div class="alert alert-info justify-content-center">
+                            <%= message %>
+                        </div>
+                        <% } %>
 
                         <div class="card-body">
                             <div class="table-responsive"  id="contentt">
@@ -192,20 +197,16 @@
                                                 <td class="text_page">${slider.updateAt}</td>
                                                 <td class="text_page">${slider.accountId}</td>
                                                 <td class="text_page">
-                                                    <c:if test="${slider.sliderStatus > 0}">
-                                                        <input  type="number" min="1" onchange="updateStatus(this)"
-                                                                value="${slider.sliderStatus}" data-id="${slider.sliderID}">
-                                                    </c:if>
                                                     <c:choose>
-                                                        <c:when test="${slider.sliderStatus > 0}">
-                                                            <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}">
+                                                        <c:when test="${slider.sliderStatus == 1}">
+                                                            <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}" onclick="return confirmAction('block');">
                                                                 <button type="button" class="btn btn-danger">
                                                                     Hide
                                                                 </button>
                                                             </a>
                                                         </c:when>
                                                         <c:when test="${slider.sliderStatus == 0}">
-                                                            <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}">
+                                                            <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}" onclick="return confirmAction('unblock');">
                                                                 <button type="button" class="btn btn-success">
                                                                     View
                                                                 </button>
@@ -213,9 +214,9 @@
                                                         </c:when>
                                                     </c:choose>
                                                 </td>
+
                                                 <td class="text_page">
-                                                    <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
-                                                    <a href=""><button type="button" class="btn btn-danger delete-btn"><i class="fa-solid fa-trash"></i></button></a>
+                                                    <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>                                                  
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -251,7 +252,7 @@
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog" style="margin: 28px 500px">
                 <div class="modal-content" style="width: 1000px; max-height: 900px; overflow: scroll">
-                    <form action="addproduct" enctype="multipart/form-data">
+                    <form action="addSlider" enctype="multipart/form-data">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add New Slider</h4>
                         </div>
@@ -259,6 +260,13 @@
                             <div class="form-group">
                                 <label>Slider Title</label>
                                 <input name="name" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status:</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
+                                    <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="productID">Image:</label>
@@ -269,11 +277,11 @@
                                     </div>
                                 </div>
                             </div>
-                                      
+
                         </div>
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" onclick="submitForm()" class="btn btn-success" value="Add">
+                            <input type="submit" class="btn btn-success" value="Add">
                         </div>
                     </form>
                 </div>
@@ -286,18 +294,7 @@
                 window.location.href = './updateStatusSlider?status=' + slider.value + '&sliderId=' + slider.dataset.id;
 
             }
-            document.addEventListener("DOMContentLoaded", function () {
-                const deleteButtons = document.querySelectorAll('.delete-btn');
-                deleteButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        const sliderID = this.closest('tr').querySelector('td:first-child').innerText;
-                        if (confirm(`Are you sure you want to delete slider?`)) {
-                            alert(`Slider Deleted !`);
-                            // Implement the actual delete functionality here
-                        }
-                    });
-                });
-            });
+
             function updatePreview(event) {
                 var input = event.target;
                 var reader = new FileReader();
@@ -309,12 +306,13 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
-            
-        </script>
+            function confirmAction(action) {
+                let message = action === 'block' ? 'Are you sure you want to block this slider?' : 'Are you sure you want to unblock this slider?';
+                return confirm(message);
+            }
 
-        <!-- =========== Scripts =========  -->
+        </script>
         <script src="js/admin_manager.js"></script>
-        <!-- ====== ionicons ======= -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

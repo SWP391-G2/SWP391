@@ -20,6 +20,29 @@ public class SliderDAO extends DBContext {
 
     public List<Sliders> getAll() {
         List<Sliders> slider = new ArrayList<>();
+        String sql = "select * from Sliders where SliderStatus = 1";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                slider.add(new Sliders(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getInt(6)
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return slider;
+    }
+
+     public List<Sliders> getAllActiveStatus() {
+        List<Sliders> slider = new ArrayList<>();
         String sql = "select * from Sliders";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -40,32 +63,9 @@ public class SliderDAO extends DBContext {
         }
         return slider;
     }
-
-    public List<Sliders> getAllActiveSliders() {
-        List<Sliders> slider = new ArrayList<>();
-        String sql = "SELECT SliderID, SliderImage, SliderTitle, SliderStatus, UpdateAt, AccountID FROM Sliders WHERE SliderStatus = 1";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                slider.add(new Sliders(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getDate(5),
-                        rs.getInt(6)
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return slider;
-    }
-
     //Get Slider by SliderID
-       public Sliders getSliderById(int sliderID) {
-        String sql = "SELECT SliderID, SliderImage, SliderTitle, SliderStatus, UpdateAt, AccountID FROM Sliders WHERE SliderID = ?";
+    public Sliders getSliderById(int sliderID) {
+        String sql = "SELECT SliderID, SliderImage, SliderTitle, SliderStatus, UpdateAt, AccountID FROM Sliders WHERE SliderID = ? AND SliderStatus = 1";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, sliderID);
             try (ResultSet rs = ps.executeQuery()) {
@@ -104,7 +104,7 @@ public class SliderDAO extends DBContext {
 
     //UPDATE SLIDER
     public void updateSlider(Sliders slider) {
-        String sql = "UPDATE Sliders SET SliderImage = ?, SliderTitle = ?, update_at = ?, SliderStatus = ?, fk_account_id = ? WHERE SliderID = ?";
+        String sql = "UPDATE Sliders SET SliderImage = ?, SliderTitle = ?, UpdateAt = ?, SliderStatus = ?, AccountID = ? WHERE SliderID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, slider.getSliderID());
             preparedStatement.setString(2, slider.getSliderImage());
@@ -118,24 +118,27 @@ public class SliderDAO extends DBContext {
         }
     }
 
-    //DELETE SLIDER
-    public void deleteSlider(int sliderID) {
-        String sql = "DELETE FROM Sliders WHERE SliderID = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, sliderID);
-            preparedStatement.executeUpdate();
+    public boolean updateSliderStatus(int sliderId, int status) {
+        String sql = "UPDATE Sliders SET SliderStatus = ? WHERE SliderID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, status);
+            ps.setInt(2, sliderId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public static void main(String[] args) {
         SliderDAO Sdao = new SliderDAO();
-       
-        
-        int sliderID = 1; // Example sliderID
-        Sliders slider = Sdao.getSliderById(sliderID);
-        System.out.println(slider);
+
+        List<Sliders> slider = Sdao.getAll();
+        for (Sliders sliders : slider) {
+            System.out.println(sliders.getSliderID());
+        }
 
     }
 }

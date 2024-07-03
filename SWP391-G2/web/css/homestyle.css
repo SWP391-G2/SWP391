@@ -1862,23 +1862,10 @@ h6 {
     opacity: 1;
 }
 
-.single_product:hover .product_thumb a.secondary_img {
-    opacity: 1;
-    visibility: visible;
+.single_product .product_thumb {
+    position: relative;
 }
 
-.product_thumb {
-    position: fixed;
-}
-
-.product_thumb a.secondary_img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    opacity: 0;
-    visibility: hidden;
-}
 
 .product_thumb::before {
     background: rgba(0, 0, 0, 0.15);
@@ -2034,7 +2021,7 @@ i.fa.fa-eye{
 }
 .price_box span.current_price {
     font-weight: 700;
-    font-size: 12px;
+    font-size: 15px;
     color: #000;
 }
 

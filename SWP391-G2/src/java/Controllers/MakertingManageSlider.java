@@ -59,7 +59,7 @@ public class MakertingManageSlider extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SliderDAO sliDAO = new SliderDAO();
-        List<Sliders> slider = sliDAO.getAll();
+        List<Sliders> slider = sliDAO.getAllActiveStatus();
 
         request.setAttribute("sliderList", slider);
         request.getRequestDispatcher("marketing-manage-sliders.jsp").forward(request, response);

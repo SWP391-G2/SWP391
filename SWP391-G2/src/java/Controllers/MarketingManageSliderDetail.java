@@ -43,60 +43,59 @@ public class MarketingManageSliderDetail extends HttpServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String id = request.getParameter("id");
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String id = request.getParameter("id");
 
-        String uploadFolder = getServletContext().getRealPath("") + "../../web/images/Sliders/";
+    String uploadFolder = getServletContext().getRealPath("") + "../../web/images/Sliders/";
 
-        File folder = new File(uploadFolder);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        Part filePart = request.getPart("image");
-        String fileName = id + ".jpg";
-        OutputStream out = null;
-        InputStream fileContent = null;
-
-        try {
-            out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-            fileContent = filePart.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
-            while ((read = fileContent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (fileContent != null) {
-                fileContent.close();
-            }
-        }
-
-        String title = request.getParameter("title");
-        String status = request.getParameter("status");
-    
-        // Tạo đối tượng Date hiện tại để làm updatedAt
-        Date updateAt = new Date();
-
-        Sliders slider = new Sliders();
-        slider.setSliderID(Integer.parseInt(id));
-        slider.setSliderImage(fileName);
-        slider.setSliderTitle(title);
-        slider.setSliderStatus(Integer.parseInt(status));
-//        slider.setUpdatedAt(updateAt); 
-
-        new SliderDAO().updateSlider(slider);
-
-        response.sendRedirect("manageSlider");
+    File folder = new File(uploadFolder);
+    if (!folder.exists()) {
+        folder.mkdirs();
     }
 
+    Part filePart = request.getPart("image");
+    String fileName = id + ".jpg";
+    OutputStream out = null;
+    InputStream fileContent = null;
+
+    try {
+        out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
+        fileContent = filePart.getInputStream();
+        int read = 0;
+        final byte[] bytes = new byte[1024];
+
+        while ((read = fileContent.read(bytes)) != -1) {
+            out.write(bytes, 0, read);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        if (fileContent != null) {
+            fileContent.close();
+        }
+    }
+
+    String title = request.getParameter("title");
+    String status = request.getParameter("status");
+
+    // Tạo đối tượng Date hiện tại để làm updatedAt
+    Date updateAt = new Date();
+
+    Sliders slider = new Sliders();
+    slider.setSliderID(Integer.parseInt(id));
+    slider.setSliderImage(fileName);
+    slider.setSliderTitle(title);
+    slider.setSliderStatus(Integer.parseInt(status));
+    slider.setUpdateAt(updateAt); // Khởi tạo updatedAt ở đây
+
+    new SliderDAO().updateSlider(slider);
+
+    response.sendRedirect("manageSlider");
+}
 
     
     @Override

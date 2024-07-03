@@ -4,7 +4,6 @@
  */
 package Models;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -12,53 +11,45 @@ import java.util.Date;
  * @author pna29
  */
 public class WistlistItem {
-    private String image;
-    private String productName;
-    private String size;
-    private BigDecimal price;
+    private int wishlistId;
+    private int accountId;
+    private int productId;
     private Date wishlistDate;
+
+
 
     public WistlistItem() {
     }
 
-    public WistlistItem(String image, String productName, String size, BigDecimal price, Date wishlistDate) {
-        this.image = image;
-        this.productName = productName;
-        this.size = size;
-        this.price = price;
+    public WistlistItem(int wishlistId, int accountId, int productId, Date wishlistDate) {
+        this.wishlistId = wishlistId;
+        this.accountId = accountId;
+        this.productId = productId;
         this.wishlistDate = wishlistDate;
     }
 
-    public String getImage() {
-        return image;
+    public int getWishlistId() {
+        return wishlistId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setWishlistId(int wishlistId) {
+        this.wishlistId = wishlistId;
     }
 
-    public String getProductName() {
-        return productName;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public String getSize() {
-        return size;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public Date getWishlistDate() {
@@ -68,6 +59,6 @@ public class WistlistItem {
     public void setWishlistDate(Date wishlistDate) {
         this.wishlistDate = wishlistDate;
     }
-    
-    
+
+  
 }

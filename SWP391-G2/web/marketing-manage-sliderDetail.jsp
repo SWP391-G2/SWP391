@@ -61,17 +61,17 @@
                                 </div> 
                                 <div class="form-group">
                                     <label>Slider Title</label>
-                                    <input value="${slider.sliderTitle}" name="name" type="text" class="form-control" required>
+                                    <input value="${slider.sliderTitle}" name="title" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status:</label>
                                     <select class="form-control" id="status" name="status">
-                                        <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
-                                        <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
+                                        <option value="1" ${slider.sliderStatus == 1 ? 'selected' : ''}>View</option>
+                                        <option value="0" ${slider.sliderStatus == 0 ? 'selected' : ''}>Hide</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="productID">Picture Product:</label>
+                                    <label for="image">Picture Product:</label>
                                     <div class="image-preview-container">
                                         <img id="previewImage" class="image-preview" src="${slider.sliderImage}" alt="Preview Image"/>
                                         <div class="file-input">
@@ -79,18 +79,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                               <div class="form-group">
                                     <input type="hidden" id="stringdateolb" value="${slider.updateAt}">
                                     <label style="margin-bottom: 10px; width: 100%">Update At:</label>
                                     <input type="hidden" name="date" value="" id="here"/>
                                     <select class="bear-dates" id="dobDay"></select>
                                     <select class="bear-months" id="dobMonth"></select>
                                     <select class="bear-years" id="dobYear"></select>
-                                </div>                                          
+                                </div>                                                                                                             
                             </div>
                             <div class="modal-footer">
-
-                                <input onclick="submitForm()" type="button" class="btn btn-success" value="Edit">
+                                <a href="manageSlider"><button type="button" class="btn btn-secondary" >Close</button></a>
+                                <input type="submit" class="btn btn-success" value="Edit">
                             </div>
                         </form>
                     </div>
@@ -113,59 +113,59 @@
         <script src="js/clickevents.js"></script>
         <script src="js/calender.js"></script>
         <script  type="text/javascript">
-                                    function addOption(selectElement, value, text) {
-                                        var option = document.createElement("option");
-                                        option.value = value;
-                                        option.text = text;
-                                        selectElement.add(option);
-                                    }
+                            function addOption(selectElement, value, text) {
+                                var option = document.createElement("option");
+                                option.value = value;
+                                option.text = text;
+                                selectElement.add(option);
+                            }
 
-                                    var defaultReleaseDate = document.getElementById("stringdateolb").value;
-                                    var defaultDateArray = defaultReleaseDate.split('-');
-                                    var defaultDay = parseInt(defaultDateArray[2]);
-                                    var defaultMonth = parseInt(defaultDateArray[1]);
-                                    var defaultYear = parseInt(defaultDateArray[0]);
+                            var defaultReleaseDate = document.getElementById("stringdateolb").value;
+                            var defaultDateArray = defaultReleaseDate.split('-');
+                            var defaultDay = parseInt(defaultDateArray[2]);
+                            var defaultMonth = parseInt(defaultDateArray[1]);
+                            var defaultYear = parseInt(defaultDateArray[0]);
 
-                                    var daysSelect = document.getElementById('dobDay');
-                                    var monthsSelect = document.getElementById('dobMonth');
-                                    var yearsSelect = document.getElementById('dobYear');
+                            var daysSelect = document.getElementById('dobDay');
+                            var monthsSelect = document.getElementById('dobMonth');
+                            var yearsSelect = document.getElementById('dobYear');
 
-                                    for (var day = 1; day <= 31; day++) {
-                                        addOption(daysSelect, day, day);
-                                    }
+                            for (var day = 1; day <= 31; day++) {
+                                addOption(daysSelect, day, day);
+                            }
 
-                                    for (var month = 1; month <= 12; month++) {
-                                        addOption(monthsSelect, month, month);
-                                    }
+                            for (var month = 1; month <= 12; month++) {
+                                addOption(monthsSelect, month, month);
+                            }
 
-                                    var currentYear = new Date().getFullYear();
-                                    for (var year = currentYear; year >= 1900; year--) {
-                                        addOption(yearsSelect, year, year);
-                                    }
+                            var currentYear = new Date().getFullYear();
+                            for (var year = currentYear; year >= 1900; year--) {
+                                addOption(yearsSelect, year, year);
+                            }
 
-                                    daysSelect.value = defaultDay;
-                                    monthsSelect.value = defaultMonth;
-                                    yearsSelect.value = defaultYear;
-                                    function submitForm() {
-                                        var here = document.querySelector('#here');
-                                        var form = document.getElementById('form');
-                                        var dobDay = document.getElementById('dobDay').value;
-                                        var dobMonthText = document.getElementById('dobMonth').value;
-                                        var dobMonth = monthNameToNumber(dobMonthText);
-                                        var dobYear = document.getElementById('dobYear').value;
-                                        if (dobMonth < 10 && dobDay < 10) {
-                                            dobFull = dobYear + '-0' + dobMonth + '-0' + dobDay;
-                                        } else if (dobMonth < 10 && !(dobDay < 10)) {
-                                            dobFull = dobYear + '-0' + dobMonth + '-' + dobDay;
-                                        } else if (dobDay < 10 && !(dobMonth < 10)) {
-                                            dobFull = dobYear + '-' + dobMonth + '-0' + dobDay;
-                                        } else {
-                                            dobFull = dobYear + '-' + dobMonth + '-' + dobDay;
-                                        }
+                            daysSelect.value = defaultDay;
+                            monthsSelect.value = defaultMonth;
+                            yearsSelect.value = defaultYear;
+                            function submitForm() {
+                                var here = document.querySelector('#here');
+                                var form = document.getElementById('form');
+                                var dobDay = document.getElementById('dobDay').value;
+                                var dobMonthText = document.getElementById('dobMonth').value;
+                                var dobMonth = monthNameToNumber(dobMonthText);
+                                var dobYear = document.getElementById('dobYear').value;
+                                if (dobMonth < 10 && dobDay < 10) {
+                                    dobFull = dobYear + '-0' + dobMonth + '-0' + dobDay;
+                                } else if (dobMonth < 10 && !(dobDay < 10)) {
+                                    dobFull = dobYear + '-0' + dobMonth + '-' + dobDay;
+                                } else if (dobDay < 10 && !(dobMonth < 10)) {
+                                    dobFull = dobYear + '-' + dobMonth + '-0' + dobDay;
+                                } else {
+                                    dobFull = dobYear + '-' + dobMonth + '-' + dobDay;
+                                }
 
-                                        here.value = dobFull;
-                                        form.submit();
-                                    }
+                                here.value = dobFull;
+                                form.submit();
+                            }
         </script>
         <script>
             function updatePreview(event) {
@@ -179,12 +179,7 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
-            function updateUpdatedAt() {
-                const updatedAtField = document.getElementById('updatedAt');
-                const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                updatedAtField.value = currentDate;
-            }
-
+        
         </script>
     </body>
 </html>
