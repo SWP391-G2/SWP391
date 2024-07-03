@@ -37,7 +37,9 @@
         }
 
 
-
+        th {
+            white-space: nowrap;
+        }
         .custom-button {
             background: none; /* Không có màu nền */
             border: none; /* Bỏ viền */
@@ -157,6 +159,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Name</th>             
                                         <th scope="col">Description</th>
+                                        <th scope="col">Create Date</th>
                                         <th scope="col">Details</th>
                                     </tr>
                                 </thead>
@@ -170,6 +173,7 @@
                                                 </a>
                                             </td>
                                             <td>${category.getDescription()}</td>
+                                            <td style="width: 20px">${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
 

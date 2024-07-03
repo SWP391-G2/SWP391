@@ -6,12 +6,13 @@ package Dal;
 
 import context.DBContext;
 import Models.Categories;
-import Models.SubCategories;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
+
 
 /**
  *
@@ -29,14 +30,15 @@ public class CategoriesDAO extends DBContext {
         }
 
     }
-     public void updateCategory(String name, String description, int status, int categoryId){
-        String sql = "Update Brands set CategoryName= ?, Description = ? , status = ? where CategoryID = ?";
+     public void updateCategory(String name, String description, int status, Date date,int categoryId){
+        String sql = "Update Categories set CategoryName= ?, Description = ? , CreateAt = ?,status = ? where CategoryID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
            ur.setString(1, name);
            ur.setString(2, description);
-           ur.setInt(3, status);
-           ur.setInt(4, categoryId);
+           ur.setDate(3,  (Date) date);
+           ur.setInt(4, status);
+           ur.setInt(5, categoryId);
             ur.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -50,10 +52,11 @@ public class CategoriesDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Categories category = new Categories(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("Description"),
-                        rs.getInt("status")
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5)
                 );
                 categories.add(category);
             }
@@ -105,10 +108,11 @@ public class CategoriesDAO extends DBContext {
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Categories category = new Categories(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("Description"),
-                        rs.getInt("status"));
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5));
                 listCategory.add(category);
             }
         } catch (Exception e) {
@@ -186,10 +190,11 @@ public class CategoriesDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new Categories(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("Description"),
-                        rs.getInt("status"));
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5));
             }
         } catch (SQLException e) {
 

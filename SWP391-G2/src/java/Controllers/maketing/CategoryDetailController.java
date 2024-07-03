@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -111,7 +112,6 @@ public class CategoryDetailController extends HttpServlet {
         String search = "";
         int status = -1;
         int pageNo = 1;
-        final int pageSize = 10;
         CategoriesDAO categoryDAO = new CategoriesDAO();
         try {
             statusnew = Integer.parseInt(status_raw);
@@ -122,7 +122,8 @@ public class CategoryDetailController extends HttpServlet {
         } catch (Exception e) {
 
         }
-        categoryDAO.updateCategory(categoryName, categoryDescription, statusnew, categoryID);
+        Date date = new Date(System.currentTimeMillis());
+        categoryDAO.updateCategory(categoryName, categoryDescription, status, date, categoryID);
         response.sendRedirect("category?search=" + search + "&categoryID=" + categoryID + "&status=" + status + "&pageNo=" + pageNo);
     }
 
