@@ -140,6 +140,5 @@ public class Accounts {
         this.role = role;
     }
 
-  
-
+   
 }

@@ -77,28 +77,20 @@
         <servlet-class>Controllers.guest.blog.BlogDetailsController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingManagerment</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingManagerProducts</servlet-class>
+        <servlet-name>FeedbackProduct</servlet-name>
+        <servlet-class>Controllers.shop.feedback.FeedbackProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingAddNewProduct</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingAddNewProduct</servlet-class>
+        <servlet-name>CategoryController</servlet-name>
+        <servlet-class>Controllers.maketing.CategoryController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingUpdateProduct</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingUpdateProduct</servlet-class>
+        <servlet-name>CategoryDetailController</servlet-name>
+        <servlet-class>Controllers.maketing.CategoryDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingAddProductDetail</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingAddProductDetail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MarketingManagerProductDetail</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingManagerProductDetail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MarketingUpdateProductDetail</servlet-name>
-        <servlet-class>Controllers.marketing.MarketingUpdateProductDetail</servlet-class>
+        <servlet-name>AddReplyFeedback</servlet-name>
+        <servlet-class>Controllers.shop.feedback.AddReplyFeedback</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -177,27 +169,19 @@
         <url-pattern>/blogDetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarketingManagerment</servlet-name>
-        <url-pattern>/marketing-manager-products</url-pattern>
+        <servlet-name>FeedbackProduct</servlet-name>
+        <url-pattern>/feedbackproduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarketingAddNewProduct</servlet-name>
-        <url-pattern>/add-new-product</url-pattern>
+        <servlet-name>CategoryController</servlet-name>
+        <url-pattern>/category</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarketingUpdateProduct</servlet-name>
-        <url-pattern>/update-product</url-pattern>
+        <servlet-name>CategoryDetailController</servlet-name>
+        <url-pattern>/categorydetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarketingAddProductDetail</servlet-name>
-        <url-pattern>/add-product-detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MarketingManagerProductDetail</servlet-name>
-        <url-pattern>/product-detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MarketingUpdateProductDetail</servlet-name>
-        <url-pattern>/update-product-detail</url-pattern>
+        <servlet-name>AddReplyFeedback</servlet-name>
+        <url-pattern>/addreply</url-pattern>
     </servlet-mapping>
 </web-app>

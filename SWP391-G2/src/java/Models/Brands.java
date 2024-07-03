@@ -25,12 +25,6 @@ public class Brands {
         this.status = status;
     }
 
-    public Brands(String BrandName, String Description, int status) {
-        this.BrandName = BrandName;
-        this.Description = Description;
-        this.status = status;
-    }
-
     public int getBrandID() {
         return BrandID;
     }
@@ -63,4 +57,7 @@ public class Brands {
         this.status = status;
     }
 
+  
+   
+        
 }

@@ -16,7 +16,7 @@ public class ProductDetail {
     private int pdProductID;
     private String ProductDescription;
     private Date ProductCreateDate;
-    private int ProductStatus;
+    private boolean ProductStatus;
     private String ProductSize;
     private Float ProductPrice;
     private int ProductAvaiable;
@@ -25,29 +25,7 @@ public class ProductDetail {
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductFullDetailID, String ProductDescription, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
-        this.ProductFullDetailID = ProductFullDetailID;
-        this.ProductDescription = ProductDescription;
-        this.ProductStatus = ProductStatus;
-        this.ProductSize = ProductSize;
-        this.ProductPrice = ProductPrice;
-        this.ProductAvaiable = ProductAvaiable;
-        this.image = image;
-    }
-
-    
-    public ProductDetail(int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
-        this.pdProductID = pdProductID;
-        this.ProductDescription = ProductDescription;
-        this.ProductCreateDate = ProductCreateDate;
-        this.ProductStatus = ProductStatus;
-        this.ProductSize = ProductSize;
-        this.ProductPrice = ProductPrice;
-        this.ProductAvaiable = ProductAvaiable;
-        this.image = image;
-    }
-
-    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
+    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
         this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
         this.ProductDescription = ProductDescription;
@@ -91,11 +69,11 @@ public class ProductDetail {
         this.ProductCreateDate = ProductCreateDate;
     }
 
-    public int getProductStatus() {
+    public boolean getProductStatus() {
         return ProductStatus;
     }
 
-    public void setProductStatus(int ProductStatus) {
+    public void setProductStatus(boolean ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
 
@@ -131,8 +109,5 @@ public class ProductDetail {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDetail{" + "ProductFullDetailID=" + ProductFullDetailID + ", pdProductID=" + pdProductID + ", ProductDescription=" + ProductDescription + ", ProductCreateDate=" + ProductCreateDate + ", ProductStatus=" + ProductStatus + ", ProductSize=" + ProductSize + ", ProductPrice=" + ProductPrice + ", ProductAvaiable=" + ProductAvaiable + ", image=" + image + '}';
-    }
+    
 }

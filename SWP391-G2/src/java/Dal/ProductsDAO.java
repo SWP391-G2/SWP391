@@ -20,7 +20,52 @@ import java.sql.Date;
  * @author ROG
  */
 public class ProductsDAO extends DBContext {
+    public Products getProduct(int id) {
+        String sql = "select * from Products where ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Products(
+                        rs.getInt(1),               
+                        rs.getString(2),
+                        rs.getDate(3),                        
+                        rs.getInt(4),
+                        rs.getString(5),                                        
+                        rs.getInt(6),
+                        rs.getInt(7)
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public List<Products> getProductSimilar(int id) {
+        List<Products> p = new ArrayList<>();
+        String sql = "select * from Products where BrandID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                p.add(new Products(
+                        rs.getInt(1),               
+                        rs.getString(2),
+                        rs.getDate(3),                        
+                        rs.getInt(4),
+                        rs.getString(5),                                        
+                        rs.getInt(6),
+                        rs.getInt(7)
+                ));
+            }
 
+        } catch (SQLException e) {
+
+        }
+        return p;
+    }
     public List<Products> loadProducts() {
         List<Products> pro = new ArrayList<>();
         String sql = "select * from Products";
@@ -28,16 +73,15 @@ public class ProductsDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
-                pro.add(new Products(
-                        rs.getInt(1),
+                pro.add(new  Products(
+                        rs.getInt(1),               
                         rs.getString(2),
-                        rs.getDate(3),
+                        rs.getDate(3),                        
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(5),                                        
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getInt(7)
+                ));
             }
 
         } catch (SQLException e) {
@@ -55,15 +99,15 @@ public class ProductsDAO extends DBContext {
             ps.setInt(1, (index - 1) * 12);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                pro.add(new Products(
-                        rs.getInt(1),
+                pro.add(new  Products(
+                        rs.getInt(1),               
                         rs.getString(2),
-                        rs.getDate(3),
+                        rs.getDate(3),                        
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(5),                                        
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getInt(7)
+                ));
             }
 
         } catch (SQLException e) {
@@ -119,15 +163,15 @@ public class ProductsDAO extends DBContext {
             ps.setInt(1, categoryid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt(1),
+                Products product = new  Products(
+                        rs.getInt(1),               
                         rs.getString(2),
-                        rs.getDate(3),
+                        rs.getDate(3),                        
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(5),                                        
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7)
+                );
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -147,15 +191,15 @@ public class ProductsDAO extends DBContext {
             ps.setInt(1, subcategoryid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt(1),
+                Products product = new  Products(
+                        rs.getInt(1),               
                         rs.getString(2),
-                        rs.getDate(3),
+                        rs.getDate(3),                        
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(5),                                        
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7)
+                );
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -172,17 +216,16 @@ public class ProductsDAO extends DBContext {
             ur.setInt(1, id);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt(1),
+                Products p = new  Products(
+                        rs.getInt(1),               
                         rs.getString(2),
-                        rs.getDate(3),
+                        rs.getDate(3),                        
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(5),                                        
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
-
-                return product;
+                        rs.getInt(7)
+                );
+                return p;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -191,84 +234,6 @@ public class ProductsDAO extends DBContext {
         return null;
     }
 
-    public ArrayList<Products> getListProductByFilter(int cateId, int status, String search, int brandId, int pageNo, int pageSize) {
-        ArrayList<Products> listProduct = new ArrayList<>();
-        Products product = new Products();
-        String sql = "select * from Products";
-        boolean whereAdded = false;
-        if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
-            sql += " WHERE";
-            if (cateId != -1) {
-                sql += " fk_category_id = ?";
-                whereAdded = true;
-            }
-            if (status != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
-                sql += " ProductStatus = ?";
-                whereAdded = true;
-            }
-            if (brandId != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
-                sql += " BrandID = ?";
-                whereAdded = true;
-            }
-            if (!search.isEmpty()) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
-                sql += " (ProductName LIKE ?)";
-            }
-        }
-
-        sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        System.out.println(sql);
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            int parameterIndex = 1;
-            if (cateId != -1) {
-                st.setInt(parameterIndex, cateId);
-                parameterIndex++;
-            }
-            if (status != -1) {
-                st.setInt(parameterIndex, status);
-                parameterIndex++;
-            }
-            if (brandId != -1) {
-                st.setInt(parameterIndex, brandId);
-                parameterIndex++;
-            }
-            if (!search.isEmpty()) {
-                st.setString(parameterIndex, "%" + search + "%");
-                parameterIndex++;
-
-            }
-            //set the limit and offset parameters for pagination
-            st.setInt(parameterIndex, (pageNo - 1) * pageSize);
-            parameterIndex++;
-            st.setInt(parameterIndex, pageSize);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                product = new Products(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
-                listProduct.add(product);
-            }
-
-        } catch (Exception e) {
-
-        }
-        return listProduct;
-    }
 
     public int getTotalPage(int cateId, int status, String search, int brandId, int pageSize) {
         String sql = "select count(*) from Products";

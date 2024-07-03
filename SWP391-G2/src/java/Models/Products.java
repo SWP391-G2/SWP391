@@ -12,88 +12,66 @@ import java.sql.Date;
  */
 public class Products {
 
-    private int productID;
-    private String productName;
-    private Date productCreateDate;
-    private int productStatus;
-    private String productImageUrl;
+    private int ProductID;
+    private String ProductName;
+    private Date ProductCreateDate;
+    private int ProductStatus;
+    private String ProductImageUrl;
     private int BrandID;
-    private int fk_category_id;
-    private String UpdateDescription;
-
-    public Products(int productID, String productName, int productStatus, String productImageUrl, int BrandID, int fk_category_id) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productStatus = productStatus;
-        this.productImageUrl = productImageUrl;
-        this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-    }
-
-  
-    
-    public Products(int productID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, int fk_category_id, String UpdateDescription) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productCreateDate = productCreateDate;
-        this.productStatus = productStatus;
-        this.productImageUrl = productImageUrl;
-        this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-        this.UpdateDescription = UpdateDescription;
-    }
+    private int CategoryID;
 
     public Products() {
     }
 
-    public Products(String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, int fk_category_id) {
-        this.productName = productName;
-        this.productCreateDate = productCreateDate;
-        this.productStatus = productStatus;
-        this.productImageUrl = productImageUrl;
+    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductStatus, String ProductImageUrl, int BrandID, int CategoryID) {
+        this.ProductID = ProductID;
+        this.ProductName = ProductName;
+        this.ProductCreateDate = ProductCreateDate;
+        this.ProductStatus = ProductStatus;
+        this.ProductImageUrl = ProductImageUrl;
         this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
+        this.CategoryID = CategoryID;
     }
 
     
     public int getProductID() {
-        return productID;
+        return ProductID;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProductID(int ProductID) {
+        this.ProductID = ProductID;
     }
 
     public String getProductName() {
-        return productName;
+        return ProductName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductName(String ProductName) {
+        this.ProductName = ProductName;
     }
 
     public Date getProductCreateDate() {
-        return productCreateDate;
+        return ProductCreateDate;
     }
 
-    public void setProductCreateDate(Date productCreateDate) {
-        this.productCreateDate = productCreateDate;
+    public void setProductCreateDate(Date ProductCreateDate) {
+        this.ProductCreateDate = ProductCreateDate;
     }
 
     public int getProductStatus() {
-        return productStatus;
+        return ProductStatus;
     }
 
-    public void setProductStatus(int productStatus) {
-        this.productStatus = productStatus;
+    public void setProductStatus(int ProductStatus) {
+        this.ProductStatus = ProductStatus;
     }
 
     public String getProductImageUrl() {
-        return productImageUrl;
+        return ProductImageUrl;
     }
 
-    public void setProductImageUrl(String productImageUrl) {
-        this.productImageUrl = productImageUrl;
+    public void setProductImageUrl(String ProductImageUrl) {
+        this.ProductImageUrl = ProductImageUrl;
     }
 
     public int getBrandID() {
@@ -104,20 +82,12 @@ public class Products {
         this.BrandID = BrandID;
     }
 
-    public int getFk_category_id() {
-        return fk_category_id;
+    public int getCategoryID() {
+        return CategoryID;
     }
 
-    public void setFk_category_id(int fk_category_id) {
-        this.fk_category_id = fk_category_id;
-    }
-
-    public String getUpdateDescription() {
-        return UpdateDescription;
-    }
-
-    public void setUpdateDescription(String UpdateDescription) {
-        this.UpdateDescription = UpdateDescription;
+    public void setCategoryID(int CategoryID) {
+        this.CategoryID = CategoryID;
     }
 
 }

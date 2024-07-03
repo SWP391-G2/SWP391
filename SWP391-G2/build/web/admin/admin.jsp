@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : admin
     Created on : Jun 4, 2024, 11:25:56 PM
@@ -26,7 +27,54 @@
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
     </head>
+    <style>
+        .form-control.custom-width {
+            width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
 
+
+        th {
+            white-space: nowrap;
+        }
+        .custom-button {
+            background: none; /* Không có màu nền */
+            border: none; /* Bỏ viền */
+            padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
+            font-size: 16px; /* Kích thước chữ */
+            cursor: pointer; /* Con trỏ chuột */
+            color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
+            text-decoration: none; /* Bỏ gạch chân mặc định */
+            position: relative; /* Để tạo đường gạch ngang bên dưới */
+        }
+
+        .custom-button::after {
+            content: ""; /* Nội dung giả */
+            position: absolute; /* Định vị tuyệt đối */
+            left: 0; /* Căn trái */
+            bottom: 0; /* Căn dưới */
+            width: 0; /* Chiều rộng ban đầu */
+            height: 2px; /* Độ dày của đường gạch ngang */
+            background-color: #1E90FF; /* Màu của đường gạch ngang */
+            transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
+        }
+
+        .custom-button:hover::after {
+            width: 100%; /* Chiều rộng khi hover */
+        }
+
+        .custom-button:focus {
+            outline: none; /* Bỏ viền focus mặc định */
+        }
+
+        .table-button {
+            text-align: center; /* Căn giữa nút bấm trong ô bảng */
+        }
+
+    </style>
     <body>
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
@@ -49,23 +97,26 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
+<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
             <jsp:include page="../public/navigation.jsp"></jsp:include>
+========
+>>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
 
-                <!-- Main Content -->
-                <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
-                        <!-- <div class="toggle">
-            <ion-icon name="menu-outline"></ion-icon>
-        </div>
-        <div class="user">
-            <img src="assets/imgs/customer01.jpg" alt="">
-        </div> -->
-                    </div>
+            <!-- Main Content -->
+            <div class="main" style="margin-left: 50px; margin-right: 50px;">
+                <div class="topbar">
+                    <!-- <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+    <div class="user">
+        <img src="assets/imgs/customer01.jpg" alt="">
+    </div> -->
+                </div>
 
-                    <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
-                        <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
+                <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
+                    <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
-                        <h1>Admin & Manager</h1>
+                        <h1>Category</h1>
 
                     </div>
                     <div class="col-3">
@@ -80,14 +131,7 @@
                         </div>
                     </div>
                     <div class="col-3">
-                        <select class="form-control" id="roleId" name="roleId">
-                            <option value="-1" ${roleId==null ? 'selected' : '' }>All role</option>
-                            <c:forEach items="${listRole}" var="role">
-                                <option value="${role.roleID}" ${role.roleID==roleId ? 'selected' : '' }>
-                                    ${role.roleName}
-                                </option>
-                            </c:forEach>
-                        </select>
+
                     </div>
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
@@ -116,50 +160,39 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Full Name</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Role</th>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>             
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Create Date</th>
                                         <th scope="col">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listUser}" var="user" varStatus="loop">
+                                    <c:forEach items="${listcategory}" var="category" varStatus="loop">
                                         <tr>
-                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td><a onclick="showDetail(${user.getAccountID()},${user.getRole()})">
-                                                    <button type="button" class="border-0 ">${user.getFirstName()}  ${user.getLastName()}</button></a></td>
-                                            <td>${user.getGender()}</td>
-                                            <td>${user.getEmail()}</td>
-                                            <td>${user.getPhone()}</td>
-                                            <td>${user.getAddress()}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${user.getRole() == 1}">Admin</c:when>
-                                                    <c:when test="${user.getRole() == 3}">Marketing</c:when>
-                                                    <c:when test="${user.getRole() == 2}">Saler</c:when>
-                                                    <c:otherwise>User</c:otherwise>
-                                                </c:choose>
+                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>      
+                                            <td class="table-button">
+                                                <a onclick="showDetail(${category.getCategoryID()})">
+                                                    <button type="button" class="custom-button">${category.getCategoryName()}</button>
+                                                </a>
                                             </td>
-
+                                            <td>${category.getDescription()}</td>
+                                            <td>${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
 
                                                 <c:choose>
-                                                    <c:when test="${user.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Admin blocked successfully!',${user.getAccountID()}, 0)">
+                                                    <c:when test="${category.getStatus() == 1}">
+                                                        <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
-                                                                Block
+                                                                View
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${user.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Admin unblocked successfully!',${user.getAccountID()}, 1);">
+                                                    <c:when test="${category.getStatus() == 0}">
+                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${category.getCategoryID()}, 1);">
                                                             <button type="button" class="btn btn-success">
-                                                                UnBlock
+                                                                Hide
                                                             </button>
                                                         </a>
                                                     </c:when>
@@ -227,14 +260,19 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
+<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
                                 <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
+========
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
+>>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="admincontrolaccount" method="post">
+                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
 
                                 <div class="modal-body">
+<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group row">
                                         <div class="col-6">
@@ -249,11 +287,24 @@
                                         </div>
                                     </div>
 
+========
+
+                                    <div class="form-group">
+                                        <label for="categoryName">Category Name</label>
+                                        <input type="text" name="name" class="form-control" id="name" >
+                                        <div id="nameError" class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
+                                        <div id="descriptionError" class="error-message"></div>
+                                    </div>                                 
+>>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="showAddNewSuccessAlert()">Add new</button>
+                                    <button type="submit" class="btn btn-primary" >Add new</button>
                                 </div>
 
                             </form>
@@ -284,9 +335,10 @@
 
 
     <script>
-                                        function showAlert(message, accountID, status1) {
+                                function showAlert(message, categoryID, status1) {
 
 
+<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
                                             if (confirm(message)) {
                                                 const search = document.querySelector('#search').value;
                                                 const roleId = document.querySelector('#roleId').value;
@@ -304,6 +356,69 @@
                                             window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
                                                     '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
                                         }
+========
+                                    if (confirm(message)) {
+                                        const search = document.querySelector('#search').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'category?search=' + search +
+                                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
+                                    }
+                                }
+                                function showDetail(categoryID) {
+                                    const search = document.querySelector('#search').value;
+                                    const status = document.querySelector('#status').value;
+                                    const pageNo = document.querySelector('#pageNo').value;
+                                    window.location.href = 'categorydetail?search=' + search + 
+                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
+                                }
+    </script>
+    <script>
+        function validateForm() {
+            // Lấy giá trị của các input
+            var name = document.getElementById('name').value;
+            var description = document.getElementById('description').value;
+
+            // Lấy các phần tử để hiển thị lỗi
+            var nameError = document.getElementById('nameError');
+            var descriptionError = document.getElementById('descriptionError');
+
+            // Định nghĩa các regex cho kiểm tra input
+            //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
+            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
+            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
+
+            // Xóa thông báo lỗi trước đóx
+            nameError.textContent = '';
+            descriptionError.textContent = '';
+
+            // Kiểm tra input
+            var valid = true;
+            if (!nameRegex.test(name)) {
+                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
+                valid = false;
+            }
+
+            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
+            if (/^\d+$/.test(name)) {
+                nameError.textContent = 'Category Name cannot contain whole numbers.';
+                valid = false;
+            }
+
+            if (/^\s{2,}/.test(name)) {
+                nameError.textContent = 'Category Name cannot start with multiple spaces.';
+                valid = false;
+            }
+
+            if (!descriptionRegex.test(description)) {
+                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
+                valid = false;
+            }
+
+            // Nếu tất cả đều hợp lệ, return true để submit form
+            return valid;
+        }
+>>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
     </script>
     <script>
         // handle filter search
@@ -320,42 +435,29 @@
         });
         function performSearch() {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
 
         // handle filter role
-        const roleId = document.querySelector('#roleId');
-        roleId.addEventListener('change', () => {
-            const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
-            const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                    '&status=' + status + '&pageNo=1';
-        });
-
-        // handle filter status
         const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
+
+
+
 
         // handle pagination
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 
