@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -65,19 +67,21 @@ public class EditAddress extends HttpServlet {
         String emaill = account.getEmail();
         AccountsDAO Accdao = new AccountsDAO();
         Accounts acc = Accdao.getAccount(emaill);
-        int accountid = acc.getAccountID();
+        String addressid = request.getParameter("address_id");
         AddressDAO addressdao = new AddressDAO();
-        Address address = addressdao.getAll(accountid);
-        Address addressid = addressdao.getAdress(accountid);
+        Address address = addressdao.getAddressByAddressID(addressid);
+        
         String defaultCity = address.getCity();
         String defaultDistrict = address.getDistrict();
+        String defaultWard = address.getWards();
 
         request.setAttribute("address", address);
         request.setAttribute("defaultCity", defaultCity);
         request.setAttribute("defaultDistrict", defaultDistrict);
-        // request.setAttribute("defaultWard", defaultWard);
+        request.setAttribute("defaultWard", defaultWard);
+        request.setAttribute("address_id", addressid);
         request.getRequestDispatcher("editaddress.jsp").forward(request, response);
-
+        
     }
 
     /**
@@ -91,7 +95,73 @@ public class EditAddress extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+        String emaill = account.getEmail();
+        AccountsDAO Accdao = new AccountsDAO();
+        Accounts acc = Accdao.getAccount(emaill);
+        int accountid = acc.getAccountID();
+        AddressDAO addressdao = new AddressDAO();
+        String addressid = request.getParameter("address_id");
+        Address address = addressdao.getAddressByAddressID(addressid);
+
+        String phone = request.getParameter("phone");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String ward = request.getParameter("wards");
+        String homeaddress = request.getParameter("homeaddress");
+        String button = request.getParameter("save");
+        boolean status = request.getParameter("status") != null;
+        try {
+
+            if (button != null) {
+                if (isValidPhone(phone)) {
+                    address.setPhone(phone);
+                    address.setCity(city);
+                address.setDistrict(district);
+                address.setWards(ward);
+                address.setAddress_line(homeaddress);
+                if (status) {
+                    address.setStatus(1);
+                } else {
+                    address.setStatus(0);
+                }
+                    System.out.println(city);
+                    System.out.println(district);
+                    System.out.println(ward);
+                addressdao.updateAddress(address);
+                addressdao.changestatus(addressid, accountid);
+                
+                String defaultCity = address.getCity();
+                String defaultDistrict = address.getDistrict();
+                String defaultWard = address.getWards();
+
+                request.setAttribute("address", address);
+                request.setAttribute("defaultCity", defaultCity);
+                request.setAttribute("defaultDistrict", defaultDistrict);
+                request.setAttribute("defaultWard", defaultWard);
+                request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("mess", "phone number fail syntax");
+                    request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+                }
+                
+                
+
+                
+            }
+        } catch (Exception e) {
+            response.getWriter().print(e.getMessage());
+        }
+
+    }
+    private static final String PHONE_REGEX = "^\\(?(\\+\\d{1,3})?\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
+
+    public boolean isValidPhone(String phone) {
+        Pattern pattern = Pattern.compile(PHONE_REGEX);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+
     }
 
     /**

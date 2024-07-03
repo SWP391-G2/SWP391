@@ -90,7 +90,7 @@ public class AddressDetail extends HttpServlet {
         Accounts acc = Accdao.getAccount(emaill);
         int accountid = acc.getAccountID();
         AddressDAO addressdao = new AddressDAO();
-        Address address = addressdao.getAll(accountid);
+        Address address = new Address();
         String phone = request.getParameter("phone");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
@@ -101,12 +101,10 @@ public class AddressDetail extends HttpServlet {
         try {
 
             if (button != null) {
+                address.setAccount_id(accountid);
                 if (isValidPhone(phone)) {
                     address.setPhone(phone);
-                } else {
-                    request.setAttribute("mess", "phone number fail syntax");
-                }
-                address.setCity(city);
+                   address.setCity(city);
                 address.setDistrict(district);
                 address.setWards(ward);
                 address.setAddress_line(homeaddress);
@@ -115,8 +113,14 @@ public class AddressDetail extends HttpServlet {
                 } else {
                     address.setStatus(0);
                 }
-                addressdao.setInsertAddress(address);
+                 addressdao.setInsertAddress(address);
                 response.sendRedirect("./AddressMain");
+                } else {
+                    request.setAttribute("mess", "phone number fail syntax");
+                    request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
+                }
+
+               
             }
         } catch (Exception e) {
             response.getWriter().print(e.getMessage());

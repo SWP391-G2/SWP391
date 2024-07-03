@@ -24,7 +24,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thêm Địa Chỉ Mới</title>
+        <title>Create Your Address</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
@@ -33,7 +33,7 @@
             <form method="POST" action="./AddressDetail">
                 <div class="form-group">
                     <label for="soDienThoai">Phone Number</label>
-                    <input type="tel" class="form-control" id="Phone" name="phone" value="" required>
+                    <input type="text" class="form-control" id="Phone" name="phone" value="" required>
                     <a>${mess}</a>
                 </div>
                 <div>
@@ -45,7 +45,7 @@
                     <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
                         <option value="" selected>Select District</option>
                     </select>
-
+                    <input type="text" id="w" name="ward" hidden="">
                     <select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm">
                         <option value="" selected>Select Wards</option>
                     </select>
@@ -119,6 +119,8 @@
             };
 
             wards.onchange = function () {
+                const ward = wards.options[wards.selectedIndex]?.text || "";
+                document.getElementById('w').setAttribute('value', ward);
                 updateAddress();
             };
         }

@@ -35,7 +35,7 @@
                             <h2>Manage <b>Product</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="./AddressDetail"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+                            <a href="./AddressDetail"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Address</span></a>
                             <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
                         </div>
                     </div>
@@ -54,6 +54,7 @@
                             <th>District</th>
                             <th>wards</th>
                             <th>Home Address</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -77,7 +78,8 @@
                                 <td>
                                     ${o.wards}
                                 </td>
-                                <td>${o.address_line} $</td>
+                                <td>${o.address_line}</td>
+                                <td ${o.status == 1? 'style="color: green;"' : ''}>${o.status == 1? 'Default Address' : ''}</td>
                                 <td>
                                     <a href="./EditAddress?address_id=${o.address_id}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="./DeleteAddress?address_id=${o.address_id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
