@@ -410,6 +410,10 @@ public class ProductsDAO extends DBContext {
         for (ProductsHome products : priceRange) {
             System.out.println(products.getPriceMax());
         }
+          List<ProductsHome> products = productsDAO.loadProducts();
+        for (ProductsHome product : products) {
+            System.out.println(product.getProductName());
+        }
     }
 
 }

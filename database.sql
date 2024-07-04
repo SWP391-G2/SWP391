@@ -415,7 +415,7 @@ CREATE TABLE [dbo].[OrderDetail] (
     FOREIGN KEY (odProductID) REFERENCES [dbo].[Products](ProductID)
 )
 -- Sample data for insertion into OrderDetail table
-
+DROP TABLE IF EXISTS [dbo].[Sliders];
 CREATE TABLE [dbo].[Sliders](
 [SliderID] int PRIMARY KEY IDENTITY(1,1),
 [SliderImage] nvarchar(255) NOT NULL,
@@ -429,8 +429,10 @@ INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[UpdateAt],[SliderStatu
 VALUES
 ('images/Sliders/slider1.jpg','Men Collections','2024-01-01',1,5),
 ('images/Sliders/slider2.jpg','Women Collections','2024-01-01',1,5),
-('images/Sliders/slider3.jpg','Unisex Collections','2024-01-01',1,3)
-
+('images/Sliders/slider3.jpg','Unisex Collections','2024-01-01',1,3),
+('images/Sliders/slider4.jpg','Men Collections','2024-01-01',0,5),
+('images/Sliders/slider5.jpg','Women Collections','2024-01-01',0,5),
+('images/Sliders/slider6.jpg','Unisex Collections','2024-01-01',0,3)
 CREATE TABLE [dbo].[Blog](
 	[blog_id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[title] [nvarchar](max) NULL,

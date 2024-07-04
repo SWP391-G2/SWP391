@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import Models.Sliders;
+import java.beans.Statement;
 
 /**
  *
@@ -88,31 +89,48 @@ public class SliderDAO extends DBContext {
     }
 
     //INSERT SLIDER
-    public void insertSlider(Sliders slider) {
-        String sql = "INSERT INTO Sliders (SliderImage, SliderTitle, SliderStatus, UpdateAt, AccountID) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, slider.getSliderImage());
-            preparedStatement.setString(2, slider.getSliderTitle());
-            preparedStatement.setDate(3, new Date(slider.getUpdateAt().getTime()));
-            preparedStatement.setInt(4, slider.getSliderStatus());
-            preparedStatement.setInt(5, slider.getAccountId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+ public void insertSlider(Sliders slider) {
+    String sql = "INSERT INTO Sliders (SliderImage, SliderTitle, SliderStatus, UpdateAt, AccountID) VALUES (?, ?, ?, ?, ?)";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setString(1, slider.getSliderImage());
+        preparedStatement.setString(2, slider.getSliderTitle());
+        preparedStatement.setInt(3, slider.getSliderStatus());
+        preparedStatement.setDate(4, new java.sql.Date(slider.getUpdateAt().getTime()));
+
+        Integer accountId = slider.getAccountId();
+        if (accountId != null) {
+            preparedStatement.setInt(5, accountId);
+        } else {
+            preparedStatement.setNull(5, java.sql.Types.INTEGER);
         }
+
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
 
     //UPDATE SLIDER
-    public void updateSlider(Sliders slider) {
-        String sql = "UPDATE Sliders SET SliderImage = ?, SliderTitle = ?, UpdateAt = ?, SliderStatus = ?, AccountID = ? WHERE SliderID = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, slider.getSliderID());
-            preparedStatement.setString(2, slider.getSliderImage());
-            preparedStatement.setString(3, slider.getSliderTitle());
-            preparedStatement.setDate(3, new Date(slider.getUpdateAt().getTime()));
-            preparedStatement.setInt(5, slider.getSliderStatus());
-            preparedStatement.setInt(6, slider.getAccountId());
-            preparedStatement.executeUpdate();
+   public void updateSlider(Sliders slider) {
+        String sql = "UPDATE Sliders SET SliderImage = ?, SliderTitle = ?, UpdateAt = ?, SliderStatus = ?";
+        if (slider.getAccountId() != null) {
+            sql += ", AccountID = ?";
+        }
+        sql += " WHERE SliderID = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            int parameterIndex = 1;
+            ps.setString(parameterIndex++, slider.getSliderImage());
+            ps.setString(parameterIndex++, slider.getSliderTitle());
+            ps.setDate(parameterIndex++, new java.sql.Date(slider.getUpdateAt().getTime()));
+            ps.setInt(parameterIndex++, slider.getSliderStatus());
+
+            if (slider.getAccountId() != null) {
+                ps.setInt(parameterIndex++, slider.getAccountId());
+            }
+
+            ps.setInt(parameterIndex, slider.getSliderID());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

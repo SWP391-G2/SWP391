@@ -250,9 +250,9 @@
         <div class="modal fade" id="modal_box" role="dialog"></div>
         <!-- Edit Modal HTML -->
         <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog" style="margin: 28px 500px">
-                <div class="modal-content" style="width: 1000px; max-height: 900px; overflow: scroll">
-                    <form action="addSlider" enctype="multipart/form-data">
+            <div class="modal-dialog " style="margin: 28px 500px">
+                <div class="modal-content " style="width: 1000px; max-height: 900px">
+                    <form action="addSlider" method="post" enctype="multipart/form-data">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add New Slider</h4>
                         </div>
@@ -269,7 +269,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="productID">Image:</label>
+                                <input type="hidden" id="stringdateolb" value="${slider.updateAt}">
+                                <label style="margin-bottom: 10px; width: 100%">Update At:</label>
+                                <input type="hidden" name="date" value="" id="here"/>
+                                <select class="bear-dates" id="dobDay"></select>
+                                <select class="bear-months" id="dobMonth"></select>
+                                <select class="bear-years" id="dobYear"></select>
+                            </div> 
+                            <div class="form-group">
+                                <label for="image">Image:</label>
                                 <div class="image-preview-container">
                                     <img id="previewImage" class="image-preview" src="${slider.sliderImage}" alt="Preview Image"/>
                                     <div class="file-input">
@@ -310,7 +318,59 @@
                 let message = action === 'block' ? 'Are you sure you want to block this slider?' : 'Are you sure you want to unblock this slider?';
                 return confirm(message);
             }
+            function addOption(selectElement, value, text) {
+                var option = document.createElement("option");
+                option.value = value;
+                option.text = text;
+                selectElement.add(option);
+            }
 
+            var defaultReleaseDate = document.getElementById("stringdateolb").value;
+            var defaultDateArray = defaultReleaseDate.split('-');
+            var defaultDay = parseInt(defaultDateArray[2]);
+            var defaultMonth = parseInt(defaultDateArray[1]);
+            var defaultYear = parseInt(defaultDateArray[0]);
+
+            var daysSelect = document.getElementById('dobDay');
+            var monthsSelect = document.getElementById('dobMonth');
+            var yearsSelect = document.getElementById('dobYear');
+
+            for (var day = 1; day <= 31; day++) {
+                addOption(daysSelect, day, day);
+            }
+
+            for (var month = 1; month <= 12; month++) {
+                addOption(monthsSelect, month, month);
+            }
+
+            var currentYear = new Date().getFullYear();
+            for (var year = currentYear; year >= 1900; year--) {
+                addOption(yearsSelect, year, year);
+            }
+
+            daysSelect.value = defaultDay;
+            monthsSelect.value = defaultMonth;
+            yearsSelect.value = defaultYear;
+            function submitForm() {
+                var here = document.querySelector('#here');
+                var form = document.getElementById('form');
+                var dobDay = document.getElementById('dobDay').value;
+                var dobMonthText = document.getElementById('dobMonth').value;
+                var dobMonth = monthNameToNumber(dobMonthText);
+                var dobYear = document.getElementById('dobYear').value;
+                if (dobMonth < 10 && dobDay < 10) {
+                    dobFull = dobYear + '-0' + dobMonth + '-0' + dobDay;
+                } else if (dobMonth < 10 && !(dobDay < 10)) {
+                    dobFull = dobYear + '-0' + dobMonth + '-' + dobDay;
+                } else if (dobDay < 10 && !(dobMonth < 10)) {
+                    dobFull = dobYear + '-' + dobMonth + '-0' + dobDay;
+                } else {
+                    dobFull = dobYear + '-' + dobMonth + '-' + dobDay;
+                }
+
+                here.value = dobFull;
+                form.submit();
+            }
         </script>
         <script src="js/admin_manager.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
