@@ -32,7 +32,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage <b>Product</b></h2>
+                            <h2>Manage <b>Address</b></h2>
                         </div>
                         <div class="col-sm-6">
                             <a href="./AddressDetail"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Address</span></a>
@@ -101,7 +101,7 @@
                     </ul>
                 </div>
             </div>
-            <a href="#"><button type="button" class="btn btn-primary">Back to home</button>
+            <a href="./Profile"><button type="button" class="btn btn-primary">Back Profile</button>
 
         </div>
         <!-- Edit Modal HTML -->

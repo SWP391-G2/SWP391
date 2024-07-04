@@ -64,7 +64,7 @@
 
 
                 <button type="submit" name="save" class="btn btn-primary">Edit</button>
-                <div class="mt-5 text-center"> <a class="nav-link" href="./Profile">Back to profile</a></div>
+                <div class="mt-5 text-center"> <a class="nav-link" href="./AddressMain">Back To Manager Product</a></div>
             </form>
         </div>
 

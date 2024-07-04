@@ -29,7 +29,7 @@
     </head>
     <body>
         <div class="container mt-5">
-            <h2 class="text-center mb-4">Your Address</h2>
+            <h2 class="text-center mb-4">Create Your Address</h2>
             <form method="POST" action="./AddressDetail">
                 <div class="form-group">
                     <label for="soDienThoai">Phone Number</label>
@@ -63,7 +63,7 @@
 
 
                 <button type="submit" name="save" class="btn btn-primary">Add Address</button>
-                <div class="mt-5 text-center"> <a class="nav-link" href="./Profile">Back to profile</a></div>
+                <div class="mt-5 text-center"> <a class="nav-link" href="./AddressMain">Back To Manager Address</a></div>
             </form>
         </div>
     </body>

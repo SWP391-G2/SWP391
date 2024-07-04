@@ -193,6 +193,12 @@
                                     <input name="lastname" type="text" class="form-control" id="lastname" value="${profile.lastName}" placeholder="lastname"${mess1}>
                                     <span style="color: red" id="LnameError"></span>
                                 </div>
+                                 <div class="col-md-6">
+                                    <label class="labels">Phone : ${address.phone}</label>
+                                </div>
+                                 <div class="col-md-6">
+                                    <label class="labels">Address : ${address.address_line}, ${address.wards}, ${address.district}, ${address.city}</label>
+                                </div>
 
                             </div>
                             <div class="row mt-3">

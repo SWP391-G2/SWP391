@@ -5,9 +5,10 @@
 package Controllers;
 
 import Dal.AccountsDAO;
+import Dal.AddressDAO;
 import Models.Accounts;
+import Models.Address;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -22,8 +23,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -42,6 +41,10 @@ public class Profile extends HttpServlet {
         String emaill = account.getEmail();
         AccountsDAO Accdao = new AccountsDAO();
         Accounts acc = Accdao.getAccount(emaill);
+        int accountid = acc.getAccountID();
+        AddressDAO addressDAO = new AddressDAO();
+        Address address = addressDAO.getAddressByStatus(accountid, 1);
+        request.setAttribute("address", address);
         request.setAttribute("profile", acc);
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }

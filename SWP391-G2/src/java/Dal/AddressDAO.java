@@ -219,6 +219,32 @@ public class AddressDAO extends DBContext {
         return null;
 
     }
+    public Address getAddressByStatus(int account_id, int status) {
+        String sql = "select * from Address where account_id = ? and status =?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, account_id);
+            ur.setInt(2, status);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Address address = new Address(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+                return address;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
 
     public static void main(String[] args) {
         AddressDAO addressdao = new AddressDAO();
