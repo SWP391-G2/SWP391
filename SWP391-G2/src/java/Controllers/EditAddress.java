@@ -140,7 +140,7 @@ public class EditAddress extends HttpServlet {
                 request.setAttribute("defaultCity", defaultCity);
                 request.setAttribute("defaultDistrict", defaultDistrict);
                 request.setAttribute("defaultWard", defaultWard);
-                request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+                response.sendRedirect("./AddressMain");
                 } else {
                     request.setAttribute("mess", "phone number fail syntax");
                     request.getRequestDispatcher("editaddress.jsp").forward(request, response);
