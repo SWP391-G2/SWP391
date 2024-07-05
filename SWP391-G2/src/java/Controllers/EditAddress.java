@@ -129,8 +129,9 @@ public class EditAddress extends HttpServlet {
                     System.out.println(city);
                     System.out.println(district);
                     System.out.println(ward);
-                addressdao.updateAddress(address);
                 addressdao.changestatus(addressid, accountid);
+                                addressdao.updateAddress(address);
+
                 
                 String defaultCity = address.getCity();
                 String defaultDistrict = address.getDistrict();

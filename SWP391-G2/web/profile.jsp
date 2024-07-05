@@ -196,7 +196,8 @@
                                  <div class="col-md-6">
                                     <label class="labels">Phone : ${address.phone}</label>
                                 </div>
-                                 <div class="col-md-6">
+                                
+                                 <div >
                                     <label class="labels">Address : ${address.address_line}, ${address.wards}, ${address.district}, ${address.city}</label>
                                 </div>
 

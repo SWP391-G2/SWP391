@@ -38,15 +38,15 @@
                     <a>${mess}</a>
                 </div>
                 <div>
-                    <input type="text" id="c" name="city" hidden="">
+                    <input type="text" id="c" name="city" value="${defaultCity}" hidden="">
                     <select class="form-select form-select-sm mb-3" id="city"  aria-label=".form-select-sm">
-                        <option value="" selected>Select City(Province)</option>           
+                        <option value="" selected>Select City(Province)</option>         
                     </select>
-                    <input type="text" id="d" name="district" hidden="">
+                    <input type="text" id="d" name="district" value="${defaultDistrict}" hidden="">
                     <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
                         <option value="" selected>Select District</option>
                     </select>
-                    <input type="text" id="w" name="wards" hidden="">
+                    <input type="text" id="w" name="wards" value="${defaultWard}" hidden="">
                     <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" >
                         <option value="" selected>Select wards</option>
                     </select>
