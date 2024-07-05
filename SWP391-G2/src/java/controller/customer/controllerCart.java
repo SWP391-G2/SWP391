@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class controllerCart extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -46,8 +47,7 @@ public class controllerCart extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet controllerCart at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
         }
     }
 
@@ -77,8 +77,8 @@ public class controllerCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        //        ProductDetailDAO pdDao = new ProductDetailDAO();
+// 
+//               ProductDetailDAO pdDao = new ProductDetailDAO();
 //        Cookie[] arr = request.getCookies();
 //        String txt = "";
 //        if(arr != null){
@@ -88,18 +88,18 @@ public class controllerCart extends HttpServlet {
 //                }
 //            }
 //        }
-//        String pdID = request.getParameter("productID");
-//        String quantity = request.getParameter("Quantity");
+//       String pdID = request.getParameter("productID");
+//       String quantity = request.getParameter("Quantity");
 //        String price = request.getParameter("Price");
 //        String size = request.getParameter("size");
-//        int productID = 3;
+//      int productID = 3;
 //
 //        double price = 100.5;
 //        int accountID = 9;
 //        int quantity1 = 10;
-//        double totalPrice = quantity1 * price;
-//        ProductDetailDAO pdDAO = new ProductDetailDAO();
-//        pdDAO.insetCart(productID, accountID, quantity1, totalPrice);
+//       double totalPrice = quantity1 * price;
+//       ProductDetailDAO pdDAO = new ProductDetailDAO();
+//       pdDAO.insetCart(productID, accountID, quantity1, totalPrice);
 
     }
 

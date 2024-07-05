@@ -3,9 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/add-new-product-detail.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Login.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/common/login.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProductDetail.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/MakertingManageSlider.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/common/home.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/common/header_right.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/css/homestyle.css</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/common/Login.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/UpdateStatusSlider.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/common/footer.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingAddProductDetail.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Dal/SliderDAO.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProduct.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/web/header.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Controllers/RefineServlet.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-Main/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
         </group>
     </open-files>
 </project-private>

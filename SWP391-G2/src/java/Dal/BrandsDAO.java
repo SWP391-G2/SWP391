@@ -17,10 +17,9 @@ import Models.Brands;
  * @author pna29
  */
 public class BrandsDAO extends DBContext {
-
     public List<Brands> getBrands() {
         List<Brands> brands = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[Brands]";
+        String sql = "SELECT * FROM [dbo].[Brands] WHERE status = 1";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -29,12 +28,13 @@ public class BrandsDAO extends DBContext {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4)
-                );
+                        rs.getDate(4),
+                        rs.getInt(5));
                 brands.add(brand);
             }
+            connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return brands;
     }
@@ -48,11 +48,11 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 brand = new Brands(
-                        rs.getInt(1),
+                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4)
-                );
+                        rs.getDate(4),
+                        rs.getInt(5));
                 list.add(brand);
             }
         } catch (SQLException e) {
@@ -104,11 +104,11 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Brands brand = new Brands(
-                        rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),
-                        rs.getInt("status")
-                );
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5));
                 listBrands.add(brand);
             }
         } catch (Exception e) {
@@ -208,18 +208,19 @@ public class BrandsDAO extends DBContext {
     }
 
     public Brands getBrandById(int brandID) {
-        String sql = "select * from Brands where BrandID = ?";
+        String sql = "select * from Brands where BrandID = ? AND  status = 1";
+
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, brandID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Brands brand = new Brands(
-                        rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),
-                        rs.getInt("status")
-                );
+                         rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5));
                 return brand;
 
             }
@@ -242,5 +243,13 @@ public class BrandsDAO extends DBContext {
             System.out.println(e);
         }
     }
+     public static void main(String[] args) {
+     BrandsDAO brandDAO = new BrandsDAO();
+     List<Brands> list = brandDAO.getAll();
+         for (Brands brands : list) {
+             System.out.println(brands.getBrandName());
+         }
+     }
 
 }
+

@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import Models.ProductDetail;
-import Models.Products;
 /**
  *
  * @author admin

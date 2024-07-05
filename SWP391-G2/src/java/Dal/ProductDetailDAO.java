@@ -7,7 +7,6 @@ package Dal;
 import context.DBContext;
 import Models.Brands;
 import Models.ImageDetail;
-import Models.Products;
 import Models.ProductDetail;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -26,8 +25,8 @@ public class ProductDetailDAO extends DBContext {
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from Products p join ProductFullDetail pfd \n"
-                + "                 on p.ProductID = pfd.ProductFullDetailID \n"
-                + "                 where pfd.pdProductID = ?";
+                + " on p.ProductID = pfd.ProductFullDetailID \n"
+                + " where pfd.pdProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -309,6 +308,17 @@ public class ProductDetailDAO extends DBContext {
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        }
+        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+
+        int productId = 1;
+        String size = "30ml";
+        BigDecimal productPrice = productDetailDAO.getProductPriceBySize(productId, size);
+
+        if (productPrice != null) {
+            System.out.println("Product Price for Product ID " + productId + " and Size " + size + ": " + productPrice);
+        } else {
+            System.out.println("Product not found for Product ID " + productId + " and Size " + size);
         }
     }
 

@@ -6,7 +6,6 @@ package Dal;
 
 import context.DBContext;
 import Models.Categories;
-import Models.SubCategories;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,11 +44,11 @@ public class CategoriesDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Categories category = new Categories(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("Description"),
-                        rs.getInt(4)
-                );
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5));
                 categories.add(category);
             }
         } catch (SQLException e) {
@@ -66,10 +65,12 @@ public class CategoriesDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                category = new Categories(rs.getInt(1),
+                category = new Categories(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4));
+                        rs.getDate(4),
+                        rs.getInt(5));
                 caList.add(category);
             }
         } catch (Exception e) {
@@ -79,16 +80,18 @@ public class CategoriesDAO extends DBContext {
 
     public Categories getCategoryById(int cateId) {
         Categories category = new Categories();
-        String sql = "select * from Categories WHERE CategoryID = ?;";
+        String sql = "select * from Categories WHERE CategoryID = ? AND status = 1";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, cateId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                category = new Categories(rs.getInt(1),
+                category = new Categories(
+                      rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4));
+                        rs.getDate(4),
+                        rs.getInt(5));
                 return category;
             }
         } catch (Exception e) {

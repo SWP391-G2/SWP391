@@ -49,25 +49,32 @@ CREATE TABLE [dbo].[Accounts](
 [Gender] int NOT NULL,
 [BirthDay] date NOT NULL,
 [Email] [nvarchar](50) NULL,
+[Phone] [varchar](11),
 [Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
 /*======= INSERT VALUE OF [Accounts] TABLE =======*/
-
-INSERT INTO [dbo].[Accounts] (FirstName, LastName, Password, Image, Gender, BirthDay, Email, Status, CreateDate, RoleID) VALUES
-('Nguyễn', 'Văn A', 'PasswordHash1', 'image1.png', 1, '1985-07-14', 'nguyenvana@example.com', 1, '2023-01-01', 1),
-('Trần', 'Thị B', 'PasswordHash2', 'image2.png', 2, '1990-03-22', 'tranthib@example.com', 1, '2023-01-02', 2),
-('Lê', 'Quang C', 'PasswordHash3', NULL, 1, '1983-11-05', 'lequangc@example.com', 1, '2023-01-03', 1),
-('Phạm', 'Thị D', 'PasswordHash4', 'image4.png', 2, '1995-09-18', 'phamthid@example.com', 1, '2023-01-04', 2),
-('Hoàng', 'Văn E', 'PasswordHash5', NULL, 1, '1988-04-12', 'hoangvane@example.com', 1, '2023-01-05', 1),
-('Võ', 'Thị F', 'PasswordHash6', 'image6.png', 2, '1992-07-23', 'vothif@example.com', 1, '2023-01-06', 2),
-('Đỗ', 'Minh G', 'PasswordHash7', NULL, 1, '1987-10-15', 'dohminhg@example.com', 1, '2023-01-07', 1),
-('Vũ', 'Thị H', 'PasswordHash8', 'image8.png', 2, '1993-12-30', 'vuthih@example.com', 1, '2023-01-08', 2),
-('Bùi', 'Văn I', 'PasswordHash9', NULL, 1, '1989-05-27', 'buivani@example.com', 1, '2023-01-09', 1),
-('Ngô', 'Thị J', 'PasswordHash10', 'image10.png', 2, '1991-08-16', 'ngothij@example.com', 1, '2023-01-10', 2);
-
+INSERT INTO [dbo].[Accounts] (
+    [FirstName],
+    [LastName],
+    [Password],
+    [Image],
+    [Gender],
+    [BirthDay],
+    [Email],
+	[Phone],
+    [Status],
+    [CreateDate],
+    [RoleID]
+)
+VALUES
+    (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com','01234567891', 1, '2022-01-01', 1),
+    (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com','01234567891', 1, '2022-01-02', 4),
+    (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com','01234567891', 1, '2022-01-03', 4),
+    (N'Ngô', N'Thị Nga', 'password123', NULL, 2, '1995-04-04', 'ngothinga@example.com','01234567891', 1, '2022-01-04', 4),
+    (N'Phạm', N'Văn Minh', 'password123', NULL, 1, '1985-05-05', 'phamvanminh@example.com','01234567891', 1, '2022-01-05', 4);
 GO
 
 /* ============[Vouchers] TABLE============*/
@@ -135,7 +142,6 @@ VALUES
 ('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure ',1,'2024-01-01'),
 ('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . ',1,'2024-01-01'),
 ('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1,'2024-01-01');
-GO
 
 
 /* ============[Products] TABLE============*/
@@ -402,7 +408,10 @@ CREATE TABLE [dbo].[Cart] (
     ProductFullDetailID INT NOT NULL,
 	AccountID int NOT NULL,
     Quantity INT NOT NULL,
-	productName [NVARCHAR](255),
+    TotalPrice DECIMAL(18,2),
+	product_name [NVARCHAR](255),
+	product_size [NVARCHAR](max),
+	[image] varchar(100),
 	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
@@ -411,16 +420,13 @@ CREATE TABLE [dbo].[Cart] (
 GO
 /* ============[WishList] TABLE============*/
 DROP TABLE IF EXISTS [dbo].[WishList];
-CREATE TABLE [dbo].[WishList] (
-    WishListID INT PRIMARY KEY IDENTITY(1,1),
-    ProductFullDetailID INT NOT NULL,
-    AccountID INT NOT NULL,
-    TotalPrice DECIMAL(18,2),
-    ProductName NVARCHAR(255),
-    ProductSize NVARCHAR(MAX),
-    image VARCHAR(100),
-    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
-    FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
+CREATE TABLE [dbo].[Wishlist] (
+    [WishlistID] [INT] PRIMARY KEY IDENTITY(1,1),
+    [AccountID] [INT] NOT NULL,
+    [ProductID] [INT] NOT NULL,
+    [WishlistDate] DATE NOT NULL, 
+    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts](AccountID),
+    FOREIGN KEY (ProductID) REFERENCES [dbo].[Products](ProductID)
 );
 /*======= INSERT VALUE OF [WishList] TABLE =======*/
 
@@ -536,7 +542,7 @@ CREATE TABLE [dbo].[Feedbacks] (
     fbStatus INT NOT NULL,
 	[reply] nvarchar (250) NULL,
 	FOREIGN KEY (fbProductID) REFERENCES [dbo].[Products]([ProductID]),
-    FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts]([AccountID])
+    FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts](AccountID)
 )
 /*======= INSERT VALUE OF [Feedbacks] TABLE =======*/
 INSERT INTO [dbo].[Feedbacks] (fbAccountID, fbProductID, fbStar, fbContent, fbImage, fbDate, fbStatus, reply) VALUES
@@ -556,3 +562,19 @@ CREATE TABLE [dbo].[HistoriesChange] (
 /*======= INSERT VALUE OF [[HistoriesChange]] TABLE =======*/
 
 GO
+/* ============[Sliders] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Sliders];
+CREATE TABLE [dbo].[Sliders](
+[SliderID] int PRIMARY KEY IDENTITY(1,1),
+[SliderImage] nvarchar(255) NOT NULL,
+[SliderStatus] int NOT NULL,
+[SliderTitle] nvarchar(max) NOT NULL,
+[UpdateAt] date,
+[AccountID] [int],
+FOREIGN KEY ([AccountID]) REFERENCES [dbo].[Accounts]([AccountID]
+))
+INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[UpdateAt],[SliderStatus],[AccountID])
+VALUES
+('images/Sliders/slider1.jpg','Men Collections','2024-01-01',1,5),
+('images/Sliders/slider2.jpg','Women Collections','2024-01-01',1,5),
+('images/Sliders/slider3.jpg','Unisex Collections','2024-01-01',1,3)
