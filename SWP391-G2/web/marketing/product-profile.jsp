@@ -48,13 +48,15 @@
                     <div class="row mb-5" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <div class="col-12" style="margin-bottom: 40px;">
                             <h1>Product #${product.getProductID()}</h1>
-
-                        <c:if test="${param.error != null}">
-                            <h6 style="color: red;">In-valid information to add new customer!</h6>
+                        <c:if test="${success != null}">
+                            <input id="success" value="${success}" hidden>
+                        </c:if>
+                        <c:if test="${error != null}">
+                            <input id="error" value="${error}" hidden>
                         </c:if>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.fk_category_id}">View Product Detail</a>
+                        <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.getCategoryID()}">View Product Detail</a>
                     </div>
                     <form action="update-product" method="post" id="productForm" enctype="multipart/form-data">
                         <input name="productId" value="${product.getProductID()}" hidden=""/>
@@ -62,7 +64,7 @@
                             <label for="productID">Product image:</label>
                             <div class="input-group image-preview-container">
                                 <div class="input-group">
-                                    <input type="file" name="img" required="" disabled="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input type="file" name="img" required=""  class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     <label for="img"><img src="images/Products/${cateName}/${product.productImageUrl}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
                                 <span id="productImageError" class="text-danger"></span>
@@ -73,7 +75,7 @@
                         <div class="form-group row">
                             <div class="col-10">
                                 <label for="productName">Product Name:</label>
-                                <input type="text" class="form-control" id="productName"  disabled="" required="" value="${product.getProductName()}" name="productName">
+                                <input type="text" class="form-control" id="productName"  required="" value="${product.getProductName()}" name="productName">
                             </div>
                             <div class="col-2">
                                 <label for="productName">Day of init:</label>
@@ -85,15 +87,15 @@
                         <div class="form-group row">
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Category:
-                                <select class="form-control ms-2" id="cateId" disabled="" name="newcateId">
+                                <select class="form-control ms-2" id="cateId" name="newcateId">
                                     <c:forEach items="${listCate}" var="cate">
-                                        <option value="${cate.categoryID}" ${cate.categoryID == product.fk_category_id ? 'selected' : '' }>${cate.categoryName}</option>
+                                        <option value="${cate.getCategoryID()}" ${cate.getCategoryID() == product.getCategoryID() ? 'selected' : '' }>${cate.categoryName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Brands:
-                                <select class="form-control ms-2" id="brandId" disabled="" name="newbrandId">
+                                <select class="form-control ms-2" id="brandId" name="newbrandId">
                                     <c:forEach items="${listBrands}" var="brand">
                                         <option value="${brand.getBrandID()}" ${product.getBrandID() == brand.getBrandID() ? 'selected' : '' }>${brand.getBrandName()}</option>
                                     </c:forEach>
@@ -101,7 +103,7 @@
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Status:
-                                <select class="form-control ms-2" id="newstatus" disabled="" name="newstatus">
+                                <select class="form-control ms-2" id="newstatus"  name="newstatus">
                                     <option value="1" ${product.getProductStatus() == 1 ? 'selected' : '' }>View</option>
                                     <option value="0" ${product.getProductStatus() == 0 ? 'selected' : '' }>Hide</option>
                                 </select>
@@ -110,8 +112,8 @@
 
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-danger ps-2 mx-2" href="./marketing-manager-products">Cancel</a>
-                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="enableEditing()">Update</button>
+                            <button type="button" class="btn btn-danger ps-2 mx-2" onclick="handel()">Cancel</button>
+                            <button type="button" class="btn btn-primary ps-2" onclick="updateForm()">Update</button>
                         </div>
                     </form>
                 </div>
@@ -135,80 +137,60 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
     <script>
-                                function validateForm() {
-                                    // Reset all error messages
-                                    document.getElementById('productImageError').innerText = '';
-
-                                    // Validate Product Name
-                                    let productName = document.getElementById('img').value.trim();
-                                    if (productName === '') {
-                                        document.getElementById('productImageError').innerText = 'Product Image is required';
-                                        return false; // Prevent form submission
-                                    }
-                                    // Additional validations for other fields can be added similarly
-                                    return true; // Allow form submission
-                                }
                                 function chooseFile(fileInput) {
                                     if (fileInput.files && fileInput.files[0]) {
                                         var reader = new FileReader();
 
                                         reader.onload = function (e) {
                                             $('#image').attr('src', e.target.result);
-                                        }
+                                        };
                                         reader.readAsDataURL(fileInput.files[0]);
                                     }
                                 }
-
-                                function enableEditing() {
-                                    Swal.fire({
-                                        title: "Do you want to update?",
-                                        icon: "warning",
-                                        showCancelButton: true,
-                                        confirmButtonColor: "#3085d6",
-                                        cancelButtonColor: "#d33",
-                                        confirmButtonText: "Update"
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            let timerInterval;
-                                            Swal.fire({
-                                                title: "Updated form is in preparation",
-                                                html: "",
-                                                timer: 1500,
-                                                timerProgressBar: true,
-                                                didOpen: () => {
-                                                    Swal.showLoading();
-                                                    const timer = Swal.getPopup().querySelector("b");
-                                                    timerInterval = setInterval(() => {
-                                                        timer.textContent = `${Swal.getTimerLeft()}`;
-                                                    }, 100);
-                                                },
-                                                willClose: () => {
-                                                    clearInterval(timerInterval);
-                                                    var formElements = document.getElementById('productForm').elements;
-                                                    for (var i = 0; i < formElements.length; i++) {
-                                                        formElements[i].disabled = false;
-                                                    }
-                                                    var button = document.getElementById('updateButton');
-                                                    button.setAttribute('onclick', 'updateForm()');
-                                                    var button = document.getElementById('updateButton');
-                                                    button.type = 'submit';
-                                                    button.innerText = 'Submit';
-                                                }
-                                            }).then((result) => {
-                                                /* Read more about handling dismissals below */
-                                                if (result.dismiss === Swal.DismissReason.timer) {
-                                                    console.log("I was closed by the timer");
-                                                }
-                                            });
-
-                                        }
-                                    });
-                                }
                                 function updateForm() {
                                     var form = document.getElementById('productForm');
-
                                     // Gọi hành động submit của form
                                     form.submit();
+                                }
+                                function handel() {
+
+                                    const form = document.getElementById('productForm');
+                                    const originalForm = new FormData(form);
+
+                                    form.addEventListener('input', handelFrom);
+                                    form.addEventListener('change', handelFrom);
+
+                                    function handelFrom() {
+                                        const formData - new FormData(form);
+                                                let isChanged = false;
+
+                                        for (let [name, value] of formData.entries()) {
+                                            if (originalForm.get(name) !== value) {
+                                                isChanged = true;
+                                                break;
+                                            }
+                                        }
+                                        if (isChanged) {
+                                            Swal.fire({
+                                                title: "Do you want to save the changes?",
+                                                showDenyButton: true,
+                                                showCancelButton: true,
+                                                confirmButtonText: "Save",
+                                                denyButtonText: `Don't save`
+                                            }).then((result) => {
+                                                /* Read more about isConfirmed, isDenied below */
+                                                if (result.isConfirmed) {
+                                                    Swal.fire("Saved!", "", "success");
+                                                }
+                                            });
+                                        }
+                                    }
+                                    cancel();
+                                }
+                                ;
+
+                                function cancel() {
+                                    window.location.href = "./marketing-manager-products";
                                 }
     </script>
 

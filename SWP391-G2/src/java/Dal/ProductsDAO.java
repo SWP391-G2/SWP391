@@ -36,8 +36,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getInt(7)));
             }
 
         } catch (SQLException e) {
@@ -62,8 +61,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getInt(7)));
             }
 
         } catch (SQLException e) {
@@ -126,8 +124,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -154,8 +151,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -179,8 +175,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7));
 
                 return product;
             }
@@ -199,7 +194,7 @@ public class ProductsDAO extends DBContext {
         if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
             sql += " WHERE";
             if (cateId != -1) {
-                sql += " fk_category_id = ?";
+                sql += " CategoryID = ?";
                 whereAdded = true;
             }
             if (status != -1) {
@@ -259,8 +254,8 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7)
+                );
                 listProduct.add(product);
             }
 
@@ -276,7 +271,7 @@ public class ProductsDAO extends DBContext {
         if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
             sql += " WHERE";
             if (cateId != -1) {
-                sql += " fk_category_id = ?";
+                sql += " CategoryID = ?";
                 whereAdded = true;
             }
             if (status != -1) {
@@ -358,7 +353,7 @@ public class ProductsDAO extends DBContext {
                 + "    [ProductStatus],\n"
                 + "    [BrandID],\n"
                 + "    [ProductImageUrl],\n"
-                + "    [fk_category_id])\n"
+                + "    [CategoryID])\n"
                 + "VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -367,7 +362,7 @@ public class ProductsDAO extends DBContext {
             ur.setInt(3, product.getProductStatus());
             ur.setInt(4, product.getBrandID());
             ur.setString(5, product.getProductImageUrl());
-            ur.setInt(6, product.getFk_category_id());
+            ur.setInt(6, product.getCategoryID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -395,7 +390,7 @@ public class ProductsDAO extends DBContext {
                 + "      ,[ProductStatus] = ?\n"
                 + "      ,[ProductImageUrl] = ?\n"
                 + "      ,[BrandID] = ?\n"
-                + "      ,[fk_category_id] = ?\n"
+                + "      ,[CategoryID] = ?\n"
                 + "WHERE ProductID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -403,7 +398,7 @@ public class ProductsDAO extends DBContext {
             ur.setInt(2, product.getProductStatus());
             ur.setString(3, product.getProductImageUrl());
             ur.setInt(4, product.getBrandID());
-            ur.setInt(5, product.getFk_category_id());
+            ur.setInt(5, product.getCategoryID());
             ur.setInt(6, product.getProductID());
             ur.executeUpdate();
         } catch (SQLException e) {
@@ -420,24 +415,6 @@ public class ProductsDAO extends DBContext {
 //        dao.insertNewProduct(product);
         System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
 
-        System.out.println(dao.getListProductByFilter(-1, -1, "men", -1, 1, 10).size());
-        System.out.println(dao.getLastProductId());
-
+        System.out.println(dao.getListProductByFilter(-1, -1, "men", 1, 1, 10).size());
     }
-
-//    public static void main(String[] args) {
-//        ProductsDAO Pdao = new ProductsDAO();
-//        /*System.out.println(Pdao.loadProducts().size());
-//        System.out.println(Pdao.getPaging(2).size());
-//
-//        System.out.println(Pdao.getCount());*/
-//        Products p = Pdao.getProductByProductID(1);
-//        System.out.println(p.getProductImageUrl());
-//
-//        System.out.println(Pdao.getCount());
-//        int categoryId = 1; // example category ID
-//        List<Products> products = Pdao.getProductsByCategory(categoryId);
-//        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
-//                + ", Name: " + product.getProductName()));
-//    }
 }

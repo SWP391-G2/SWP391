@@ -4,21 +4,32 @@
  */
 package Models;
 
+import java.sql.Date;
+
 public class Categories {
 
     private int categoryID;
     private String categoryName;
     private String description;
     private int status;
+    private Date createAt;
 
     public Categories() {
     }
 
-    public Categories(int categoryID, String categoryName, String description, int status) {
+    public Categories(int categoryID, String categoryName, String description, int status, Date createAt) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.description = description;
         this.status = status;
+        this.createAt = createAt;
+    }
+
+    public Categories(String categoryName, String description, int status, Date createAt) {
+        this.categoryName = categoryName;
+        this.description = description;
+        this.status = status;
+        this.createAt = createAt;
     }
 
     public int getCategoryID() {
@@ -51,6 +62,14 @@ public class Categories {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
 }

@@ -31,7 +31,8 @@ public class MarketingManagerProductDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String s = "";
+        String r = "";
         String search = "";
         String size = "";
         int detailId = -1;
@@ -42,6 +43,8 @@ public class MarketingManagerProductDetail extends HttpServlet {
         int pageNo = 1;
         final int pageSize = 10;
         try {
+            s = request.getParameter("s") == null ? "" : request.getParameter("s");
+            r = request.getParameter("r") == null ? "" : request.getParameter("r");
             detailId = request.getParameter("detailId") == null ? -1 : Integer.parseInt(request.getParameter("detailId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
@@ -55,6 +58,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         if (detailId != -1 && newStatus != -1) {
             changeStatus(detailId, newStatus);
+            request.setAttribute("success", "Status changed");
         }
         ProductsDAO proDao = new ProductsDAO();
         Products product = proDao.getProductByProductID(proId);
@@ -63,7 +67,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
         List<ProductDetail> details = detailDAO.getListProductByFilter(proId, status, size, pageNo, pageSize);
         int totalPage = detailDAO.getTotalPage(proId, status, size, pageSize);
         List<String> listSize = detailDAO.getSize(proId);
-        
+
         CategoriesDAO cateDao = new CategoriesDAO();
         String cateName = cateDao.getCategoryById(cateId).getCategoryName();
 
@@ -79,7 +83,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         request.setAttribute("listSize", listSize);
         request.setAttribute("listDetail", details);
-      
+
 //        response.getWriter().println(size);
 //        response.getWriter().println(cateId);
 //        response.getWriter().println(proId);

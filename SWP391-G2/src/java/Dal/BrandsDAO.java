@@ -29,7 +29,8 @@ public class BrandsDAO extends DBContext {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4)
+                        rs.getInt(5),
+                        rs.getDate(4)
                 );
                 brands.add(brand);
             }
@@ -51,7 +52,8 @@ public class BrandsDAO extends DBContext {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4)
+                        rs.getInt(5),
+                        rs.getDate(4)
                 );
                 list.add(brand);
             }
@@ -104,10 +106,11 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Brands brand = new Brands(
-                        rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),
-                        rs.getInt("status")
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(5),
+                        rs.getDate(4)
                 );
                 listBrands.add(brand);
             }
@@ -215,10 +218,11 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Brands brand = new Brands(
-                        rs.getInt("BrandID"),
-                        rs.getString("BrandName"),
-                        rs.getString("Description"),
-                        rs.getInt("status")
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(5),
+                        rs.getDate(4)
                 );
                 return brand;
 

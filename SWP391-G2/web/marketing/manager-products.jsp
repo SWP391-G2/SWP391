@@ -20,30 +20,29 @@
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        <script src="${pageContext.request.contextPath}/js/alert.js"></script>
     </head>
 
     <body>
         <div class="container-fluid">
             <!-- Navigation -->
             <jsp:include page="../partials/navigation.jsp"></jsp:include>
+            <c:if test="${success != null}">
+                <input id="success" value="${success}" hidden>
+            </c:if>
+            <c:if test="${error != null}">
+                <input id="error" value="${error}" hidden>
+            </c:if>
+            <!-- Main Content -->
+            <div class="main" style="margin-left: 50px; margin-right: 50px;">
+                <div class="topbar">
 
-                <!-- Main Content -->
-                <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
+                </div>
 
-                    </div>
-
-                    <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
-                        <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
+                <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
+                    <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
                         <h1>Product</h1>
-                        <c:if test="${param.exist != null}">
-                            <h6 style="color: red;">Account alrealdy exist!</h6>
-                        </c:if>
-                        <c:if test="${param.error != null}">
-                            <h6 style="color: red;">In-valid information to add new customer!</h6>
-                        </c:if>
                     </div>
                     <div class="col-3">
                         <div class="input-group">
@@ -91,47 +90,55 @@
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
-                            <table class="table table-striped align-items-center">
-
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Product ID</th>
-                                        <th scope="col">Product Image</th>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Brands</th>
-                                        <th scope="col">Date of init</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>   
-                                    <c:forEach items="${listProduct}" varStatus="loop" var="listProduct">
+                            <c:if test="${listProduct.size()>0}">
+                                <table class="table table-striped align-items-center">
+                                    <thead>
                                         <tr>
-                                            <td>${listProduct.productID}</td>
-                                            <td><img src="images/Products/${cateListName[listProduct.getFk_category_id()-1]}/${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td><a href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
-                                            <td>${cateListName[listProduct.getFk_category_id()-1]}</td>                                      
-                                            <td>${brListName[listProduct.getBrandID()-1]}</td>   
-                                            <td>${listProduct.productCreateDate}</td>   
-                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${listProduct.productStatus == 0}">
-                                                        <button type="button" onclick="changeStatus('Do you want to set view product?',${listProduct.productID}, 1)" class="btn w-75 btn-warning">
-                                                            Hidden
-                                                        </button>
-                                                    </c:when>
-                                                    <c:when test="${listProduct.productStatus == 1}">
-                                                        <button type="button" onclick="changeStatus('Do you want to set hine product?',${listProduct.productID}, 0)" class="btn w-75 btn-success">
-                                                            Show
-                                                        </button>
-                                                    </c:when>
-                                                </c:choose>
-                                            </td>
+                                            <th scope="col">Product ID</th>
+                                            <th scope="col">Product Image</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Brands</th>
+                                            <th scope="col">Date of init</th>
+                                            <th scope="col">Action</th>
                                         </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>   
+                                        <c:forEach items="${listProduct}" varStatus="loop" var="Product">
+                                            <tr>
+                                                <td>${Product.productID}</td>
+                                                <td><a href="update-product?proId=${Product.productID}">${Product.productName}</a></td>
+                                                <td>${listCate[Product.getCategoryID()-1].getCategoryName()}</td>                                      
+                                                <td>${listBrands[Product.getBrandID()-1].getBrandName()}</td>                                      
+                                                <td>${Product.productCreateDate}</td>   
+                                                <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${Product.productStatus == 0}">
+                                                            <button type="button" onclick="changeStatus('Do you want to set view product?',${Product.productID}, 1)" class="btn w-75 btn-warning">
+                                                                Hidden
+                                                            </button>
+                                                        </c:when>
+                                                        <c:when test="${Product.productStatus == 1}">
+                                                            <button type="button" onclick="changeStatus('Do you want to set hine product?',${Product.productID}, 0)" class="btn w-75 btn-success">
+                                                                Show
+                                                            </button>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
+                            <c:if test="${listProduct.size()<1}">
+                                <div class="d-flex justify-content-center align-items-center fs-6" style="width: 100%; height: 400px;">
+                                    <div class="fs-1 font-monospace" >NoThing found<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="ms-2 bi-box-seam" viewBox="0 0 16 16">
+                                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
 
 
@@ -206,14 +213,6 @@
     </script>
     <script>
 
-        //set time for alertMessage
-        document.addEventListener('DOMContentLoaded', function () {
-            var myDiv = document.getElementById('myDiv');
-            myDiv.style.display = 'block';
-            setTimeout(function () {
-                myDiv.style.display = 'none';
-            }, 10000); // 10 giây = 10,000 miligiây
-        });
 
         // handle filter search
         const searchInput = document.querySelector('#search');
@@ -278,39 +277,18 @@
             const brandId = document.querySelector('#brandId').value;
             const pageNo = document.querySelector('#pageNo').value;
             Swal.fire({
-                title: message,
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Update"
+                confirmButtonText: "Yes, change it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let timerInterval;
-                    Swal.fire({
-                        title: "Product is changing state",
-                        html: "",
-                        timer: 1000,
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading();
-                            const timer = Swal.getPopup().querySelector("b");
-                            timerInterval = setInterval(() => {
-                                timer.textContent = `${Swal.getTimerLeft()}`;
-                            }, 100);
-                        },
-                        willClose: () => {
-                            clearInterval(timerInterval);
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
-                        }
-                    }).then((result) => {
-                        /* Read more about handling dismissals below */
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            console.log("I was closed by the timer");
-                        }
-                    });
-
+                    loading();
+                    window.location.href = 'marketing-manager-products?search=' + search +
+                            '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
                 }
             });
 
@@ -324,4 +302,13 @@
                     '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo;
         }
 
+
+        const successfully = document.getElementById('success').value;
+        if (successfully !== '') {
+            success(successfully);
+        }
+        const error = document.getElementById('error').value;
+        if (error !== '') {
+            errors(error);
+        }
     </script>

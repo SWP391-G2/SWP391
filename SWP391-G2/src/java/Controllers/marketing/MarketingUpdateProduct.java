@@ -60,15 +60,9 @@ public class MarketingUpdateProduct extends HttpServlet {
         ProductsDAO proDao = new ProductsDAO();
         Products product = proDao.getProductByProductID(proId);
 
-        ProductDetailDAO detailDAO = new ProductDetailDAO();
-        List<ProductDetail> details = detailDAO.getListProductByFilter(proId, status, size, pageNo, pageSize);
-        int totalPage = detailDAO.getTotalPage(proId, status, size, pageSize);
-        List<String> listSize = detailDAO.getSize(proId);
-
         //get categories are active
         CategoriesDAO cateDao = new CategoriesDAO();
         List<Categories> cateList = cateDao.getAll();
-        String cateName = cateDao.getCategoryById(product.getFk_category_id()).getCategoryName();
 
         //get brands are active
         BrandsDAO brDao = new BrandsDAO();
@@ -78,14 +72,16 @@ public class MarketingUpdateProduct extends HttpServlet {
 
         request.setAttribute("product", product);
         request.setAttribute("status", status);
-        request.setAttribute("cateName", cateName);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("currentPage", pageNo);
 
         request.setAttribute("listBrands", brList);
-        request.setAttribute("listSize", listSize);
-        request.setAttribute("listDetail", details);
         request.setAttribute("listCate", cateList);
+        response.getWriter().println(size);
+        response.getWriter().println(pageNo);
+
+        response.getWriter().println(product.getCategoryID());
+        response.getWriter().println(status);
+        response.getWriter().println(brList.size());
+        response.getWriter().println(cateList.size());
         request.getRequestDispatcher("marketing/product-profile.jsp").forward(request, response);
 
     }
@@ -156,7 +152,7 @@ public class MarketingUpdateProduct extends HttpServlet {
         response.getWriter().print(productName);
         Products product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
         proDao.updateProduct(product);
-        response.sendRedirect("update-product?proId=" + proId + "&s=s");
+        response.sendRedirect("update-product?proId=" + proId + "&s=");
         //insert product
 //        var product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
 //        proDao.updateProduct(product);

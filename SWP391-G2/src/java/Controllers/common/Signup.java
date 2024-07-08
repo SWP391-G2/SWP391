@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import Util.Validation;
 
 /**
  *
@@ -32,12 +33,13 @@ public class Signup extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountsDAO Adao = new AccountsDAO();
+        Validation validation = new Validation();
         String email = request.getParameter("email");
         Accounts account = Adao.getAccount(email);
         try {
             if (account == null) {
                 String password = request.getParameter("password");
-                if (CheckPass(password)) {
+                if (validation.CheckPass(password)) {
                     String passConfirm = request.getParameter("confirmpassword");
                     if (password.equalsIgnoreCase(passConfirm)) {
                         String firstname = request.getParameter("firstname");
@@ -80,31 +82,6 @@ public class Signup extends HttpServlet {
             request.getRequestDispatcher("common/signup.jsp").forward(request, response);
         }
 
-    }
-
-    public boolean CheckPass(String password) {
-        boolean islower = false;
-        boolean isupper = false;
-        boolean isNumber = false;
-        boolean isspecital = false;
-        if (password.length() < 8) {
-            return false;
-        }
-        for (char p : password.toCharArray()) {
-            if (Character.isUpperCase(p)) {
-                islower = true;
-            } else if (Character.isLowerCase(p)) {
-                isupper = true;
-            } else if (Character.isDigit(p)) {
-                isNumber = true;
-            } else {
-                isspecital = true;
-            }
-        }
-        if (password.contains(" ")) {
-            return false;
-        }
-        return isNumber && islower && isspecital && isupper;
     }
 
     /**

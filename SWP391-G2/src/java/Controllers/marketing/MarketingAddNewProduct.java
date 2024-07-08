@@ -54,6 +54,7 @@ public class MarketingAddNewProduct extends HttpServlet {
 
         request.setAttribute("listCate", cateList);
         request.setAttribute("listBrands", brList);
+     
         request.getRequestDispatcher("marketing/add-product.jsp").forward(request, response);
     }
 

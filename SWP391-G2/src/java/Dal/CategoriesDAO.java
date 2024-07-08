@@ -21,20 +21,7 @@ public class CategoriesDAO extends DBContext {
 
     public static void main(String[] args) {
         CategoriesDAO dao = new CategoriesDAO();
-        List<Categories> categories = dao.loadCategory();
-        for (Categories category : categories) {
-            System.out.println("Category ID: " + category.getCategoryID());
-            System.out.println("Category Name: " + category.getCategoryName());
-            System.out.println("Category Description: " + category.getDescription());
-        }
-        List<Categories> caList = dao.getAll();
-        for (Categories string : caList) {
-            System.out.println(string.getCategoryName());
-        }
-        for (String categories1 : dao.getAllName()) {
-            System.out.println(categories1);
-        }
-        System.out.println("");
+        System.out.println(dao.getAll().size());
     }
 
     public List<Categories> loadCategory() {
@@ -45,10 +32,11 @@ public class CategoriesDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Categories category = new Categories(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("Description"),
-                        rs.getInt(4)
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(5),
+                        rs.getDate(4)
                 );
                 categories.add(category);
             }
@@ -66,10 +54,12 @@ public class CategoriesDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                category = new Categories(rs.getInt(1),
+                category = new Categories(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4));
+                        rs.getInt(5),
+                        rs.getDate(4));
                 caList.add(category);
             }
         } catch (Exception e) {
@@ -85,10 +75,12 @@ public class CategoriesDAO extends DBContext {
             ps.setInt(1, cateId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                category = new Categories(rs.getInt(1),
+                category = new Categories(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4));
+                        rs.getInt(5),
+                        rs.getDate(4));
                 return category;
             }
         } catch (Exception e) {

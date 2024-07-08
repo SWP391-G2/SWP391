@@ -152,15 +152,12 @@
     </body>
     <script>
         const today = new Date();
-
         // Lấy các thành phần của ngày
         const year = today.getFullYear() - 16;
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
         const day = String(today.getDate()).padStart(2, '0'); // Ngày của tháng
-
         // Định dạng ngày theo 'yyyy-dd-MM'
         const formattedDate = (year) + '-' + month + '-' + day;
-
         // Đặt thuộc tính 'max' của phần tử input
         document.getElementById('dateinput').setAttribute('max', formattedDate);
 

@@ -7,12 +7,10 @@ package Controllers.marketing;
 import Dal.BrandsDAO;
 import Dal.CategoriesDAO;
 import Dal.ProductsDAO;
-import Models.Accounts;
 import Models.Brands;
 import Models.Categories;
 import Models.Products;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,6 +57,7 @@ public class MarketingManagerProducts extends HttpServlet {
 
         if (proId != -1 && newStatus != -1) {
             changeStatus(proId, newStatus);
+            request.setAttribute("success", "Status changed");
         }
 
         //get list products and get total page of list by condition
@@ -69,12 +68,12 @@ public class MarketingManagerProducts extends HttpServlet {
         //get categories are active
         CategoriesDAO cateDao = new CategoriesDAO();
         List<Categories> cateList = cateDao.getAll();
-        List<String> cateListName = cateDao.getAllName();
+      
 
         //get brands are active
         BrandsDAO brDao = new BrandsDAO();
         List<Brands> brList = brDao.getAll();
-        List<String> brListName = brDao.getAllName();
+
 
         request.setAttribute("search", search);
         request.setAttribute("cateId", cateId);
@@ -83,11 +82,19 @@ public class MarketingManagerProducts extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
 
-        request.setAttribute("cateListName", cateListName);
-        request.setAttribute("brListName", brListName);
         request.setAttribute("listBrands", brList);
         request.setAttribute("listCate", cateList);
         request.setAttribute("listProduct", proList);
+        response.getWriter().println(search);
+        response.getWriter().println(cateId);
+        response.getWriter().println(status);
+        response.getWriter().println(brandId);
+        response.getWriter().println(totalPage);
+        response.getWriter().println(pageNo);
+        response.getWriter().println(brList.size());
+        response.getWriter().println(cateList.size());
+        response.getWriter().println(proList.size());
+//        request.getRequestDispatcher("./test.jsp").forward(request, response);
         request.getRequestDispatcher("marketing/manager-products.jsp").forward(request, response);
     }
 

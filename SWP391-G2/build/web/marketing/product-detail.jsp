@@ -104,52 +104,61 @@
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive mt-3">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Product Image</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Date of init</th>
-                                        <th scope="col">Size</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${requestScope.listDetail}" varStatus="loop" var="detail">
+                            <c:if test="${listDetail.size()>0}">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td><img src="images/Products/${cateName}/${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td class="w-50" >${detail.getProductDescription()}</td>
-                                            <td>${detail.getProductCreateDate()}</td>  
-                                            <td>${detail.getProductSize()}</td> 
-                                            <td>${detail.getProductPrice()}</td>   
-                                            <td>${detail.getProductAvaiable()}</td>   
-                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${detail.productStatus == 0}">
-                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 1)" class=" w-75 btn btn-warning">
-                                                            Hidden
-                                                        </button>
-                                                    </c:when>
-                                                    <c:when test="${detail.productStatus == 1}">
-                                                        <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 0)"  class="w-75 btn btn-success">
-                                                            Show
-                                                        </button>
-                                                    </c:when>
-                                                </c:choose>
-                                                <a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                                    </svg></a>
-                                            </td>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Product Image</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Date of init</th>
+                                            <th scope="col">Size</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Action</th>
                                         </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${listDetail}" varStatus="loop" var="detail">
+                                            <tr>
+                                                <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
+                                                <td><img src="images/Products/${cateName}/${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
+                                                <td class="w-50" >${detail.getProductDescription()}</td>
+                                                <td>${detail.getProductCreateDate()}</td>  
+                                                <td>${detail.getProductSize()}</td> 
+                                                <td>${detail.getProductPrice()}</td>   
+                                                <td>${detail.getProductAvaiable()}</td>   
+                                                <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${detail.productStatus == 0}">
+                                                            <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 1)" class=" w-75 btn btn-warning">
+                                                                Hidden
+                                                            </button>
+                                                        </c:when>
+                                                        <c:when test="${detail.productStatus == 1}">
+                                                            <button type="button" onclick="changeStatus('Do you want to change status',${detail.getProductFullDetailID()}, 0)"  class="w-75 btn btn-success">
+                                                                Show
+                                                            </button>
+                                                        </c:when>
+                                                    </c:choose>
+                                                    <a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                                        </svg></a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
+                            <c:if test="${listProduct.size()<1}">
+                                <div class="d-flex justify-content-center align-items-center fs-6" style="width: 100%; height: 400px;">
+                                    <div class="fs-1 font-monospace" >NoThing found<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="ms-2 bi-box-seam" viewBox="0 0 16 16">
+                                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
 
                     </div>

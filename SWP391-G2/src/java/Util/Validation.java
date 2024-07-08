@@ -27,8 +27,43 @@ public class Validation {
         return str.trim().isEmpty() || str == null;
     }
 
+    public boolean isPositiveInteger(String s) {
+        return s.matches("\\d+");
+    }
+
+    public boolean isPositiveRealNumber(String s) {
+        return s.matches("\\d*\\.?\\d+");
+    }
+
+    public boolean CheckPass(String password) {
+        boolean islower = false;
+        boolean isupper = false;
+        boolean isNumber = false;
+        boolean isspecital = false;
+        if (password.length() < 8) {
+            return false;
+        }
+        for (char p : password.toCharArray()) {
+            if (Character.isUpperCase(p)) {
+                islower = true;
+            } else if (Character.isLowerCase(p)) {
+                isupper = true;
+            } else if (Character.isDigit(p)) {
+                isNumber = true;
+            } else {
+                isspecital = true;
+            }
+        }
+        if (password.contains(" ")) {
+            return false;
+        }
+        return isNumber && islower && isspecital && isupper;
+    }
+
     public static void main(String[] args) {
         Validation validation = new Validation();
-
+        System.out.println(validation.isValidEmpty(constant.ACCOUNTS));
+        System.out.println(constant.ACCOUNTS);
     }
+
 }
