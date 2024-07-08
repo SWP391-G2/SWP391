@@ -1,11 +1,10 @@
-
 <%-- 
-    Document   : admin
-    Created on : Jun 4, 2024, 11:25:56 PM
-    Author     : hatru
+    Document   : manageVouchers
+    Created on : Jul 3, 2024, 3:37:55 PM
+    Author     : admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -25,7 +24,8 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <style>
         .form-control.custom-width {
@@ -37,9 +37,7 @@
         }
 
 
-        th {
-            white-space: nowrap;
-        }
+
         .custom-button {
             background: none; /* Không có màu nền */
             border: none; /* Bỏ viền */
@@ -97,7 +95,6 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
-            <jsp:include page="../public/navigation.jsp"></jsp:include>
 
             <!-- Main Content -->
             <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -113,7 +110,7 @@
                 <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                     <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
-                        <h1>Category</h1>
+                        <h1>Vouchers</h1>
 
                     </div>
                     <div class="col-3">
@@ -142,61 +139,78 @@
                         </select>
                     </div>
 
-                    <div class="col-3">
-
-                        <div class="text-right">
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#addnewModal">
-                                <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
-                            </button>
-                        </div>
-
-                    </div>
+                    <!--                    <div class="col-3">
+                    
+                                            <div class="text-right">
+                    
+                                            </div>
+                    
+                                        </div>-->
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Name</th>             
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Create Date</th>
-                                        <th scope="col">Details</th>
+                                        <th scope="col">No</th>                                  
+                                        <th scope="col">Code</th>             
+                                        <th scope="col">Discount</th>
+                                        <th scope="cod">Expiry Date</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Create At</th>
+                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listcategory}" var="category" varStatus="loop">
+                                    <c:forEach items="${listvoucher}" var="listvoucher" varStatus="loop">
                                         <tr>
-                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>      
+                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>                              
                                             <td class="table-button">
-                                                <a onclick="showDetail(${category.getCategoryID()})">
-                                                    <button type="button" class="custom-button">${category.getCategoryName()}</button>
+                                                <a >
+                                                    <button type="button" class="custom-button">${listvoucher.getCode()}</button>
                                                 </a>
                                             </td>
-                                            <td>${category.getDescription()}</td>
-                                            <td>${category.getCreateAt()}</td>
+                                            <td>${listvoucher.getDiscount()}</td>
+                                            <td>${listvoucher.getExpiryDate()}</td>      
+                                            <td>${listvoucher.getQuantity()}</td>
+                                            <td>${listvoucher.getCreateAt()}</td>
+                                            
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>
-
-                                                <c:choose>
-                                                    <c:when test="${category.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
-                                                            <button type="button" class="btn btn-danger">
-                                                                View
-                                                            </button>
-                                                        </a>
-                                                    </c:when>
-                                                    <c:when test="${category.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${category.getCategoryID()}, 1);">
-                                                            <button type="button" class="btn btn-success">
-                                                                Hide
-                                                            </button>
-                                                        </a>
-                                                    </c:when>
-                                                </c:choose>
-                                            </td>
+                                            
                                         </tr>
-                                    </c:forEach>
+
+                                        <!-- Modal Add new-->
+                                    <div class="modal fade" id="addnewModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Reply</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="#" method="post" onsubmit="return validateForm()">
+
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="description">Reply</label>
+                                                            <textarea class="form-control" name="reply" id="reply" rows="3" ></textarea>
+                                                            <div id="replyError" class="error-message"></div>
+                                                        </div>                                 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" >Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -251,63 +265,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Add new-->
-                <div class="modal fade" id="addnewModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
-========
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
->>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
 
-                                <div class="modal-body">
-<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
-                                    <input type="hidden" name="service" value="addNewAdmin">
-                                    <div class="form-group row">
-                                        <div class="col-6">
-                                            <label for="firstName">Brand Name: </label>
-                                            <input type="text" class="form-control" id="firstname"
-                                                   name="firstname" required>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="lastName">Description: </label>
-                                            <input type="text" class="form-control" id="lastname"
-                                                   name="lastname" required>
-                                        </div>
-                                    </div>
-
-========
-
-                                    <div class="form-group">
-                                        <label for="categoryName">Category Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" >
-                                        <div id="nameError" class="error-message"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
-                                        <div id="descriptionError" class="error-message"></div>
-                                    </div>                                 
->>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" >Add new</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -332,101 +290,94 @@
 
 
     <script>
-                                function showAlert(message, accountID, status1) {
+                                                    function showAlert(message, voucherID, status1) {
 
 
-                                            if (confirm(message)) {
-                                                const search = document.querySelector('#search').value;
-                                                const roleId = document.querySelector('#roleId').value;
-                                                const status = document.querySelector('#status').value;
-                                                const pageNo = document.querySelector('#pageNo').value;
-                                                window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                                                        '&status=' + status + '&pageNo=' + pageNo + "&accountID=" + accountID + "&statusnew=" + status1;
-                                            }
-                                        }
-                                        function showDetail(accountID, accountRole) {
-                                            const search = document.querySelector('#search').value;
-                                            const roleId = document.querySelector('#roleId').value;
-                                            const status = document.querySelector('#status').value;
-                                            const pageNo = document.querySelector('#pageNo').value;
-                                            window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
-                                        }
+                                                        if (confirm(message)) {
+                                                            const search = document.querySelector('#search').value;
+                                                            const status = document.querySelector('#status').value;
+                                                            const pageNo = document.querySelector('#pageNo').value;
+                                                            window.location.href = 'voucher?search=' + search +
+                                                                    '&status=' + status + '&pageNo=' + pageNo + "&voucherID=" + voucherID + "&statusnew=" + status1;
+                                                        }
+                                                    }
+//                                function showDetail(categoryID) {
+//                                    const search = document.querySelector('#search').value;
+//                                    const status = document.querySelector('#status').value;
+//                                    const pageNo = document.querySelector('#pageNo').value;
+//                                    window.location.href = 'categorydetail?search=' + search +
+//                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
+//                                }
     </script>
     <script>
         function validateForm() {
             // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
+
+            var reply = document.getElementById('reply').value;
 
             // Lấy các phần tử để hiển thị lỗi
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
+
+            var replyError = document.getElementById('replyError');
 
             // Định nghĩa các regex cho kiểm tra input
             //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
-            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
-            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
+
+            var reply = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
 
             // Xóa thông báo lỗi trước đóx
-            nameError.textContent = '';
-            descriptionError.textContent = '';
+            replyError.textContent = '';
 
             // Kiểm tra input
             var valid = true;
-            if (!nameRegex.test(name)) {
-                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
-                valid = false;
-            }
 
             // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
-            if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Category Name cannot contain whole numbers.';
+            if (/^\d+$/.test(reply)) {
+                reply.textContent = 'Reply cannot contain whole numbers.';
                 valid = false;
             }
 
             if (/^\s{2,}/.test(name)) {
-                nameError.textContent = 'Category Name cannot start with multiple spaces.';
+                reply.textContent = 'Reply cannot start with multiple spaces.';
                 valid = false;
             }
 
             if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
+                reply.textContent = 'Reply must be from 10 to 200 characters.';
                 valid = false;
             }
 
             // Nếu tất cả đều hợp lệ, return true để submit form
             return valid;
         }
->>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
     </script>
     <script>
         // handle filter search
+
         const searchInput = document.querySelector('#search');
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 performSearch();
             }
         });
-        
-        const btnSearch = document.querySelector('#search');
+        const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
         });
         function performSearch() {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
+
 
         // handle filter role
         const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
 
@@ -437,7 +388,7 @@
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 

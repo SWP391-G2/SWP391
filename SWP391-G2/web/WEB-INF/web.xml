@@ -92,6 +92,10 @@
         <servlet-name>AddReplyFeedback</servlet-name>
         <servlet-class>Controllers.shop.feedback.AddReplyFeedback</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VouchersController</servlet-name>
+        <servlet-class>Controllers.maketing.VouchersController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -183,5 +187,9 @@
     <servlet-mapping>
         <servlet-name>AddReplyFeedback</servlet-name>
         <url-pattern>/addreply</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VouchersController</servlet-name>
+        <url-pattern>/voucher</url-pattern>
     </servlet-mapping>
 </web-app>

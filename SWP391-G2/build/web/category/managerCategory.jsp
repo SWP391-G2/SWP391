@@ -310,25 +310,6 @@
 
     <script>
                                 function showAlert(message, categoryID, status1) {
-
-
-                                            if (confirm(message)) {
-                                                const search = document.querySelector('#search').value;
-                                                const roleId = document.querySelector('#roleId').value;
-                                                const status = document.querySelector('#status').value;
-                                                const pageNo = document.querySelector('#pageNo').value;
-                                                window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                                                        '&status=' + status + '&pageNo=' + pageNo + "&accountID=" + accountID + "&statusnew=" + status1;
-                                            }
-                                        }
-                                        function showDetail(accountID, accountRole) {
-                                            const search = document.querySelector('#search').value;
-                                            const roleId = document.querySelector('#roleId').value;
-                                            const status = document.querySelector('#status').value;
-                                            const pageNo = document.querySelector('#pageNo').value;
-                                            window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
-                                        }
                                     if (confirm(message)) {
                                         const search = document.querySelector('#search').value;
                                         const status = document.querySelector('#status').value;

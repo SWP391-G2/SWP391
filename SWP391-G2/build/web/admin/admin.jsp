@@ -97,10 +97,7 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
-<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
             <jsp:include page="../public/navigation.jsp"></jsp:include>
-========
->>>>>>>> KhanhNG:SWP391-G2/web/category/managerCategory.jsp
 
             <!-- Main Content -->
             <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -335,10 +332,9 @@
 
 
     <script>
-                                function showAlert(message, categoryID, status1) {
+                                function showAlert(message, accountID, status1) {
 
 
-<<<<<<<< HEAD:SWP391-G2/web/admin/admin.jsp
                                             if (confirm(message)) {
                                                 const search = document.querySelector('#search').value;
                                                 const roleId = document.querySelector('#roleId').value;
@@ -356,22 +352,6 @@
                                             window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
                                                     '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
                                         }
-========
-                                    if (confirm(message)) {
-                                        const search = document.querySelector('#search').value;
-                                        const status = document.querySelector('#status').value;
-                                        const pageNo = document.querySelector('#pageNo').value;
-                                        window.location.href = 'category?search=' + search +
-                                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
-                                    }
-                                }
-                                function showDetail(categoryID) {
-                                    const search = document.querySelector('#search').value;
-                                    const status = document.querySelector('#status').value;
-                                    const pageNo = document.querySelector('#pageNo').value;
-                                    window.location.href = 'categorydetail?search=' + search + 
-                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
-                                }
     </script>
     <script>
         function validateForm() {
