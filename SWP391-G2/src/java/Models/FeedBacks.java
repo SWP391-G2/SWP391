@@ -11,6 +11,7 @@ import java.util.Date;
  * @author admin
  */
 public class FeedBacks {
+
     private int fbID;
     private int fbAccountID;
     private int fbProductID;
@@ -35,7 +36,6 @@ public class FeedBacks {
         this.fbStatus = fbStatus;
         this.reply = reply;
     }
-
 
     public FeedBacks(int fbAccountID, int fbProductID, int fbStar, String fbContent, String fbImage, Date fbDate, int fbStatus, String reply) {
         this.fbAccountID = fbAccountID;
@@ -119,5 +119,5 @@ public class FeedBacks {
     public void setReply(String reply) {
         this.reply = reply;
     }
-    
+
 }

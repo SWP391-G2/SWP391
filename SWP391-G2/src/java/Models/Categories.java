@@ -6,59 +6,44 @@ package Models;
 
 import java.util.Date;
 
-
 public class Categories {
-    private int CategoryID;
-    private String CategoryName;
-    private String Description;
-    private Date CreateAt;
+
+    private int categoryID;
+    private String categoryName;
+    private String description;
+    private Date createAt;
     private int status;
 
-    public Categories() {
-    }
-
-    public Categories(int CategoryID, String CategoryName, String Description, int status) {
-        this.CategoryID = CategoryID;
-        this.CategoryName = CategoryName;
-        this.Description = Description;
-        this.status = status;
-    }
-
-    public Categories(int CategoryID, String CategoryName, String Description, Date CreateAt, int status) {
-        this.CategoryID = CategoryID;
-        this.CategoryName = CategoryName;
-        this.Description = Description;
-        this.CreateAt = CreateAt;
-        this.status = status;
-    }
-
-    public Date getCreateAt() {
-        return CreateAt;
-    }
-
-    public void setCreateAt(Date CreateAt) {
-        this.CreateAt = CreateAt;
-    }
-    
     public int getCategoryID() {
-        return CategoryID;
+        return categoryID;
     }
 
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
-    public void setCategoryName(String CategoryName) {
-        this.CategoryName = CategoryName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public int getStatus() {
@@ -68,5 +53,23 @@ public class Categories {
     public void setStatus(int status) {
         this.status = status;
     }
-   
+
+    public Categories() {
+    }
+
+    public Categories(String categoryName, String description, Date createAt, int status) {
+        this.categoryName = categoryName;
+        this.description = description;
+        this.createAt = createAt;
+        this.status = status;
+    }
+
+    public Categories(int categoryID, String categoryName, String description, Date createAt, int status) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+        this.description = description;
+        this.createAt = createAt;
+        this.status = status;
+    }
+
 }

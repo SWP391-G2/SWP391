@@ -12,82 +12,90 @@ import java.sql.Date;
  */
 public class Products {
 
-    private int ProductID;
-    private String ProductName;
-    private Date ProductCreateDate;
-    private int ProductStatus;
-    private String ProductImageUrl;
-    private int BrandID;
-    private int CategoryID;
+    private int productID;
+    private String productName;
+    private Date productCreateDate;
+    private int productStatus;
+    private String productImageUrl;
+    private int brandID;
+    private int categoryID;
+
+    public Products(int productID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int brandID, int categoryID) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productCreateDate = productCreateDate;
+        this.productStatus = productStatus;
+        this.productImageUrl = productImageUrl;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+    }
+
+    public Products(String productName, Date productCreateDate, int productStatus, String productImageUrl, int brandID, int categoryID) {
+        this.productName = productName;
+        this.productCreateDate = productCreateDate;
+        this.productStatus = productStatus;
+        this.productImageUrl = productImageUrl;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+    }
 
     public Products() {
     }
 
-    public Products(int ProductID, String ProductName, Date ProductCreateDate, int ProductStatus, String ProductImageUrl, int BrandID, int CategoryID) {
-        this.ProductID = ProductID;
-        this.ProductName = ProductName;
-        this.ProductCreateDate = ProductCreateDate;
-        this.ProductStatus = ProductStatus;
-        this.ProductImageUrl = ProductImageUrl;
-        this.BrandID = BrandID;
-        this.CategoryID = CategoryID;
-    }
-
-    
     public int getProductID() {
-        return ProductID;
+        return productID;
     }
 
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
-    public void setProductName(String ProductName) {
-        this.ProductName = ProductName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public Date getProductCreateDate() {
-        return ProductCreateDate;
+        return productCreateDate;
     }
 
-    public void setProductCreateDate(Date ProductCreateDate) {
-        this.ProductCreateDate = ProductCreateDate;
+    public void setProductCreateDate(Date productCreateDate) {
+        this.productCreateDate = productCreateDate;
     }
 
     public int getProductStatus() {
-        return ProductStatus;
+        return productStatus;
     }
 
-    public void setProductStatus(int ProductStatus) {
-        this.ProductStatus = ProductStatus;
+    public void setProductStatus(int productStatus) {
+        this.productStatus = productStatus;
     }
 
     public String getProductImageUrl() {
-        return ProductImageUrl;
+        return productImageUrl;
     }
 
-    public void setProductImageUrl(String ProductImageUrl) {
-        this.ProductImageUrl = ProductImageUrl;
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
     }
 
     public int getBrandID() {
-        return BrandID;
+        return brandID;
     }
 
-    public void setBrandID(int BrandID) {
-        this.BrandID = BrandID;
+    public void setBrandID(int brandID) {
+        this.brandID = brandID;
     }
 
     public int getCategoryID() {
-        return CategoryID;
+        return categoryID;
     }
 
-    public void setCategoryID(int CategoryID) {
-        this.CategoryID = CategoryID;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
 }
