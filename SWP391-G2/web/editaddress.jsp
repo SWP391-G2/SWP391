@@ -38,17 +38,17 @@
                     <a>${mess}</a>
                 </div>
                 <div>
-                    <input type="text" id="c" name="city" value="${defaultCity}" hidden="">
+                    <input type="text" id="c" name="city" value="${defaultCity}" hidden="" required>
                     <select class="form-select form-select-sm mb-3" id="city"  aria-label=".form-select-sm">
                         <option value="" selected>Select City(Province)</option>         
                     </select>
-                    <input type="text" id="d" name="district" value="${defaultDistrict}" hidden="">
+                    <input type="text" id="d" name="district" value="${defaultDistrict}" hidden="" required>
                     <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                        <option value="" selected>Select District</option>
+                    
                     </select>
-                    <input type="text" id="w" name="wards" value="${defaultWard}" hidden="">
+                    <input type="text" id="w" name="wards" value="${defaultWard}" hidden="" required>
                     <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" >
-                        <option value="" selected>Select wards</option>
+                   
                     </select>
                 </div> 
                 <div class="form-group">
@@ -64,7 +64,7 @@
 
 
                 <button type="submit" name="save" class="btn btn-primary">Edit</button>
-                <div class="mt-5 text-center"> <a class="nav-link" href="./AddressMain">Back To Manager Product</a></div>
+                <div class="mt-5 text-center"> <a class="nav-link" href="./AddressMain">Back To Manager Address</a></div>
             </form>
         </div>
 
