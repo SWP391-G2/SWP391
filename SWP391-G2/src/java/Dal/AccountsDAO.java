@@ -118,9 +118,9 @@ public class AccountsDAO extends DBContext {
             ur.setString(4, account.getPassword());
             ur.setString(5, account.getImage());
             ur.setInt(6, account.getGender());
-            ur.setDate(7, (Date) account.getBirthday());
+            ur.setDate(7, (Date) account.getBirthDay());
             ur.setDate(8, (Date) account.getCreateDate());
-            ur.setInt(9, account.getRole());
+            ur.setInt(9, account.getRoleID());
             ur.setInt(10, account.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
@@ -305,11 +305,11 @@ public class AccountsDAO extends DBContext {
             ur.setString(3, account.getPassword());
             ur.setString(4, account.getImage());
             ur.setInt(5, account.getGender());
-            ur.setDate(6, (Date) account.getBirthday());
+            ur.setDate(6, (Date) account.getBirthDay());
             ur.setString(7, account.getEmail());
             ur.setInt(8, account.getStatus());
             ur.setDate(9, (Date) account.getCreateDate());
-            ur.setInt(10, account.getRole());
+            ur.setInt(10, account.getRoleID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -471,8 +471,7 @@ public class AccountsDAO extends DBContext {
     }
     public static void main(String[] args) {
         AccountsDAO a = new AccountsDAO();
-        Date date = new Date(System.currentTimeMillis());
-        Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
+        
         
     }
 }

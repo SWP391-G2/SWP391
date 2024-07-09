@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Models.Categories;
-import Models.SubCategories;
 import java.sql.Date;
 
 /**
@@ -376,20 +374,4 @@ public class ProductsDAO extends DBContext {
         }
     }
 
-
-//    public static void main(String[] args) {
-//        ProductsDAO Pdao = new ProductsDAO();
-//        /*System.out.println(Pdao.loadProducts().size());
-//        System.out.println(Pdao.getPaging(2).size());
-//
-//        System.out.println(Pdao.getCount());*/
-//        Products p = Pdao.getProductByProductID(1);
-//        System.out.println(p.getProductImageUrl());
-//
-//        System.out.println(Pdao.getCount());
-//        int categoryId = 1; // example category ID
-//        List<Products> products = Pdao.getProductsByCategory(categoryId);
-//        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
-//                + ", Name: " + product.getProductName()));
-//    }
 }

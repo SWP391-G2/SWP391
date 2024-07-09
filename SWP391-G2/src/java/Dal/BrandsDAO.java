@@ -29,15 +29,17 @@ public class BrandsDAO extends DBContext {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(5)
+                        rs.getDate(5),
+                        rs.getInt(6)
                 );
                 brands.add(brand);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-    return brands;
-    }   
+        return brands;
+    }
+
     public Brands getBrandById(int id) {
         String sql = "select * from Brands where BrandID = ? ";
         try {
@@ -49,7 +51,9 @@ public class BrandsDAO extends DBContext {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(5));
+                        rs.getDate(5),
+                        rs.getInt(6)
+                );
             }
         } catch (SQLException e) {
 

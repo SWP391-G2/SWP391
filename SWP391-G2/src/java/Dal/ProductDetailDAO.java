@@ -5,17 +5,13 @@
 package Dal;
 
 import context.DBContext;
-import Models.Brands;
-import Models.Products;
 import Models.ProductDetail;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  *
@@ -35,14 +31,15 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 list.add(new ProductDetail(
                         rs.getInt(8),
-                        rs.getInt(9), 
+                        rs.getInt(9),
                         rs.getString(10),
                         rs.getDate(11),
-                        rs.getBoolean(12), 
+                        rs.getInt(12),
                         rs.getString(13),
-                        rs.getFloat(14),
+                        rs.getBigDecimal(14),
                         rs.getInt(15),
-                        rs.getString(16)));
+                        rs.getString(16)
+                ));
             }
 
         } catch (SQLException e) {
@@ -51,26 +48,26 @@ public class ProductDetailDAO extends DBContext {
         return list;
     }
 
-    public List<ProductDetail> getPriceProductSimilar(int id){
+    public List<ProductDetail> getPriceProductSimilar(int id) {
         List<ProductDetail> list = new ArrayList<>();
-        String sql ="select * from ProductFullDetail where pdProductID = ?";
-         try {
+        String sql = "select * from ProductFullDetail where pdProductID = ?";
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add( new ProductDetail(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getBoolean(5),
-                        rs.getString(6),
-                        rs.getFloat(7),
+                list.add(new ProductDetail(
                         rs.getInt(8),
-                        rs.getString(9)
+                        rs.getInt(9),
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12),
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)
                 ));
-       
+
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -86,15 +83,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getBoolean(5),
-                    rs.getString(6),
-                    rs.getFloat(7),
-                    rs.getInt(8),
-                    rs.getString(9)
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12),
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)
                 );
 
             }
@@ -171,15 +168,16 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 ProductDetail p = new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getBoolean(5),
-                    rs.getString(6),
-                    rs.getFloat(7),
-                    rs.getInt(8),
-                    rs.getString(9));
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12),
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)
+                );
                 return p.getProductFullDetailID();
             }
         } catch (SQLException e) {
@@ -256,15 +254,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 productDetail = new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getBoolean(5),
-                    rs.getString(6),
-                    rs.getFloat(7),
-                    rs.getInt(8),
-                    rs.getString(9)
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12),
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)
                 );
                 listProduct.add(productDetail);
             }
@@ -319,7 +317,7 @@ public class ProductDetailDAO extends DBContext {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
     }
 
     public void insertNewProductDetail(ProductDetail detail) {
@@ -339,9 +337,9 @@ public class ProductDetailDAO extends DBContext {
             ur.setInt(1, detail.getPdProductID());
             ur.setString(2, detail.getProductDescription());
             ur.setDate(3, (Date) detail.getProductCreateDate());
-            ur.setBoolean(4, detail.getProductStatus());
+            ur.setInt(4, detail.getProductStatus());
             ur.setString(5, detail.getProductSize());
-            ur.setFloat(6, detail.getProductPrice());
+            ur.setBigDecimal(6, detail.getProductPrice());
             ur.setInt(7, detail.getProductAvaiable());
             ur.setString(8, detail.getImage());
 
@@ -363,9 +361,9 @@ public class ProductDetailDAO extends DBContext {
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, detail.getProductDescription());
-            ur.setBoolean(2, detail.getProductStatus());
+            ur.setInt(2, detail.getProductStatus());
             ur.setString(3, detail.getProductSize());
-            ur.setFloat(4, detail.getProductPrice());
+            ur.setBigDecimal(4, detail.getProductPrice());
             ur.setInt(5, detail.getProductAvaiable());
             ur.setString(6, detail.getImage());
             ur.setInt(7, detail.getProductFullDetailID());
@@ -374,7 +372,6 @@ public class ProductDetailDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
-
 
     public ProductDetail getInforProductDetail(int pdID) {
 
@@ -385,15 +382,16 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 ProductDetail p = new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getBoolean(5),
-                    rs.getString(6),
-                    rs.getFloat(7),
-                    rs.getInt(8),
-                    rs.getString(9));
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12),
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)
+                );
                 return p;
             }
 
