@@ -7,6 +7,7 @@ import Models.Vouchers;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -57,11 +58,13 @@ public class VouchersDAO extends DBContext{
             while (rs.next()) {
                 Vouchers voucher = new Vouchers(
                         rs.getInt(1), 
-                        rs.getString(2), 
-                        rs.getFloat(3), 
+                        rs.getString(2),
+                        rs.getFloat(3),
                         rs.getDate(4), 
-                        rs.getInt(5), 
-                        rs.getDate(5)
+                        rs.getDate(5), 
+                        rs.getInt(6), 
+                        rs.getDate(7),
+                        rs.getInt(8)
                 );
                         
                 listVoucher.add(voucher);
@@ -71,7 +74,19 @@ public class VouchersDAO extends DBContext{
 
         return listVoucher;
     }
-    
+    public void updateStatusVoucher(int status, int categoryID) {
+        String sql = "UPDATE [dbo].[Vouchers]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE [VoucherID] = ?;";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, categoryID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     public int getTotalPage(int status, String search, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Vouchers";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.

@@ -15,19 +15,23 @@ public class Vouchers {
     private String Code;
     private Float Discount;
     private Date ExpiryDate;
+    private Date StartDate;
     private int Quantity;
     private Date CreateAt;
+    private int Status;
 
     public Vouchers() {
     }
 
-    public Vouchers(int VoucherID, String Code, Float Discount, Date ExpiryDate, int Quantity, Date CreateAt) {
+    public Vouchers(int VoucherID, String Code, Float Discount, Date ExpiryDate, Date StartDate, int Quantity, Date CreateAt, int Status) {
         this.VoucherID = VoucherID;
         this.Code = Code;
         this.Discount = Discount;
         this.ExpiryDate = ExpiryDate;
+        this.StartDate = StartDate;
         this.Quantity = Quantity;
         this.CreateAt = CreateAt;
+        this.Status = Status;
     }
 
     public int getVoucherID() {
@@ -62,6 +66,14 @@ public class Vouchers {
         this.ExpiryDate = ExpiryDate;
     }
 
+    public Date getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(Date StartDate) {
+        this.StartDate = StartDate;
+    }
+
     public int getQuantity() {
         return Quantity;
     }
@@ -77,6 +89,15 @@ public class Vouchers {
     public void setCreateAt(Date CreateAt) {
         this.CreateAt = CreateAt;
     }
-    
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+
+   
     
 }

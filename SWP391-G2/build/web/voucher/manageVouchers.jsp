@@ -125,7 +125,16 @@
                         </div>
                     </div>
                     <div class="col-3">
-
+                        <div class="input-group">
+                            <input type="date" class="form-control" placeholder="Search" value="${search}"
+                                   id="search">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group">
+                            <input type="date" class="form-control" placeholder="Search" value="${search}"
+                                   id="search">
+                        </div>
                     </div>
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
@@ -154,11 +163,11 @@
                                         <th scope="col">No</th>                                  
                                         <th scope="col">Code</th>             
                                         <th scope="col">Discount</th>
+                                        <th scope="cod">Create At</th>
+                                        <th scope="cod">Start Date</th>
                                         <th scope="cod">Expiry Date</th>
                                         <th scope="col">Quantity</th>
-                                        <th scope="col">Create At</th>
-                                        
-
+                                        <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -171,12 +180,31 @@
                                                 </a>
                                             </td>
                                             <td>${listvoucher.getDiscount()}</td>
+                                            <td>${listvoucher.getCreateAt()}</td>
+                                            <td>${listvoucher.getStartDate()}</td>
                                             <td>${listvoucher.getExpiryDate()}</td>      
                                             <td>${listvoucher.getQuantity()}</td>
-                                            <td>${listvoucher.getCreateAt()}</td>
-                                            
+
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            
+                                            <td>
+
+                                                <c:choose>
+                                                    <c:when test="${listvoucher.getStatus() == 1}">
+                                                        <a  onclick="showAlert('Maketing blocked successfully!',${listvoucher.getVoucherID()}, 0)">
+                                                            <button type="button" class="btn btn-danger">
+                                                                View
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${listvoucher.getStatus() == 0}">
+                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${listvoucher.getVoucherID()}, 1);">
+                                                            <button type="button" class="btn btn-success">
+                                                                Hide
+                                                            </button>
+                                                        </a>
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
                                         </tr>
 
                                         <!-- Modal Add new-->

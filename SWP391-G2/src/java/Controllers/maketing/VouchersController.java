@@ -67,14 +67,14 @@ public class VouchersController extends HttpServlet {
         }
 
         if (status_new != -1) {
-
+            VouchersDAO voucherDAO = new VouchersDAO();
+            voucherDAO.updateStatusVoucher(status_new, voucherID);
         }
         String search = "";
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
         try {
-
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
