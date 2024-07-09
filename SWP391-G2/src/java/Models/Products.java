@@ -11,7 +11,7 @@ import java.sql.Date;
  * @author pna29
  */
 public class Products {
-         private int productID;
+     private int productID;
     private int CategoryID;
     private String productName;
     private Date productCreateDate;
@@ -87,5 +87,6 @@ public class Products {
     public void setBrandID(int BrandID) {
         this.BrandID = BrandID;
     }
+    
     
 }

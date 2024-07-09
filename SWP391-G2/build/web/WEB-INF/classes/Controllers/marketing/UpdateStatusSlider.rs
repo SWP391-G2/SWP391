@@ -1,0 +1,2 @@
+Controllers.UpdateStatusSlider
+Controllers.maketing.UpdateStatusSlider

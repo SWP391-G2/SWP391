@@ -137,7 +137,7 @@ public class AdminControlAccount extends HttpServlet {
 
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
 
     }
 
@@ -221,11 +221,17 @@ public class AdminControlAccount extends HttpServlet {
                     } catch (Exception ex) {
 
                     }
-                    Accounts as = new Accounts("Trung", "Anh", "123", "adfsaf", 1, birthday, "0944362986", "Hatrung03022003@gmail,com", "Thanh Ba - Phu Tho", 1, birthday, 2);
+<<<<<<< HEAD
+                   
 
-                    Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, "dsf", email, address, 1, createdate, roleID);
+                    Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, email, 1, createdate, roleID);
 
                     dao.setInsertAccount(a);
+=======
+                  
+
+                  
+>>>>>>> KhanhNG
                     request.setAttribute("success", "Create successfully!");
 
                 } else {
@@ -256,7 +262,7 @@ public class AdminControlAccount extends HttpServlet {
 
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
 
     }
 

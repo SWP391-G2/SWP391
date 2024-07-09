@@ -4,8 +4,6 @@
  */
 package Models;
 
-
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -13,19 +11,20 @@ import java.util.Date;
  * @author hatru
  */
 public class ProductDetail {
-    private int ProductFullDetailID;
+ private int ProductFullDetailID;
     private int pdProductID;
-    private String ProductDescription; 
+    private String ProductDescription;
     private Date ProductCreateDate;
-    private Boolean ProductStatus;
+    private int ProductStatus;
     private String ProductSize;
-    private BigDecimal ProductPrice;
+    private Float ProductPrice;
     private int ProductAvaiable;
+    private String image;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, Boolean ProductStatus, String ProductSize, BigDecimal ProductPrice, int ProductAvaiable) {
+    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
         this.ProductFullDetailID = ProductFullDetailID;
         this.pdProductID = pdProductID;
         this.ProductDescription = ProductDescription;
@@ -34,6 +33,7 @@ public class ProductDetail {
         this.ProductSize = ProductSize;
         this.ProductPrice = ProductPrice;
         this.ProductAvaiable = ProductAvaiable;
+        this.image = image;
     }
 
     public int getProductFullDetailID() {
@@ -68,11 +68,11 @@ public class ProductDetail {
         this.ProductCreateDate = ProductCreateDate;
     }
 
-    public Boolean getProductStatus() {
+    public int getProductStatus() {
         return ProductStatus;
     }
 
-    public void setProductStatus(Boolean ProductStatus) {
+    public void setProductStatus(int ProductStatus) {
         this.ProductStatus = ProductStatus;
     }
 
@@ -84,11 +84,11 @@ public class ProductDetail {
         this.ProductSize = ProductSize;
     }
 
-    public BigDecimal getProductPrice() {
+    public Float getProductPrice() {
         return ProductPrice;
     }
 
-    public void setProductPrice(BigDecimal ProductPrice) {
+    public void setProductPrice(Float ProductPrice) {
         this.ProductPrice = ProductPrice;
     }
 
@@ -100,12 +100,13 @@ public class ProductDetail {
         this.ProductAvaiable = ProductAvaiable;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDetail{" + "ProductFullDetailID=" + ProductFullDetailID + ", pdProductID=" + pdProductID + ", ProductDescription=" + ProductDescription + ", ProductCreateDate=" + ProductCreateDate + ", ProductStatus=" + ProductStatus + ", ProductSize=" + ProductSize + ", ProductPrice=" + ProductPrice + ", ProductAvaiable=" + ProductAvaiable + '}';
+    public String getImage() {
+        return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
    
-   
-   
+    
 }

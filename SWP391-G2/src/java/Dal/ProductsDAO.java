@@ -4,14 +4,15 @@
  */
 package Dal;
 
-
+import context.DBContext;
+import Models.Products;
 import Models.ProductsHome;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 /**
  *
@@ -27,7 +28,7 @@ public class ProductsDAO extends DBContext {
                 + "FROM Products p "
                 + "LEFT JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -52,17 +53,17 @@ public class ProductsDAO extends DBContext {
     }
 
     //Top best seller 
-    public List<ProductsHome> getTopBestSellers(String number) {
+     public List<ProductsHome> getTopBestSellers(String number) {
         List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT TOP " + number + " p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
                 + "MAX(pd.ProductPrice) AS priceMax "
                 + "FROM Products p "
                 + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
                 + "WHERE p.CategoryID <> 4 "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID "
                 + "ORDER BY NEWID()";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -98,7 +99,7 @@ public class ProductsDAO extends DBContext {
                 + "JOIN Categories c ON p.CategoryID = c.CategoryID "
                 + "WHERE p.CategoryID = ? AND c.Status = 1 "
                 + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryid);
@@ -134,7 +135,7 @@ public class ProductsDAO extends DBContext {
                 + "JOIN Categories c ON p.CategoryID = c.CategoryID "
                 + "WHERE p.BrandID = ? AND c.Status = 1 "
                 + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, brandid);
@@ -179,7 +180,7 @@ public class ProductsDAO extends DBContext {
             sql += ") ";
         }
         sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -223,7 +224,7 @@ public class ProductsDAO extends DBContext {
             sql += ") ";
         }
         sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -280,7 +281,7 @@ public class ProductsDAO extends DBContext {
         }
 
         sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription");
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID");
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
@@ -316,7 +317,7 @@ public class ProductsDAO extends DBContext {
                 + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
                 + "WHERE p.ProductName LIKE ? "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + text + "%");
@@ -365,7 +366,7 @@ public class ProductsDAO extends DBContext {
                 + "ON p.ProductID = origPrices.pdProductID "
                 + "WHERE pd.ProductPrice BETWEEN ? AND ? "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, "
                 + "         origPrices.priceMin, origPrices.priceMax";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -391,25 +392,259 @@ public class ProductsDAO extends DBContext {
         }
         return products;
     }
+    public ArrayList<Products> getListProductByFilter(int cateId, int status, String search, int brandId, int pageNo, int pageSize) {
+        ArrayList<Products> listProduct = new ArrayList<>();
+        Products product = new Products();
+        String sql = "select * from Products";
+        boolean whereAdded = false;
+        if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (cateId != -1) {
+                sql += " fk_category_id = ?";
+                whereAdded = true;
+            }
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " ProductStatus = ?";
+                whereAdded = true;
+            }
+            if (brandId != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " BrandID = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (ProductName LIKE ?)";
+            }
+        }
 
-    public static void main(String[] args) {
-        ProductsDAO productsDAO = new ProductsDAO();
+        sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int parameterIndex = 1;
+            if (cateId != -1) {
+                st.setInt(parameterIndex, cateId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                st.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (brandId != -1) {
+                st.setInt(parameterIndex, brandId);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                st.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
 
-        // Fetch top best sellers
-//        List<Products> topBestSellers = productsDAO.getTopBestSellers("5");
-//
-//        // Print the products
-//        for (Products product : topBestSellers) {
-//            System.out.println("Product ID: " + product.getProductID());
-//            System.out.println("Product Name: " + product.getProductName());
-//            System.out.println("Price Min: " + product.getPriceMin());
-//            System.out.println("Price Max: " + product.getPriceMax());
-//            System.out.println("-------------");
-//        }
-        List<ProductsHome> priceRange = productsDAO.getProductsByPriceRange(25, 50);
-        for (ProductsHome products : priceRange) {
-            System.out.println(products.getPriceMax());
+            }
+            //set the limit and offset parameters for pagination
+            st.setInt(parameterIndex, (pageNo - 1) * pageSize);
+            parameterIndex++;
+            st.setInt(parameterIndex, pageSize);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                product = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7));
+                listProduct.add(product);
+            }
+
+        } catch (Exception e) {
+
+        }
+        return listProduct;
+    }
+
+
+
+    public int getTotalPage(int cateId, int status, String search, int brandId, int pageSize) {
+        String sql = "select count(*) from Products";
+        boolean whereAdded = false;
+        if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (cateId != -1) {
+                sql += " fk_category_id = ?";
+                whereAdded = true;
+            }
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " ProductStatus = ?";
+                whereAdded = true;
+            }
+            if (brandId != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " BrandID = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (ProductName LIKE ?)";
+            }
+        }
+        System.out.println(sql);
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            int parameterIndex = 1;
+            if (cateId != -1) {
+                st.setInt(parameterIndex, cateId);
+                parameterIndex++;
+            }
+            if (status != -1) {
+                st.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (brandId != -1) {
+                st.setInt(parameterIndex, brandId);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                st.setString(parameterIndex, "%" + search + "%");
+
+            }
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int totalRecord = rs.getInt(1);
+                int totalPage = totalRecord / pageSize;
+                if (totalRecord % pageSize != 0) {
+                    totalPage++;
+                }
+                return totalPage;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getLastProductId() {
+        String sql = "select Top 1 ProductID from Products Order by ProductID DESC";
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
+
+    public void insertNewProduct(Products product) {
+        String sql = "INSERT INTO [dbo].[Products] (\n"
+                + "    [ProductName],\n"
+                + "    [ProductCreateDate],\n"
+                + "    [ProductStatus],\n"
+                + "    [BrandID],\n"
+                + "    [ProductImageUrl],\n"
+                + "    [fk_category_id])\n"
+                + "VALUES (?,?,?,?,?,?)";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, product.getProductName());
+            ur.setDate(2, (Date) product.getProductCreateDate());
+            ur.setInt(3, product.getProductStatus());
+            ur.setInt(4, product.getBrandID());
+            ur.setString(5, product.getProductImageUrl());
+            ur.setInt(6, product.getCategoryID());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 
+    public void updateStatus(int proId, int status) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET \n"
+                + "[ProductStatus] = ?\n"
+                + " WHERE ProductID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, proId);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateProduct(Products product) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [ProductName] = ?\n"
+                + "      ,[ProductStatus] = ?\n"
+                + "      ,[ProductImageUrl] = ?\n"
+                + "      ,[BrandID] = ?\n"
+                + "      ,[fk_category_id] = ?\n"
+                + "WHERE ProductID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, product.getProductName());
+            ur.setInt(2, product.getProductStatus());
+            ur.setString(3, product.getProductImageUrl());
+            ur.setInt(4, product.getBrandID());
+            ur.setInt(5, product.getCategoryID());
+            ur.setInt(6, product.getProductID());
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        ProductsDAO dao = new ProductsDAO();
+        // Products product = new Products(10, "d", 0, "1", 2, 1);
+        // dao.updateProduct(product);
+        // Date date = new Date(System.currentTimeMillis());
+        // Products product = new Products("test", date, 1, "1", 1, 1);
+        // dao.insertNewProduct(product);
+        System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
+
+        System.out.println(dao.getListProductByFilter(-1, -1, "men", -1, 1, 10).size());
+        System.out.println(dao.getLastProductId());
+        List<ProductsHome> productss = dao.getTopBestSellers("5");
+        for (ProductsHome product : productss) {
+            System.out.println(product.getProductName());
+        }
+
+    }
+
+    // public static void main(String[] args) {
+    // ProductsDAO Pdao = new ProductsDAO();
+    // /*System.out.println(Pdao.loadProducts().size());
+    // System.out.println(Pdao.getPaging(2).size());
+    //
+    // System.out.println(Pdao.getCount());*/
+    // Products p = Pdao.getProductByProductID(1);
+    // System.out.println(p.getProductImageUrl());
+    //
+    // System.out.println(Pdao.getCount());
+    // int categoryId = 1; // example category ID
+    // List<Products> products = Pdao.getProductsByCategory(categoryId);
+    // products.forEach(product -> System.out.println("Product ID: " +
+    // product.getProductID()
+    // + ", Name: " + product.getProductName()));
+    // }
 }

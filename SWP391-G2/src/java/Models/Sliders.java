@@ -4,7 +4,7 @@
  */
 package Models;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -16,12 +16,12 @@ public class Sliders {
     private int sliderStatus;
     private String sliderTitle;
     private Date updateAt;
-    private int accountId;
+    private Integer accountId;
 
     public Sliders() {
     }
 
-    public Sliders(int sliderID, String sliderImage, int sliderStatus, String sliderTitle, Date updateAt, int accountId) {
+    public Sliders(int sliderID, String sliderImage, int sliderStatus, String sliderTitle, Date updateAt, Integer accountId) {
         this.sliderID = sliderID;
         this.sliderImage = sliderImage;
         this.sliderStatus = sliderStatus;
@@ -70,15 +70,13 @@ public class Sliders {
         this.updateAt = updateAt;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
-   
-
-
+    
 }
