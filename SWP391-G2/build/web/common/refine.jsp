@@ -299,10 +299,10 @@
                                     <c:set var="proA" value=""/>
                                     <c:forEach items="${requestScope.productPage}" var="product">
                                         <div class="product_items col-lg-3" style="margin: 30px 0">
-                                            <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px;; width: 100%; height: auto;">
+                                            <article class="single_product" style="border: 2px solid #f6692a; border-radius: 3px; width: 100%; height: auto;">
                                                 <figure>
                                                     <div class="product_thumb">
-                                                        <a href="#" class="primary_img"  >
+                                                        <a href="#" class="primary_img">
                                                             <img src="${product.productImageUrl}" alt="">
                                                         </a>
                                                         <div class="action_links">
@@ -326,10 +326,10 @@
                                                         </div>
                                                     </div>
                                                     <figcaption class="product_content">
-                                                        <h4 class="product_name ani-fire" style="font-size: 15px; padding: 10px">
+                                                        <h4 class="product_name ani-fire" style="font-size: 15px; padding-left: 10px">
                                                             <a href="#">${product.productName}</a>
                                                         </h4>
-                                                        <div class="price_box" style=" padding-left: 10px">
+                                                        <div class="price_box" style="padding-left: 10px">
                                                             <span class="current_price">$${product.priceMin} - $${product.priceMax}</span>
                                                         </div>
                                                     </figcaption>

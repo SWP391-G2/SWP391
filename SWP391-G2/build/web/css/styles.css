@@ -420,6 +420,7 @@ header nav ul li.active::after{
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 /* General styles for the navigation bar */
     .navigation {
         background-color: #000; /* Black background */
@@ -496,3 +497,5 @@ header nav ul li.active::after{
         text-transform: uppercase;
     }
 
+=======
+>>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f

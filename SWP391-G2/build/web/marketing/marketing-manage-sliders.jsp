@@ -21,7 +21,6 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!------ Include the above in your HEAD tag ------>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/> 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
@@ -149,13 +148,22 @@
                         <div class="row" style="">
                             <div class="col-sm-4" style="text-align: center; margin-top: 20px; padding-top: 20px">
                                 <h3 class="mb-0" id="">
-                                    <strong>Manage Sliders</strong>
+                                    <strong class="ani-fire" style="font-size: 30px">Manage Sliders</strong>
                                 </h3>
                             </div>
-                            <div class="col-lg-6" style="text-align: center; margin-top: 20px; margin-bottom: 20px;padding-top: 20px"F>
-                                <form action="managerSlider" method="post" style="display: flex; justify-content: center">
-                                    <input name="valueSearch" value="${requestScope.searchValue != null ? requestScope.searchValue : ""}" id="searchId" type="text" oninput="searchByName()" placeholder="Search..." style="width: 60%; padding: 4px 10px; border-radius: 15px">
-                                    <button type="submit" style="border-radius: 50%; width: 40px; font-size: 18px; margin-left: 10px"><i class="fa fa-search"></i></button>
+                            <div class="col-lg-4" style="text-align: center; margin-top: 20px; margin-bottom: 20px;padding-top: 20px">
+                                <form action="" style="display: flex; justify-content: center">
+                                    <input value="${requestScope.searchValue != null ? requestScope.searchValue : ""}" id="searchTitle" type="text" oninput="searchByTitle()" placeholder="Search..." style="width: 60%; padding: 4px 10px; border-radius: 15px">
+                                    <button style="border-radius: 50%; width: 40px; font-size: 18px; margin-left: 10px"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="col-lg-2" style="text-align: center; margin-top: 20px; margin-bottom: 20px;padding-top: 20px">
+                                <form action="manageSlider" method="post" >
+                                    <select name="status" style=" width: 150px; border: 2px solid #000;" >
+                                        <option value="" ${param.status == '' ? 'selected' : ''}>Select Status</option>
+                                        <option value="1" ${param.status == '1' ? 'selected' : ''}>View</option>
+                                        <option value="0" ${param.status == '0' ? 'selected' : ''}>Hide</option>
+                                    </select>
                                 </form>
                             </div>
                             <div class="col-lg-2">
@@ -165,7 +173,12 @@
 
                         </div>
 
-
+                        <% String message = (String) request.getAttribute("message"); %>
+                        <% if (message != null && !message.isEmpty()) { %>
+                        <div class="alert alert-info justify-content-center">
+                            <%= message %>
+                        </div>
+                        <% } %>
 
                         <div class="card-body">
                             <div class="table-responsive"  id="contentt">
@@ -182,30 +195,31 @@
                                         </tr>
                                     </thead>
                                     <tbody >
-                                        <c:forEach items="${sliderList}" var="slider">
+                                        <c:forEach items="${listByPage}" var="slider">
                                             <tr class="product_items">
                                                 <td class="text_page">${slider.sliderID}</td>
                                                 <td style="text-align: center">
                                                     <img style="width: 170px; height:180px" src="${slider.sliderImage}" alt="img"">
                                                 </td>
-                                                <td style="max-width: 280px;" class="text_page">${slider.sliderTitle}</td>                                               
+                                                <td style="max-width: 280px;
+                                                    padding: 10px;
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                    word-wrap: break-word;" class="text_page">${slider.sliderTitle}</td>                                               
                                                 <td class="text_page">${slider.updateAt}</td>
                                                 <td class="text_page">${slider.accountId}</td>
                                                 <td class="text_page">
-                                                    <c:if test="${slider.sliderStatus > 0}">
-                                                        <input  type="number" min="1" onchange="updateStatus(this)"
-                                                                value="${slider.sliderStatus}" data-id="${slider.sliderID}">
-                                                    </c:if>
                                                     <c:choose>
-                                                        <c:when test="${slider.sliderStatus > 0}">
-                                                            <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}">
+                                                        <c:when test="${slider.sliderStatus == 1}">
+                                                            <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}" onclick="return confirmAction('block');">
                                                                 <button type="button" class="btn btn-danger">
                                                                     Hide
                                                                 </button>
                                                             </a>
                                                         </c:when>
                                                         <c:when test="${slider.sliderStatus == 0}">
-                                                            <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}">
+                                                            <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}" onclick="return confirmAction('unblock');">
                                                                 <button type="button" class="btn btn-success">
                                                                     View
                                                                 </button>
@@ -213,29 +227,29 @@
                                                         </c:when>
                                                     </c:choose>
                                                 </td>
+
                                                 <td class="text_page">
-                                                    <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
-                                                    <a href=""><button type="button" class="btn btn-danger delete-btn"><i class="fa-solid fa-trash"></i></button></a>
+                                                    <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>                                                  
                                                 </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
                                 </table>
 
-                                <!--                                <div class="clearfix" style="text-align: center">
-                                                                    <ul class="pagination">
-                                <c:if test="${page != 1}">
-                                    <a class="page-item" href="manager?page=${page-1}">Previous</a>
-                                </c:if> 	
-                                <c:forEach begin="1" end="${numberpage}" var="i">
-                                    <a class="${page==i?"page-item activee":""}" style="${page==i?"background-color:black; color: white; font-size: 22px; float: left; padding: 8px 16px; text-decoration: none;":""}" 
-                                       href="manager?page=${i}" class="page-link">${i}</a>  
-                                </c:forEach>
-                                <c:if test="${page < numberpage}">
-                                    <a class="page-item" href="manager?page=${page+1 }" class="page-link">Next</a>
-                                </c:if> 
-                            </ul>
-                        </div>-->
+                                <div class="clearfix" style="text-align: center">
+                                    <ul class="pagination justify-content-center">
+                                        <c:if test="${page != 1}">
+                                            <a class="page-item" href="manageSlider?page=${page-1}">Previous</a>
+                                        </c:if> 	
+                                        <c:forEach begin="1" end="${numberpage}" var="i">
+                                            <a class="${page==i?"page-item activee":""}" style="${page==i?"background-color:black; color: white; font-size: 22px; float: left; padding: 8px 16px; text-decoration: none;":""}" 
+                                               href="manageSlider?page=${i}" class="page-link">${i}</a>  
+                                        </c:forEach>
+                                        <c:if test="${page < numberpage}">
+                                            <a class="page-item" href="manageSlider?page=${page+1 }" class="page-link">Next</a>
+                                        </c:if> 
+                                    </ul>
+                                </div>
 
                             </div>
                         </div>
@@ -249,9 +263,9 @@
         <div class="modal fade" id="modal_box" role="dialog"></div>
         <!-- Edit Modal HTML -->
         <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog" style="margin: 28px 500px">
-                <div class="modal-content" style="width: 1000px; max-height: 900px; overflow: scroll">
-                    <form action="addproduct" enctype="multipart/form-data">
+            <div class="modal-dialog " style="margin: 28px 500px">
+                <div class="modal-content " style="width: 1000px; max-height: 900px">
+                    <form action="addSlider" method="post" enctype="multipart/form-data">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add New Slider</h4>
                         </div>
@@ -261,7 +275,22 @@
                                 <input name="name" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="productID">Image:</label>
+                                <label for="status">Status:</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="1" ${slider.sliderStatus==1 ? 'selected' : '' }>View</option>
+                                    <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" id="stringdateolb" value="${slider.updateAt}">
+                                <label style="margin-bottom: 10px; width: 100%">Update At:</label>
+                                <input type="hidden" name="date" value="" id="here"/>
+                                <select class="bear-dates" id="dobDay"></select>
+                                <select class="bear-months" id="dobMonth"></select>
+                                <select class="bear-years" id="dobYear"></select>
+                            </div> 
+                            <div class="form-group">
+                                <label for="image">Image:</label>
                                 <div class="image-preview-container">
                                     <img id="previewImage" class="image-preview" src="${slider.sliderImage}" alt="Preview Image"/>
                                     <div class="file-input">
@@ -269,11 +298,11 @@
                                     </div>
                                 </div>
                             </div>
-                                      
+
                         </div>
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" onclick="submitForm()" class="btn btn-success" value="Add">
+                            <input type="submit" class="btn btn-success" value="Add">
                         </div>
                     </form>
                 </div>
@@ -286,18 +315,7 @@
                 window.location.href = './updateStatusSlider?status=' + slider.value + '&sliderId=' + slider.dataset.id;
 
             }
-            document.addEventListener("DOMContentLoaded", function () {
-                const deleteButtons = document.querySelectorAll('.delete-btn');
-                deleteButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        const sliderID = this.closest('tr').querySelector('td:first-child').innerText;
-                        if (confirm(`Are you sure you want to delete slider?`)) {
-                            alert(`Slider Deleted !`);
-                            // Implement the actual delete functionality here
-                        }
-                    });
-                });
-            });
+
             function updatePreview(event) {
                 var input = event.target;
                 var reader = new FileReader();
@@ -309,12 +327,81 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
-            
-        </script>
+            function confirmAction(action) {
+                let message = action === 'block' ? 'Are you sure you want to block this slider?' : 'Are you sure you want to unblock this slider?';
+                return confirm(message);
+            }
+            function addOption(selectElement, value, text) {
+                var option = document.createElement("option");
+                option.value = value;
+                option.text = text;
+                selectElement.add(option);
+            }
 
-        <!-- =========== Scripts =========  -->
+            var defaultReleaseDate = document.getElementById("stringdateolb").value;
+            var defaultDateArray = defaultReleaseDate.split('-');
+            var defaultDay = parseInt(defaultDateArray[2]);
+            var defaultMonth = parseInt(defaultDateArray[1]);
+            var defaultYear = parseInt(defaultDateArray[0]);
+
+            var daysSelect = document.getElementById('dobDay');
+            var monthsSelect = document.getElementById('dobMonth');
+            var yearsSelect = document.getElementById('dobYear');
+
+            for (var day = 1; day <= 31; day++) {
+                addOption(daysSelect, day, day);
+            }
+
+            for (var month = 1; month <= 12; month++) {
+                addOption(monthsSelect, month, month);
+            }
+
+            var currentYear = new Date().getFullYear();
+            for (var year = currentYear; year >= 1900; year--) {
+                addOption(yearsSelect, year, year);
+            }
+
+            daysSelect.value = defaultDay;
+            monthsSelect.value = defaultMonth;
+            yearsSelect.value = defaultYear;
+            function submitForm() {
+                var here = document.querySelector('#here');
+                var form = document.getElementById('form');
+                var dobDay = document.getElementById('dobDay').value;
+                var dobMonthText = document.getElementById('dobMonth').value;
+                var dobMonth = monthNameToNumber(dobMonthText);
+                var dobYear = document.getElementById('dobYear').value;
+                if (dobMonth < 10 && dobDay < 10) {
+                    dobFull = dobYear + '-0' + dobMonth + '-0' + dobDay;
+                } else if (dobMonth < 10 && !(dobDay < 10)) {
+                    dobFull = dobYear + '-0' + dobMonth + '-' + dobDay;
+                } else if (dobDay < 10 && !(dobMonth < 10)) {
+                    dobFull = dobYear + '-' + dobMonth + '-0' + dobDay;
+                } else {
+                    dobFull = dobYear + '-' + dobMonth + '-' + dobDay;
+                }
+
+                here.value = dobFull;
+                form.submit();
+            }
+            function searchByTitle() {
+                var text = document.querySelector("#searchTitle").value;
+                $.ajax({
+                    url: "/SWP391-G2/searchSlider",
+                    type: "get",
+                    data: {
+                        txt: text
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("contentt");
+                        row.innerHTML = data;
+                    },
+                    error: function (xhr) {
+                    }
+                });
+            }
+        </script>
         <script src="js/admin_manager.js"></script>
-        <!-- ====== ionicons ======= -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

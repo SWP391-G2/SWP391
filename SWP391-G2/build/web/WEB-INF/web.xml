@@ -2,6 +2,7 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>Login</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controllers.common.Login</servlet-class>
     </servlet>
     <servlet>
@@ -23,6 +24,25 @@
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.common.DetailOfProduct</servlet-class>
+=======
+        <servlet-class>Controllers.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Signup</servlet-name>
+        <servlet-class>Controllers.Signup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailService</servlet-name>
+        <servlet-class>Controllers.EmailService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RefineServlet</servlet-name>
+        <servlet-class>Controllers.RefineServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailOfProduct</servlet-name>
+        <servlet-class>Controllers.DetailOfProduct</servlet-class>
+>>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
     </servlet>
     <servlet>
         <servlet-name>AdminCustomer</servlet-name>
@@ -46,13 +66,18 @@
     </servlet>
     <servlet>
         <servlet-name>AdminDetails</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controllers.admin.AdminDetails</servlet-class>
+=======
+        <servlet-class>Controllers.AdminDetails</servlet-class>
+>>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
     </servlet>
     <servlet>
         <servlet-name>AdminProfile</servlet-name>
         <servlet-class>Controllers.admin.AdminProfile</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>BrandController</servlet-name>
         <servlet-class>Controllers.marketing.BrandController</servlet-class>
     </servlet>
@@ -87,6 +112,14 @@
     <servlet>
         <servlet-name>AddReplyFeedback</servlet-name>
         <servlet-class>Controllers.shop.feedback.AddReplyFeedback</servlet-class>
+=======
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>Controllers.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <servlet-class>Controllers.MakertingManageSlider</servlet-class>
+>>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -144,6 +177,7 @@
         <servlet-name>MakertingManageSlider</servlet-name>
         <url-pattern>/manageSlider</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>BrandController</servlet-name>
         <url-pattern>/brand</url-pattern>
@@ -180,4 +214,6 @@
         <servlet-name>AddReplyFeedback</servlet-name>
         <url-pattern>/addreply</url-pattern>
     </servlet-mapping>
+=======
+>>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 </web-app>

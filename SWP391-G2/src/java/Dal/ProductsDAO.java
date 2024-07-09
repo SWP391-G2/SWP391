@@ -574,6 +574,8 @@ public class ProductsDAO extends DBContext {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+          
+        
     }
 
     public void updateStatus(int proId, int status) {
