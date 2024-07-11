@@ -26,10 +26,11 @@ public class BrandsDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Brands brand = new Brands(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4)
+                        rs.getInt("BrandID"),
+                        rs.getString("BrandName"),
+                        rs.getString("Description"),
+                        rs.getDate("CreateAt"),
+                        rs.getInt("status")
                 );
                 brands.add(brand);
             }
@@ -37,29 +38,6 @@ public class BrandsDAO extends DBContext {
             System.out.println(e);
         }
         return brands;
-    }
-
-    public List<Brands> getAll() {
-        List<Brands> list = new ArrayList<>();
-        Brands brand = new Brands();
-        String sql = "SELECT * FROM [dbo].[Brands] Where status = 1";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                brand = new Brands(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4)
-                );
-                list.add(brand);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-
     }
 
     public ArrayList<Brands> getBrandByFilter(int status, String search, int pageNo, int pageSize) {
@@ -107,6 +85,7 @@ public class BrandsDAO extends DBContext {
                         rs.getInt("BrandID"),
                         rs.getString("BrandName"),
                         rs.getString("Description"),
+                        rs.getDate("CreateAt"),
                         rs.getInt("status")
                 );
                 listBrands.add(brand);
@@ -190,23 +169,6 @@ public class BrandsDAO extends DBContext {
         }
     }
 
-    public List<String> getAllName() {
-        List<String> list = new ArrayList<>();
-
-        String sql = "SELECT BrandName FROM [dbo].[Brands] Where status = 1";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String brand = rs.getString(1);
-                list.add(brand);
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
     public Brands getBrandById(int brandID) {
         String sql = "select * from Brands where BrandID = ?";
         try {
@@ -218,10 +180,10 @@ public class BrandsDAO extends DBContext {
                         rs.getInt("BrandID"),
                         rs.getString("BrandName"),
                         rs.getString("Description"),
+                        rs.getDate("CreateAt"),
                         rs.getInt("status")
                 );
                 return brand;
-
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -243,4 +205,48 @@ public class BrandsDAO extends DBContext {
         }
     }
 
+    public Brands checkExistBrandName(String brandName) {
+        String sql = "select * from Brands where BrandName = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, brandName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               Brands brand = new Brands(
+                        rs.getInt("BrandID"),
+                        rs.getString("BrandName"),
+                         rs.getString("Description"),
+                        rs.getDate("CreateAt"),
+                        rs.getInt("status")
+                );
+                return brand;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        BrandsDAO brdao = new BrandsDAO();
+        List<Brands> brands = brdao.getBrands();
+        for (Brands brand : brands) {
+            System.out.println(brand.getBrandID() + " " + brand.getBrandName() + " " + brand.getDescription() + "" + brand.getCreateAt());
+        }
+//        int number = brdao.getTotalPage(1, "", 10);
+//        System.out.println(number);
+//        List<Brands> list = brdao.getBrandByFilter(1, "", 1, 6);
+//        for (Brands brands : list) {
+//            System.out.println(brands.getBrandID() + brands.getBrandName());
+//        }
+
+//        List<Brands> list = brdao.getBrands();
+//        for (Brands brands : list) {
+//            System.out.println(brands.toString());
+//        }
+        //brdao.insertBrand("perfume the best in the world", "asdfhasdfhkajfhkasdf");
+//           Brands b =  brdao.getBrandById(2);
+//           System.out.println(b.toString());
+        //brdao.updateBrand("TRUNGHA", "asdfkajshdfkajshfakjsdfhkajsfdk", 1, 21);
+    }
 }
