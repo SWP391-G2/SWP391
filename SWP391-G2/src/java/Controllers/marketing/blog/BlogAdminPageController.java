@@ -6,6 +6,7 @@ package Controllers.marketing.blog;
 
 import static Constant.constant.RECORD_PER_PAGE;
 import Dal.BlogDAO;
+import Models.Accounts;
 import Models.BlogResponseDTO;
 import Models.PageControl;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,6 +28,16 @@ public class BlogAdminPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        Accounts account = (Accounts) session.getAttribute("account");
+
+        if (account == null || account.getRoleID() != 3) {
+            response.sendRedirect("login");
+            return;
+        }
+
         PageControl pageControl = new PageControl();
         List<BlogResponseDTO> blogList = pagination(request, pageControl);
         request.setAttribute("blogList", blogList);
