@@ -504,6 +504,6 @@ public class AccountsDAO extends DBContext {
         Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
         System.out.println(a.getAccount("123"));
         System.out.println(a.getAccoutByID(1).getAccountID());
-     
+
     }
 }

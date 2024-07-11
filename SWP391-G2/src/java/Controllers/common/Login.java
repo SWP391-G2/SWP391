@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
                             response.addCookie(cookiePassword);
                             session.setAttribute("save", "1");
                         }
-                        switch (account.getRole()) {
+                        switch (account.getRoleID()) {
                             case 4 ->
                                 request.getRequestDispatcher("shop/home.jsp").forward(request, response);
                             case 3 ->

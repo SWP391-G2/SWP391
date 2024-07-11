@@ -83,8 +83,8 @@ public class Email {
         Email e = new Email();
         System.out.println(e.randomOTP());
         String otps = String.valueOf(e.randomOTP());
-       String su = e.subjectEmail();
-   e.sendEmail(su, otps, "bichnqhe173220@fpt.edu.vn");
+        String su = e.subjectEmail();
+        e.sendEmail(su, otps, "bichnqhe173220@fpt.edu.vn");
     }
 
     public String subjectEmail() {

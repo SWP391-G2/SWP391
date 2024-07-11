@@ -21,11 +21,8 @@ public class Security {
         byte[] digest = msd.digest();
         enrText = DatatypeConverter.printHexBinary(digest).toLowerCase();
         return enrText;
-        
     }
-   
 
-    
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Security s = new Security();
         System.out.println(s.getPasswordSecurity("Aq!1234567890"));
