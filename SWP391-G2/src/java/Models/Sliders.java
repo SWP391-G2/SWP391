@@ -77,4 +77,12 @@ public class Sliders {
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
+
+    
+
+  
+
+   
+
+
 }

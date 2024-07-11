@@ -105,7 +105,7 @@ public class AdminBlockStatus extends HttpServlet {
 
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin.jsp").forward(request, response);
 //           response.getWriter().println(search_raw);
 //           response.getWriter().print(statusnow_raw);
         //response.getWriter().print(currentpage_raw);

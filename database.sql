@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿USE [master];
-=======
-USE [master];
->>>>>>> main
-=======
 ﻿use [master]
 GO
 IF EXISTS (SELECT * FROM sys.databases WHERE name = 'TPS')
@@ -14,7 +7,6 @@ GO
 CREATE DATABASE TPS1
 GO
 USE TPS1
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 GO
 
 CREATE TABLE [dbo].[Categories](
@@ -50,23 +42,11 @@ CREATE TABLE [dbo].[Accounts](
 [Gender] int NOT NULL,
 [BirthDay] date NOT NULL,
 [Email] [nvarchar](50) NULL,
-<<<<<<< HEAD
-<<<<<<< HEAD
-[Phone] [varchar](11),
-=======
->>>>>>> main
-=======
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 [Status] int NOT NULL,
 [CreateDate] date NOT NULL,
 [RoleID] [int] NOT NULL,
 FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 )
-<<<<<<< HEAD
-/*======= INSERT VALUE OF [Accounts] TABLE =======*/
-<<<<<<< HEAD
-=======
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 INSERT INTO [dbo].[Accounts] (
     [FirstName],
     [LastName],
@@ -80,85 +60,6 @@ INSERT INTO [dbo].[Accounts] (
     [RoleID]
 )
 VALUES
-<<<<<<< HEAD
-    (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com','01234567891', 1, '2022-01-01', 1),
-    (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com','01234567891', 1, '2022-01-02', 4),
-    (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com','01234567891', 1, '2022-01-03', 4),
-    (N'Ngô', N'Thị Nga', 'password123', NULL, 2, '1995-04-04', 'ngothinga@example.com','01234567891', 1, '2022-01-04', 4),
-    (N'Phạm', N'Văn Minh', 'password123', NULL, 1, '1985-05-05', 'phamvanminh@example.com','01234567891', 1, '2022-01-05', 4);
-GO
-
-/* ============[Vouchers] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[Vouchers];
-
-CREATE TABLE [dbo].[Vouchers] (
-    VoucherID INT PRIMARY KEY IDENTITY(1,1),
-    Code NVARCHAR(50) NOT NULL UNIQUE,
-    Discount DECIMAL(5, 2) NOT NULL,
-    ExpiryDate DATE NOT NULL,
-	Quantity INT,
-	CreateAt DATE
-)
-/*======= INSERT VALUE OF [Vouchers] TABLE =======*/
-INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, Quantity, CreateAt) VALUES
-('NEWYEAR2024', 10.00, '2024-12-31', 100, '2024-01-01'),
-('SUMMERSALE', 15.00, '2024-06-30', 50, '2024-06-01');
-=======
-
-INSERT INTO [dbo].[Accounts] (FirstName, LastName, Password, Image, Gender, BirthDay, Email, Status, CreateDate, RoleID) VALUES
-('Nguyễn', 'Văn A', 'PasswordHash1', 'image1.png', 1, '1985-07-14', 'nguyenvana@example.com', 1, '2023-01-01', 1),
-('Trần', 'Thị B', 'PasswordHash2', 'image2.png', 2, '1990-03-22', 'tranthib@example.com', 1, '2023-01-02', 2),
-('Lê', 'Quang C', 'PasswordHash3', NULL, 1, '1983-11-05', 'lequangc@example.com', 1, '2023-01-03', 1),
-('Phạm', 'Thị D', 'PasswordHash4', 'image4.png', 2, '1995-09-18', 'phamthid@example.com', 1, '2023-01-04', 2),
-('Hoàng', 'Văn E', 'PasswordHash5', NULL, 1, '1988-04-12', 'hoangvane@example.com', 1, '2023-01-05', 1),
-('Võ', 'Thị F', 'PasswordHash6', 'image6.png', 2, '1992-07-23', 'vothif@example.com', 1, '2023-01-06', 2),
-('Đỗ', 'Minh G', 'PasswordHash7', NULL, 1, '1987-10-15', 'dohminhg@example.com', 1, '2023-01-07', 1),
-('Vũ', 'Thị H', 'PasswordHash8', 'image8.png', 2, '1993-12-30', 'vuthih@example.com', 1, '2023-01-08', 2),
-('Bùi', 'Văn I', 'PasswordHash9', NULL, 1, '1989-05-27', 'buivani@example.com', 1, '2023-01-09', 1),
-('Ngô', 'Thị J', 'PasswordHash10', 'image10.png', 2, '1991-08-16', 'ngothij@example.com', 1, '2023-01-10', 2);
-
-GO
-
-/* ============[Vouchers] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[Vouchers];
-
-CREATE TABLE [dbo].[Vouchers] (
-    VoucherID INT PRIMARY KEY IDENTITY(1,1),
-    Code NVARCHAR(50) NOT NULL UNIQUE,
-    Discount DECIMAL(5, 2) NOT NULL,
-    ExpiryDate DATE NOT NULL,
-	StartDate DATE NOT NULL,
-	Quantity INT,
-	CreateAt DATE,
-	[Status] int
-)
-/*======= INSERT VALUE OF [Vouchers] TABLE =======*/
-INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, StartDate, Quantity, CreateAt,Status) VALUES
-('NEWYEAR2024', 10.00, '2024-12-31','2024-01-01', 100, '2024-01-01',1),
-('SUMMERSALE', 15.00, '2024-06-30','2024-01-01', 50, '2024-06-01',1);
->>>>>>> main
-GO
-
-/* ============[Categories] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[Categories];
-
-CREATE TABLE [dbo].[Categories](
-[CategoryID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-[CategoryName] [nvarchar](50) NOT NULL,
-[Description] [ntext] NULL,
-[CreateAt] DATE,
-[Status] [int]
-)
-/*======= INSERT VALUE OF [Categories] TABLE =======*/
-INSERT INTO [dbo].[Categories] ([CategoryName],[Description],[CreateAt],[Status])
-VALUES
-('Men','What do gentlemen look for perfume for? Probably to smell good, be masculine and enhance their style, right ? Namperfume understands our gentlemen , brings to men decent, neat, attractive, sometimes overwhelmingly powerful scents, and certainly cannot forget the typical liberal dustiness of men.','2024-01-01',1),
-('Women','Perfume from the early days was created to serve women, so it seems that in the world of scent, the choices for women are richer and more colorful. That"s why, namperfume always wants to bring beautiful ladies great options, from seductive, luxurious, powerful to gentle, innocent, and indispensable a bit of flirty sexiness. recline...','2024-01-01',1),
-('Unisex','Unisex perfume is a perfume line suitable for all genders, whether men or women can use this product. Same perfume, but when men use it, they will become elegant. A girl who possesses adorable charms will become even more attractive.','2024-01-01',1),
-('Giftset','Giftset - also known as gift set, is a collection of many different types of products. They are all highly applicable to serve work and daily life. All The products in the Giftset are all related to each other and have high aesthetics to bring satisfaction to the recipient.','2024-01-01',1);
-
-GO
-=======
     (N'Nguyễn', N'Văn Anh', 'password123', NULL, 1, '1990-01-01', 'nguyenvananh@example.com', 1, '2022-01-01', 1),
     (N'Lê', N'Thị Hà', 'password123', NULL, 2, '1992-02-02', 'lethiha@example.com', 1, '2022-01-02', 2),
     (N'Trần', N'Đình Nam', 'password123', NULL, 1, '1980-03-03', 'trandinhnam@example.com', 1, '2022-01-03', 1),
@@ -169,7 +70,6 @@ GO
     (N'Lê', N'Thị Loan', 'password123', NULL, 2, '1992-08-08', 'lethiloan@example.com', 1, '2022-01-08', 2),
     (N'Nguyễn', N'Văn Hùng', 'password123', NULL, 1, '1982-09-09', 'nguyenvanhung@example.com', 1, '2022-01-09', 1),
     (N'Trần', N'Thị Linh', 'password123', NULL, 2, '1995-10-10', 'tranthilinh@example.com', 1, '2022-01-10', 2);
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 
 
 CREATE TABLE [dbo].[Brands] (
@@ -181,38 +81,6 @@ CREATE TABLE [dbo].[Brands] (
 
 INSERT INTO [dbo].[Brands]([BrandName],[Description],[status])
 VALUES
-<<<<<<< HEAD
-('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.',1,'2024-01-01'),
-('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.',1,'2024-01-01'),
-('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.',1,'2024-01-01'),
-('LOUIS VUITTON', 'Louis Vuitton, famous for its luxury and class in fashion and accessories, also offers high-end perfume lines with delicate and unique scents. Louis Vuitton perfumes are Created by leading perfumers, using rare and high quality ingredients.',1,'2024-01-01'),
-('DIOR','Dior is a famous brand in the field of perfume, with many iconic product lines. Dior perfume stands out with its sophisticated combination of high-quality ingredients, bringing the fragrance is diverse and rich.',1,'2024-01-01'),
-('TOMMY HILFIGER','Tommy Hilfiger is a famous brand, not only in the fashion field but also in the perfume industry. Tommy Hilfiger perfumes often have a youthful, dynamic and fresh style.' ,1,'2024-01-01'),
-('ISSEY MIYAKE',N'Issey Miyake is a famous brand with modern, minimalist and sophisticated perfume lines. Issey Miyake perfumes often stand out with their fresh, elegant and creative, inspired by nature and natural elements.',1,'2024-01-01'),
-('CREED', 'Creed is a high-end French perfume brand, famous for its handmade, sophisticated and luxurious perfume lines. Each Creed product is usually made from quality natural ingredients. high quality, providing a unique and long-lasting fragrance.',1,'2024-01-01'),
-('YVES SAINT LAURENT','Yves Saint Laurent (YSL) is a famous perfume brand, standing out with products that have a seductive, bold and modern style. YSL perfumes are often highly appreciated for the creativity in blending aromas, bringing unique and impressive scents.',1,'2024-01-01'),
-('ARMAF','Armaf is a famous perfume brand with high quality products at affordable prices. Armaf perfumes often have diverse styles, from fresh to passionate, suitable for everyone. Suitable for many different tastes and occasions.',1,'2024-01-01'),
-('ROJA PARFUMS', 'Roja Parfums is a high-end and luxurious perfume brand of perfume creator Roja Dove. Roja Parfums products are often known for their sophistication in the way they combine scents. materials, ensuring the highest quality and uniqueness. Each bottle of Roja Parfums perfume is often handmade and limited, creating works of art in the world of perfume.',1,'2024-01-01'),
-('LE LABO','Le Labo is a high-end and unique perfume brand, famous for creating handmade and personalized products. Each bottle of Le Labo perfume is made in-house products, ensuring sophistication and quality. This brand focuses on using natural and high-quality ingredients, along with unique flavor blends.',1,'2024-01-01'),
-('BVLGARI','Bvlgari is a renowned luxury brand known for its exquisite fragrances and perfumes. Founded in 1884 by jewelry manufacturer Sotirio Bulgari, the brand offers both bold and modern scents as well as timeless classics. Bvlgari’s master perfumers create high-quality fragrances that reflect elegance and refinement. Their Eau Parfumee collection includes captivating scents for both men and women, making Bvlgari a go-to choice for those seeking sophistication and allure ',1,'2024-01-01'),
-('VERSACE','Versace is an Italian luxury fashion company founded by Gianni Versace in 1978. Known for its audacious and unapologetic style, Versace fuses street fashion with high-end designs, resulting in bombastic and avant-garde creations. The iconic Versace logo draws inspiration from Greek mythology, featuring the figure of Medusa. Versace produces Italian-made ready-to-wear clothing, accessories, and haute couture under its Atelier Versace brand, and licenses its name to Luxottica for eyewear. Their distinctive style combines materials like metal, mesh, and leather, often painted in bright colors, celebrating individuality and sensuality . ',1,'2024-01-01'),
-('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1,'2024-01-01');
-<<<<<<< HEAD
-
-=======
-GO
->>>>>>> main
-
-
-/* ============[Products] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[Products];
-CREATE TABLE [dbo].[Products] (
-<<<<<<< HEAD
-    [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
-=======
-     [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
->>>>>>> main
-=======
 ('GUCCI','Gucci perfume is one of the most revered brands in the world. Founded in the 1920s in Florence, Italy, Gucci has always understood that fashion and perfume are two inseparable things. The company offers clothes with modern, modern styles for both men and women. Gucci famous interlocking letter logo has become a fashion icon that is always seen in all of the company products, from bag collections, sportswear, seasonal high and thin heels to perfume bottles. Gucci perfumes have a variety of scents, from sensual and indulgent to sweet and fresh. Along with the company clothing and accessories lines, which have long become classic scents.',1),
 ('CHANEL','Chanel is a famous perfume brand known for its elegance, sophistication and class. Chanel perfume products often have unique scents, combining natural ingredients. natural and synthetic to create unique and long-lasting scents.',1),
 ('XERJOFF','Xerjoff is a famous high-end perfume brand with the perfect combination of craftsmanship and rare ingredients. Xerjoff perfume lines bring unique fragrance experiences. unique, complex and full of sophistication.',1),
@@ -230,7 +98,6 @@ CREATE TABLE [dbo].[Products] (
 ('LANCOME','Lancôme is a perfume and cosmetics brand with its roots in the heart of European fashion, Paris. Founded by Armand Petitjean during a major economic crisis in the mid-1930s, Lancôme has epitomized beauty with a French accent for over 80 years. What began as a brand helmed by knowledgeable ambassadresses quickly grew to include a thousand boutiques across France. Lancôme’s legacy of expertise continues today with their team of industry-leading National Makeup Artists, led by Lisa Eldridge. ',1);
 CREATE TABLE [dbo].[Products] (
      [ProductID] [INT] PRIMARY KEY IDENTITY(1,1),
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductStatus] int NOT NULL,
@@ -388,10 +255,7 @@ VALUES
 ( 20, 'Issey Miyake Nuit d''Issey EDT is a mysterious and enchanting fragrance, with a combination of woody, amber and spice notes. This fragrance gives confidence and charm, ideal for evenings and important occasions.', '2024-01-01', 1, '30ml', 34.00, 100, '20_1.jpg'),
 ( 20, 'Issey Miyake Nuit d''Issey EDT is a mysterious and enchanting fragrance, with a combination of woody, amber and spice notes. This fragrance gives confidence and charm, ideal for evenings and important occasions.', '2024-01-01', 1, '100ml', 104.00, 100, '20_2.jpg'),
 
-<<<<<<< HEAD
 --Details full for women
-=======
->>>>>>> main
 	(21, 'Chanel Chance EDP has been famous for many years, Chanel is sought after and used by many people because of its classy scent. Chanel Chance Eau De Parfum is one of the perfume lines most sought after by women, including me.', '2024-01-01', 1, '30ml', 70.00, 100, '1_1.jpg'), 
 (21, 'Chanel Chance EDP has been famous for many years, Chanel is sought after and used by many people because of its classy scent. Chanel Chance Eau De Parfum is one of the perfume lines most sought after by women, including me.', '2024-01-01', 1, '100ml', 235.00, 100, '1_2.jpg'), 
 (22, 'Dior Joy is a work that Dior has cherished for a long time, but has just released it. A new scent, completely different from previous perfumes. If these scents The previous scent was classic and elegant. Dior Joy is a scent full of joy and happiness that Dior wants to send to women.', '2024-01-01', 1, '30ml', 25.00, 100, '2_1.jpg'), 
@@ -432,7 +296,6 @@ VALUES
 (39, 'Givenchy L’Interdit EDP is a luxurious and mysterious fragrance for women. With top notes from black berries, pears and bergamot, middle notes from tuberose, jasmine and orange blossoms, and the final notes from patchouli, vetiver and vanilla, this perfume offers a unique and captivating scent.', '2024-01-01', 1, '100ml', 149.00, 100, '19_2.jpg'), 
 (40, 'Hermes Twilly d’Hermes EDP is a fresh and luxurious fragrance for women. With top notes from ginger, middle notes from tuberose and jasmine, and the final notes from sandalwood and vanilla, this perfume offers a feminine, elegant and seductive scent, ideal for special occasions.', '2024-01-01', 1, '30ml', 52.00, 100, '20_1.jpg'), 
 (40, 'Hermes Twilly d’Hermes EDP is a fresh and luxurious fragrance for women. With top notes from ginger, middle notes from tuberose and jasmine, and the final notes from sandalwood and vanilla, this perfume offers a feminine, elegant and seductive scent, ideal for special occasions.', '2024-01-01', 1, '100ml', 149.00, 100, '20_2.jpg'),
-<<<<<<< HEAD
 	--Details full for unisex
 (41, 'Xerjoff Naxos EDP perfume is a unisex perfume line in the special collection of the Xerjoff brand. Launched in 2015, inspired by the essence of beauty. An island located in the middle of the Mediterranean Sea, Sicily.', '2024-01-01', 1, '30ml', 47.00, 100, '1_1.jpg'),
 (41, 'Xerjoff Naxos EDP perfume is a unisex perfume line in the special collection of the Xerjoff brand. Launched in 2015, inspired by the essence of beauty. An island located in the middle of the Mediterranean Sea, Sicily.', '2024-01-01', 1, '100ml', 134.00, 100, '1_2.jpg'),
@@ -474,51 +337,6 @@ VALUES
 (59, 'Creed Green Irish Tweed EDP is a fresh and classic fragrance with top notes of lemon and verbena. The middle notes from violet leaves and iris add sophistication, while the final notes from ambergris and sandalwood provide warmth and depth. This is the ideal choice for every man.', '2024-01-01', 1, '100ml', 106.00, 100, '19_2.jpg'),
 (60, 'Creed Viking EDP is a bold and masculine fragrance with top notes of lemon and pink pepper. The middle notes from rose and peppermint add sophistication, while the final notes from sandalwood and vetiver provide warmth and depth. This is the ideal choice for modern and adventurous men.', '2024-01-01', 1, '30ml', 36.00, 100, '20_1.jpg'),
 (60, 'Creed Viking EDP is a bold and masculine fragrance with top notes of lemon and pink pepper. The middle notes from rose and peppermint add sophistication, while the final notes from sandalwood and vetiver provide warmth and depth. This is the ideal choice for modern and adventurous men.', '2024-01-01', 1, '100ml', 106.00, 100, '20_2.jpg'),
-=======
-
---Details full for unisex
-	(41, 'Xerjoff Naxos EDP perfume is a unisex perfume line in the special collection of the Xerjoff brand. Launched in 2015, inspired by the essence of beauty. An island located in the middle of the Mediterranean Sea, Sicily.', '2024-01-01', 1, '30ml', 47.00, 100, 'images/Products/Unisex/1_1.jpg'),
-(41, 'Xerjoff Naxos EDP perfume is a unisex perfume line in the special collection of the Xerjoff brand. Launched in 2015, inspired by the essence of beauty. An island located in the middle of the Mediterranean Sea, Sicily.', '2024-01-01', 1, '100ml', 134.00, 100, 'images/Products/Unisex/1_2.jpg'),
-(42, 'Armaf Sterling Club De Nuit Milestone EDP perfume is the best-selling product line of Armaf perfume with a sweet and modern scent, a delicate blend of unique scent notes.', '2024-01-01', 1, '30ml', 39.00, 100, 'images/Products/Unisex/2_1.jpg'),
-(42, 'Armaf Sterling Club De Nuit Milestone EDP perfume is the best-selling product line of Armaf perfume with a sweet and modern scent, a delicate blend of unique scent notes.', '2024-01-01', 1, '100ml', 119.00, 100, 'images/Products/Unisex/2_2.jpg'),
-(43, 'In 2019, the Gucci brand launched the Gucci A Song For The Rose EDP perfume line, this is a unisex perfume for both men and women. Distilled scent From the floral scent group thyme creates a sweet and seductive scent.', '2024-01-01', 1, '30ml', 17.00, 100, 'images/Products/Unisex/3_1.jpg'),
-(43, 'In 2019, the Gucci brand launched the Gucci A Song For The Rose EDP perfume line, this is a unisex perfume for both men and women. Distilled scent From the floral scent group thyme creates a sweet and seductive scent.', '2024-01-01', 1, '100ml', 59.00, 100, 'images/Products/Unisex/3_2.jpg'),
-(44, 'Like other perfume lines of the Le Labo brand, the Le Labo The Noir 29 EDP perfume line has a minimalist, stylish bottle design. to a luxurious, sophisticated feeling. The perfume bottle is made of transparent glass, the color of the perfume inside can be seen. In particular, the owner of this perfume bottle can print his or her name on it sticker, this represents the personalization of the product, bringing a new and unique experience to customers.', '2024-01-01', 1, '30ml', 73.00, 100, 'images/Products/Unisex/4_1.jpg'),
-(44, 'Like other perfume lines of the Le Labo brand, the Le Labo The Noir 29 EDP perfume line has a minimalist, stylish bottle design. to a luxurious, sophisticated feeling. The perfume bottle is made of transparent glass, the color of the perfume inside can be seen. In particular, the owner of this perfume bottle can print his or her name on it sticker, this represents the personalization of the product, bringing a new and unique experience to customers.', '2024-01-01', 1, '100ml', 225.00, 100, 'images/Products/Unisex/4_2.jpg'),
-(45, 'Are you looking for a perfume line for both women and men with a truly luxurious scent as well as making an impression at the first moment? Then Louis Vuitton Ombre Nomade EDP is the right choice right now. This is a unisex perfume line from the luxury brand Louis Vuitton.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/5_1.jpg'),
-(45, 'Are you looking for a perfume line for both women and men with a truly luxurious scent as well as making an impression at the first moment? Then Louis Vuitton Ombre Nomade EDP is the right choice right now. This is a unisex perfume line from the luxury brand Louis Vuitton.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/5_2.jpg'),
-(46, 'Creed Silver Mountain Water is a fresh and pure fragrance for both men and women. The top notes from bergamot and black currants provide refreshment, while the middle notes from green tea and violets create elegance and sophistication. The last incense from musk and sandalwood helps retain the scent for a long time, giving it a feeling of freshness and energy.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/6_1.jpg'),
-(46, 'Creed Silver Mountain Water is a fresh and pure fragrance for both men and women. The top notes from bergamot and black currants provide refreshment, while the middle notes from green tea and violets create elegance and sophistication. The last incense from musk and sandalwood helps retain the scent for a long time, giving it a feeling of freshness and energy.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/6_2.jpg'),
-(47, 'Le Labo Bergamote 22 is a fresh and radiant fragrance with early notes from bergamot and grapefruit. The middle notes from orange blossom and vetiver add subtlety, while the final notes from musk and cedarwood provide a warm and pleasant feeling. This is perfect for both men and women on every occasion, from work to dates.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/7_1.jpg'),
-(47, 'Le Labo Bergamote 22 is a fresh and radiant fragrance with early notes from bergamot and grapefruit. The middle notes from orange blossom and vetiver add subtlety, while the final notes from musk and cedarwood provide a warm and pleasant feeling. This is perfect for both men and women on every occasion, from work to dates.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/7_2.jpg'),
-(48, 'Le Labo Santal 33 is a distinctive and seductive fragrance with heads from sandalwood and pepper. The middle notes from violets and cardamom make it unique, while the final notes from musk and amber provide warmth and appeal. This is the ideal choice for both men and women on special occasions.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/8_1.jpg'),
-(48, 'Le Labo Santal 33 is a distinctive and seductive fragrance with heads from sandalwood and pepper. The middle notes from violets and cardamom make it unique, while the final notes from musk and amber provide warmth and appeal. This is the ideal choice for both men and women on special occasions.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/8_2.jpg'),
-(49, 'Roja Dove Amber Aoud Parfum is a luxurious and noble fragrance with notes from lemon and bergamot. The middle notes from rose and saffron stigmas combine with final notes from agarwood and amber, providing warmth and charm. This is a great choice for both men and women on important occasions.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/9_1.jpg'),
-(49, 'Roja Dove Amber Aoud Parfum is a luxurious and noble fragrance with notes from lemon and bergamot. The middle notes from rose and saffron stigmas combine with final notes from agarwood and amber, providing warmth and charm. This is a great choice for both men and women on important occasions.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/9_2.jpg'),
-(50, 'Louis Vuitton Cactus Garden EDP is a refreshing and liberal fragrance with notes from bergamot and green tea. The middle notes from vetiver and ginger provide freshness and refreshment, while the final notes from musk create a sense of freedom and dynamism. This is perfect for summer days.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/10_1.jpg'),
-(50, 'Louis Vuitton Cactus Garden EDP is a refreshing and liberal fragrance with notes from bergamot and green tea. The middle notes from vetiver and ginger provide freshness and refreshment, while the final notes from musk create a sense of freedom and dynamism. This is perfect for summer days.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/10_2.jpg'),
-(51, 'Tom Ford Lost Cherry is a fruity and delicious fragrance with early notes from cherry and almond. The middle notes from Turkish rose and jasmine combine with the final notes from Peru balsam and tonka bean, creating a luxurious and passionate feeling. This is the ideal choice for romantic occasions.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/11_1.jpg'),
-(51, 'Tom Ford Lost Cherry is a fruity and delicious fragrance with early notes from cherry and almond. The middle notes from Turkish rose and jasmine combine with the final notes from Peru balsam and tonka bean, creating a luxurious and passionate feeling. This is the ideal choice for romantic occasions.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/11_2.jpg'),
-(52, 'Chanel EDP No.5 is the legendary fragrance of the Chanel brand, known for its timeless elegance and sophistication. The top notes of rose and jasmine provide a luxurious feeling, while the middle notes of aldehydes add sparkle and freshness. The final notes from vanilla and vetiver add warmth and depth. This is a must-have item for every woman.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/12_1.jpg'),
-(52, 'Chanel EDP No.5 is the legendary fragrance of the Chanel brand, known for its timeless elegance and sophistication. The top notes of rose and jasmine provide a luxurious feeling, while the middle notes of aldehydes add sparkle and freshness. The final notes from vanilla and vetiver add warmth and depth. This is a must-have item for every woman.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/12_2.jpg'),
-(53, 'Christian Dior Oud Ispahan is a luxurious and mysterious fragrance, made from the rarest oud wood. The top notes of labdanum and patchouli create a deep and enchanting scent, while the middle notes of rose and sandalwood add sophistication and refinement. The final notes from benzoin and amber provide warmth and depth, making this a perfect choice for special occasions.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/13_1.jpg'),
-(53, 'Christian Dior Oud Ispahan is a luxurious and mysterious fragrance, made from the rarest oud wood. The top notes of labdanum and patchouli create a deep and enchanting scent, while the middle notes of rose and sandalwood add sophistication and refinement. The final notes from benzoin and amber provide warmth and depth, making this a perfect choice for special occasions.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/13_2.jpg'),
-(54, 'Chanel EDP Coco Mademoiselle is a fresh and modern fragrance with top notes of orange and bergamot. The middle notes from rose and jasmine add femininity, while the final notes from vanilla and patchouli provide warmth and depth. This is the ideal choice for every woman.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/14_1.jpg'),
-(54, 'Chanel EDP Coco Mademoiselle is a fresh and modern fragrance with top notes of orange and bergamot. The middle notes from rose and jasmine add femininity, while the final notes from vanilla and patchouli provide warmth and depth. This is the ideal choice for every woman.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/14_2.jpg'),
-(55, 'Creed Aventus EDP is a fruity and rich fragrance for both men and women. The top notes from black currants and apples provide freshness, while the middle notes from birch and jasmine add sophistication. The final notes from musk and vanilla provide warmth and depth, making this a perfect choice for any occasion.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/15_1.jpg'),
-(55, 'Creed Aventus EDP is a fruity and rich fragrance for both men and women. The top notes from black currants and apples provide freshness, while the middle notes from birch and jasmine add sophistication. The final notes from musk and vanilla provide warmth and depth, making this a perfect choice for any occasion.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/15_2.jpg'),
-(56, 'Armani EDP Code is a masculine and elegant fragrance with top notes of bergamot and lemon. The middle notes from star anise and olive blossom add sophistication, while the final notes from tonka bean and guaiac wood provide warmth and depth. This is the ideal choice for confident and modern men.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/16_1.jpg'),
-(56, 'Armani EDP Code is a masculine and elegant fragrance with top notes of bergamot and lemon. The middle notes from star anise and olive blossom add sophistication, while the final notes from tonka bean and guaiac wood provide warmth and depth. This is the ideal choice for confident and modern men.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/16_2.jpg'),
-(57, 'Bleu de Chanel EDP is a masculine and aromatic fragrance with top notes from grapefruit and pink pepper. The middle notes from ginger and mint add freshness and sophistication, while the final notes from sandalwood and cedarwood provide warmth and depth. This is the ideal choice for every man.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/17_1.jpg'),
-(57, 'Bleu de Chanel EDP is a masculine and aromatic fragrance with top notes from grapefruit and pink pepper. The middle notes from ginger and mint add freshness and sophistication, while the final notes from sandalwood and cedarwood provide warmth and depth. This is the ideal choice for every man.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/17_2.jpg'),
-(58, 'Tom Ford Noir Anthracite EDP is a masculine and powerful fragrance with top notes of bergamot and spicy notes. The middle notes from jasmine and ginger add sophistication, while the final notes from sandalwood and cedarwood provide warmth and depth. This is the ideal choice for modern and confident men.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/18_1.jpg'),
-(58, 'Tom Ford Noir Anthracite EDP is a masculine and powerful fragrance with top notes of bergamot and spicy notes. The middle notes from jasmine and ginger add sophistication, while the final notes from sandalwood and cedarwood provide warmth and depth. This is the ideal choice for modern and confident men.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/18_2.jpg'),
-(59, 'Creed Green Irish Tweed EDP is a fresh and classic fragrance with top notes of lemon and verbena. The middle notes from violet leaves and iris add sophistication, while the final notes from ambergris and sandalwood provide warmth and depth. This is the ideal choice for every man.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/19_1.jpg'),
-(59, 'Creed Green Irish Tweed EDP is a fresh and classic fragrance with top notes of lemon and verbena. The middle notes from violet leaves and iris add sophistication, while the final notes from ambergris and sandalwood provide warmth and depth. This is the ideal choice for every man.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/19_2.jpg'),
-(60, 'Creed Viking EDP is a bold and masculine fragrance with top notes of lemon and pink pepper. The middle notes from rose and peppermint add sophistication, while the final notes from sandalwood and vetiver provide warmth and depth. This is the ideal choice for modern and adventurous men.', '2024-01-01', 1, '30ml', 36.00, 100, 'images/Products/Unisex/20_1.jpg'),
-(60, 'Creed Viking EDP is a bold and masculine fragrance with top notes of lemon and pink pepper. The middle notes from rose and peppermint add sophistication, while the final notes from sandalwood and vetiver provide warmth and depth. This is the ideal choice for modern and adventurous men.', '2024-01-01', 1, '100ml', 106.00, 100, 'images/Products/Unisex/20_2.jpg'),
-
->>>>>>> main
 --Details full for gift set
 (61, 'YSL Black Opium Eau De Parfum Christmas 2021 gift set, the new perfume line was announced as a classic rocknroll performance highlighting the magical, mysterious aspect of the YSL brand. Perfumers Nathalie Lorson and MarieSalamagne, collaborated with Olivier Cresp and Honorine Blanc to create this scent. YSL Black Opium is Yves Saint Laurent first coffee-flower scent. The energy of black coffee dominates the entire fragrance of white flowers with assertive femininity accented by pink pepper and pear in the background.', '2024-01-01', 1, NULL, 100.00, 50, '1_1.jpg'),
 (62, 'BVLGari set of 3 bottles of 15ml includes 3 typical fragrances of the Bvlgari Omnia collection with 3 different styles and personalities gathered in the Bvlgari Omnia gift set so girls can experience the feelings about different scents. Bvlgari Omnia Coral EDT perfume 15ml Bvlgari Omnia Crystalline EDT perfume 15ml Bvlgari Omnia Amethyste EDT Perfume 15ml With a sophisticated, seductive and easy-to-use style, this collection will be a great choice when girls go to work or go out or picnic.', '2024-01-01', 1, NULL, 150.00, 50, '2_1.jpg'),
@@ -532,48 +350,16 @@ CREATE TABLE [dbo].[Cart] (
     ProductFullDetailID INT NOT NULL,
 	AccountID int NOT NULL,
     Quantity INT NOT NULL,
-<<<<<<< HEAD
     TotalPrice DECIMAL(18,2),
 	product_name [NVARCHAR](255),
 	product_size [NVARCHAR](max),
 	[image] varchar(100),
-=======
-	productName [NVARCHAR](255),
->>>>>>> main
 	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID]),
 )
 
-<<<<<<< HEAD
-GO
-/* ============[WishList] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[WishList];
-<<<<<<< HEAD
-CREATE TABLE [dbo].[Wishlist] (
-    [WishlistID] [INT] PRIMARY KEY IDENTITY(1,1),
-    [AccountID] [INT] NOT NULL,
-    [ProductID] [INT] NOT NULL,
-    [WishlistDate] DATE NOT NULL, 
-    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts](AccountID),
-    FOREIGN KEY (ProductID) REFERENCES [dbo].[Products](ProductID)
-=======
-CREATE TABLE [dbo].[WishList] (
-    WishListID INT PRIMARY KEY IDENTITY(1,1),
-    ProductFullDetailID INT NOT NULL,
-    AccountID INT NOT NULL,
-    TotalPrice DECIMAL(18,2),
-    ProductName NVARCHAR(255),
-    ProductSize NVARCHAR(MAX),
-    image VARCHAR(100),
-    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
-    FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
->>>>>>> main
-);
-/*======= INSERT VALUE OF [WishList] TABLE =======*/
-=======
 -- Sample data for insertion into Cart table
 
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f
 
 
 CREATE TABLE [dbo].[StatusOrder] (
@@ -695,35 +481,5 @@ CREATE TABLE [dbo].[Feedbacks] (
     fbStatus INT NOT NULL,
 	[reply] nvarchar (250) NULL,
 	FOREIGN KEY (fbProductID) REFERENCES [dbo].[Products]([ProductID]),
-<<<<<<< HEAD
     FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts](AccountID)
-<<<<<<< HEAD
-=======
-    FOREIGN KEY (fbAccountID) REFERENCES [dbo].[Accounts]([AccountID])
->>>>>>> main
 )
-/*======= INSERT VALUE OF [Feedbacks] TABLE =======*/
-INSERT INTO [dbo].[Feedbacks] (fbAccountID, fbProductID, fbStar, fbContent, fbImage, fbDate, fbStatus, reply) VALUES
-(1, 1, 5, 'Great product!', 'feedback1.png', '2024-01-01', 1, 'Thank you!'),
-(2, 2, 4, 'Good quality', 'feedback2.png', '2024-02-01', 1, 'Glad you liked it!');
-GO
-
-/* ============[HistoriesChange] TABLE============*/
-DROP TABLE IF EXISTS [dbo].[HistoriesChange];
-CREATE TABLE [dbo].[HistoriesChange] (
-	[account_id] INT IDENTITY(1,1),
-	[date] DATE,
-	[text_change] NVARCHAR (MAX),
-	[local_change] VARCHAR (MAX),
-    FOREIGN KEY ([account_id]) REFERENCES [dbo].[Accounts](AccountID)
-)
-/*======= INSERT VALUE OF [[HistoriesChange]] TABLE =======*/
-
-<<<<<<< HEAD
-GO
-=======
-GO
->>>>>>> main
-=======
-)
->>>>>>> d58b087dc37f3c73d4cfd93c5258c080bdf95d2f

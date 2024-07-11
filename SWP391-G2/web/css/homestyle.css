@@ -1862,7 +1862,7 @@ h6 {
     opacity: 1;
 }
 
-.product_thumb{
+.single_product .product_thumb {
     position: relative;
 }
 

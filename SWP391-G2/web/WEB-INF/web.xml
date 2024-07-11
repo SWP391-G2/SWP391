@@ -2,27 +2,23 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>Controllers.common.Login</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>Controllers.common.HomeServlet</servlet-class>
+        <servlet-class>Controllers.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
-        <servlet-class>Controllers.common.Signup</servlet-class>
+        <servlet-class>Controllers.Signup</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EmailService</servlet-name>
-        <servlet-class>Controllers.email.EmailService</servlet-class>
+        <servlet-class>Controllers.EmailService</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RefineServlet</servlet-name>
-        <servlet-class>Controllers.common.RefineServlet</servlet-class>
+        <servlet-class>Controllers.RefineServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
-        <servlet-class>Controllers.common.DetailOfProduct</servlet-class>
+        <servlet-class>Controllers.DetailOfProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminCustomer</servlet-name>
@@ -46,47 +42,19 @@
     </servlet>
     <servlet>
         <servlet-name>AdminDetails</servlet-name>
-        <servlet-class>Controllers.admin.AdminDetails</servlet-class>
+        <servlet-class>Controllers.AdminDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminProfile</servlet-name>
         <servlet-class>Controllers.admin.AdminProfile</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BrandController</servlet-name>
-        <servlet-class>Controllers.marketing.BrandController</servlet-class>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>Controllers.HomeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Cart</servlet-name>
-        <servlet-class>controller.customer.CartController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BrandDetailController</servlet-name>
-        <servlet-class>Controllers.marketing.BrandDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BlogListController</servlet-name>
-        <servlet-class>Controllers.guest.blog.BlogListController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BlogDetailsController</servlet-name>
-        <servlet-class>Controllers.guest.blog.BlogDetailsController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FeedbackProduct</servlet-name>
-        <servlet-class>Controllers.shop.feedback.FeedbackProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CategoryController</servlet-name>
-        <servlet-class>Controllers.maketing.CategoryController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CategoryDetailController</servlet-name>
-        <servlet-class>Controllers.maketing.CategoryDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddReplyFeedback</servlet-name>
-        <servlet-class>Controllers.shop.feedback.AddReplyFeedback</servlet-class>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <servlet-class>Controllers.MakertingManageSlider</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -143,41 +111,5 @@
     <servlet-mapping>
         <servlet-name>MakertingManageSlider</servlet-name>
         <url-pattern>/manageSlider</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BrandController</servlet-name>
-        <url-pattern>/brand</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Cart</servlet-name>
-        <url-pattern>/cartcontroller</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BrandDetailController</servlet-name>
-        <url-pattern>/branddetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogListController</servlet-name>
-        <url-pattern>/blog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogDetailsController</servlet-name>
-        <url-pattern>/blogDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FeedbackProduct</servlet-name>
-        <url-pattern>/feedbackproduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CategoryController</servlet-name>
-        <url-pattern>/category</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CategoryDetailController</servlet-name>
-        <url-pattern>/categorydetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddReplyFeedback</servlet-name>
-        <url-pattern>/addreply</url-pattern>
     </servlet-mapping>
 </web-app>

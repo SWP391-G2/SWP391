@@ -4,8 +4,8 @@
  */
 package Models;
 
-import java.util.Date;
-
+import Dal.ProductsDAO;
+import java.util.List;
 
 /**
  *
@@ -13,63 +13,51 @@ import java.util.Date;
  */
 public class Brands {
 
-    private int brandID;
-    private String brandName;
-    private String description;
-    private Date createAt;
-    private int status;
+    private int BrandID;
+    private String BrandName;
+    private String BrandDescription;
 
     public Brands() {
     }
 
-    public Brands(int brandID, String brandName, String description, Date createAt, int status) {
-        this.brandID = brandID;
-        this.brandName = brandName;
-        this.description = description;
-        this.createAt = createAt;
-        this.status = status;
+    public Brands(int BrandID, String BrandName, String BrandDescription) {
+        this.BrandID = BrandID;
+        this.BrandName = BrandName;
+        this.BrandDescription = BrandDescription;
     }
 
     public int getBrandID() {
-        return brandID;
+        return BrandID;
     }
 
-    public void setBrandID(int brandID) {
-        this.brandID = brandID;
+    public void setBrandID(int BrandID) {
+        this.BrandID = BrandID;
     }
 
     public String getBrandName() {
-        return brandName;
+        return BrandName;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setBrandName(String BrandName) {
+        this.BrandName = BrandName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBrandDescription() {
+        return BrandDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBrandDescription(String BrandDescription) {
+        this.BrandDescription = BrandDescription;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public int getTotalProductBrand() {
+        int total = 0;
+        ProductsDAO p = new ProductsDAO();
+        List<ProductsHome> list = p.getProductsByBrand(this.BrandID);
+        for (int i = 0; i < list.size(); i++) {
+            total += 1;
+        }
+        return total;
     }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-    
-    
 
 }

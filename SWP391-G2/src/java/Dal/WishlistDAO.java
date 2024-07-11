@@ -8,7 +8,6 @@ package Dal;
  *
  * @author pna29
  */
-import context.DBContext;
 public class WishlistDAO extends DBContext {
     
 }
