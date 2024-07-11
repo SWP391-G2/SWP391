@@ -8,51 +8,64 @@ package Models;
  *
  * @author admin
  */
+import java.sql.Date;
+
 public class Brands {
 
-    private int BrandID;
-    private String BrandName;
-    private String Description;
+    private int brandID;
+    private String brandName;
+    private String description;
+    private Date createAt;
     private int status;
+
+    public Brands(int brandID, String brandName, String description, Date createAt, int status) {
+        this.brandID = brandID;
+        this.brandName = brandName;
+        this.description = description;
+        this.createAt = createAt;
+        this.status = status;
+    }
+
+    public Brands(String brandName, String description, Date createAt, int status) {
+        this.brandName = brandName;
+        this.description = description;
+        this.createAt = createAt;
+        this.status = status;
+    }
 
     public Brands() {
     }
 
-    public Brands(int BrandID, String BrandName, String Description, int status) {
-        this.BrandID = BrandID;
-        this.BrandName = BrandName;
-        this.Description = Description;
-        this.status = status;
-    }
-
-    public Brands(String BrandName, String Description, int status) {
-        this.BrandName = BrandName;
-        this.Description = Description;
-        this.status = status;
-    }
-
     public int getBrandID() {
-        return BrandID;
+        return brandID;
     }
 
-    public void setBrandID(int BrandID) {
-        this.BrandID = BrandID;
+    public void setBrandID(int brandID) {
+        this.brandID = brandID;
     }
 
     public String getBrandName() {
-        return BrandName;
+        return brandName;
     }
 
-    public void setBrandName(String BrandName) {
-        this.BrandName = BrandName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public int getStatus() {

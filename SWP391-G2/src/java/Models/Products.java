@@ -17,45 +17,31 @@ public class Products {
     private Date productCreateDate;
     private int productStatus;
     private String productImageUrl;
-    private int BrandID;
-    private int fk_category_id;
-    private String UpdateDescription;
+    private int brandID;
+    private int categoryID;
 
-    public Products(int productID, String productName, int productStatus, String productImageUrl, int BrandID, int fk_category_id) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productStatus = productStatus;
-        this.productImageUrl = productImageUrl;
-        this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-    }
-
-  
-    
-    public Products(int productID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, int fk_category_id, String UpdateDescription) {
+    public Products(int productID, String productName, Date productCreateDate, int productStatus, String productImageUrl, int brandID, int categoryID) {
         this.productID = productID;
         this.productName = productName;
         this.productCreateDate = productCreateDate;
         this.productStatus = productStatus;
         this.productImageUrl = productImageUrl;
-        this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-        this.UpdateDescription = UpdateDescription;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+    }
+
+    public Products(String productName, Date productCreateDate, int productStatus, String productImageUrl, int brandID, int categoryID) {
+        this.productName = productName;
+        this.productCreateDate = productCreateDate;
+        this.productStatus = productStatus;
+        this.productImageUrl = productImageUrl;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
     }
 
     public Products() {
     }
 
-    public Products(String productName, Date productCreateDate, int productStatus, String productImageUrl, int BrandID, int fk_category_id) {
-        this.productName = productName;
-        this.productCreateDate = productCreateDate;
-        this.productStatus = productStatus;
-        this.productImageUrl = productImageUrl;
-        this.BrandID = BrandID;
-        this.fk_category_id = fk_category_id;
-    }
-
-    
     public int getProductID() {
         return productID;
     }
@@ -97,27 +83,19 @@ public class Products {
     }
 
     public int getBrandID() {
-        return BrandID;
+        return brandID;
     }
 
-    public void setBrandID(int BrandID) {
-        this.BrandID = BrandID;
+    public void setBrandID(int brandID) {
+        this.brandID = brandID;
     }
 
-    public int getFk_category_id() {
-        return fk_category_id;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setFk_category_id(int fk_category_id) {
-        this.fk_category_id = fk_category_id;
-    }
-
-    public String getUpdateDescription() {
-        return UpdateDescription;
-    }
-
-    public void setUpdateDescription(String UpdateDescription) {
-        this.UpdateDescription = UpdateDescription;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
 }

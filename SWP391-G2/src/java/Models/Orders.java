@@ -4,119 +4,153 @@
  */
 package Models;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author hatru
  */
 public class Orders {
-    private int OrderID;
-    private int AccountID;
-    private Date OrderDate;
-    private String OrderContactName;
-    private String OrderPhone;
-    private String OrderAddress;
-    private int OrderStatus;
-    private Date OrderRecieveDate;
-    private String OrderNote;
-    private int OrderSoID;
+
+    private int orderID;
+    private int accountID;
+    private Date orderDate;
+    private float orderTotalPrice;
+    private String orderContactName;
+    private String orderPhone;
+    private String orderAddress;
+    private int orderStatus;
+    private Date orderReceiveDate;
+    private String orderNote;
+    private int orderSoID;
+    private int voucherID;
 
     public Orders() {
     }
 
-    public Orders(int OrderID, int AccountID, Date OrderDate, String OrderContactName, String OrderPhone, String OrderAddress, int OrderStatus, Date OrderRecieveDate, String OrderNote, int OrderSoID) {
-        this.OrderID = OrderID;
-        this.AccountID = AccountID;
-        this.OrderDate = OrderDate;
-        this.OrderContactName = OrderContactName;
-        this.OrderPhone = OrderPhone;
-        this.OrderAddress = OrderAddress;
-        this.OrderStatus = OrderStatus;
-        this.OrderRecieveDate = OrderRecieveDate;
-        this.OrderNote = OrderNote;
-        this.OrderSoID = OrderSoID;
-    }
-
     public int getOrderID() {
-        return OrderID;
+        return orderID;
     }
 
-    public void setOrderID(int OrderID) {
-        this.OrderID = OrderID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getAccountID() {
-        return AccountID;
+        return accountID;
     }
 
-    public void setAccountID(int AccountID) {
-        this.AccountID = AccountID;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public Date getOrderDate() {
-        return OrderDate;
+        return orderDate;
     }
 
-    public void setOrderDate(Date OrderDate) {
-        this.OrderDate = OrderDate;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public float getOrderTotalPrice() {
+        return orderTotalPrice;
+    }
+
+    public void setOrderTotalPrice(float orderTotalPrice) {
+        this.orderTotalPrice = orderTotalPrice;
     }
 
     public String getOrderContactName() {
-        return OrderContactName;
+        return orderContactName;
     }
 
-    public void setOrderContactName(String OrderContactName) {
-        this.OrderContactName = OrderContactName;
+    public void setOrderContactName(String orderContactName) {
+        this.orderContactName = orderContactName;
     }
 
     public String getOrderPhone() {
-        return OrderPhone;
+        return orderPhone;
     }
 
-    public void setOrderPhone(String OrderPhone) {
-        this.OrderPhone = OrderPhone;
+    public void setOrderPhone(String orderPhone) {
+        this.orderPhone = orderPhone;
     }
 
     public String getOrderAddress() {
-        return OrderAddress;
+        return orderAddress;
     }
 
-    public void setOrderAddress(String OrderAddress) {
-        this.OrderAddress = OrderAddress;
+    public void setOrderAddress(String orderAddress) {
+        this.orderAddress = orderAddress;
     }
 
     public int getOrderStatus() {
-        return OrderStatus;
+        return orderStatus;
     }
 
-    public void setOrderStatus(int OrderStatus) {
-        this.OrderStatus = OrderStatus;
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public Date getOrderRecieveDate() {
-        return OrderRecieveDate;
+    public Date getOrderReceiveDate() {
+        return orderReceiveDate;
     }
 
-    public void setOrderRecieveDate(Date OrderRecieveDate) {
-        this.OrderRecieveDate = OrderRecieveDate;
+    public void setOrderReceiveDate(Date orderReceiveDate) {
+        this.orderReceiveDate = orderReceiveDate;
     }
 
     public String getOrderNote() {
-        return OrderNote;
+        return orderNote;
     }
 
-    public void setOrderNote(String OrderNote) {
-        this.OrderNote = OrderNote;
+    public void setOrderNote(String orderNote) {
+        this.orderNote = orderNote;
     }
 
     public int getOrderSoID() {
-        return OrderSoID;
+        return orderSoID;
     }
 
-    public void setOrderSoID(int OrderSoID) {
-        this.OrderSoID = OrderSoID;
+    public void setOrderSoID(int orderSoID) {
+        this.orderSoID = orderSoID;
     }
-    
-    
+
+    public int getVoucherID() {
+        return voucherID;
+    }
+
+    public void setVoucherID(int voucherID) {
+        this.voucherID = voucherID;
+    }
+
+    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, int orderStatus, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+        this.accountID = accountID;
+        this.orderDate = orderDate;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderContactName = orderContactName;
+        this.orderPhone = orderPhone;
+        this.orderAddress = orderAddress;
+        this.orderStatus = orderStatus;
+        this.orderReceiveDate = orderReceiveDate;
+        this.orderNote = orderNote;
+        this.orderSoID = orderSoID;
+        this.voucherID = voucherID;
+    }
+
+    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, int orderStatus, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+        this.orderID = orderID;
+        this.accountID = accountID;
+        this.orderDate = orderDate;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderContactName = orderContactName;
+        this.orderPhone = orderPhone;
+        this.orderAddress = orderAddress;
+        this.orderStatus = orderStatus;
+        this.orderReceiveDate = orderReceiveDate;
+        this.orderNote = orderNote;
+        this.orderSoID = orderSoID;
+        this.voucherID = voucherID;
+    }
+
 }

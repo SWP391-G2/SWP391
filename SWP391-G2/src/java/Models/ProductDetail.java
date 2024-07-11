@@ -4,7 +4,8 @@
  */
 package Models;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  *
@@ -12,59 +13,25 @@ import java.util.Date;
  */
 public class ProductDetail {
 
-    private int ProductFullDetailID;
+   private int productFullDetailID;
     private int pdProductID;
-    private String ProductDescription;
-    private Date ProductCreateDate;
-    private int ProductStatus;
-    private String ProductSize;
-    private Float ProductPrice;
-    private int ProductAvaiable;
+    private String productDescription;
+    private Date productCreateDate;
+    private int productStatus;
+    private String productSize;
+    private BigDecimal productPrice;
+    private int productAvaiable;
     private String image;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int ProductFullDetailID, String ProductDescription, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
-        this.ProductFullDetailID = ProductFullDetailID;
-        this.ProductDescription = ProductDescription;
-        this.ProductStatus = ProductStatus;
-        this.ProductSize = ProductSize;
-        this.ProductPrice = ProductPrice;
-        this.ProductAvaiable = ProductAvaiable;
-        this.image = image;
-    }
-
-    
-    public ProductDetail(int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
-        this.pdProductID = pdProductID;
-        this.ProductDescription = ProductDescription;
-        this.ProductCreateDate = ProductCreateDate;
-        this.ProductStatus = ProductStatus;
-        this.ProductSize = ProductSize;
-        this.ProductPrice = ProductPrice;
-        this.ProductAvaiable = ProductAvaiable;
-        this.image = image;
-    }
-
-    public ProductDetail(int ProductFullDetailID, int pdProductID, String ProductDescription, Date ProductCreateDate, int ProductStatus, String ProductSize, Float ProductPrice, int ProductAvaiable, String image) {
-        this.ProductFullDetailID = ProductFullDetailID;
-        this.pdProductID = pdProductID;
-        this.ProductDescription = ProductDescription;
-        this.ProductCreateDate = ProductCreateDate;
-        this.ProductStatus = ProductStatus;
-        this.ProductSize = ProductSize;
-        this.ProductPrice = ProductPrice;
-        this.ProductAvaiable = ProductAvaiable;
-        this.image = image;
-    }
-
     public int getProductFullDetailID() {
-        return ProductFullDetailID;
+        return productFullDetailID;
     }
 
-    public void setProductFullDetailID(int ProductFullDetailID) {
-        this.ProductFullDetailID = ProductFullDetailID;
+    public void setProductFullDetailID(int productFullDetailID) {
+        this.productFullDetailID = productFullDetailID;
     }
 
     public int getPdProductID() {
@@ -76,51 +43,51 @@ public class ProductDetail {
     }
 
     public String getProductDescription() {
-        return ProductDescription;
+        return productDescription;
     }
 
-    public void setProductDescription(String ProductDescription) {
-        this.ProductDescription = ProductDescription;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public Date getProductCreateDate() {
-        return ProductCreateDate;
+        return productCreateDate;
     }
 
-    public void setProductCreateDate(Date ProductCreateDate) {
-        this.ProductCreateDate = ProductCreateDate;
+    public void setProductCreateDate(Date productCreateDate) {
+        this.productCreateDate = productCreateDate;
     }
 
     public int getProductStatus() {
-        return ProductStatus;
+        return productStatus;
     }
 
-    public void setProductStatus(int ProductStatus) {
-        this.ProductStatus = ProductStatus;
+    public void setProductStatus(int productStatus) {
+        this.productStatus = productStatus;
     }
 
     public String getProductSize() {
-        return ProductSize;
+        return productSize;
     }
 
-    public void setProductSize(String ProductSize) {
-        this.ProductSize = ProductSize;
+    public void setProductSize(String productSize) {
+        this.productSize = productSize;
     }
 
-    public Float getProductPrice() {
-        return ProductPrice;
+    public BigDecimal getProductPrice() {
+        return productPrice;
     }
 
-    public void setProductPrice(Float ProductPrice) {
-        this.ProductPrice = ProductPrice;
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
     }
 
     public int getProductAvaiable() {
-        return ProductAvaiable;
+        return productAvaiable;
     }
 
-    public void setProductAvaiable(int ProductAvaiable) {
-        this.ProductAvaiable = ProductAvaiable;
+    public void setProductAvaiable(int productAvaiable) {
+        this.productAvaiable = productAvaiable;
     }
 
     public String getImage() {
@@ -131,8 +98,27 @@ public class ProductDetail {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDetail{" + "ProductFullDetailID=" + ProductFullDetailID + ", pdProductID=" + pdProductID + ", ProductDescription=" + ProductDescription + ", ProductCreateDate=" + ProductCreateDate + ", ProductStatus=" + ProductStatus + ", ProductSize=" + ProductSize + ", ProductPrice=" + ProductPrice + ", ProductAvaiable=" + ProductAvaiable + ", image=" + image + '}';
+    public ProductDetail(int pdProductID, String productDescription, Date productCreateDate, int productStatus, String productSize, BigDecimal productPrice, int productAvaiable, String image) {
+        this.pdProductID = pdProductID;
+        this.productDescription = productDescription;
+        this.productCreateDate = productCreateDate;
+        this.productStatus = productStatus;
+        this.productSize = productSize;
+        this.productPrice = productPrice;
+        this.productAvaiable = productAvaiable;
+        this.image = image;
     }
+
+    public ProductDetail(int productFullDetailID, int pdProductID, String productDescription, Date productCreateDate, int productStatus, String productSize, BigDecimal productPrice, int productAvaiable, String image) {
+        this.productFullDetailID = productFullDetailID;
+        this.pdProductID = pdProductID;
+        this.productDescription = productDescription;
+        this.productCreateDate = productCreateDate;
+        this.productStatus = productStatus;
+        this.productSize = productSize;
+        this.productPrice = productPrice;
+        this.productAvaiable = productAvaiable;
+        this.image = image;
+    }
+
 }

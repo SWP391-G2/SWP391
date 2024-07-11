@@ -9,6 +9,7 @@ package Models;
  * @author hatru
  */
 public class OrderDetail {
+
     private int odID;
     private int odOrderID;
     private int odProductID;
@@ -16,6 +17,13 @@ public class OrderDetail {
     private float odPrice;
 
     public OrderDetail() {
+    }
+
+    public OrderDetail(int odOrderID, int odProductID, int odQuantity, float odPrice) {
+        this.odOrderID = odOrderID;
+        this.odProductID = odProductID;
+        this.odQuantity = odQuantity;
+        this.odPrice = odPrice;
     }
 
     public OrderDetail(int odID, int odOrderID, int odProductID, int odQuantity, float odPrice) {
@@ -65,6 +73,5 @@ public class OrderDetail {
     public void setOdPrice(float odPrice) {
         this.odPrice = odPrice;
     }
-    
-    
+
 }
