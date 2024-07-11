@@ -19,12 +19,12 @@
         <title>View details Blog | Megakit</title>
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
         <!-- Icon Font CSS -->
-        <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
-        <link rel="stylesheet" href="plugins/fontawesome/css/all.css">
+        <link rel="stylesheet" href="../plugins/themify/css/themify-icons.css">
+        <link rel="stylesheet" href="../plugins/fontawesome/css/all.css">
         <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="css/styleBlog.css">
+        <link rel="stylesheet" href="../css/styleBlog.css">
     </head>
     <body>
         <div class="main-wrapper">
@@ -79,11 +79,11 @@
 
         <!-- Essential Scripts -->
         <!-- Main jQuery -->
-        <script src="plugins/jquery/jquery.js"></script>
-        <script src="js/contact.js"></script>
+        <script src="../plugins/jquery/jquery.js"></script>
+        <script src="../js/contact.js"></script>
         <!-- Bootstrap 4.3.1 -->
-        <script src="plugins/bootstrap/js/popper.js"></script>
-        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../plugins/bootstrap/js/popper.js"></script>
+        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="https://cdn.tiny.cloud/1/3dnf4g9cgv4sfog9pgz0n3f33fqrskhx8tz3ejpcmhn480gh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
