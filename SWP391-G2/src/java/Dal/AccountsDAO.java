@@ -118,9 +118,9 @@ public class AccountsDAO extends DBContext {
             ur.setString(4, account.getPassword());
             ur.setString(5, account.getImage());
             ur.setInt(6, account.getGender());
-            ur.setDate(7, (Date) account.getBirthday());
+            ur.setDate(7, (Date) account.getBirthDay());
             ur.setDate(8, (Date) account.getCreateDate());
-            ur.setInt(9, account.getRole());
+            ur.setInt(9, account.getRoleID());
             ur.setInt(10, account.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
@@ -302,14 +302,14 @@ public class AccountsDAO extends DBContext {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, account.getFirstName());
             ur.setString(2, account.getLastName());
-            ur.setString(3, account.getPassword());
-            ur.setString(4, account.getImage());
-            ur.setInt(5, account.getGender());
-            ur.setDate(6, (Date) account.getBirthday());
-            ur.setString(7, account.getEmail());
-            ur.setInt(8, account.getStatus());
-            ur.setDate(9, (Date) account.getCreateDate());
-            ur.setInt(10, account.getRole());
+            ur.setString(3, account.getEmail());
+            ur.setString(4, account.getPassword());
+            ur.setString(5, account.getImage());
+            ur.setInt(6, account.getGender());
+            ur.setDate(7, (Date) account.getBirthDay());
+            ur.setDate(8, (Date) account.getCreateDate());
+            ur.setInt(9, account.getRoleID());
+            ur.setInt(10, account.getStatus());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -469,10 +469,41 @@ public class AccountsDAO extends DBContext {
             System.out.println(e);
         }
     }
+
+    public void updateProfile(Accounts account) {
+        String sql = "UPDATE Accounts SET FirstName=?, LastName=?, Gender=?, BirthDay=? Where Email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, account.getFirstName());
+            st.setString(2, account.getLastName());
+            st.setInt(3, account.getGender());
+            st.setString(4, account.getBirthDay().toString());
+            st.setString(5, account.getEmail());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
+    public void updatePassWord(String password, String email) {
+        String sql = "UPDATE Accounts SET Password=? Where Email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         AccountsDAO a = new AccountsDAO();
         Date date = new Date(System.currentTimeMillis());
         Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
-        
+        System.out.println(a.getAccount("123"));
+        System.out.println(a.getAccoutByID(1).getAccountID());
+     
     }
 }
