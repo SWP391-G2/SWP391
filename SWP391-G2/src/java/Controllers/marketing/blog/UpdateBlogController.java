@@ -5,6 +5,7 @@
 package Controllers.marketing.blog;
 
 import Dal.BlogDAO;
+import Models.Accounts;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +36,14 @@ public class UpdateBlogController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Accounts account = (Accounts) session.getAttribute("account");
+
+        if (account == null || account.getRoleID() != 3) {
+            response.sendRedirect("login");
+            return;
+        }
+
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String brief = request.getParameter("brief");
