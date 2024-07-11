@@ -6,8 +6,10 @@ package Controllers.shop.feedback;
 
 import Dal.AccountsDAO;
 import Dal.FeedbackDAO;
+import Dal.ProductsDAO;
 import Models.Accounts;
 import Models.FeedBacks;
+import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -104,8 +106,13 @@ public class FeedbackProduct extends HttpServlet {
         AccountsDAO accDAO = new AccountsDAO();
         for (FeedBacks listfb : listfeedback) {
             Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
-
             listAccount.add(a);
+        }
+        List<Products> listProduct = new ArrayList<>();
+        ProductsDAO proDAO = new ProductsDAO();
+        for (FeedBacks listfb : listfeedback){
+            Products pro = proDAO.getProduct(listfb.getFbProductID());
+            listProduct.add(pro);
         }
         request.setAttribute("search", search);
         request.setAttribute("status", status);
@@ -113,6 +120,7 @@ public class FeedbackProduct extends HttpServlet {
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listfeedback", listfeedback);
         request.setAttribute("listAccount", listAccount);
+        request.setAttribute("listProduct", listProduct);
        request.getRequestDispatcher("feedbacks/manageFeedback.jsp").forward(request, response);
     }
 

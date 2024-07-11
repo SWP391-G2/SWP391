@@ -1,6 +1,6 @@
 <%-- 
     Document   : manageFeedback
-    Created on : Jun 27, 2024, 10:44:25 AM
+    Created on : Jul 11, 2024, 2:01:58 PM
     Author     : admin
 --%>
 
@@ -152,7 +152,8 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>                                  
-                                        <th scope="col">Name</th>             
+                                        <th scope="col" style="text-align: center">Name</th>  
+                                        <th scope="col">Product</th>  
                                         <th scope="col">Description</th>
                                         <th scope="cod">Reply</th>
                                         <th scope="col">Star</th>
@@ -164,10 +165,11 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>                              
                                             <td class="table-button">
-                                                <a >
+                                                <a onclick="showDetail(${feedback.getFbID()})">
                                                     <button type="button" class="custom-button">${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</button>
                                                 </a>
                                             </td>
+                                             <td>${listProduct[loop.index].getProductName()}</td>
                                             <td>${feedback.getFbContent()}</td>
 
                                             <c:if test="${feedback.getReply() != null}">
@@ -333,13 +335,10 @@
                                                                     '&status=' + status + '&pageNo=' + pageNo + "&feedbackID=" + feedbackID + "&statusnew=" + status1;
                                                         }
                                                     }
-//                                function showDetail(categoryID) {
-//                                    const search = document.querySelector('#search').value;
-//                                    const status = document.querySelector('#status').value;
-//                                    const pageNo = document.querySelector('#pageNo').value;
-//                                    window.location.href = 'categorydetail?search=' + search +
-//                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
-//                                }
+                                function showDetail(feedbackid) {
+   
+                                    window.location.href = 'categorydetail?&id=' + feedbackid;
+                                }
     </script>
     <script>
         function validateForm() {
@@ -430,4 +429,5 @@
 
     </script>
 
+</html>
 </html>
