@@ -49,7 +49,7 @@
 
         <div class="container-fluid">
             <!-- Navigation -->
-            <jsp:include page="../public/navigation.jsp"></jsp:include>
+            <jsp:include page="../partials/navigation.jsp"></jsp:include>
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
@@ -130,17 +130,15 @@
                                     <c:forEach items="${listUser}" var="user" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td><a onclick="showDetail(${user.getAccountID()},${user.getRole()})">
-                                                    <button type="button" class="border-0 ">${user.getFirstName()}  ${user.getLastName()}</button></a></td>
+                                           
                                             <td>${user.getGender()}</td>
                                             <td>${user.getEmail()}</td>
-                                            <td>${user.getPhone()}</td>
-                                            <td>${user.getAddress()}</td>
+                                            
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${user.getRole() == 1}">Admin</c:when>
-                                                    <c:when test="${user.getRole() == 3}">Marketing</c:when>
-                                                    <c:when test="${user.getRole() == 2}">Saler</c:when>
+                                                    <c:when test="${user.roleId == 1}">Admin</c:when>
+                                                    <c:when test="${user.roleId == 3}">Marketing</c:when>
+                                                    <c:when test="${user.roleId == 2}">Saler</c:when>
                                                     <c:otherwise>User</c:otherwise>
                                                 </c:choose>
                                             </td>
@@ -149,14 +147,14 @@
                                             <td>
 
                                                 <c:choose>
-                                                    <c:when test="${user.getStatus() == 1}">
+                                                    <c:when test="${user.getRoleID() == 1}">
                                                         <a  onclick="showAlert('Admin blocked successfully!',${user.getAccountID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
                                                                 Block
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${user.getStatus() == 0}">
+                                                    <c:when test="${user.getRoleID() == 0}">
                                                         <a  onclick="showAlert('Admin unblocked successfully!',${user.getAccountID()}, 1);">
                                                             <button type="button" class="btn btn-success">
                                                                 UnBlock

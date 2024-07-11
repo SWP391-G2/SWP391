@@ -8,6 +8,7 @@ package Controllers.admin;
 import Dal.AccountsDAO;
 import Dal.RoleDAO;
 import Models.Accounts;
+import Models.AccountsEmployee;
 import Models.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,7 +91,7 @@ public class AdminBlockStatus extends HttpServlet {
         } catch (Exception e) {
         }
         AccountsDAO daoAccount = new AccountsDAO();
-        List<Accounts> listAccount = daoAccount.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<AccountsEmployee> listAccount = daoAccount.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = daoAccount.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
         List<Role> listRole = daoRole.getAllRoles();
