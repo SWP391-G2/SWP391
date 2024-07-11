@@ -5,24 +5,21 @@
 package Dal;
 
 import context.DBContext;
-import Models.Brands;
-import Models.ImageDetail;
-import Models.Products;
 import Models.ProductDetail;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  *
  * @author admin
  */
 public class ProductDetailDAO extends DBContext {
-
+   
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from Products p join ProductFullDetail pfd \n"
@@ -34,33 +31,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new ProductDetail(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getFloat(7),
                         rs.getInt(8),
-                        rs.getString(9)));
-            }
-
-        } catch (SQLException e) {
-
-        }
-        return list;
-    }
-
-    public List<ImageDetail> getListImageDetail(int id) {
-        List<ImageDetail> list = new ArrayList<>();
-        String sql = "select * from  ProductDetailImages where ProductFullDetailID = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new ImageDetail(rs.getInt("ImageID"), 1,
-                        rs.getString("ImageUrl")));
+                        rs.getInt(9), 
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12), 
+                        rs.getString(13),
+                        rs.getBigDecimal(14),
+                        rs.getInt(15),
+                        rs.getString(16)));
             }
 
         } catch (SQLException e) {
@@ -77,15 +56,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new ProductDetail(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getFloat(7),
-                        rs.getInt(8),
-                        rs.getString(9)
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getBigDecimal(7),
+                    rs.getInt(8),
+                    rs.getString(9)
                 );
 
             }
@@ -152,8 +131,7 @@ public class ProductDetailDAO extends DBContext {
         return 1;
     }
 
-    public int getProductDetailID(int pdID, String size) {
-        List<ProductDetail> list = new ArrayList<>();
+     public int getProductDetailID(int pdID, String size) {     
         String sql = "select * from ProductFullDetail where pdProductID = ? and ProductSize like ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -162,15 +140,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 ProductDetail p = new ProductDetail(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getFloat(7),
-                        rs.getInt(8),
-                        rs.getString(9));
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getBigDecimal(7),
+                    rs.getInt(8),
+                    rs.getString(9));
                 return p.getProductFullDetailID();
             }
         } catch (SQLException e) {
@@ -180,7 +158,7 @@ public class ProductDetailDAO extends DBContext {
         return 0;
     }
 
-    public List<String> getSize(int id) {
+     public List<String> getSize(int id) {
         String sql = "select ProductSize from ProductFullDetail where pdProductID = ?";
         List<String> listSize = new ArrayList<>();
         try {
@@ -247,15 +225,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 productDetail = new ProductDetail(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getFloat(7),
-                        rs.getInt(8),
-                        rs.getString(9)
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getBigDecimal(7),
+                    rs.getInt(8),
+                    rs.getString(9)
                 );
                 listProduct.add(productDetail);
             }
@@ -331,7 +309,7 @@ public class ProductDetailDAO extends DBContext {
             ur.setDate(3, (Date) detail.getProductCreateDate());
             ur.setInt(4, detail.getProductStatus());
             ur.setString(5, detail.getProductSize());
-            ur.setFloat(6, detail.getProductPrice());
+            ur.setBigDecimal(6, detail.getProductPrice());
             ur.setInt(7, detail.getProductAvaiable());
             ur.setString(8, detail.getImage());
 
@@ -355,7 +333,7 @@ public class ProductDetailDAO extends DBContext {
             ur.setString(1, detail.getProductDescription());
             ur.setInt(2, detail.getProductStatus());
             ur.setString(3, detail.getProductSize());
-            ur.setFloat(4, detail.getProductPrice());
+            ur.setBigDecimal(4, detail.getProductPrice());
             ur.setInt(5, detail.getProductAvaiable());
             ur.setString(6, detail.getImage());
             ur.setInt(7, detail.getProductFullDetailID());
@@ -365,15 +343,7 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ProductDetailDAO p = new ProductDetailDAO();
-
-        System.out.println(p.getProductDetail(90));
-        Date date = new Date(System.currentTimeMillis());
-        ProductDetail detail = new ProductDetail(90, "", 1, "100ml", 106.0f, 100, "5_2.jpg");
-        p.updateProductDetail(detail);
-        System.out.println(p.getProductDetail(90));
-    }
+   
 
     public ProductDetail getInforProductDetail(int pdID) {
 
@@ -390,7 +360,7 @@ public class ProductDetailDAO extends DBContext {
                         rs.getDate(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7),
+                        rs.getBigDecimal(7),
                         rs.getInt(8),
                         rs.getString(9));
                 return p;
