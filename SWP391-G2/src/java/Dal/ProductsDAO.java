@@ -11,8 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Models.Categories;
-import Models.SubCategories;
+import Models.ProductsHome;
 import java.sql.Date;
 
 /**
@@ -21,148 +20,379 @@ import java.sql.Date;
  */
 public class ProductsDAO extends DBContext {
 
-    public List<Products> loadProducts() {
-        List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products";
+   public List<ProductsHome> loadProducts() {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "LEFT JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
-                pro.add(new Products(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
             }
-
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
-        return pro;
+        return products;
     }
 
-    public List<Products> getPaging(int index) {
-        List<Products> pro = new ArrayList<>();
-        String sql = "select * from Products order by productID OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY;";
-        //chay lenhj truy van
+    //Top best seller 
+    public List<ProductsHome> getTopBestSellers(String number) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT TOP " + number + " p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE p.CategoryID <> 4 "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID "
+                + "ORDER BY NEWID()";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, (index - 1) * 12);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                pro.add(new Products(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
-            }
-
-        } catch (SQLException e) {
-
-        }
-        return pro;
-    }
-
-    public int getCount() {
-        String sql = "Select count(*) from products";
-        try {
-            PreparedStatement ur = connection.prepareStatement(sql);
-
-            ResultSet rs = ur.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return 0;
-    }
-
-    // List Products of Men
-    public List<Products> getProductMen() {
-        List<Products> list = new ArrayList<>();
-        String sql = "SELECT * FROM Products ";
-        return list;
-    }
-
-    // List Products of Women
-    public List<Products> getProductWomen() {
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
-    }
-
-    // List Products of Unisex
-    public List<Products> getProductUnisex() {
-        List<Products> list = new ArrayList<>();
-        String sql = "";
-        return list;
+        return products;
     }
 
     // List Products by Category
-    public List<Products> getProductsByCategory(int categoryid) {
-        List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products p "
-                + " JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID "
-                + " JOIN Categories c ON sc.CategoryID = c.CategoryID "
-                + " WHERE c.CategoryID = ?";
+    public List<ProductsHome> getProductsByCategory(int categoryid) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN Categories c ON p.CategoryID = c.CategoryID "
+                + "WHERE p.CategoryID = ? AND c.Status = 1 "
+                + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, categoryid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
                 products.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return products;
     }
 
-    // List Products by SubCategory
-    public List<Products> getProductBySubCategory(int subcategoryid) {
-        List<Products> products = new ArrayList<>();
-        String sql = "SELECT * FROM Products p"
-                + "JOIN SubCategories sc ON p.SubCategoryID = sc.SubCategoryID"
-                + "WHERE sc.SubCategoryID = ?";
+    //List Products by Brand
+    public List<ProductsHome> getProductsByBrand(int brandid) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN Categories c ON p.CategoryID = c.CategoryID "
+                + "WHERE p.BrandID = ? AND c.Status = 1 "
+                + "GROUP BY p.ProductID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, subcategoryid);
+            ps.setInt(1, brandid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Products product = new Products(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
                 products.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return products;
     }
+
+    //Search by check box BrandID
+    public List<ProductsHome> searchByCheckboxBrand(int[] brandIds) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ";
+        if (brandIds != null && brandIds.length > 0) {
+            sql += "AND p.BrandID IN (";
+            for (int i = 0; i < brandIds.length; i++) {
+                sql += brandIds[i];
+                if (i < brandIds.length - 1) {
+                    sql += ",";
+                }
+            }
+            sql += ") ";
+        }
+        sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    //Search by check box CategoryID
+    public List<ProductsHome> searchByCheckbox(int[] categoryIds) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ";
+        if (categoryIds != null && categoryIds.length > 0) {
+            sql += "AND p.CategoryID IN (";
+            for (int i = 0; i < categoryIds.length; i++) {
+                sql += categoryIds[i];
+                if (i < categoryIds.length - 1) {
+                    sql += ",";
+                }
+            }
+            sql += ") ";
+        }
+        sql += "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    //Get products by category and brand
+    public List<ProductsHome> getProductsByCategoriesAndBrands(int[] categoryIds, int[] brandIds) {
+        List<ProductsHome> products = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE 1=1 ");
+
+        if (categoryIds != null && categoryIds.length > 0) {
+            sql.append("AND p.CategoryID IN (");
+            for (int i = 0; i < categoryIds.length; i++) {
+                sql.append(categoryIds[i]);
+                if (i < categoryIds.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        if (brandIds != null && brandIds.length > 0) {
+            sql.append("AND p.BrandID IN (");
+            for (int i = 0; i < brandIds.length; i++) {
+                sql.append(brandIds[i]);
+                if (i < brandIds.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID");
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+    //Search by name ajax in refine
+    public List<ProductsHome> searchByName(String text) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "MIN(pd.ProductPrice) AS priceMin, "
+                + "MAX(pd.ProductPrice) AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "WHERE p.ProductName LIKE ? "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + text + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    // Get list product by page
+    public List<ProductsHome> getListByPage(List<ProductsHome> list, int start, int end) {
+        ArrayList<ProductsHome> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
+    public List<ProductsHome> getProductsByPriceRange(int minPrice, int maxPrice) {
+        List<ProductsHome> products = new ArrayList<>();
+        String sql = "SELECT p.*, "
+                + "origPrices.priceMin AS priceMin, "
+                + "origPrices.priceMax AS priceMax "
+                + "FROM Products p "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN (SELECT pdProductID, "
+                + "             MIN(ProductPrice) AS priceMin, "
+                + "             MAX(ProductPrice) AS priceMax "
+                + "      FROM ProductFullDetail "
+                + "      GROUP BY pdProductID) origPrices "
+                + "ON p.ProductID = origPrices.pdProductID "
+                + "WHERE pd.ProductPrice BETWEEN ? AND ? "
+                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
+                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "         origPrices.priceMin, origPrices.priceMax";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, minPrice);
+            ps.setInt(2, maxPrice);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
 
     //Get Product by ProductID
     public Products getProductByProductID(int id) {
@@ -179,8 +409,7 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7));
 
                 return product;
             }
@@ -199,7 +428,7 @@ public class ProductsDAO extends DBContext {
         if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
             sql += " WHERE";
             if (cateId != -1) {
-                sql += " fk_category_id = ?";
+                sql += " CategoryID = ?";
                 whereAdded = true;
             }
             if (status != -1) {
@@ -259,8 +488,8 @@ public class ProductsDAO extends DBContext {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getInt(7)
+                );
                 listProduct.add(product);
             }
 
@@ -276,7 +505,7 @@ public class ProductsDAO extends DBContext {
         if (cateId != -1 || status != -1 || brandId != -1 || !search.isEmpty()) {
             sql += " WHERE";
             if (cateId != -1) {
-                sql += " fk_category_id = ?";
+                sql += " CategoryID = ?";
                 whereAdded = true;
             }
             if (status != -1) {
@@ -358,7 +587,7 @@ public class ProductsDAO extends DBContext {
                 + "    [ProductStatus],\n"
                 + "    [BrandID],\n"
                 + "    [ProductImageUrl],\n"
-                + "    [fk_category_id])\n"
+                + "    [CategoryID])\n"
                 + "VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -367,7 +596,7 @@ public class ProductsDAO extends DBContext {
             ur.setInt(3, product.getProductStatus());
             ur.setInt(4, product.getBrandID());
             ur.setString(5, product.getProductImageUrl());
-            ur.setInt(6, product.getFk_category_id());
+            ur.setInt(6, product.getCategoryID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -395,7 +624,7 @@ public class ProductsDAO extends DBContext {
                 + "      ,[ProductStatus] = ?\n"
                 + "      ,[ProductImageUrl] = ?\n"
                 + "      ,[BrandID] = ?\n"
-                + "      ,[fk_category_id] = ?\n"
+                + "      ,[CategoryID] = ?\n"
                 + "WHERE ProductID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -403,14 +632,13 @@ public class ProductsDAO extends DBContext {
             ur.setInt(2, product.getProductStatus());
             ur.setString(3, product.getProductImageUrl());
             ur.setInt(4, product.getBrandID());
-            ur.setInt(5, product.getFk_category_id());
+            ur.setInt(5, product.getCategoryID());
             ur.setInt(6, product.getProductID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
-
     public static void main(String[] args) {
         ProductsDAO dao = new ProductsDAO();
 //        Products product = new  Products(10, "d", 0, "1", 2, 1);
@@ -420,24 +648,14 @@ public class ProductsDAO extends DBContext {
 //        dao.insertNewProduct(product);
         System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
 
-        System.out.println(dao.getListProductByFilter(-1, -1, "men", -1, 1, 10).size());
+        System.out.println(dao.getListProductByFilter(-1, -1,"", -1, 1, 10).size());
         System.out.println(dao.getLastProductId());
 
+        List<ProductsHome> proHome = dao.getProductsByBrand(1);
+        for (ProductsHome productsHome : proHome) {
+            System.out.println(productsHome.getProductName());
+        }
     }
 
-//    public static void main(String[] args) {
-//        ProductsDAO Pdao = new ProductsDAO();
-//        /*System.out.println(Pdao.loadProducts().size());
-//        System.out.println(Pdao.getPaging(2).size());
-//
-//        System.out.println(Pdao.getCount());*/
-//        Products p = Pdao.getProductByProductID(1);
-//        System.out.println(p.getProductImageUrl());
-//
-//        System.out.println(Pdao.getCount());
-//        int categoryId = 1; // example category ID
-//        List<Products> products = Pdao.getProductsByCategory(categoryId);
-//        products.forEach(product -> System.out.println("Product ID: " + product.getProductID()
-//                + ", Name: " + product.getProductName()));
-//    }
+
 }
