@@ -68,13 +68,11 @@ public class MarketingManagerProducts extends HttpServlet {
 
         //get categories are active
         CategoriesDAO cateDao = new CategoriesDAO();
-        List<Categories> cateList = cateDao.getAll();
-        List<String> cateListName = cateDao.getAllName();
+        List<Categories> cateList = cateDao.loadCategory();
 
         //get brands are active
         BrandsDAO brDao = new BrandsDAO();
-        List<Brands> brList = brDao.getAll();
-        List<String> brListName = brDao.getAllName();
+        List<Brands> brList = brDao.getBrands();
 
         request.setAttribute("search", search);
         request.setAttribute("cateId", cateId);
@@ -83,8 +81,6 @@ public class MarketingManagerProducts extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
 
-        request.setAttribute("cateListName", cateListName);
-        request.setAttribute("brListName", brListName);
         request.setAttribute("listBrands", brList);
         request.setAttribute("listCate", cateList);
         request.setAttribute("listProduct", proList);

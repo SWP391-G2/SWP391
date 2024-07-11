@@ -639,6 +639,32 @@ public class ProductsDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
+    
+    public List<Products> getProductSimilar(int id) {
+        List<Products> p = new ArrayList<>();
+        String sql = "select * from Products where BrandID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                p.add(new Products(
+                        rs.getInt(1),               
+                        rs.getString(2),
+                        rs.getDate(3),                        
+                        rs.getInt(4),
+                        rs.getString(5),                                        
+                        rs.getInt(6),
+                        rs.getInt(7)
+                ));
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return p;
+    }
+    
     public static void main(String[] args) {
         ProductsDAO dao = new ProductsDAO();
 //        Products product = new  Products(10, "d", 0, "1", 2, 1);

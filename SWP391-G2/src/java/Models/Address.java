@@ -12,7 +12,7 @@ import java.sql.Date;
 
 public class Address {
 
-     private int addressId;
+    private int addressId;
     private int accountId;
     private String phone;
     private String addressLine;

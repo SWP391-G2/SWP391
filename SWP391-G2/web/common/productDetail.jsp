@@ -230,7 +230,7 @@
                         </p>
                         <p>
                             <strong>Status:</strong>
-                            <span id="status">${(priceandsize[0].productStatus ? 'In Stock' : 'Out Of Stock')}</span>
+                            <span id="status">${(priceandsize[0].productStatus == 0  ? 'Out Of Stock' : 'In Stock')}</span>
                         </p>
                         <p>
                             <strong>Quantity:</strong>
@@ -478,7 +478,7 @@
                             document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                             document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
 
-                            var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == false) ? 'Out Of Stock' : 'In Stock';
+                            var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == 0) ? 'Out Of Stock' : 'In Stock';
                             document.getElementById("status").innerText = statusText;
 
                             // Cập nhật trạng thái của nút "Add to Cart"

@@ -4,10 +4,16 @@
  */
 
 package Controllers.common;
+import Dal.AccountsDAO;
+import Dal.BrandsDAO;
+import Dal.CategoriesDAO;
+import Dal.FeedbackDAO;
 import Dal.ProductDetailDAO;
 import Dal.ProductsDAO;
+import Models.Accounts;
 import Models.Brands;
-import Models.ImageDetail;
+import Models.Categories;
+import Models.FeedBacks;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,27 +73,46 @@ public class DetailOfProduct extends HttpServlet {
             System.out.println("");
         }
         ProductDetailDAO pdtDAO = new ProductDetailDAO();
+        ProductsDAO pDAO = new ProductsDAO();
+        BrandsDAO bDAO = new BrandsDAO();
+        CategoriesDAO cDAO = new CategoriesDAO();
+        FeedbackDAO fbDAO = new FeedbackDAO();
+        AccountsDAO accDAO = new AccountsDAO();
 
-        //ProductsDAO pDAO = new ProductsDAO();
-        //BrandsDAO bDAO = new BrandsDAO();
-        //ProductDetailImagesDAO pdiDAO = new ProductDetailImagesDAO();
+        Products product = pDAO.getProductByProductID(id);
+        Categories categories = cDAO.getCategoryById(product.getCategoryID());
+        ProductDetail productDetail = pdtDAO.getProductDetail(id);
 
-        ProductDetail pd = pdtDAO.getProductDetail(id);
-        //Products p = pDAO.getProduct(id);
-        //Brands brand = bDAO.getBrand(p.getBrandID());
-        //List<ProductDetailImage> imgdt =pdiDAO.getListImageDetail(id);
+        Brands brand = bDAO.getBrandById(product.getBrandID());
+
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
-        //request.setAttribute("psimilar", psimilar);
+        List<Products> psimilar = pDAO.getProductSimilar(product.getBrandID());
+        List<FeedBacks> feedbacks = fbDAO.getListFeedback(id);
+        List<Accounts> listAccount = new ArrayList<>();
+        for (FeedBacks listfb : feedbacks) {
+            Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
+
+            listAccount.add(a);
+        }
+       
+        
+        int averageStart = fbDAO.getAverageStartByProductID(id);
+        int getTotalFeedback = fbDAO.getTotalFeedbackByProductId(id);
+        
+        request.setAttribute("psimilar", psimilar);
         request.setAttribute("priceandsize", priceandsize);
-        //request.setAttribute("imgdt", imgdt);
 
-        //request.setAttribute("b", brand);
-        request.setAttribute("pd", pd);
-        //request.setAttribute("p", p);
-
-
-
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+        request.setAttribute("c", categories);
+        request.setAttribute("b", brand);
+        request.setAttribute("pd", productDetail);
+        request.setAttribute("p", product);
+        request.setAttribute("fb", feedbacks);
+        request.setAttribute("listAccount", listAccount);
+        
+        request.setAttribute("averageStart", averageStart);
+        request.setAttribute("getTotalFeedback", getTotalFeedback);
+        
+        request.getRequestDispatcher("common/productDetail.jsp").forward(request, response);
     } 
 
     /** 
