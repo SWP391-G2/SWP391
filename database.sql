@@ -57,16 +57,16 @@ FOREIGN KEY (roleID) REFERENCES [dbo].[Roles](roleID)
 /*======= INSERT VALUE OF [Accounts] TABLE =======*/
 
 INSERT INTO [dbo].[Accounts] (FirstName, LastName, Password, Image, Gender, BirthDay, Email, Status, CreateDate, RoleID) VALUES
-('Nguyễn', 'Văn A', 'PasswordHash1', 'image1.png', 1, '1985-07-14', 'nguyenvana@example.com', 1, '2023-01-01', 1),
-('Trần', 'Thị B', 'PasswordHash2', 'image2.png', 2, '1990-03-22', 'tranthib@example.com', 1, '2023-01-02', 2),
-('Lê', 'Quang C', 'PasswordHash3', NULL, 1, '1983-11-05', 'lequangc@example.com', 1, '2023-01-03', 1),
-('Phạm', 'Thị D', 'PasswordHash4', 'image4.png', 2, '1995-09-18', 'phamthid@example.com', 1, '2023-01-04', 2),
-('Hoàng', 'Văn E', 'PasswordHash5', NULL, 1, '1988-04-12', 'hoangvane@example.com', 1, '2023-01-05', 1),
-('Võ', 'Thị F', 'PasswordHash6', 'image6.png', 2, '1992-07-23', 'vothif@example.com', 1, '2023-01-06', 2),
-('Đỗ', 'Minh G', 'PasswordHash7', NULL, 1, '1987-10-15', 'dohminhg@example.com', 1, '2023-01-07', 1),
-('Vũ', 'Thị H', 'PasswordHash8', 'image8.png', 2, '1993-12-30', 'vuthih@example.com', 1, '2023-01-08', 2),
-('Bùi', 'Văn I', 'PasswordHash9', NULL, 1, '1989-05-27', 'buivani@example.com', 1, '2023-01-09', 1),
-('Ngô', 'Thị J', 'PasswordHash10', 'image10.png', 2, '1991-08-16', 'ngothij@example.com', 1, '2023-01-10', 2);
+(N'Nguyễn', N'Văn A', 'PasswordHash1', 'image1.png', 1, '1985-07-14', 'nguyenvana@example.com', 1, '2023-01-01', 1),
+(N'Trần', N'Thị B', 'PasswordHash2', 'image2.png', 2, '1990-03-22', 'tranthib@example.com', 1, '2023-01-02', 2),
+(N'Lê', N'Quang C', 'PasswordHash3', NULL, 1, '1983-11-05', 'lequangc@example.com', 1, '2023-01-03', 1),
+(N'Phạm', N'Thị D', 'PasswordHash4', 'image4.png', 2, '1995-09-18', 'phamthid@example.com', 1, '2023-01-04', 2),
+(N'Hoàng', N'Văn E', 'PasswordHash5', NULL, 1, '1988-04-12', 'hoangvane@example.com', 1, '2023-01-05', 1),
+(N'Võ', N'Thị F', 'PasswordHash6', 'image6.png', 2, '1992-07-23', 'vothif@example.com', 1, '2023-01-06', 2),
+(N'Đỗ', N'Minh G', 'PasswordHash7', NULL, 1, '1987-10-15', 'dohminhg@example.com', 1, '2023-01-07', 1),
+(N'Vũ', N'Thị H', 'PasswordHash8', 'image8.png', 2, '1993-12-30', 'vuthih@example.com', 1, '2023-01-08', 2),
+(N'Bùi', N'Văn I', 'PasswordHash9', NULL, 1, '1989-05-27', 'buivani@example.com', 1, '2023-01-09', 1),
+(N'Ngô', N'Thị J', 'PasswordHash10', 'image10.png', 2, '1991-08-16', 'ngothij@example.com', 1, '2023-01-10', 2);
 
 GO
 
@@ -77,14 +77,15 @@ CREATE TABLE [dbo].[Vouchers] (
     VoucherID INT PRIMARY KEY IDENTITY(1,1),
     Code NVARCHAR(50) NOT NULL UNIQUE,
     Discount DECIMAL(5, 2) NOT NULL,
+	StartDate DATE,
     ExpiryDate DATE NOT NULL,
 	Quantity INT,
 	CreateAt DATE
 )
 /*======= INSERT VALUE OF [Vouchers] TABLE =======*/
-INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, Quantity, CreateAt) VALUES
-('NEWYEAR2024', 10.00, '2024-12-31', 100, '2024-01-01'),
-('SUMMERSALE', 15.00, '2024-06-30', 50, '2024-06-01');
+INSERT INTO [dbo].[Vouchers] (Code, Discount,StartDate, ExpiryDate, Quantity, CreateAt) VALUES
+('NEWYEAR2024', 10.00, '2024-01-01', '2024-12-31', 100, '2024-01-01'),
+('SUMMERSALE', 15.00, '2024-01-01', '2024-06-30', 50, '2024-06-01');
 GO
 
 /* ============[Categories] TABLE============*/
@@ -400,7 +401,7 @@ DROP TABLE IF EXISTS [dbo].[Cart];
 CREATE TABLE [dbo].[Cart] (
     CartID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
-	AccountID int NOT NULL,
+	AccountID int NULL,
     Quantity INT NOT NULL,
 	productName [NVARCHAR](255),
 	FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
@@ -415,9 +416,7 @@ CREATE TABLE [dbo].[WishList] (
     WishListID INT PRIMARY KEY IDENTITY(1,1),
     ProductFullDetailID INT NOT NULL,
     AccountID INT NOT NULL,
-    TotalPrice DECIMAL(18,2),
     ProductName NVARCHAR(255),
-    ProductSize NVARCHAR(MAX),
     image VARCHAR(100),
     FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
     FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
@@ -449,7 +448,6 @@ CREATE TABLE [dbo].[Orders] (
     OrderContactName NVARCHAR(255) NOT NULL,
     OrderPhone NVARCHAR(255) NOT NULL,
     OrderAddress NVARCHAR(255) NOT NULL,
-    OrderStatus INT NOT NULL,
     OrderReceiveDate DATE NULL,
     OrderNote NVARCHAR(255) NULL,
     OrderSoID INT NOT NULL,
@@ -459,9 +457,9 @@ CREATE TABLE [dbo].[Orders] (
     FOREIGN KEY (OrderSoID) REFERENCES [dbo].[StatusOrder](SOID)
 )
 /*======= INSERT VALUE OF [Orders] TABLE =======*/
-INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
-(1, '2024-01-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-01-05', 'Please deliver in the morning', 1, 1),
-(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-02-05', 'Leave at the front door', 2, 2);
+INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
+(1, '2024-01-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội',  '2024-01-05', 'Please deliver in the morning', 1, 1),
+(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', '2024-02-05', 'Leave at the front door', 2, 2);
 GO
 
 /* ============[Orders] TABLE============*/
