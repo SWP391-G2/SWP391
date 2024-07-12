@@ -18,7 +18,7 @@ import java.util.List;
  * @author ROG
  */
 public class CategoriesDAO extends DBContext {
-    
+
     public List<Categories> loadCategory() {
         List<Categories> categories = new ArrayList<>();
         String sql = "SELECT * FROM [dbo].[Categories]";
@@ -39,6 +39,21 @@ public class CategoriesDAO extends DBContext {
             System.out.println(e);
         }
         return categories;
+    }
+
+    public void updateCategory(String name, String description, int status, Date date, int categoryId) {
+        String sql = "Update Categories set CategoryName= ?, Description = ? , CreateAt = ?,status = ? where CategoryID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, name);
+            ur.setString(2, description);
+            ur.setDate(3, (Date) date);
+            ur.setInt(4, status);
+            ur.setInt(5, categoryId);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public ArrayList<Categories> getCategoriesByFilter(int status, String search, int pageNo, int pageSize) {
@@ -176,7 +191,8 @@ public class CategoriesDAO extends DBContext {
         }
         return null;
     }
-    public void insertCategory(String name, String description, Date date,int status) {
+
+    public void insertCategory(String name, String description, Date date, int status) {
         String sql = "INSERT INTO [dbo].[Categories]\n"
                 + "           ([CategoryName]\n"
                 + "           ,[Description]\n"
@@ -195,6 +211,7 @@ public class CategoriesDAO extends DBContext {
             System.err.println(e);
         }
     }
+
     public List<String> getAllName() {
         List<String> caList = new ArrayList<>();
         String category = "";
@@ -211,4 +228,3 @@ public class CategoriesDAO extends DBContext {
         return caList;
     }
 }
-

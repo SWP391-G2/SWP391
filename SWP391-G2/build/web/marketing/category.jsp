@@ -323,7 +323,7 @@
                                     const search = document.querySelector('#search').value;
                                     const status = document.querySelector('#status').value;
                                     const pageNo = document.querySelector('#pageNo').value;
-                                    window.location.href = 'categorydetail?search=' + search + 
+                                    window.location.href = 'managecategory?search=' + search + 
                                             '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
                                 }
     </script>

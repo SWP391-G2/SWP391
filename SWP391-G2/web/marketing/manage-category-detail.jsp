@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-4">
                             <label for="description">Category Description:</label>
-                            <input type="text" class="form-control" id="description" name="description" placeholder="${requestScope.data.getDescription()}">
+                            <textarea type="text" class="form-control" id="description" name="description" placeholder="${requestScope.data.getDescription()}"></textarea>
                             <div id="descriptionError" class="error-message"></div>
                         </div>
                     </div>

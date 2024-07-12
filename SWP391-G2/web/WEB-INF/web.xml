@@ -104,6 +104,10 @@
         <servlet-name>CategoryController</servlet-name>
         <servlet-class>Controllers.marketing.CategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerCategory</servlet-name>
+        <servlet-class>Controllers.marketing.ManagerCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -207,5 +211,9 @@
     <servlet-mapping>
         <servlet-name>CategoryController</servlet-name>
         <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerCategory</servlet-name>
+        <url-pattern>/managecategory</url-pattern>
     </servlet-mapping>
 </web-app>
