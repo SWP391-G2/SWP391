@@ -161,8 +161,7 @@ public class ProductDetailDAO extends DBContext {
         return 1;
     }
 
-    public int getProductDetailID(int pdID, String size) {
-        List<ProductDetail> list = new ArrayList<>();
+    public int getProductDetailID(int pdID, String size) {      
         String sql = "select * from ProductFullDetail where pdProductID = ? and ProductSize like ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

@@ -86,7 +86,7 @@ public class AddReplyFeedback extends HttpServlet {
         request.setAttribute("acc", acc);
         request.setAttribute("pro", pro);
       
-        request.getRequestDispatcher("feedbacks/update-manage-feedback.jsp").forward(request, response);
+        request.getRequestDispatcher("feedbacks/update-mange-feedback.jsp").forward(request, response);
     }
 
     /**
@@ -100,7 +100,7 @@ public class AddReplyFeedback extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     /**

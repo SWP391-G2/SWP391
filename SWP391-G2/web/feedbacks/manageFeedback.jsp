@@ -176,9 +176,8 @@
                                                 <td>${feedback.getReply()}</td>
                                             </c:if>
                                             <c:if test="${feedback.getReply() == null}">
-                                                <td> <button type="button" class="btn btn-success" data-toggle="modal"
-                                                             data-target="#addnewModal">
-                                                        <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Reply
+                                                <td> <button type="button"  class="btn btn-success">
+                                                        Reply
                                                     </button>
                                                 </td>
                                             </c:if>
@@ -337,7 +336,7 @@
                                                     }
                                 function showDetail(feedbackid) {
    
-                                    window.location.href = 'categorydetail?&id=' + feedbackid;
+                                    window.location.href = 'addreply?&id=' + feedbackid;
                                 }
     </script>
     <script>

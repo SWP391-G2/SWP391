@@ -83,7 +83,7 @@ public class CategoryController extends HttpServlet {
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listcategory", listcategory);
 
-        request.getRequestDispatcher("category/managerCategory.jsp").forward(request, response);
+        request.getRequestDispatcher("marketing/manage-category-detail.jsp").forward(request, response);
 
     }
 
