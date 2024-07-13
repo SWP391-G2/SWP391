@@ -78,7 +78,7 @@
                                 <td>
                                     ${o.wards}
                                 </td>
-                                <td>${o.address_line}</td>
+                                <td>${o.addressLine}</td>
                                 <td ${o.status == 1? 'style="color: green;"' : ''}>${o.status == 1? 'Default Address' : ''}</td>
                                 <td>
                                     <a href="./EditAddress?address_id=${o.address_id}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

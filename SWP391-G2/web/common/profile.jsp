@@ -198,7 +198,7 @@
                                 </div>
                                 
                                  <div >
-                                    <label class="labels">Address : ${address.address_line}, ${address.wards}, ${address.district}, ${address.city}</label>
+                                    <label class="labels">Address : ${address.addressLine}, ${address.wards}, ${address.district}, ${address.city}</label>
                                 </div>
 
                             </div>
@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12"><label class="labels">Birthday</label><input name="birth" type="date" class="form-control" placeholder="Enter Date Of Birth" id="dateinput" value="${profile.birthday}"></div>
+                                <div class="col-md-12"><label class="labels">Birthday</label><input name="birth" type="date" class="form-control" placeholder="Enter Date Of Birth" id="dateinput" value="${profile.birthDay}"></div>
 
                             </div>
                             <div class="row mt-3">

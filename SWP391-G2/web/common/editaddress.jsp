@@ -53,7 +53,7 @@
                 </div> 
                 <div class="form-group">
                     <label for="diaChi">Address Line </label>
-                    <input type="text" class="form-control" id="diaChinha" name="homeaddress" value="${address.address_line}" required>
+                    <input type="text" class="form-control" id="diaChinha" name="homeaddress" value="${address.addressLine}" required>
                 </div>
                 <div class="form-group form-check">
                     <div>
