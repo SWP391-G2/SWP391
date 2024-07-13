@@ -49,12 +49,10 @@
                         <div class="col-12" style="margin-bottom: 40px;">
                             <h1>Product #${product.getProductID()}</h1>
 
-                        <c:if test="${param.error != null}">
-                            <h6 style="color: red;">In-valid information to add new customer!</h6>
-                        </c:if>
+                        
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.fk_category_id}">View Product Detail</a>
+                        <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.categoryID}">View Product Detail</a>
                     </div>
                     <form action="update-product" method="post" id="productForm" enctype="multipart/form-data">
                         <input name="productId" value="${product.getProductID()}" hidden=""/>
@@ -62,7 +60,7 @@
                             <label for="productID">Product image:</label>
                             <div class="input-group image-preview-container">
                                 <div class="input-group">
-                                    <input type="file" name="img" required="" disabled="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input type="file" name="img" required="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     <label for="img"><img src="images/Products/${cateName}/${product.productImageUrl}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
                                 <span id="productImageError" class="text-danger"></span>
@@ -73,7 +71,7 @@
                         <div class="form-group row">
                             <div class="col-10">
                                 <label for="productName">Product Name:</label>
-                                <input type="text" class="form-control" id="productName"  disabled="" required="" value="${product.getProductName()}" name="productName">
+                                <input type="text" class="form-control" id="productName"  required="" value="${product.getProductName()}" name="productName">
                             </div>
                             <div class="col-2">
                                 <label for="productName">Day of init:</label>
@@ -85,15 +83,15 @@
                         <div class="form-group row">
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Category:
-                                <select class="form-control ms-2" id="cateId" disabled="" name="newcateId">
+                                <select class="form-control ms-2" id="cateId"  name="newcateId">
                                     <c:forEach items="${listCate}" var="cate">
-                                        <option value="${cate.categoryID}" ${cate.categoryID == product.fk_category_id ? 'selected' : '' }>${cate.categoryName}</option>
+                                        <option value="${cate.categoryID}" ${cate.categoryID == product.categoryID ? 'selected' : '' }>${cate.categoryName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Brands:
-                                <select class="form-control ms-2" id="brandId" disabled="" name="newbrandId">
+                                <select class="form-control ms-2" id="brandId"  name="newbrandId">
                                     <c:forEach items="${listBrands}" var="brand">
                                         <option value="${brand.getBrandID()}" ${product.getBrandID() == brand.getBrandID() ? 'selected' : '' }>${brand.getBrandName()}</option>
                                     </c:forEach>
@@ -101,7 +99,7 @@
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Status:
-                                <select class="form-control ms-2" id="newstatus" disabled="" name="newstatus">
+                                <select class="form-control ms-2" id="newstatus"  name="newstatus">
                                     <option value="1" ${product.getProductStatus() == 1 ? 'selected' : '' }>View</option>
                                     <option value="0" ${product.getProductStatus() == 0 ? 'selected' : '' }>Hide</option>
                                 </select>
@@ -111,7 +109,7 @@
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-danger ps-2 mx-2" href="./marketing-manager-products">Cancel</a>
-                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="enableEditing()">Update</button>
+                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="updateForm()">Update</button>
                         </div>
                     </form>
                 </div>
