@@ -108,6 +108,58 @@
         <servlet-name>ManagerCategory</servlet-name>
         <servlet-class>Controllers.marketing.ManagerCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RefineServlet</servlet-name>
+        <servlet-class>Controllers.common.RefineServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddressMain</servlet-name>
+        <servlet-class>Controllers.common.AddressMain</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddressDetail</servlet-name>
+        <servlet-class>Controllers.common.AddressDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAddress</servlet-name>
+        <servlet-class>Controllers.common.DeleteAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAddress</servlet-name>
+        <servlet-class>Controllers.common.EditAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>Controllers.common.Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>Controllers.common.ChangePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordEmail</servlet-name>
+        <servlet-class>Controllers.common.ForgotPasswordEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>Controllers.common.ForgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordOTP</servlet-name>
+        <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartCookieController</servlet-name>
+        <servlet-class>controller.customer.CartCookieController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>controller.customer.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShopServlet</servlet-name>
+        <servlet-class>controller.customer.ShopServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -215,5 +267,57 @@
     <servlet-mapping>
         <servlet-name>ManagerCategory</servlet-name>
         <url-pattern>/managecategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RefineServlet</servlet-name>
+        <url-pattern>/refine</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressMain</servlet-name>
+        <url-pattern>/AddressMain</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressDetail</servlet-name>
+        <url-pattern>/AddressDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAddress</servlet-name>
+        <url-pattern>/DeleteAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAddress</servlet-name>
+        <url-pattern>/EditAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordEmail</servlet-name>
+        <url-pattern>/ForgotPasswordEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordOTP</servlet-name>
+        <url-pattern>/ForgotPasswordOTP</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartCookieController</servlet-name>
+        <url-pattern>/CartCookieController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/CheckoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShopServlet</servlet-name>
+        <url-pattern>/ShopServlet</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import javax.mail.Session;
 import org.apache.tomcat.util.net.SSLSupport;
 
 /**
@@ -67,6 +68,7 @@ public class CartController extends HttpServlet {
 //        HttpSession session = request.getSession();
 //        
 //        session.invalidate();
+         HttpSession session = request.getSession();
         CartsDAO cart = new CartsDAO();
         //String accountID_raw = sessio
         String pdtID_raw = request.getParameter("pdtID");
@@ -104,6 +106,7 @@ public class CartController extends HttpServlet {
         }
         request.setAttribute("listcart", listCart);
         request.setAttribute("listproduct", listProduct);
+        session.setAttribute("listCart", listCart);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
@@ -145,7 +148,6 @@ public class CartController extends HttpServlet {
         if (minus_raw != null) {
 
             if (quantity - 1 <= 0) {
-                session.setAttribute("error", "error");
                 response.sendRedirect("cartcontroller");
             } else {
                 session.invalidate();
@@ -157,7 +159,6 @@ public class CartController extends HttpServlet {
         } else if (add_raw != null) {
 
             if (quantity + 1 > avaiable) {
-                session.setAttribute("error", "error");
                 response.sendRedirect("cartcontroller");
 
             } else {
