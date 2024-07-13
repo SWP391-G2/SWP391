@@ -62,7 +62,6 @@ public class Login extends HttpServlet {
                         cookieEmail.setSecure(true);
                         response.addCookie(cookieEmail);
                         if (remember) {
-
                             Cookie cookiePassword = new Cookie("cp", password);
                             cookiePassword.setMaxAge(30);
                             cookiePassword.setSecure(true);
@@ -71,7 +70,7 @@ public class Login extends HttpServlet {
                         }
                         switch (account.getRoleID()) {
                             case 4 ->
-                                request.getRequestDispatcher("shop/home.jsp").forward(request, response);
+                                request.getRequestDispatcher("home").forward(request, response);
                             case 3 ->
                                 request.getRequestDispatcher("marketing.jsp").forward(request, response);
                             case 2 ->
