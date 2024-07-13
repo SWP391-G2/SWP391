@@ -221,7 +221,6 @@ public class AdminControlAccount extends HttpServlet {
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
-
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("admin/admin.jsp").forward(request, response);

@@ -325,7 +325,7 @@
                             <strong>Type:</strong>
                             <select id="perfume-type">
                                 <c:forEach items="${priceandsize}" var="size">
-                                    <option value="${size.productSize}">${size.productSize}</option>
+                                    <option value="${size.getProductSize()}">${size.getProductSize()}</option>
                                 </c:forEach>
                             </select>
                         </p>

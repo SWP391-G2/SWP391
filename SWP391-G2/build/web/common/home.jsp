@@ -490,7 +490,19 @@
                                                     <div class="price_box" style="padding-left: 10px">                                                       
                                                         <span class="current_price"> $${p.priceMin} - $${p.priceMax}
                                                         </span>
-                                                    </div>                                                  
+                                                    </div>
+                                                        <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                        <c:forEach items="${productFeedbacks[p.getProductID()]}" var="feedback">
+                                                            <c:forEach var="i" begin="1" end="${feedback.fbStar}">
+                                                                <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                            </c:forEach>
+                                                            <c:forEach var="i" begin="${feedback.fbStar + 1}" end="5">
+                                                                <small  style="color: #ddd;" class="far fa-star empty"></small>
+                                                            </c:forEach>
+                                                        </c:forEach>
+
+                                                    </div>
                                                 </figcaption>
                                             </figure>
                                         </article>

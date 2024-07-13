@@ -12,14 +12,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Dal.CategoriesDAO;
+import Dal.FeedbackDAO;
 import Dal.ProductsDAO;
 import Dal.SliderDAO;
 import Models.Brands;
 import Models.Categories;
+import Models.FeedBacks;
 import Models.ProductsHome;
 import Models.Sliders;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -69,7 +73,9 @@ public class HomeServlet extends HttpServlet {
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
         SliderDAO sliDAO = new SliderDAO();
-
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+     
+   
         List<Sliders> sliders = sliDAO.getAll();
         List<ProductsHome> productsMen = productsDAO.getProductsByCategory(1);
         List<ProductsHome> productsWomen = productsDAO.getProductsByCategory(2);
@@ -78,8 +84,20 @@ public class HomeServlet extends HttpServlet {
         List<ProductsHome> productsTop5Sellers = productsDAO.getTopBestSellers("5");
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
- 
-        
+
+        Map<Integer, List<FeedBacks>> productFeedbacks = new HashMap<>();
+        List<ProductsHome> allProducts = productsMen;
+        allProducts.addAll(productsWomen);
+        allProducts.addAll(productsUnisex);
+        allProducts.addAll(giftSet);
+        allProducts.addAll(productsTop5Sellers);
+
+        for (ProductsHome product : allProducts) {
+            List<FeedBacks> feedbacks = feedbackDAO.getFeedbacksByProductID(product.getProductID());
+            productFeedbacks.put(product.getProductID(), feedbacks);
+        }
+
+          request.setAttribute("productFeedbacks", productFeedbacks);
         HttpSession session = request.getSession();
         session.setAttribute("sliders", sliders);
         request.setAttribute("categories", categories);
@@ -89,6 +107,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("productGiftset", giftSet);
         request.setAttribute("productsTopSellers", productsTop5Sellers);
         request.setAttribute("brands", brands);
+    
         request.getRequestDispatcher("common/home.jsp").forward(request, response);
     }
 
@@ -103,7 +122,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       doGet(request, response);
+        doGet(request, response);
     }
 
     /**

@@ -1976,11 +1976,13 @@ i.fa.fa-eye{
 
 
 .product_rating {
-    float: right;
+    float: left;
+ 
 }
 
 .product_rating ul {
     display: flex;
+   
 }
 
 .product_rating ul li {

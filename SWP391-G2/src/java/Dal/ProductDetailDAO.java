@@ -19,27 +19,25 @@ import java.util.List;
  * @author admin
  */
 public class ProductDetailDAO extends DBContext {
-   
+      
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
-        String sql = "select * from Products p join ProductFullDetail pfd \n"
-                + "                 on p.ProductID = pfd.ProductFullDetailID \n"
-                + "                 where pfd.pdProductID = ?";
+        String sql = "select * from ProductFullDetail where pdProductID  = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new ProductDetail(
+                        rs.getInt(1),
+                        rs.getInt(2), 
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5), 
+                        rs.getString(6),
+                        rs.getBigDecimal(7),
                         rs.getInt(8),
-                        rs.getInt(9), 
-                        rs.getString(10),
-                        rs.getDate(11),
-                        rs.getInt(12), 
-                        rs.getString(13),
-                        rs.getBigDecimal(14),
-                        rs.getInt(15),
-                        rs.getString(16)));
+                        rs.getString(9)));
             }
 
         } catch (SQLException e) {
@@ -47,7 +45,6 @@ public class ProductDetailDAO extends DBContext {
         }
         return list;
     }
-
     public ProductDetail getProductDetail(int id) {
         String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
         try {
