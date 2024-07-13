@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -65,7 +66,7 @@ public class MarketingAddProductDetail extends HttpServlet {
         int status = -1;
         String size = "";
         String detail = "";
-        Float price = 0.0f;
+        BigDecimal price = BigDecimal.valueOf(-1);
 
         try {
             cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
@@ -75,7 +76,7 @@ public class MarketingAddProductDetail extends HttpServlet {
             lastId = request.getParameter("lastId") == null ? -1 : Integer.parseInt(request.getParameter("lastId"));
             size = request.getParameter("size") == null ? "" : request.getParameter("size");
             detail = request.getParameter("detail") == null ? "" : request.getParameter("detail");
-            price = request.getParameter("price") == null ? -1 : Float.parseFloat(request.getParameter("price"));
+            price = request.getParameter("price") == null ? BigDecimal.valueOf(-1) : new BigDecimal(request.getParameter("price"));
         } catch (Exception e) {
         }
 

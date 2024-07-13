@@ -7,7 +7,14 @@ thêm cái này vào trong jsp
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
-  
+html
+          <div class="input-group">
+            <input type="file" name="img" class="form-control d-none image-preview" id="photo"
+                onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload">
+            <label for="photo"><img src="https://www.pngkey.com/png/detail/121-1219231_no-image-png.png" id="image"
+                    class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
+        </div>
     cái này là đề mô save ảnh
     <button type="button" onclick="uploadImage('photo')">save</button>
 */

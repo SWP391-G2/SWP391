@@ -27,11 +27,11 @@ public class Validation {
         return str.trim().isEmpty() || str == null;
     }
 
-    public boolean isPositiveInteger(String s) {
+    public boolean isPositiveIntegerText(String s) {
         return s.matches("\\d+");
     }
 
-    public boolean isPositiveRealNumber(String s) {
+    public boolean isPositiveRealNumberText(String s) {
         return s.matches("\\d*\\.?\\d+");
     }
 
