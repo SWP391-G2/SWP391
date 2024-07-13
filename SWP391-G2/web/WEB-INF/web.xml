@@ -140,6 +140,10 @@
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controllers.common.ForgotPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordOTP</servlet-name>
+        <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -279,5 +283,9 @@
     <servlet-mapping>
         <servlet-name>ForgotPassword</servlet-name>
         <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordOTP</servlet-name>
+        <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
 </web-app>
