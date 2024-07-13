@@ -20,6 +20,29 @@ import java.sql.Date;
  */
 public class ProductsDAO extends DBContext {
 
+    public Products getProduct(int id) {
+        String sql = "select * from Products where ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Products(
+                        rs.getInt(1),               
+                        rs.getString(2),
+                        rs.getDate(3),                        
+                        rs.getInt(4),
+                        rs.getString(5),                                        
+                        rs.getInt(6),
+                        rs.getInt(7)
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
    public List<ProductsHome> loadProducts() {
         List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "

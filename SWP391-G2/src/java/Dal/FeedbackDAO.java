@@ -12,11 +12,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import context.DBContext;
+
 /**
  *
  * @author admin
  */
-public class FeedbackDAO extends DBContext{
+public class FeedbackDAO extends DBContext {
+
+    public void updateReplyFeedback(String reply, int id) {
+        String sql = "UPDATE [dbo].[Feedbacks]\n"
+                + "   SET [reply] = ?\n"
+                + " WHERE [fbID] = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, reply);
+            ur.setInt(2, id);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public int getTotalFeedbackByProductId(int id) {
         String sql = "select COUNT(fbProductID) from Feedbacks where fbProductID = ?";
         try {
@@ -143,7 +159,7 @@ public class FeedbackDAO extends DBContext{
                         rs.getString(6),
                         rs.getDate(7),
                         rs.getInt(8),
-                        rs.getString(9)       
+                        rs.getString(9)
                 );
 
                 listFeedback.add(feedback);
@@ -216,7 +232,7 @@ public class FeedbackDAO extends DBContext{
     }
 
     public FeedBacks getFeedback(int id) {
-        String sql = "select * from Feedbacks where fbProductID = ?";
+        String sql = "select * from Feedbacks where fbID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
