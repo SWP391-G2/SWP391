@@ -14,11 +14,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Dal.CategoriesDAO;
 import Dal.ProductsDAO;
-import Dal.SubCategoriesDAO;
 import Models.Brands;
 import Models.Categories;
-import Models.Products;
-import Models.SubCategories;        
+import Models.Products;        
 import java.util.List;
 /**
  *
@@ -62,7 +60,6 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
-        SubCategoriesDAO subcategoriesDAO = new SubCategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
         List<Products> products = productsDAO.getProductsByCategory(1);

@@ -17,10 +17,6 @@
         <servlet-class>Controllers.email.EmailService</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductList</servlet-name>
-        <servlet-class>Controllers.common.ProductList</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.common.DetailOfProduct</servlet-class>
     </servlet>
@@ -119,10 +115,6 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductList</servlet-name>
-        <url-pattern>/ProductList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
