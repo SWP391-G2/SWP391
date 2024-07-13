@@ -124,6 +124,10 @@
         <servlet-name>EditAddress</servlet-name>
         <servlet-class>Controllers.common.EditAddress</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>Controllers.common.Profile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -247,5 +251,9 @@
     <servlet-mapping>
         <servlet-name>EditAddress</servlet-name>
         <url-pattern>/EditAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
 </web-app>
