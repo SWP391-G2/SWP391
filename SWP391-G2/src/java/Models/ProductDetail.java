@@ -121,4 +121,15 @@ public class ProductDetail {
         this.image = image;
     }
 
+    public ProductDetail(int productFullDetailID, String productDescription, int productStatus, String productSize, BigDecimal productPrice, int productAvaiable, String image) {
+        this.productFullDetailID = productFullDetailID;
+        this.productDescription = productDescription;
+        this.productStatus = productStatus;
+        this.productSize = productSize;
+        this.productPrice = productPrice;
+        this.productAvaiable = productAvaiable;
+        this.image = image;
+    }
+    
+    
 }

@@ -67,12 +67,12 @@ public class MarketingUpdateProduct extends HttpServlet {
 
         //get categories are active
         CategoriesDAO cateDao = new CategoriesDAO();
-        List<Categories> cateList = cateDao.getAll();
-        String cateName = cateDao.getCategoryById(product.getFk_category_id()).getCategoryName();
+        List<Categories> cateList = cateDao.loadCategory();
+        String cateName = cateDao.getCategoryById(product.getCategoryID()).getCategoryName();
 
         //get brands are active
         BrandsDAO brDao = new BrandsDAO();
-        List<Brands> brList = brDao.getAll();
+        List<Brands> brList = brDao.getBrands();
 
         request.setAttribute("size", size);
 
@@ -154,9 +154,12 @@ public class MarketingUpdateProduct extends HttpServlet {
         response.getWriter().println(newCateId);
         response.getWriter().println(newStatus);
         response.getWriter().print(productName);
-        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
+//        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
+        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, pageNo);
+        
         proDao.updateProduct(product);
-        response.sendRedirect("update-product?proId=" + proId + "&s=s");
+        
+        response.sendRedirect("marketing-manager-products?s=1");
         //insert product
 //        var product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
 //        proDao.updateProduct(product);

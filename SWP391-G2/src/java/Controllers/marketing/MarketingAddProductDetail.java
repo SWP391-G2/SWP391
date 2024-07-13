@@ -5,13 +5,10 @@
 package Controllers.marketing;
 
 import Dal.CategoriesDAO;
-import Dal.ProductDetailDAO;
-import Dal.ProductsDAO;
+import Dal.ProductDetailDAO;  
 import Models.Categories;
 import Models.ProductDetail;
-import Models.Products;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -82,7 +79,6 @@ public class MarketingAddProductDetail extends HttpServlet {
         } catch (Exception e) {
         }
 
-        
         Date dateInit = new Date(System.currentTimeMillis());
         ProductDetailDAO pddao = new ProductDetailDAO();
         int lastPdId = pddao.getLastProductDetailId();
@@ -98,7 +94,7 @@ public class MarketingAddProductDetail extends HttpServlet {
         }
 
         Part filePart = request.getPart("img");
-        String fileName = String.valueOf(lastPdId + 1) + "_"+lastId+".jpg";
+        String fileName = String.valueOf(lastPdId + 1) + "_" + lastId + ".jpg";
         OutputStream out = null;
         InputStream fileContent = null;
 
@@ -123,9 +119,9 @@ public class MarketingAddProductDetail extends HttpServlet {
         }
 
         //insert product
-        ProductDetail  details = new ProductDetail(proId, detail, dateInit, status, size, price, quantity, fileName);
+        ProductDetail details = new ProductDetail(proId, detail, dateInit, status, size, price, quantity, fileName);
         pddao.insertNewProductDetail(details);
-        response.sendRedirect("../SWP391-G2/product-detail?proId="+proId+"&cateId="+cateId);
+        response.sendRedirect("../SWP391-G2/product-detail?proId=" + proId + "&cateId=" + cateId);
 
     }
 

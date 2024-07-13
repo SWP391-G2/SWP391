@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
     </head>
 
     <body>
@@ -38,11 +39,8 @@
                         <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
                         <h1>Product</h1>
-                        <c:if test="${param.exist != null}">
-                            <h6 style="color: red;">Account alrealdy exist!</h6>
-                        </c:if>
-                        <c:if test="${param.error != null}">
-                            <h6 style="color: red;">In-valid information to add new customer!</h6>
+                        <c:if test="${requestScope.success !=null}">
+                            <input type="hidden" id="success" value="${requestScope.success}" >
                         </c:if>
                     </div>
                     <div class="col-3">
@@ -110,8 +108,8 @@
                                             <td>${listProduct.productID}</td>
                                             <td><img src="images/Products/${cateListName[listProduct.getFk_category_id()-1]}/${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
                                             <td><a href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
-                                            <td>${cateListName[listProduct.getFk_category_id()-1]}</td>                                      
-                                            <td>${brListName[listProduct.getBrandID()-1]}</td>   
+                                            <td>${listCate[listProduct.getCategoryID()-1].getCategoryName()}</td>                                      
+                                            <td>${listBrands[listProduct.getBrandID()-1].getBrandName()}</td>   
                                             <td>${listProduct.productCreateDate}</td>   
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
@@ -301,8 +299,6 @@
                         },
                         willClose: () => {
                             clearInterval(timerInterval);
-                            window.location.href = 'marketing-manager-products?search=' + search +
-                                    '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
                         }
                     }).then((result) => {
                         /* Read more about handling dismissals below */
@@ -310,6 +306,8 @@
                             console.log("I was closed by the timer");
                         }
                     });
+                    window.location.href = 'marketing-manager-products?search=' + search +
+                            '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo + "&proId=" + pid + "&newstatus=" + newStatus;
 
                 }
             });
@@ -323,5 +321,31 @@
             window.location.href = 'marketing-manager-products?search=' + search +
                     '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo;
         }
+        const success = document.getElementById('success') !== null ? document.getElementById('success') : null;
+        if (success.value !== '') {
+            successfully('success');
+        }
+        function successfully(text) {
+            console.log(text);
+            let timerInterval;
+            Swal.fire({
+                title: text,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+            });
+        }
+
 
     </script>

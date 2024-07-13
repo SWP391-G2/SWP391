@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -71,7 +72,7 @@ public class MarketingUpdateProductDetail extends HttpServlet {
         int status = -1;
         String size = "";
         String detail = "";
-        Float price = 0.0f;
+        BigDecimal price = BigDecimal.valueOf(-1);
 
         try {
             cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
@@ -81,7 +82,7 @@ public class MarketingUpdateProductDetail extends HttpServlet {
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             size = request.getParameter("size") == null ? "" : request.getParameter("size");
             detail = request.getParameter("detail") == null ? "" : request.getParameter("detail");
-            price = request.getParameter("price") == null ? -1 : Float.parseFloat(request.getParameter("price"));
+            price = request.getParameter("price") == null ? BigDecimal.valueOf(-1) : new BigDecimal(request.getParameter("price"));
         } catch (Exception e) {
         }
 
@@ -134,7 +135,8 @@ public class MarketingUpdateProductDetail extends HttpServlet {
         ProductDetailDAO pddao = new ProductDetailDAO();
         ProductDetail details = new ProductDetail(detailId, detail, status, size, price, quantity, fileName);
         pddao.updateProductDetail(details);
-       response.sendRedirect("../SWP391-G2/update-product-detail?proId=" + proId + "&cateId=" + cateId + "&detailId=" + detailId);
+   
+       response.sendRedirect("product-detail?proId=" + proId + "&cateId=" + cateId+"&s=1");
 
     }
 

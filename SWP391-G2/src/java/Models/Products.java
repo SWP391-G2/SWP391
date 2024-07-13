@@ -98,4 +98,13 @@ public class Products {
         this.categoryID = categoryID;
     }
 
+    public Products(int productID, String productName, int productStatus, String productImageUrl, int brandID, int categoryID) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productStatus = productStatus;
+        this.productImageUrl = productImageUrl;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+    }
+    
 }

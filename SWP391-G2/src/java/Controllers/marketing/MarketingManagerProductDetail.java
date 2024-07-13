@@ -31,7 +31,8 @@ public class MarketingManagerProductDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        String s = null;
         String search = "";
         String size = "";
         int detailId = -1;
@@ -41,10 +42,12 @@ public class MarketingManagerProductDetail extends HttpServlet {
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
+        
         try {
             detailId = request.getParameter("detailId") == null ? -1 : Integer.parseInt(request.getParameter("detailId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            s = request.getParameter("s") == null ? "" : request.getParameter("s");
             size = request.getParameter("size") == null ? "" : request.getParameter("size");
             proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
             cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
@@ -63,10 +66,12 @@ public class MarketingManagerProductDetail extends HttpServlet {
         List<ProductDetail> details = detailDAO.getListProductByFilter(proId, status, size, pageNo, pageSize);
         int totalPage = detailDAO.getTotalPage(proId, status, size, pageSize);
         List<String> listSize = detailDAO.getSize(proId);
-        
+
         CategoriesDAO cateDao = new CategoriesDAO();
         String cateName = cateDao.getCategoryById(cateId).getCategoryName();
-
+        
+        
+        if(s != null) request.setAttribute("success", s);
         request.setAttribute("cateName", cateName);
         request.setAttribute("size", size);
         request.setAttribute("cateId", cateId);
@@ -79,17 +84,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         request.setAttribute("listSize", listSize);
         request.setAttribute("listDetail", details);
-      
-//        response.getWriter().println(size);
-//        response.getWriter().println(cateId);
-//        response.getWriter().println(proId);
-//        response.getWriter().println(search);
-//        response.getWriter().println(product.getProductID());
-//        response.getWriter().println(status);
-//        response.getWriter().println(totalPage);
-//        response.getWriter().println(pageNo);
-//        response.getWriter().println(listSize.get(1));
-//        response.getWriter().println(details.get(1).toString());
+
         request.getRequestDispatcher("./marketing/product-detail.jsp").forward(request, response);
 
     }

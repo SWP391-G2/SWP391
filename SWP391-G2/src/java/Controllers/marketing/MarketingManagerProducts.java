@@ -45,8 +45,9 @@ public class MarketingManagerProducts extends HttpServlet {
         int pageNo = 1;
         int brandId = -1;
         final int pageSize = 10;
-
+        String s = request.getParameter("s");
         try {
+            
             proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
@@ -74,6 +75,7 @@ public class MarketingManagerProducts extends HttpServlet {
         BrandsDAO brDao = new BrandsDAO();
         List<Brands> brList = brDao.getBrands();
 
+        if(s!=null) request.setAttribute("success", s);
         request.setAttribute("search", search);
         request.setAttribute("cateId", cateId);
         request.setAttribute("status", status);
