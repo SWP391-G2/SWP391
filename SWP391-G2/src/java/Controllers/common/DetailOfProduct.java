@@ -68,7 +68,7 @@ public class DetailOfProduct extends HttpServlet {
         String id_raw = request.getParameter("product");
         int id = -1;
         try {
-            id = 2;
+            id = 36;
         } catch (NumberFormatException e) {
             System.out.println("");
         }
@@ -89,13 +89,13 @@ public class DetailOfProduct extends HttpServlet {
         List<Products> psimilar = pDAO.getProductSimilar(product.getBrandID());
         List<FeedBacks> feedbacks = fbDAO.getListFeedback(id);
         List<Accounts> listAccount = new ArrayList<>();
+        
         for (FeedBacks listfb : feedbacks) {
             Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
 
             listAccount.add(a);
         }
        
-        
         int averageStart = fbDAO.getAverageStartByProductID(id);
         int getTotalFeedback = fbDAO.getTotalFeedbackByProductId(id);
         
