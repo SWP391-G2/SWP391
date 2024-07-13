@@ -148,12 +148,12 @@ public class AdminDetails extends HttpServlet {
             String realPath = request.getServletContext().getRealPath("/images/Account");
             String source = Path.of(part.getSubmittedFileName()).getFileName().toString();
             if (!source.isEmpty()) {
-                 filename = accountID + ".png";
+                filename = accountID + ".png";
 
                 if (!Files.exists(Path.of(realPath))) {
                     Files.createDirectory(Path.of(realPath));
                 }
-              
+
                 part.write(realPath + "/" + filename);
                 response.getWriter().print(imageURL);
             }
@@ -162,7 +162,7 @@ public class AdminDetails extends HttpServlet {
         }
 
         dao.updateAccount(statusnew, roleID, filename, accountID);
-     response.sendRedirect("./admincontrolaccount?search=" + search + "&roleId=" + roleId + "&status=" + status + "&pageNo=" + pageNo);
+        response.sendRedirect("./admincontrolaccount?search=" + search + "&roleId=" + roleId + "&status=" + status + "&pageNo=" + pageNo);
     }
 
     /**
@@ -176,4 +176,3 @@ public class AdminDetails extends HttpServlet {
     }// </editor-fold>
 
 }
-

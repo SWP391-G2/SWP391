@@ -6,18 +6,64 @@ package Dal;
 
 import context.DBContext;
 import Models.Accounts;
+import Models.AccountsEmployee;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.UIManager;
 
 /**
  *
  * @author nguye
  */
 public class AccountsDAO extends DBContext {
+
+    private int accountID;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String image;
+    private int gender;
+    private java.util.Date birthDay;
+    private String email;
+    private int status;
+    private java.util.Date createDate;
+    private int roleID;
+    private String phone;
+    private String address;
+
+    //get All account Employee
+    public List<AccountsEmployee> getAllEmployee() {
+        List<AccountsEmployee> listEmployee = new ArrayList<>();
+        String sql = "select AccountID, FirstName, LastName, [Password], [Image], Gender, BirthDay, Email,ac.Status,CreateDate, RoleID, phone, address_line from Accounts ac join [Address] a on a.account_id = ac.AccountID";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                AccountsEmployee account = new AccountsEmployee(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11),
+                        rs.getString(12),
+                        rs.getString(13));
+                listEmployee.add(account);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listEmployee;
+    }
 
     //get All customer in database
     public List<Accounts> getAll() {
@@ -341,9 +387,9 @@ public class AccountsDAO extends DBContext {
         return 0;
     }
 
-    public ArrayList<Accounts> getListAdminByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
-        ArrayList<Accounts> listAccount = new ArrayList<>();
-        String sql = "SELECT * FROM Accounts";
+    public ArrayList<AccountsEmployee> getListAdminByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
+        ArrayList<AccountsEmployee> listAccount = new ArrayList<>();
+        String sql = "select AccountID, FirstName, LastName, [Password], [Image], Gender, BirthDay, Email,ac.Status,CreateDate, RoleID, phone, address_line from Accounts ac join [Address] a on a.account_id = ac.AccountID";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (roleId != -1 || status != -1 || !search.isEmpty()) {
             sql += " WHERE";
@@ -356,18 +402,18 @@ public class AccountsDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " Status = ?";
+                sql += " ac.Status = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (FirstName LIKE ? OR LastName LIKE ?  OR Email LIKE ?)";
+                sql += " (ac.FirstName LIKE ? OR ac.LastName LIKE ?  OR ac.Email LIKE ?)";
             }
         }
 
-        sql += " ORDER BY AccountID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY ac.AccountID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index
@@ -391,7 +437,7 @@ public class AccountsDAO extends DBContext {
             ur.setInt(parameterIndex, pageSize);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Accounts account = new Accounts(
+               AccountsEmployee account = new AccountsEmployee(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -402,7 +448,9 @@ public class AccountsDAO extends DBContext {
                         rs.getString(8),
                         rs.getInt(9),
                         rs.getDate(10),
-                        rs.getInt(11));
+                        rs.getInt(11),
+                        rs.getString(12),
+                        rs.getString(13));
                 listAccount.add(account);
             }
         } catch (Exception e) {
@@ -509,12 +557,5 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        AccountsDAO a = new AccountsDAO();
-        Date date = new Date(System.currentTimeMillis());
-        Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
-        System.out.println(a.getAccount("123"));
-        a.setInsert(as);
 
-    }
 }

@@ -3,26 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controllers.admin;
+package Controllers.marketing;
 
-import Dal.AccountsDAO;
-import Dal.RoleDAO;
-import Models.Accounts;
-import Models.AccountsEmployee;
-import Models.Role;
+import Dal.CategoriesDAO;
+import Models.Categories;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.sql.Date;
 
 /**
  *
- * @author hatru
+ * @author admin
  */
-public class AdminBlockStatus extends HttpServlet {
+public class ManagerCategory extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +36,10 @@ public class AdminBlockStatus extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminBlockStatus</title>");  
+            out.println("<title>Servlet ManagerCategory</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminBlockStatus at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManagerCategory at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,58 +56,37 @@ public class AdminBlockStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //processRequest(request, response);
-        String status_raw = request.getParameter("statusnew");
-        String accountID_raw = request.getParameter("accountID");
-        
-        int status_new = -1;
-        int accountID = -1;
+        int categoryID = -1;
         try {
-            status_new = Integer.parseInt(status_raw);
-            accountID = Integer.parseInt(accountID_raw);
+            //status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            categoryID = request.getParameter("id") == null ? -1 : Integer.parseInt(request.getParameter("id"));
         } catch (Exception e) {
         }
-        AccountsDAO dao = new AccountsDAO();
-        dao.updateStatusAccount(status_new, accountID);
 
-        //request.setAttribute("search", search_raw);
-       // request.setAttribute("roleId", roleID_raw);
-        //request.setAttribute("status", statusnow_raw);
-       String search = "";
-        int roleId = -1;
+        String search = "";
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
-            roleId = request.getParameter("roleId") == null ? -1 : Integer.parseInt(request.getParameter("roleId"));
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
 
         } catch (Exception e) {
         }
-        AccountsDAO daoAccount = new AccountsDAO();
-        List<AccountsEmployee> listAccount = daoAccount.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
-        int totalPage = daoAccount.getTotalPage(roleId, status, search, pageSize);
-        RoleDAO daoRole = new RoleDAO();
-        List<Role> listRole = daoRole.getAllRoles();
 
+       
+        CategoriesDAO categoryDAO = new CategoriesDAO();
+        Categories category = categoryDAO.getCategoryById(categoryID);
+        int totalPage = categoryDAO.getTotalPage(status, search, pageSize);
         request.setAttribute("search", search);
-        request.setAttribute("roleId", roleId);
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
-        
-        
+        request.setAttribute("data", category);
 
-        request.setAttribute("listUser", listAccount);
-        request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-//           response.getWriter().println(search_raw);
-//           response.getWriter().print(statusnow_raw);
-        //response.getWriter().print(currentpage_raw);
-        //response.sendRedirect("admincontrolaccount");
+        request.getRequestDispatcher("marketing/manage-category-detail.jsp").forward(request, response);
     } 
 
     /** 
@@ -123,7 +99,29 @@ public class AdminBlockStatus extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String status_raw = request.getParameter("statusnew");
+        String category_raw = request.getParameter("id");
+        String categoryName = request.getParameter("name");
+        String categoryDescription = request.getParameter("description");
+        int statusnew = -1;
+        int categoryID = -1;
+
+        String search = "";
+        int status = -1;
+        int pageNo = 1;
+        CategoriesDAO categoryDAO = new CategoriesDAO();
+        try {
+            statusnew = Integer.parseInt(status_raw);
+            categoryID = Integer.parseInt(category_raw);
+            search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+        } catch (Exception e) {
+
+        }
+        Date date = new Date(System.currentTimeMillis());
+        categoryDAO.updateCategory(categoryName, categoryDescription, status, date, categoryID);
+        response.sendRedirect("category?search=" + search + "&categoryID=" + categoryID + "&status=" + status + "&pageNo=" + pageNo);
     }
 
     /** 

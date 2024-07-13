@@ -1,7 +1,7 @@
 <%-- 
-    Document   : admin
-    Created on : Jun 4, 2024, 11:25:56 PM
-    Author     : hatru
+    Document   : category
+    Created on : Jul 12, 2024, 4:27:25 PM
+    Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -24,57 +24,56 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin_manager.css">
-
-        <style>
-            .form-control.custom-width {
-                width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
-            }
-            .error-message {
-                color: red;
-                font-size: 0.9em;
-            }
-
-
-
-            .custom-button {
-                background: none; /* Không có màu nền */
-                border: none; /* Bỏ viền */
-                padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
-                font-size: 16px; /* Kích thước chữ */
-                cursor: pointer; /* Con trỏ chuột */
-                color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
-                text-decoration: none; /* Bỏ gạch chân mặc định */
-                position: relative; /* Để tạo đường gạch ngang bên dưới */
-            }
-
-            .custom-button::after {
-                content: ""; /* Nội dung giả */
-                position: absolute; /* Định vị tuyệt đối */
-                left: 0; /* Căn trái */
-                bottom: 0; /* Căn dưới */
-                width: 0; /* Chiều rộng ban đầu */
-                height: 2px; /* Độ dày của đường gạch ngang */
-                background-color: #1E90FF; /* Màu của đường gạch ngang */
-                transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
-            }
-
-            .custom-button:hover::after {
-                width: 100%; /* Chiều rộng khi hover */
-            }
-
-            .custom-button:focus {
-                outline: none; /* Bỏ viền focus mặc định */
-            }
-
-            .table-button {
-                text-align: center; /* Căn giữa nút bấm trong ô bảng */
-            }
-
-        </style>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
     </head>
+    <style>
+        .form-control.custom-width {
+            width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
 
+
+        th {
+            white-space: nowrap;
+        }
+        .custom-button {
+            background: none; /* Không có màu nền */
+            border: none; /* Bỏ viền */
+            padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
+            font-size: 16px; /* Kích thước chữ */
+            cursor: pointer; /* Con trỏ chuột */
+            color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
+            text-decoration: none; /* Bỏ gạch chân mặc định */
+            position: relative; /* Để tạo đường gạch ngang bên dưới */
+        }
+
+        .custom-button::after {
+            content: ""; /* Nội dung giả */
+            position: absolute; /* Định vị tuyệt đối */
+            left: 0; /* Căn trái */
+            bottom: 0; /* Căn dưới */
+            width: 0; /* Chiều rộng ban đầu */
+            height: 2px; /* Độ dày của đường gạch ngang */
+            background-color: #1E90FF; /* Màu của đường gạch ngang */
+            transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
+        }
+
+        .custom-button:hover::after {
+            width: 100%; /* Chiều rộng khi hover */
+        }
+
+        .custom-button:focus {
+            outline: none; /* Bỏ viền focus mặc định */
+        }
+
+        .table-button {
+            text-align: center; /* Căn giữa nút bấm trong ô bảng */
+        }
+
+    </style>
     <body>
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
@@ -95,26 +94,26 @@
             </div>
         </c:if>
 
-       <jsp:include page="../partials/navigation.jsp"></jsp:include>
-            <div class="container-fluid">
-                <!-- Navigation -->
+        
+        <jsp:include page="../partials/navigation.jsp"></jsp:include>
+        <div class="container-fluid">
+            <!-- Navigation -->
 
+            <!-- Main Content -->
+            <div class="main" style="margin-left: 50px; margin-right: 50px;">
+                <div class="topbar">
+                    <!-- <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+    <div class="user">
+        <img src="assets/imgs/customer01.jpg" alt="">
+    </div> -->
+                </div>
 
-                <!-- Main Content -->
-                <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
-                        <!-- <div class="toggle">
-            <ion-icon name="menu-outline"></ion-icon>
-        </div>
-        <div class="user">
-            <img src="assets/imgs/customer01.jpg" alt="">
-        </div> -->
-                    </div>
-
-                    <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
-                        <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
+                <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
+                    <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
-                        <h1>Admin & Manager</h1>
+                        <h1>Category</h1>
 
                     </div>
                     <div class="col-3">
@@ -128,7 +127,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-3">
 
+                    </div>
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
@@ -157,33 +158,36 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Brand Name</th>
+                                        <th scope="col">Name</th>             
                                         <th scope="col">Description</th>
+                                        <th scope="col">Create Date</th>
                                         <th scope="col">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listbrand}" var="brand" varStatus="loop">
+                                    <c:forEach items="${listcategory}" var="category" varStatus="loop">
                                         <tr>
-                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
+                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>      
                                             <td class="table-button">
-                                                <a onclick="showDetail(${brand.getBrandID()})">
-                                                    <button type="button" class="custom-button">${brand.getBrandName()}</button>
+                                                <a onclick="showDetail(${category.getCategoryID()})">
+                                                    <button type="button" class="custom-button">${category.getCategoryName()}</button>
                                                 </a>
                                             </td>
+                                            <td>${category.getDescription()}</td>
+                                            <td>${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>${brand.getDescription()}</td>
                                             <td>
+
                                                 <c:choose>
-                                                    <c:when test="${brand.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Marketing blocked successfully!',${brand.getBrandID()}, 0)">
+                                                    <c:when test="${category.getStatus() == 1}">
+                                                        <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
                                                                 View
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${brand.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
+                                                    <c:when test="${category.getStatus() == 0}">
+                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${category.getCategoryID()}, 1);">
                                                             <button type="button" class="btn btn-success">
                                                                 Hide
                                                             </button>
@@ -244,7 +248,6 @@
                         </nav>
 
 
-
                     </div>
                 </div>
 
@@ -254,32 +257,31 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new account</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="brand" method="post" onsubmit="return validateForm()">
+                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
-
                                     <div class="form-group">
-                                        <label for="name">Brand Name:</label>
-                                        <input type="text" class="form-control custom-width" id="name" name="name" required>
+                                        <label for="categoryName">Category Name</label>
+                                        <input type="text" name="name" class="form-control" id="name" >
                                         <div id="nameError" class="error-message"></div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="description">Brand Description:</label>
-                                        <input type="text" class="form-control custom-width" id="description" name="description" required>
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
                                         <div id="descriptionError" class="error-message"></div>
-                                    </div>
-
+                                    </div>                                 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add new</button>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" >Add new</button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -308,32 +310,24 @@
 
 
     <script>
-                                function showAlert(message, brandID, status1) {
-
-
+                                function showAlert(message, categoryID, status1) {
                                     if (confirm(message)) {
                                         const search = document.querySelector('#search').value;
                                         const status = document.querySelector('#status').value;
                                         const pageNo = document.querySelector('#pageNo').value;
-                                        window.location.href = 'brand?search=' + search +
-                                                '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
+                                        window.location.href = 'category?search=' + search +
+                                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
                                     }
                                 }
-                                function showDetail(brandID) {
+                                function showDetail(categoryID) {
                                     const search = document.querySelector('#search').value;
                                     const status = document.querySelector('#status').value;
                                     const pageNo = document.querySelector('#pageNo').value;
-                                    window.location.href = 'branddetail?search=' + search +
-                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
+                                    window.location.href = 'managecategory?search=' + search + 
+                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
                                 }
-
     </script>
-
     <script>
-        function isOnlyWhitespace(input) {
-            return /^\s*$/.test(input);
-        }
-
         function validateForm() {
             // Lấy giá trị của các input
             var name = document.getElementById('name').value;
@@ -344,34 +338,34 @@
             var descriptionError = document.getElementById('descriptionError');
 
             // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+            //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
+            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
+            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
 
-            // Xóa thông báo lỗi trước đó
+            // Xóa thông báo lỗi trước đóx
             nameError.textContent = '';
             descriptionError.textContent = '';
 
             // Kiểm tra input
             var valid = true;
-
-            // Kiểm tra name
-            if (isOnlyWhitespace(name)) {
-                nameError.textContent = 'Brand Name cannot contain only whitespace.';
-                valid = false;
-            } else if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
-                valid = false;
-            } else if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Brand Name cannot contain whole numbers.';
+            if (!nameRegex.test(name)) {
+                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
                 valid = false;
             }
 
-            // Kiểm tra description
-            if (isOnlyWhitespace(description)) {
-                descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
+            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
+            if (/^\d+$/.test(name)) {
+                nameError.textContent = 'Category Name cannot contain whole numbers.';
                 valid = false;
-            } else if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
+            }
+
+            if (/^\s{2,}/.test(name)) {
+                nameError.textContent = 'Category Name cannot start with multiple spaces.';
+                valid = false;
+            }
+
+            if (!descriptionRegex.test(description)) {
+                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
                 valid = false;
             }
 
@@ -387,7 +381,6 @@
                 performSearch();
             }
         });
-
         const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
@@ -395,30 +388,29 @@
         function performSearch() {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
 
-        // handle filter status
+        // handle filter role
         const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
+
 
         // handle pagination
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'category?search=' + search +
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 
-
     </script>
-
 
 </html>

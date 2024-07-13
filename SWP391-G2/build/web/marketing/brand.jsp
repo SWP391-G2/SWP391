@@ -95,7 +95,7 @@
             </div>
         </c:if>
 
-        <jsp:include page="../public/navigation.jsp"></jsp:include>
+       <jsp:include page="../partials/navigation.jsp"></jsp:include>
             <div class="container-fluid">
                 <!-- Navigation -->
 
