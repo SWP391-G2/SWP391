@@ -29,15 +29,6 @@
 
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
-                        <!-- <div class="toggle">
-        <ion-icon name="menu-outline"></ion-icon>
-    </div>
-    <div class="user">
-        <img src="assets/imgs/customer01.jpg" alt="">
-    </div> -->
-                    </div>
-
                     <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
