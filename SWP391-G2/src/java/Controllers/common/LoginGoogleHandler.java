@@ -19,6 +19,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
@@ -45,10 +46,11 @@ public class LoginGoogleHandler extends HttpServlet {
         UserGoogleDto user = getUserInfo(accessToken);
         AccountsDAO Adao = new AccountsDAO();
         Accounts account = Adao.getAccount(user.getEmail());
-
+        HttpSession session = request.getSession();
         try {
             if (account != null) {
                 if (account.getStatus() == 1) {
+                   session.setAttribute("account", account);
                     request.getRequestDispatcher("home").forward(request, response);
                 } else {
                     throw new Exception("Your account was ban please enter another account!!");

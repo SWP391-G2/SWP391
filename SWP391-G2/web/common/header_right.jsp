@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
         <link rel="stylesheet" href="css/homestyle.css">    
-        
+
     </head>
     <body>
         <div class="header_right">
@@ -34,17 +34,17 @@
                 </div>     
                 <c:if test="${sessionScope.account != null}">
                     <div class="my-user">
-                        <a href="profile" class="user-profile">
+                        <a href="Profile" class="user-profile">
                             <i class="fa fa-solid fa-user"></i>
                         </a>
                     </div>
                     <a id="logout" href="#" onclick="confirmLogout('logoutModal')">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                          <div id="logoutModal" class="modal"></div>
+                        <div id="logoutModal" class="modal"></div>
                     </a>
-                   
+
                 </c:if>
-               
+
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
