@@ -35,7 +35,7 @@ public class EmailService extends HttpServlet {
         // Compare both OTP
         if (otp.equals(ots)) {
             Accounts account = (Accounts) session.getAttribute("accountForSign");
-            Adao.setInsertAccount(account);
+            Adao.setInsert(account);
             request.getRequestDispatcher("login").forward(request, response);
         } else {
             request.setAttribute("err", "OTP is incorrect!!");

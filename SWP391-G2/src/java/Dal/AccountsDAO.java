@@ -154,20 +154,31 @@ public class AccountsDAO extends DBContext {
     }
 
     public void setInsert(Accounts account) {
-        String sql = "INSERT INTO [dbo].[Accounts] ([FirstName],[LastName],[Email],[Password],[Image],[Gender],[BirthDay],[Phone],[Address],[CreateDate],[RoleID],[Status]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO [dbo].[Accounts]\n"
+                + "           ([FirstName]\n"
+                + "           ,[LastName]\n"
+                + "           ,[Password]\n"
+                + "           ,[Image]\n"
+                + "           ,[Gender]\n"
+                + "           ,[BirthDay]\n"
+                + "           ,[Email]\n"
+                + "           ,[Status]\n"
+                + "           ,[CreateDate]\n"
+                + "           ,[RoleID])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?,4);";
         try {
 
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, account.getFirstName());
             ur.setString(2, account.getLastName());
-            ur.setString(3, account.getEmail());
-            ur.setString(4, account.getPassword());
-            ur.setString(5, account.getImage());
-            ur.setInt(6, account.getGender());
-            ur.setDate(7, (Date) account.getBirthDay());
-            ur.setDate(8, (Date) account.getCreateDate());
-            ur.setInt(9, account.getRoleID());
-            ur.setInt(10, account.getStatus());
+            ur.setString(3, account.getPassword());
+            ur.setString(4, account.getImage());
+            ur.setInt(5, account.getGender());
+            ur.setDate(6, (Date) account.getBirthDay());
+            ur.setString(7, account.getEmail());
+            ur.setInt(8, account.getStatus());
+            ur.setDate(9, (Date) account.getCreateDate());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -546,19 +557,5 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        AccountsDAO a = new AccountsDAO();
-//        Date date = new Date(System.currentTimeMillis());
-//        Accounts as = new Accounts("", "", "", "", 0, date, "", 0, date, 0);
-//        System.out.println(a.getAccount("123"));
-//        System.out.println(a.getAccoutByID(1).getAccountID());
-//        List<AccountsEmployee> list  = a.getAllEmployee();
-//        for (AccountsEmployee accountsEmployee : list) {
-//            System.out.println(accountsEmployee.toString());
-//        }
-        List<AccountsEmployee> list = a.getListAdminByFilter(1, 1, "n", 1, 10);
-        for (AccountsEmployee accountsEmployee : list) {
-            System.out.println(accountsEmployee.toString());
-        }
-    }
+
 }

@@ -49,7 +49,7 @@ public class LoginGoogleHandler extends HttpServlet {
         try {
             if (account != null) {
                 if (account.getStatus() == 1) {
-                    request.getRequestDispatcher("shop/home.jsp").forward(request, response);
+                    request.getRequestDispatcher("home").forward(request, response);
                 } else {
                     throw new Exception("Your account was ban please enter another account!!");
                 }
@@ -60,7 +60,6 @@ public class LoginGoogleHandler extends HttpServlet {
             request.setAttribute("err", e.getMessage());
             request.getRequestDispatcher("login").forward(request, response);
         }
-
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {
@@ -102,23 +101,22 @@ public class LoginGoogleHandler extends HttpServlet {
         String s = request.getParameter("error");
 
         if (s != null) {
-            request.getRequestDispatcher("login").forward(request, response) ;
+            request.getRequestDispatcher("login").forward(request, response);
         } else {
             processRequest(request, response);
         }
     }
 
-
-/**
- * Handles the HTTP <code>POST</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -129,7 +127,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      * @return a String containing servlet description
      */
     @Override
-public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
