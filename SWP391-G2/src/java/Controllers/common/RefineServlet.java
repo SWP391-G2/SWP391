@@ -6,6 +6,7 @@ package Controllers.common;
 
 import Dal.BrandsDAO;
 import Dal.CategoriesDAO;
+import Dal.FeedbackDAO;
 import Dal.ProductsDAO;
 import Models.Categories;
 import Models.Brands;
@@ -16,7 +17,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -65,7 +68,8 @@ public class RefineServlet extends HttpServlet {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
-
+         FeedbackDAO feedbackDAO = new FeedbackDAO();
+       
         // Load categories, brands, and all products initially
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
@@ -216,7 +220,12 @@ public class RefineServlet extends HttpServlet {
         if (nameSearch != null && !nameSearch.isEmpty()) {
             listByPage = productsDAO.searchByName(nameSearch);
         }
-
+         Map<Integer, Double> productRatings = new HashMap<>();
+        for (ProductsHome product : listByPage) {
+            double averageRating = feedbackDAO.getAverageStartByProductID(product.getProductID());
+            productRatings.put(product.getProductID(), averageRating);
+        }
+        
 // Set attributes and forward to refine.jsp
         request.setAttribute("stringForLink", stringForLink);
         request.setAttribute("searchAtHome", nameSearch);
@@ -236,7 +245,8 @@ public class RefineServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("numberpage", numberpage);
         request.setAttribute("allproduct", allProducts);
-
+        
+        request.setAttribute("productRatings", productRatings);
         request.getRequestDispatcher("common/refine.jsp").forward(request, response);
     }
 

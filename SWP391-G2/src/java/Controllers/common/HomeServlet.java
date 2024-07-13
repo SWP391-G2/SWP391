@@ -85,19 +85,19 @@ public class HomeServlet extends HttpServlet {
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
 
-        Map<Integer, List<FeedBacks>> productFeedbacks = new HashMap<>();
+        Map<Integer,Integer> productAverageStars = new HashMap<>();
         List<ProductsHome> allProducts = productsMen;
         allProducts.addAll(productsWomen);
         allProducts.addAll(productsUnisex);
         allProducts.addAll(giftSet);
         allProducts.addAll(productsTop5Sellers);
 
-        for (ProductsHome product : allProducts) {
-            List<FeedBacks> feedbacks = feedbackDAO.getFeedbacksByProductID(product.getProductID());
-            productFeedbacks.put(product.getProductID(), feedbacks);
+       for (ProductsHome product : allProducts) {
+            int averageStars = feedbackDAO.getAverageStartByProductID(product.getProductID());
+            productAverageStars.put(product.getProductID(), averageStars);
         }
 
-          request.setAttribute("productFeedbacks", productFeedbacks);
+          request.setAttribute("productAverageStars", productAverageStars);
         HttpSession session = request.getSession();
         session.setAttribute("sliders", sliders);
         request.setAttribute("categories", categories);

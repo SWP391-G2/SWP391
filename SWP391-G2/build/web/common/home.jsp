@@ -275,6 +275,21 @@
                                                                     <div class="price_box">
                                                                         <span class="current_price"> $${giftSet.priceMin} - $${giftSet.priceMax}</span>
                                                                     </div>
+                                                                    <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                                        <c:forEach begin="1" end="${productAverageStars[giftSet.productID]}" var="i">
+                                                                            <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                                        </c:forEach>
+                                                                        <!-- Check for half-star -->
+                                                                        <c:if test="${productAverageStars[giftSet.productID] != productAverageStars[giftSet.productID]}">
+                                                                            <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                                        </c:if>
+                                                                        <!-- Calculate empty stars -->
+                                                                        <c:forEach begin="1" end="${5 - productAverageStars[giftSet.productID]}" var="i">
+                                                                            <small style="color: #ddd;" class="far fa-star"></small>
+                                                                        </c:forEach>
+
+                                                                    </div>
                                                                 </figcaption>
                                                             </figure>
                                                         </article>
@@ -341,6 +356,21 @@
                                                             </h4>
                                                             <div class="price_box" style="padding-left: 10px">
                                                                 <span class="current_price">$${t.priceMin} - $${t.priceMax}</span>
+                                                            </div>
+                                                            <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                                <c:forEach begin="1" end="${productAverageStars[t.productID]}" var="i">
+                                                                    <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                                </c:forEach>
+                                                                <!-- Check for half-star -->
+                                                                <c:if test="${productAverageStars[t.productID] != productAverageStars[t.productID]}">
+                                                                    <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                                </c:if>
+                                                                <!-- Calculate empty stars -->
+                                                                <c:forEach begin="1" end="${5 - productAverageStars[t.productID]}" var="i">
+                                                                    <small style="color: #ddd;" class="far fa-star"></small>
+                                                                </c:forEach>
+
                                                             </div>
                                                         </figcaption>
                                                     </figure>
@@ -491,15 +521,18 @@
                                                         <span class="current_price"> $${p.priceMin} - $${p.priceMax}
                                                         </span>
                                                     </div>
-                                                        <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+                                                    <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
 
-                                                        <c:forEach items="${productFeedbacks[p.getProductID()]}" var="feedback">
-                                                            <c:forEach var="i" begin="1" end="${feedback.fbStar}">
-                                                                <small style="color: #ffca08;" class="fas fa-star"></small>
-                                                            </c:forEach>
-                                                            <c:forEach var="i" begin="${feedback.fbStar + 1}" end="5">
-                                                                <small  style="color: #ddd;" class="far fa-star empty"></small>
-                                                            </c:forEach>
+                                                        <c:forEach begin="1" end="${productAverageStars[p.productID]}" var="i">
+                                                            <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                        </c:forEach>
+                                                        <!-- Check for half-star -->
+                                                        <c:if test="${productAverageStars[p.productID] != productAverageStars[p.productID]}">
+                                                            <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                        </c:if>
+                                                        <!-- Calculate empty stars -->
+                                                        <c:forEach begin="1" end="${5 - productAverageStars[p.productID]}" var="i">
+                                                            <small style="color: #ddd;" class="far fa-star"></small>
                                                         </c:forEach>
 
                                                     </div>
@@ -567,7 +600,22 @@
                                                     <div class="price_box" style="padding-left: 10px">                                                       
                                                         <span class="current_price">  $${p.priceMin} - $${p.priceMax}
                                                         </span>
-                                                    </div>                                                  
+                                                    </div>    
+                                                    <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                        <c:forEach begin="1" end="${productAverageStars[p.productID]}" var="i">
+                                                            <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                        </c:forEach>
+                                                        <!-- Check for half-star -->
+                                                        <c:if test="${productAverageStars[p.productID] != productAverageStars[p.productID]}">
+                                                            <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                        </c:if>
+                                                        <!-- Calculate empty stars -->
+                                                        <c:forEach begin="1" end="${5 - productAverageStars[p.productID]}" var="i">
+                                                            <small style="color: #ddd;" class="far fa-star"></small>
+                                                        </c:forEach>
+
+                                                    </div>
                                                 </figcaption>
                                             </figure>
                                         </article>
@@ -633,7 +681,22 @@
                                                     <div class="price_box" style="padding-left: 10px">                                                       
                                                         <span class="current_price">  $${pUnisex.priceMin} - $${pUnisex.priceMax}
                                                         </span>
-                                                    </div>                                                  
+                                                    </div>    
+                                                    <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                        <c:forEach begin="1" end="${productAverageStars[pUnisex.productID]}" var="i">
+                                                            <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                        </c:forEach>
+
+                                                        <c:if test="${productAverageStars[pUnisex.productID] != productAverageStars[pUnisex.productID]}">
+                                                            <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                        </c:if>
+
+                                                        <c:forEach begin="1" end="${5 - productAverageStars[pUnisex.productID]}" var="i">
+                                                            <small style="color: #ddd;" class="far fa-star"></small>
+                                                        </c:forEach>
+
+                                                    </div>
                                                 </figcaption>
                                             </figure>
                                         </article>

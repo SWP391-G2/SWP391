@@ -332,6 +332,21 @@
                                                         <div class="price_box" style="padding-left: 10px">
                                                             <span class="current_price">$${product.priceMin} - $${product.priceMax}</span>
                                                         </div>
+                                                        <div class="product_rating" style="font-size: 18px; padding-bottom: 12px ; padding-right: 10px">
+
+                                                            <c:forEach begin="1" end="${productRatings[product.productID]}" var="i">
+                                                                <small style="color: #ffca08;" class="fas fa-star"></small>
+                                                            </c:forEach>
+                                                            <!-- Check for half-star -->
+                                                            <c:if test="${productRatings[product.productID] != productRatings[product.productID]}">
+                                                                <small style="color: #ffca08;" class="fas fa-star-half-alt"></small>
+                                                            </c:if>
+                                                            <!-- Calculate empty stars -->
+                                                            <c:forEach begin="1" end="${5 - productRatings[product.productID]}" var="i">
+                                                                <small style="color: #ddd;" class="far fa-star"></small>
+                                                            </c:forEach>
+
+                                                        </div>
                                                     </figcaption>
                                                 </figure>
                                             </article>
