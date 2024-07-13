@@ -112,6 +112,14 @@
         <servlet-name>AddressMain</servlet-name>
         <servlet-class>Controllers.common.AddressMain</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddressDetail</servlet-name>
+        <servlet-class>Controllers.common.AddressDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAddress</servlet-name>
+        <servlet-class>Controllers.common.DeleteAddress</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -223,5 +231,13 @@
     <servlet-mapping>
         <servlet-name>AddressMain</servlet-name>
         <url-pattern>/AddressMain</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressDetail</servlet-name>
+        <url-pattern>/AddressDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAddress</servlet-name>
+        <url-pattern>/DeleteAddress</url-pattern>
     </servlet-mapping>
 </web-app>
