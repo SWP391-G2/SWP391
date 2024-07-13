@@ -177,7 +177,7 @@
                                             </c:if>
                                             <c:if test="${feedback.getReply() == null}">
                                                 <td> <button type="button"  class="btn btn-success">
-                                                        Reply
+                                                        <a onclick="showDetail(${feedback.getFbID()})" style="color: white; text-decoration: none">Reply</a>
                                                     </button>
                                                 </td>
                                             </c:if>
@@ -335,7 +335,6 @@
                                                         }
                                                     }
                                 function showDetail(feedbackid) {
-   
                                     window.location.href = 'addreply?&id=' + feedbackid;
                                 }
     </script>

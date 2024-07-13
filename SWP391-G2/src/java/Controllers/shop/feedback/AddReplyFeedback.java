@@ -100,6 +100,11 @@ public class AddReplyFeedback extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String reply = request.getParameter("reply");
+        int id = Integer.parseInt(request.getParameter("feedbackId"));
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        feedbackDAO.updateReplyFeedback(reply, id);
+       response.sendRedirect("feedbackproduct");
         
     }
 

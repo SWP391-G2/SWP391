@@ -236,17 +236,12 @@
                             <strong>Quantity:</strong>
                             <span id="quantitie">${priceandsize[0].productAvaiable}</span>
                         </p>
-                        <p><strong>Price:</strong><input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden=""> <span id="price">${priceandsize[0].productPrice} $</span></p>
-
-                        <p>
-                            <strong>Type:</strong>
-                            <select id="perfume-type">
-                                <c:forEach items="${priceandsize}" var="size">
-                                    <option value="${size.productSize}">${size.productSize}</option>
-                                </c:forEach>
-                            </select>
-                        </p>
-
+                        <c:forEach items="${priceandsize}" var="size" >
+                            <button>
+                                <span>${size.getProductSize()}</span>
+                                <span>${size.getProductPrice()}</span>
+                            </button>
+                        </c:forEach>
                         <div class="quantity-controls"> 
                             <button onclick="changeQuantity(-1)">-</button> 
                             <input type="number" id="quantity" value="1" min="1" readonly="" />
@@ -423,11 +418,7 @@
                                     <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
                                 </c:if>
                             </div>
-                            <div>
-                                <textarea readonly="">
-                                    ${fb.getReply()}
-                                </textarea>
-                            </div>
+
                         </div>
                     </div>
                     </br>
@@ -459,47 +450,6 @@
                     document.getElementById(sectionId).classList.add("active");
                 }
 
-                var priceAndSizeData = [
-                <c:forEach items="${priceandsize}" var="size" varStatus="status">
-                {
-                productfulldetailid: "${size.productFullDetailID}",
-                        status: "${size.productStatus}",
-                        size: "${size.productSize}",
-                        price: "${size.productPrice}",
-                        quantity: "${size.productAvaiable}"
-                }<c:if test="${!status.last}">,</c:if>
-                </c:forEach>
-                ];
-                document.getElementById("perfume-type").addEventListener("change", function () {
-                    // Lấy giá trị size được chọn
-                    var selectedSize = this.value;
-                    // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
-                    for (var i = 0; i < priceAndSizeData.length; i++) {
-                        if (priceAndSizeData[i].size == selectedSize) {
-                            // Hiển thị giá của size được chọn
-                            document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
-                            document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
-                            document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
-                            document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
-
-                            var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == false) ? 'Out Of Stock' : 'In Stock';
-                            document.getElementById("status").innerText = statusText;
-
-                            // Cập nhật trạng thái của nút "Add to Cart"
-                            var addToCartBtn = document.getElementById("addToCartBtn");
-                            if (priceAndSizeData[i].quantity == 0) {
-                                addToCartBtn.setAttribute("disabled", "true");
-                                addToCartBtn.removeAttribute("onclick");
-                            } else {
-                                addToCartBtn.removeAttribute("disabled");
-                                addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
-                            }
-
-
-                            break; // Kết thúc vòng lặp khi tìm được size tương ứng
-                        }
-                    }
-                });
                 function addToCart(productID) {
                     var productname = document.getElementById('productname').value;
                     var quantity = document.getElementById('quantity').value;

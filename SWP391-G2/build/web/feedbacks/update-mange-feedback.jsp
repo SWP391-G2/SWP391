@@ -48,15 +48,15 @@
                     <!--profile of product-->
                     <div class="row mb-5" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <div class="col-12" style="margin-bottom: 40px;">
-                            <h1>Product #${detail.getProductFullDetailID()}</h1>
+                            <h1>Feedback #${feedback.getFbID()}</h1>
 
                         <c:if test="${param.error != null}">
                             <h6 style="color: red;">In-valid information to add new customer!</h6>
                         </c:if>
                     </div>
-                    <form action="addreply" id="productForm" method="post" enctype="multipart/form-data">
-                        <input type="text" value="${feedback.getFbID()}" name="feedbackId"  hidden="">           
-                        <!-- Product image -->
+                   
+                    <form action="addreply" id="productForm" method="POST">
+                        <input name="feedbackId" hidden="" type="text" value="${feedback.getFbID()}" placeholder="${feedback.getFbID()}" >       
                         <div class="form-group row">
                             <label for="productID">Feedback Image Of Product:</label>
                             <div class="input-group image-preview-container">
@@ -71,7 +71,7 @@
                         <div class="form-group row">
                             <div class="col-10">  
                                 <label for="detail">Reply:</label>
-                                <textarea disabled="" name="detail" id="detail" required="" placeholder="${feedback.getReply()}"  class="form-control" aria-label="With textarea"></textarea>
+                                <textarea  name="reply" id="detail" required=""  placeholder="${feedback.getReply()}"  class="form-control" aria-label="With textarea"></textarea>
                             </div>
                         </div>
                         <!-- Other fields (Category, Brands, Status) -->

@@ -221,17 +221,14 @@ public class AdminControlAccount extends HttpServlet {
                     } catch (Exception ex) {
 
                     }
-<<<<<<< HEAD
                    
 
                     Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, email, 1, createdate, roleID);
 
                     dao.setInsertAccount(a);
-=======
                   
 
                   
->>>>>>> KhanhNG
                     request.setAttribute("success", "Create successfully!");
 
                 } else {

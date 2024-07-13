@@ -1,0 +1,171 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 13, 2024, 6:44:06 PM
+    Author     : admin
+*/
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+
+.main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select{
+    padding: 5px;
+    width: 100%;
+    font-size: 16px;
+}
+.form-group button{
+     font-size: 16px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table th a {
+    text-decoration: none;
+    color: #333;
+}
+
+.table th a:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-item .page-link {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f2f2f2;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #176B87;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn {
+    background-color: #176B87;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #176B87;
+}
+
+.btn-success {
+    background-color: #176B87;
+}
+.btn-secondary {
+    background-color: #176B87;
+}
+
+.btn-secondary:hover {
+    background-color: #176B87;
+}
+.logo {
+  font-size: 40px;
+  font-family: "Dancing Script", cursive;
+}
+
+.logo h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #176b87;
+}
+
+.logo h1 a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo span {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  margin-left: 10px;
+  letter-spacing: 5px;
+  text-decoration: underline;
+  color: rgb(103, 103, 103);
+}

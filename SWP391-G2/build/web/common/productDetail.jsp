@@ -423,7 +423,11 @@
                                     <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
                                 </c:if>
                             </div>
-
+                            <div>
+                                <textarea readonly="">
+                                    ${fb.getReply()}
+                                </textarea>
+                            </div>
                         </div>
                     </div>
                     </br>
