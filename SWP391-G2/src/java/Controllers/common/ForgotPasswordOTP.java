@@ -65,10 +65,10 @@ public class ForgotPasswordOTP extends HttpServlet {
         String ots = (String) session.getAttribute("otpmain");
         // Compare both OTP
         if (otp.equals(ots)) { 
-            response.sendRedirect("forgotpassword.jsp");
+            response.sendRedirect("common/forgotpassword.jsp");
         } else {
             request.setAttribute("err", "OTP is incorrect!!");
-            request.getRequestDispatcher("forgotpasswordotp.jsp").forward(request, response);
+            request.getRequestDispatcher("common/forgotpasswordotp.jsp").forward(request, response);
         }
     } 
 
@@ -90,7 +90,7 @@ public class ForgotPasswordOTP extends HttpServlet {
         session.setAttribute("otpmain", otps);
         String sendOTP = e.SendOTP(email, otps);
         e.sendEmail(sub, sendOTP, email);
-        response.sendRedirect("forgotpasswordotp.jsp");
+        response.sendRedirect("common/forgotpasswordotp.jsp");
     }
 
     /** 

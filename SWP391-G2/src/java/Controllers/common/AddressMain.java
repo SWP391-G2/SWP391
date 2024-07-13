@@ -68,7 +68,7 @@ public class AddressMain extends HttpServlet {
         AddressDAO addressdao = new AddressDAO();
         List<Address> addresslist = addressdao.getAllAddress(accountid);
         request.setAttribute("address", addresslist);
-        request.getRequestDispatcher("addressmain.jsp").forward(request, response);
+        request.getRequestDispatcher("common/addressmain.jsp").forward(request, response);
     } 
 
     /** 

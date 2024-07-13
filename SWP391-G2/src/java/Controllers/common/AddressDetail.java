@@ -69,7 +69,7 @@ public class AddressDetail extends HttpServlet {
         AddressDAO addressdao = new AddressDAO();
         
 
-        request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
+        request.getRequestDispatcher("common/addressdetail.jsp").forward(request, response);
     }
 
     /**
@@ -117,7 +117,7 @@ public class AddressDetail extends HttpServlet {
                 response.sendRedirect("./AddressMain");
                 } else {
                     request.setAttribute("mess", "phone number fail syntax");
-                    request.getRequestDispatcher("addressdetail.jsp").forward(request, response);
+                    request.getRequestDispatcher("common/addressdetail.jsp").forward(request, response);
                 }
 
                

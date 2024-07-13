@@ -80,7 +80,7 @@ public class EditAddress extends HttpServlet {
         request.setAttribute("defaultDistrict", defaultDistrict);
         request.setAttribute("defaultWard", defaultWard);
         request.setAttribute("address_id", addressid);
-        request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+        request.getRequestDispatcher("common/editaddress.jsp").forward(request, response);
         
     }
 
@@ -144,7 +144,7 @@ public class EditAddress extends HttpServlet {
                 response.sendRedirect("./AddressMain");
                 } else {
                     request.setAttribute("mess", "phone number fail syntax");
-                    request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+                    request.getRequestDispatcher("common/editaddress.jsp").forward(request, response);
                 }
                 
                 
@@ -152,7 +152,7 @@ public class EditAddress extends HttpServlet {
                 
             }
         } catch (Exception e) {
-            request.getRequestDispatcher("editaddress.jsp").forward(request, response);
+            request.getRequestDispatcher("common/editaddress.jsp").forward(request, response);
         }
 
     }

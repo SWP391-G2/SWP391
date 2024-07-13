@@ -92,7 +92,7 @@ public class ForgotPasswordEmail extends HttpServlet {
                     }
                  else {
                     request.setAttribute("mess1", "Email does not exist");
-                    request.getRequestDispatcher("forgotpasswordenteremail.jsp").forward(request, response);
+                    request.getRequestDispatcher("common/forgotpasswordenteremail.jsp").forward(request, response);
                 }
             }
     }

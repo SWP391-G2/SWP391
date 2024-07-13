@@ -90,20 +90,20 @@ public class ChangePassword extends HttpServlet {
                         if (confirmpassword.equals(newpassword)) {
 
                             Accdao.updatePassWord(security.getPasswordSecurity(newpassword), emaill);
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                            request.getRequestDispatcher("common/login.jsp").forward(request, response);
 
                         } else {
                             request.setAttribute("mess2", "Confirm password Not Correct");
-                            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                            request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
                         }
                     } else {
                         request.setAttribute("mess1", "Password is not in correct format");
-                        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                        request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
                     }
                 }
                 else{
                      request.setAttribute("mess3", "Incorrect password");
-                     request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                     request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
                 }
 
             }

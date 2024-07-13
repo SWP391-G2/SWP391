@@ -63,7 +63,7 @@ public class ForgotPassword extends HttpServlet {
         if(email == null){
             response.sendRedirect(request.getContextPath()+"/login");
         }else{
-            request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+            request.getRequestDispatcher("common/forgotpassword.jsp").forward(request, response);
         }     
     } 
 
@@ -96,11 +96,11 @@ public class ForgotPassword extends HttpServlet {
                             request.getRequestDispatcher("login.jsp").forward(request, response);                           
                         } else {
                             request.setAttribute("mess2", "Confirm password Not Correct");
-                            request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+                            request.getRequestDispatcher("common/forgotpassword.jsp").forward(request, response);
                         }
                     } else {
                         request.setAttribute("mess1", "Password is not in correct format");
-                        request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+                        request.getRequestDispatcher("common/forgotpassword.jsp").forward(request, response);
                     }
                 }
         } catch (Exception e) {

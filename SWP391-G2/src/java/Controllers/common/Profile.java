@@ -46,7 +46,7 @@ public class Profile extends HttpServlet {
         Address address = addressDAO.getAddressByStatus(accountid, 1);
         request.setAttribute("address", address);
         request.setAttribute("profile", acc);
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        request.getRequestDispatcher("common/profile.jsp").forward(request, response);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Profile extends HttpServlet {
             }
             Accdao.updateProfile(acc);
             request.setAttribute("profile", acc);
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            request.getRequestDispatcher("common/profile.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
