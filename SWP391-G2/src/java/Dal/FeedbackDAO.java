@@ -17,6 +17,7 @@ import context.DBContext;
  *
  * @author admin
  */
+
 public class FeedbackDAO extends DBContext {
 
     public void updateReplyFeedback(String reply, int id) {
@@ -31,6 +32,34 @@ public class FeedbackDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    
+    public List<FeedBacks> getFeedbacksByProductID(int productID) {
+        List<FeedBacks> feedbacks = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Feedbacks] WHERE fbProductID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, productID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    FeedBacks feedback = new FeedBacks(
+                        rs.getInt("fbID"),
+                        rs.getInt("fbAccountID"),
+                        rs.getInt("fbProductID"),
+                        rs.getInt("fbStar"),
+                        rs.getString("fbContent"),
+                        rs.getString("fbImage"),
+                        rs.getDate("fbDate"),
+                        rs.getInt("fbStatus"),
+                        rs.getString("reply")
+                    );
+                    feedbacks.add(feedback);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return feedbacks;
     }
 
     public int getTotalFeedbackByProductId(int id) {

@@ -340,7 +340,7 @@ public class ProductsDAO extends DBContext {
                 + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
                 + "WHERE p.ProductName LIKE ? "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription";
+                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + text + "%");
@@ -389,7 +389,7 @@ public class ProductsDAO extends DBContext {
                 + "ON p.ProductID = origPrices.pdProductID "
                 + "WHERE pd.ProductPrice BETWEEN ? AND ? "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, p.UpdateDescription, "
+                + "         p.ProductStatus, p.ProductImageUrl, p.BrandID, "
                 + "         origPrices.priceMin, origPrices.priceMax";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

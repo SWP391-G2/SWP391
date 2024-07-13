@@ -7,6 +7,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Chi Tiết Sản Phẩm Nước Hoa</title>
+    
         <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
             rel="stylesheet"
@@ -162,18 +163,100 @@
                 color: #4b4b4b;
                 line-height: 1.5;
             }
+            
         </style>
     </head>
     <body>
+        <header>
+            <div class="main_header header_transparent header-mobile-m">
+                <div class="header_container sticky-header" style="padding: 0">
+                    <div class="container-fluid" style="background-color: black">
+                        <div class="row align-items-center" style="padding: 8px 0">
+                            <div class="col-lg-2">
+                                <div class="logo">
+                                    <a href="home"><img src="images/logo/logo0.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="main_menu menu_two menu_position">
+                                    <nav>
+                                        <ul class="nav nav-pills nav-fill">
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="home">HOME</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">ABOUT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" class="${cid_refine==0?"active":""}" href="refine?cid=${0}">PERFUMES
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach var="category" items="${requestScope.categories}">
+                                                        <li class="nav-item-lv2">
+                                                            <a class="nav-link" class="${category.categoryID==cid_refine?"active":""}" href="refine?cid_refinee=${category.categoryID}">
+                                                                ${category.categoryName}'s Perfumes
+                                                            </a>
+                                                        </li>
+                                                    </c:forEach>                                                  
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">BRANDS
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu multi-column">
+                                                    <div class="row">
+                                                        <c:forEach var="brand" items="${requestScope.brands}">
+                                                            <div class="col-md-4">
+                                                                <li class="nav-item-lv2">
+                                                                    <a class="nav-link" href="refine?bid_refinee=${brand.getBrandID()}">${brand.getBrandName()}</a>
+                                                                </li>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">CONTACT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">BLOGS</a>
+                                            </li>
 
-        <div class="container mt-5">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="header_search search_form">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                        <span class="input-group-btn">
+                                            <button class="btn icon-fallback-text">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>                 
+                            <div class="col-lg-2">
+                                <jsp:include page="header_right.jsp"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mt-5" style="padding-top : 100px;">
             <div class="row">
                 <!-- Nửa bên trái gồm hai ảnh sản phẩm -->
                 <div class="col-md-6 d-flex flex-column justify-content-between">        
                     <div class="row">
                         <div class="col-12">
                             <img
-                                src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
+                                src="${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image"
                                 id="product-image"
@@ -181,10 +264,9 @@
                         </div>
                     </div>
                     <div class="row">
-
                         <div class="col-3">
                             <img
-                                src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}"
+                                src="${p.getProductImageUrl()}"
                                 alt="Ảnh sản phẩm 1"
                                 class="product-image-small"
                                 onclick="showImage('images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}')"
@@ -507,5 +589,7 @@
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     </body>
 </html>
