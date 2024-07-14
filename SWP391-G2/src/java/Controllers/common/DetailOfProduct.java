@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.ProductDetail;
 import Models.Products;
+import Models.ProductsHome;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -75,7 +78,6 @@ public class DetailOfProduct extends HttpServlet {
 
             id = Integer.parseInt(id_raw);
 
-
         } catch (NumberFormatException e) {
             System.out.println("");
         }
@@ -95,10 +97,10 @@ public class DetailOfProduct extends HttpServlet {
         Brands brand = bDAO.getBrandById(product.getBrandID());
 
         List<ProductDetail> priceandsize = pdtDAO.getPriceAllowSize(id);
-        List<Products> psimilar = pDAO.getProductSimilar(product.getBrandID());
+        List<ProductsHome> psimilar = pDAO.getProductsByBrand(product.getBrandID());
         List<FeedBacks> feedbacks = fbDAO.getListFeedback(id);
         List<Accounts> listAccount = new ArrayList<>();
-        
+
         for (FeedBacks listfb : feedbacks) {
             Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
 
@@ -107,6 +109,14 @@ public class DetailOfProduct extends HttpServlet {
         int averageStart = fbDAO.getAverageStartByProductID(id);
         int getTotalFeedback = fbDAO.getTotalFeedbackByProductId(id);
 
+        Map<Integer, Integer> productAverageStars = new HashMap<>();
+        List<ProductsHome> allProducts = psimilar;
+
+        for (ProductsHome allProduct : allProducts) {
+            int averageStars = fbDAO.getAverageStartByProductID(allProduct.getProductID());
+            productAverageStars.put(allProduct.getProductID(), averageStars);
+        }
+         request.setAttribute("productAverageStars", productAverageStars);
         request.setAttribute("categories", categoriehome);
         request.setAttribute("brands", brandhome);
         request.setAttribute("psimilar", psimilar);
