@@ -70,13 +70,13 @@ public class Login extends HttpServlet {
                         }
                         switch (account.getRoleID()) {
                             case 4 ->
-                                request.getRequestDispatcher("home").forward(request, response);
+                                response.sendRedirect("home");
                             case 3 ->
-                                request.getRequestDispatcher("marketing.jsp").forward(request, response);
+                                response.sendRedirect("home");
                             case 2 ->
-                                request.getRequestDispatcher("sale.jsp").forward(request, response);
+                                response.sendRedirect("home");
                             case 1 ->
-                                request.getRequestDispatcher("admin.jsp").forward(request, response);
+                                response.sendRedirect("home");
                         }
                     } else {
                         throw new Exception("Password is incorrect, please check again!!");

@@ -37,25 +37,19 @@
 <body>
     <div class="container-fluid">
         <!-- Navigation -->
-      
 
-            <!-- Main Content -->
-            <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                <div class="topbar">
-                    <!-- <div class="toggle">
-    <ion-icon name="menu-outline"></ion-icon>
-</div>
-<div class="user">
-    <img src="assets/imgs/customer01.jpg" alt="">
-</div> -->
-                </div>
 
-                <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
-                    <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
+        <!-- Main Content -->
+        <div class="main" style="margin-left: 50px; margin-right: 50px;">
+            <div class="topbar">
+            </div>
+
+            <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
+                <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                 <div class="col-12" style="margin-bottom: 40px;">
                     <h1>Category details</h1>
                 </div>
-
+                
                 <form action="categorydetail" method="post" onsubmit="return validateForm()" >
                     <input type="text" value="${requestScope.data.getCategoryID()}" name="id" hidden>
                     <input type="text" value="${requestScope.status}" name="status" id="status" hidden> 
