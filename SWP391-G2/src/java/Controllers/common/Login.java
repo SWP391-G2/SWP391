@@ -58,8 +58,8 @@ public class Login extends HttpServlet {
                     if (account.getPassword().equals(security.getPasswordSecurity(password))) {
                         session.setAttribute("account", account);
                         Cookie cookieEmail = new Cookie("em", email);
-                        cookieEmail.setMaxAge(30);
-                        cookieEmail.setSecure(true);
+                        cookieEmail.setMaxAge(36000);
+//                        cookieEmail.setSecure(true);
                         response.addCookie(cookieEmail);
                         if (remember) {
                             Cookie cookiePassword = new Cookie("cp", password);

@@ -14,17 +14,15 @@ public class Item {
 
     private ProductDetail product;
     private int quantity;
-    private String mil;
-    private BigDecimal price;
+    private String name;
 
     public Item() {
     }
 
-    public Item(ProductDetail product, int quantity, String mil, BigDecimal price) {
+    public Item(ProductDetail product, int quantity, String name) {
         this.product = product;
         this.quantity = quantity;
-        this.mil = mil;
-        this.price = price;
+        this.name = name;
     }
 
     public ProductDetail getProduct() {
@@ -43,22 +41,13 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getMil() {
-        return mil;
+    public String getName() {
+        return name;
     }
 
-    public void setMil(String mil) {
-        this.mil = mil;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-   
-
+  
 }

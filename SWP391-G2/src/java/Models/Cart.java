@@ -34,7 +34,7 @@ public class Cart {
 
     private Item getItemById(int id) {
         for (Item i : items) {
-            if (i.getProduct().getPdProductID() == id) {
+            if (i.getProduct().getProductFullDetailID() == id) {
                 return i;
             }
         }
@@ -47,12 +47,10 @@ public class Cart {
 
     //add item to cart
     public void addItem(Item t) {
-        //Exist in cart
-        if (getItemById(t.getProduct().getPdProductID()) != null) {
-            Item i = getItemById(t.getProduct().getPdProductID());
+        Item i = getItemById(t.getProduct().getProductFullDetailID());
+        if (i != null) {
             i.setQuantity(i.getQuantity() + t.getQuantity());
-        } //Not exist in cart
-        else {
+        } else {
             items.add(t);
         }
     }
@@ -65,17 +63,16 @@ public class Cart {
 
     public BigDecimal getTotalMoney() {
         BigDecimal t = BigDecimal.valueOf(0);
-        
         for (Item i : items) {
-      BigDecimal quantity = BigDecimal.valueOf(i.getQuantity());
-            t = t.add(quantity.multiply(i.getPrice()));
+            BigDecimal quantity = BigDecimal.valueOf(i.getQuantity());
+            t = t.add(quantity.multiply(i.getProduct().getProductPrice()));
         }
         return t;
     }
 
     private ProductDetail getProductDetailByID(int id, List<ProductDetail> list) {
         for (ProductDetail i : list) {
-            if (i.getPdProductID() == id) {
+            if (i.getProductFullDetailID() == id) {
                 return i;
             }
         }
@@ -91,13 +88,14 @@ public class Cart {
                     String[] n = i.split(":");
                     int id = Integer.parseInt(n[0]);
                     int quantity = Integer.parseInt(n[1]);
+                    String name = n[2];
                     ProductDetail p = getProductDetailByID(id, list);
-                    Item t = new Item(p, quantity, p.getProductSize(), p.getProductPrice());
+                    Item t = new Item(p, quantity, name);
                     addItem(t);
                 }
             }
         } catch (NumberFormatException e) {
-            
+
         }
 
     }

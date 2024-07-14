@@ -28,9 +28,16 @@
                     </a>
                 </div>   
                 <div class="my-cart top-cart-contain mini-cart">
-                    <a href="cart" class="a-cart">
-                        <i class="fa fa-cart-plus"></i>
-                    </a>
+                    <c:if test="${sessionScope.account != null}">
+                        <a href="cartcontroller" class="a-cart">
+                            <i class="fa fa-cart-plus"></i>
+                        </a>
+                    </c:if>
+                    <c:if test="${sessionScope.account == null}">
+                        <a href="shop" class="a-cart">
+                            <i class="fa fa-cart-plus"></i>
+                        </a>
+                    </c:if>
                 </div>     
                 <c:if test="${sessionScope.account != null}">
                     <div class="my-user">
@@ -42,7 +49,6 @@
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <div id="logoutModal" class="modal"></div>
                     </a>
-
                 </c:if>
 
             </div>
