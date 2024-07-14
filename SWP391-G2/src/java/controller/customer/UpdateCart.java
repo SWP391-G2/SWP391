@@ -64,54 +64,7 @@ public class UpdateCart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        ProductDetailDAO dao = new ProductDetailDAO();
-        List<ProductDetail> list = dao.getAll();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
-        String num_raw = request.getParameter("num");
-        String id_raw = request.getParameter("id");
-        int id, num = 0;
-        try {
-            id = Integer.parseInt(id_raw);
-            ProductDetail p = dao.getInforProductDetail(id);
-            int numstock = p.getProductAvaiable();
-            num = Integer.parseInt(num_raw);
-            if (num == -1 && (cart.getQuantityById(id) <= 1)) {
-                cart.removeItem(id);
-            } else {
-                if (num == 1 && cart.getQuantityById(id) >= numstock) {
-                    num = 0;
-                }
-                BigDecimal price = p.getProductPrice();
-                Item t = new Item(p, num, price);
-                cart.addItem(t);
-            }
-        } catch (NumberFormatException e) {
-
-        }
-        List<Item> items = cart.getItems();
-        txt = "";
-        if (items.size() > 0) {
-            txt = items.get(0).getProduct().getProductFullDetailID() + ":"
-                    + items.get(0).getQuantity();
-            for (int i = 0; i < items.size(); i++) {
-                txt += "," + items.get(i).getProduct().getProductFullDetailID() + ":"
-                        + items.get(i).getQuantity();
-            }
-        }
-        Cookie c = new Cookie("cart", txt);
-        c.setMaxAge(15 * 24 * 60 * 60);
-        request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
+        
 
     }
 
@@ -126,7 +79,7 @@ public class UpdateCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**

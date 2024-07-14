@@ -4,6 +4,7 @@
  */
 package controller.customer;
 
+import Dal.CategoriesDAO;
 import Dal.ProductDetailDAO;
 import Models.Cart;
 import Models.Item;
@@ -77,6 +78,9 @@ public class ShopServlet extends HttpServlet {
         }
 
         Cart cart = new Cart(txt, list);
+       
+        //response.getWriter().print(cart.getItems().get(0).getName());
+        
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
     }
@@ -92,8 +96,8 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDetailDAO d = new ProductDetailDAO();
-        List<ProductDetail> list = d.getAll();
+        ProductDetailDAO dao = new ProductDetailDAO();
+        List<ProductDetail> list = dao.getAll();
         Cookie[] arr = request.getCookies();
         String txt = "";
         if (arr != null) {
@@ -106,41 +110,48 @@ public class ShopServlet extends HttpServlet {
             }
         }
         Cart cart = new Cart(txt, list);
-//         <input type ="hidden"  value="${i.product.getProductFullDetailID()}" name="pdID"/>
-//                                                <input type ="hidden" value="${i.product.getQuantity()}" name="quantity"/>
-//                                                <input type ="hidden" value="${i.product.getProductAvaiable()}" name="avaiable"/> 
-//                                                <input type ="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
-        String quantity_raw = request.getParameter("num");
+        String add = request.getParameter("add");
+        String minus = request.getParameter("minus");
         String id_raw = request.getParameter("pdID");
-        String name_raw = request.getParameter("name");
-        int id, quantity = -1;
+        String deletecard = request.getParameter("deletecard");
+//        response.getWriter().print(num_raw);
+//        response.getWriter().print(id_raw);
+        String name = request.getParameter("name");
+        int id, addnum,minusnum = -2;
         try {
             id = Integer.parseInt(id_raw);
-            ProductDetail p = d.getProductDetail(id);
-            int numStock = p.getProductAvaiable();
-            quantity = Integer.parseInt(quantity_raw);
-            if (quantity == -1 && cart.getQuantityById(id) <= 1) {
+            ProductDetail p = dao.getProductDetail(id);
+            int numstock = p.getProductAvaiable();
+            addnum = Integer.parseInt(add);
+            minusnum = Integer.parseInt(minus);
+            if (minusnum == -1 && (cart.getQuantityById(id) <= 1)) {
                 cart.removeItem(id);
-            } else {
-                if (quantity == 1 && cart.getQuantityById(id) >= numStock) {
-                    quantity = 0;
+            } 
+            if(deletecard != null){
+                cart.removeItem(id);
+            }
+            else {
+                if (addnum == 1 && cart.getQuantityById(id) >= numstock) {
+                    addnum = 0;
                 }
-
-                Item t = new Item(p, Integer.parseInt(quantity_raw), name_raw);
+                //BigDecimal price = p.getProductPrice();
+                Item t = new Item(p, addnum, name);
                 cart.addItem(t);
             }
         } catch (NumberFormatException e) {
-        }
 
+        }
         List<Item> items = cart.getItems();
         txt = "";
         if (items.size() > 0) {
-            txt = items.get(0).getProduct().getProductFullDetailID() + ":" + items.get(0).getQuantity() + items.get(0).getName();
+            txt = items.get(0).getProduct().getProductFullDetailID()+ ":"
+                    + items.get(0).getQuantity()+ ":"
+                     + items.get(0).getName();
             for (int i = 1; i < items.size(); i++) {
-                txt += "," + items.get(i).getProduct().getProductFullDetailID() + ":" + items.get(i).getQuantity() + ":" + items.get(i).getName();
+                txt += "," + items.get(i).getProduct().getProductFullDetailID() + ":"
+                        + items.get(i).getQuantity() + ":" + items.get(i).getName();
             }
         }
-
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(15 * 24 * 60 * 60);
         response.addCookie(c);

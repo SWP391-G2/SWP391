@@ -106,7 +106,7 @@ public class CartCookieController extends HttpServlet {
         }
         txt = URLEncoder.encode(txt, StandardCharsets.UTF_8.toString());
         Cookie cookie = new Cookie("cart", txt);
-        cookie.setMaxAge(60000);
+        cookie.setMaxAge(15*24*60*60);
         response.addCookie(cookie);
         request.getRequestDispatcher("shop").forward(request, response);
     }

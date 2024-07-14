@@ -303,30 +303,51 @@
                                 <th>Remove</th>
                             </tr>
                         </thead>
-                    
+
                         <c:set var="total" value="0"/>
                         <c:set var="o" value="${requestScope.cart}"/>
+
                         <c:forEach items="${o.items}" var="i" >
                             <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle">
-                                        <img src="img/product-1.jpg" alt="" style="width: 50px;"/>${i.product.getImage()}
-                                    </td>
+                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.getName()}</td>
                                     <td class="align-middle">${i.getName()}</td>
                                     <td class="align-middle">${i.product.getProductSize()}</td>
-                                    <td class="align-middle">${i.product.getProductPrice()}</td>
-                                    <td class="align-middle">${i.getQuantity()}</td>
+                                    <td class="align-middle">${i.product.getProductPrice()}$</td>
+                                    <td class="align-middle">
+                                        <form action="shop" method="post" id="myForm${loop.index}" class="form">
+                                            <input type ="hidden" value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
+                                            <div class="input-group quantity mx-auto">
+                                                <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                                <input type="hidden" value="${i.getQuantity()}" name="quantity"/>
+                                                <input type="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
+                                                <span id="quanError${loop.index}" class="text-danger"></span>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" name="add" value="1">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+
+                                    </td>
                                     <td class="align-middle">
                                         <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
                                         <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
                                     </td>
-                                    <td class="align-middle">
-                                        <a onclick="deleteCart()" href="cartcontroller?deletecard=${cart.getCardID()}">DELETE</a>
-                                    </td>
+                                    <td class="align-middle "><a onclick="deleteCart()" href="shop?deletecard=${i.product.getProductFullDetailID()}">DELETE</a></td>
                                 </tr>
                                 <c:set var="total" value="${total + itemTotal}"/>
-                            </tbody>
-                        </c:forEach>
+
+                            </c:forEach>
+
 
                     </table>
                 </div>
@@ -341,7 +362,7 @@
                                 <h6 class="font-weight-medium">Subtotal</h6>
                                 <h6 class="font-weight-medium">${total}$</h6>
                             </div>
-                            
+
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">Shipping</h6>
                                 <h6 class="font-weight-medium">Freeship</h6>
@@ -388,41 +409,41 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                            function notice() {
-                                                if (confirm("Delete all items in cart?")) {
-                                                    document.getElementById("deleteForm").submit();
-                                                }
+                                        function notice() {
+                                            if (confirm("Delete all items in cart?")) {
+                                                document.getElementById("deleteForm").submit();
                                             }
+                                        }
 
-                                            function deleteCart() {
-                                                if (confirm("Do you want delete product?")) {
-                                                    document.getElementById("myForm${loop.index}").submit();
-                                                }
+                                        function deleteCart() {
+                                            if (confirm("Do you want delete product?")) {
+                                                document.getElementById("myForm${loop.index}").submit();
                                             }
+                                        }
 
-                                            function sendCode(code) {
-                                                window.location.href = 'applyvouchers?code=' + code;
-                                            }
+                                        function sendCode(code) {
+                                            window.location.href = 'applyvouchers?code=' + code;
+                                        }
 
 
 
-                                            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                                inputElement.addEventListener('keypress', (event) => {
-                                                    if (event.key === 'Enter') {
-                                                        event.preventDefault();
-                                                        const value = document.getElementById('newquant' + index).value;
-                                                        const value1 = document.getElementById('quantity' + index).value;
-                                                        if (value1 < value) {
-                                                            document.getElementById('quanError' + index).innerText = 'fail';
-                                                            return false;
-                                                        } else {
-                                                            document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                            document.getElementById('myForm' + index).submit();
-                                                        }
-
+                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                            inputElement.addEventListener('keypress', (event) => {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                    const value = document.getElementById('newquant' + index).value;
+                                                    const value1 = document.getElementById('quantity' + index).value;
+                                                    if (value1 < value) {
+                                                        document.getElementById('quanError' + index).innerText = 'fail';
+                                                        return false;
+                                                    } else {
+                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                        document.getElementById('myForm' + index).submit();
                                                     }
-                                                });
+
+                                                }
                                             });
+                                        });
         </script>
     </body>
 

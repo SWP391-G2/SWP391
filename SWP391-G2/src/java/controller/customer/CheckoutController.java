@@ -72,7 +72,7 @@ public class CheckoutController extends HttpServlet {
         request.setAttribute("listcart", listCart);
         request.setAttribute("listproduct", listProduct);
         request.setAttribute("totalprice", totalprice_raw);
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
+        request.getRequestDispatcher("common/checkout.jsp").forward(request, response);
     } 
 
     /** 

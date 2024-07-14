@@ -32,7 +32,7 @@ public class Cart {
         this.items = items;
     }
 
-    private Item getItemById(int id) {
+    public Item getItemById(int id) {
         for (Item i : items) {
             if (i.getProduct().getProductFullDetailID() == id) {
                 return i;
@@ -42,8 +42,13 @@ public class Cart {
     }
 
     public int getQuantityById(int id) {
-        return getItemById(id).getQuantity();
+    Item item = getItemById(id);
+    if (item == null) {
+        // Return 0 or handle appropriately if the item is not found
+        return 0;
     }
+    return item.getQuantity();
+}
 
     //add item to cart
     public void addItem(Item t) {
