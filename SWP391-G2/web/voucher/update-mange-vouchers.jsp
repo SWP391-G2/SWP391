@@ -48,21 +48,17 @@
                     <!--profile of product-->
                     <div class="row mb-5" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <div class="col-12" style="margin-bottom: 40px;">
-                            <h1>Voucher #${feedback.getFbID()}</h1>
-
-                        <c:if test="${param.error != null}">
-                            <h6 style="color: red;">In-valid information to add new customer!</h6>
-                        </c:if>
+                            <h1>Voucher #${voucher.getVoucherID()}</h1>
                     </div>
 
                     <form action="updatefeedback" id="productForm" method="POST">
-                        <input name="feedbackId" hidden="" type="text" value="${feedback.getFbID()}" placeholder="${feedback.getFbID()}" >       
+                        <input name="voucherId" hidden="" type="text" value="${voucher.getVoucherID()}" >       
 
                         <!-- Product Name -->
                         <div class="form-group row">
                             <div class="col-10">  
                                 <label for="detail">Voucher Name:</label>
-                                <input   name="reply" id="detail" required=""  placeholder="${feedback.getReply()}"  class="col-4 form-control" aria-label="With textarea"/>
+                                <input   name="voucherName" id="voucher" required=""  placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
                             </div>
                         </div>
                         <!-- Other fields (Category, Brands, Status) -->
@@ -70,22 +66,23 @@
 
                             <div class="col-3 d-flex  align-items-center">
                                 Discount:
-                                <input type="text" id="discount" required="" class="col-4 form-control">
+                                <input type="text" name="discount" id="discount" required="" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
                             </div>
                             <div class="col-3 d-flex  align-items-center">
                                 Quantity:     
-                                <input type="text" id="quantity" required="" class="col-4 form-control">
+                                <input type="text" name="quantity" id="quantity" required="" placeholder="${voucher.getQuantity()}" class="col-4 form-control">
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
+                                
                                 Status:   
-                                    <select class="form-control"  name="statusnew">
-                                        <option value="1" ${requestScope.data.getStatus()==1 ? 'selected' : '' }>Active</option>
-                                        <option value="0" ${requestScope.data.getStatus()==0 ? 'selected' : '' }>In-Active</option>
-                                    </select>
+                                <select class="form-control"  name="statusnew">
+                                    <option value="1" ${requestScope.voucher.getStatus()==1 ? 'selected' : '' }>Active</option>
+                                    <option value="0" ${requestScope.voucher.getStatus()==0 ? 'selected' : '' }>In-Active</option>
+                                </select>
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Create Date:
-                                <input type="date"/>
+                                <input type="date" name="createDate" readonly="" value="${voucher.getCreateAt()}"/>
                             </div>
 
                         </div>
@@ -94,16 +91,16 @@
 
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Start Date:
-                                <input type="date"/>
+                                <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
                             </div>   
                             <div class="col-3 d-flex justify-content-around align-items-center">
-                                <label for="detail">End Date:</label>
-                                <input type="date"/>
+                                End Date:
+                                <input type="date" name="endDate" value="${voucher.getExpiryDate()}"/>
                             </div>   
                         </div>
                         <!-- Submit and Cancel buttons -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-danger ps-2 mx-2" href="../SWP391-G2/feedback">Cancel</a>
+                            <a class="btn btn-danger ps-2 mx-2" href="../SWP391-G2/voucher">Cancel</a>
                             <button type="submit" class="btn btn-primary ps-2" id="updateButton">Update</button>
                         </div>
                     </form>
@@ -128,19 +125,8 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
     <script>
-        function validateForm() {
-            // Reset all error messages
-            document.getElementById('productImageError').innerText = '';
-            // Validate Product Name
-            let productName = document.getElementById('img').value.trim();
-            if (productName === '') {
-                document.getElementById('productImageError').innerText = 'Product Image is required';
-                return false; // Prevent form submission
-            }
-            // Additional validations for other fields can be added similarly
-            return true; // Allow form submission
-        }
-
+        
+        
 
         document.addEventListener("DOMContentLoaded", function () {
             const input = document.getElementById("discount");
@@ -177,5 +163,34 @@
             form.submit();
         }
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const createDateInput = document.querySelector('input[name="createDate"]');
+            const startDateInput = document.querySelector('input[name="startDate"]');
+            const endDateInput = document.querySelector('input[name="endDate"]');
+
+            function validateDates() {
+                const createDate = new Date(createDateInput.value);
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                // Kiểm tra startDate không thể chọn trước ngày createDate
+                if (startDate < createDate) {
+                    alert("Start date cannot be before create date.");
+                    startDateInput.value = "";
+                }
+
+                // Kiểm tra endDate không được chọn trước ngày startDate và createDate
+                if (endDate < startDate || endDate < createDate) {
+                    alert("End date cannot be before start date or create date.");
+                    endDateInput.value = "";
+                }
+            }
+
+            startDateInput.addEventListener('change', validateDates);
+            endDateInput.addEventListener('change', validateDates);
+        });
+    </script>
+
 
 </html>

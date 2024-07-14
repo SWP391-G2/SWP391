@@ -16,6 +16,32 @@ import java.util.ArrayList;
  * @author admin
  */
 public class VouchersDAO extends DBContext{
+    
+    public Vouchers getVoucherById(int id){
+        String sql ="select * from Vouchers where VoucherID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Vouchers(
+                        rs.getInt(1), 
+                        rs.getString(2),
+                        rs.getFloat(3),
+                        rs.getDate(4), 
+                        rs.getDate(5), 
+                        rs.getInt(6), 
+                        rs.getDate(7),
+                        rs.getInt(8));
+            }
+            
+        }catch (SQLException e) {
+
+        }
+        return null;
+    }
+    
+    
     public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize) {
         ArrayList<Vouchers> listVoucher = new ArrayList<>();
         String sql = "SELECT * FROM Vouchers";
@@ -26,14 +52,14 @@ public class VouchersDAO extends DBContext{
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " Status = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (Code LIKE ? OR Discount LIKE ?)";
+                sql += " (Code LIKE ? OR Discount LIKE ? )";
             }
         }
 
@@ -97,7 +123,7 @@ public class VouchersDAO extends DBContext{
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " Status = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {

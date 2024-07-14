@@ -25,6 +25,13 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            rel="stylesheet"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+            />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <style>
@@ -124,19 +131,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="input-group">
                             <input type="date" class="form-control" placeholder="Search" value="${search}"
                                    id="search">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="input-group">
                             <input type="date" class="form-control" placeholder="Search" value="${search}"
                                    id="search">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
@@ -147,7 +154,14 @@
                             <option value="0" ${status==0 ? 'selected' : '' }>In-Active</option>
                         </select>
                     </div>
-
+                    <div class="col-3">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#addnewModal">
+                                <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
+                            </button>
+                        </div>
+                    </div>
                     <!--                    <div class="col-3">
                     
                                             <div class="text-right">
@@ -167,7 +181,7 @@
                                         <th scope="cod">Start Date</th>
                                         <th scope="cod">Expiry Date</th>
                                         <th scope="col">Quantity</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col" colspan="2" style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -175,7 +189,7 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>                              
                                             <td class="table-button">
-                                                <a >
+                                                <a onclick="showDetail(${listvoucher.getVoucherID()})">
                                                     <button type="button" class="custom-button">${listvoucher.getCode()}</button>
                                                 </a>
                                             </td>
@@ -186,24 +200,33 @@
                                             <td>${listvoucher.getQuantity()}</td>
 
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>
+                                            <td style="width: 20px;">   
 
                                                 <c:choose>
                                                     <c:when test="${listvoucher.getStatus() == 1}">
                                                         <a  onclick="showAlert('Maketing blocked successfully!',${listvoucher.getVoucherID()}, 0)">
-                                                            <button type="button" class="btn btn-danger">
-                                                                View
+                                                            <button type="button" class="btn btn-success">
+                                                                UnBlock
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                     <c:when test="${listvoucher.getStatus() == 0}">
                                                         <a  onclick="showAlert('Maketing unblocked successfully!',${listvoucher.getVoucherID()}, 1);">
-                                                            <button type="button" class="btn btn-success">
-                                                                Hide
+                                                            <button style="width: 86px;" type="button" class="btn btn-danger" >
+                                                                Block
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                 </c:choose>
+                                            </td>   
+                                            <td style="width: 20px;">
+                                                <c:if test="${listvoucher.getStatus() == 0}">
+                                                    <a  onclick="showAlert('Maketing unblocked successfully!',${listvoucher.getVoucherID()}, 1);">
+                                                        <button type="button" class="btn btn-success">
+                                                            Update
+                                                        </button>
+                                                    </a>
+                                                </c:if>
                                             </td>
                                         </tr>
 
@@ -236,8 +259,6 @@
                                             </div>
                                         </div>
                                     </div> 
-
-
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -289,7 +310,6 @@
                             </ul>
                         </nav>
 
-
                     </div>
                 </div>
 
@@ -329,13 +349,16 @@
                                                                     '&status=' + status + '&pageNo=' + pageNo + "&voucherID=" + voucherID + "&statusnew=" + status1;
                                                         }
                                                     }
-//                                function showDetail(categoryID) {
-//                                    const search = document.querySelector('#search').value;
-//                                    const status = document.querySelector('#status').value;
-//                                    const pageNo = document.querySelector('#pageNo').value;
-//                                    window.location.href = 'categorydetail?search=' + search +
-//                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
-//                                }
+
+             
+
+                                                    function showDetail(voucherID) {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        window.location.href = 'updatevoucher?search=' + search +
+                                                                '&status=' + status + '&pageNo=' + pageNo + '&voucherID=' + voucherID;
+                                                    }
     </script>
     <script>
         function validateForm() {

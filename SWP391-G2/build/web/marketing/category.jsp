@@ -143,14 +143,12 @@
                     </div>
 
                     <div class="col-3">
-
                         <div class="text-right">
                             <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#addnewModal">
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
-
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
