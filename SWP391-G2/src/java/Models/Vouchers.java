@@ -9,7 +9,7 @@ package Models;
  * @author nguye
  */
 import java.sql.Date;
-public class Voucher {
+public class Vouchers {
      private int voucherID;
     private String code;
     private double discount;
@@ -19,7 +19,7 @@ public class Voucher {
     private Date createAt;
     private int status;
 
-    public Voucher(int voucherID, String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
+    public Vouchers(int voucherID, String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
         this.voucherID = voucherID;
         this.code = code;
         this.discount = discount;
@@ -30,7 +30,7 @@ public class Voucher {
         this.status = status;
     }
 
-    public Voucher(String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
+    public Vouchers(String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
         this.code = code;
         this.discount = discount;
         this.expiryDate = expiryDate;
@@ -40,7 +40,7 @@ public class Voucher {
         this.status = status;
     }
 
-    public Voucher() {
+    public Vouchers() {
     }
 
     
