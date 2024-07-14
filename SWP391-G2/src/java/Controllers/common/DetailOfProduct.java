@@ -73,7 +73,7 @@ public class DetailOfProduct extends HttpServlet {
         int id = -1;
         try {
 
-            id = 1 ;//Integer.parseInt(id_raw);
+            id = Integer.parseInt(id_raw);
 
 
         } catch (NumberFormatException e) {

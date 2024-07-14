@@ -62,7 +62,7 @@
                             <label for="productID">Product image:</label>
                             <div class="input-group image-preview-container">
                                 <div class="input-group">
-                                    <input disabled="" type="file" name="img" required="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input  type="file" name="img" required="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     <label for="img"><img src="images/Products/${cateName}/${detail.getImage()}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
                                 <span id="productImageError" class="text-danger"></span>
@@ -73,7 +73,7 @@
                         <div class="form-group row">
                             <div class="col-10">  
                                 <label for="detail">Product Detail:</label>
-                                <textarea disabled="" name="detail" id="detail" required="" class="form-control" aria-label="With textarea">${detail.getProductDescription()}</textarea>
+                                <textarea  name="detail" id="detail" required="" class="form-control" aria-label="With textarea">${detail.getProductDescription()}</textarea>
                             </div>
                         </div>
                         <!-- Other fields (Category, Brands, Status) -->
@@ -81,15 +81,15 @@
 
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Price:
-                                <input disabled="" type="number" required="" name="price" value="${detail.getProductPrice()}" class="ms-2 form-control">
+                                <input type="number" required="" name="price" value="${detail.getProductPrice()}" class="ms-2 form-control">
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Quantity:
-                                <input disabled="" type="number" required="" name="quantity" value="${detail.getProductAvaiable()}" class="ms-2 form-control">
+                                <input type="number" required="" name="quantity" value="${detail.getProductAvaiable()}" class="ms-2 form-control">
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Size:
-                                <select disabled="" class="form-control ms-2"  required=""id="size" name="size" >
+                                <select  class="form-control ms-2"  required=""id="size" name="size" >
                                     <option value="30ml" ${detail.getProductSize().equals("30ml") ? 'selected' : ''}  >30ml</option>
                                     <option value="50ml" ${detail.getProductSize().equals("50ml") ? 'selected' : ''}  >50ml</option>
                                     <option value="100ml" ${detail.getProductSize().equals("100ml") ? 'selected' : ''} >100ml</option>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 Status: 
-                                <select disabled="" class="form-control ms-2" required="" id="status" name="status" >
+                                <select class="form-control ms-2" required="" id="status" name="status" >
                                     <option value="1" ${detail.getProductStatus()==1 ? 'selected' : '' }>View</option>
                                     <option value="0" ${detail.getProductStatus()==0 ? 'selected' : '' }>Hide</option>
                                 </select>
@@ -107,7 +107,7 @@
                         <!-- Submit and Cancel buttons -->
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-danger ps-2 mx-2" href="../SWP391-G2/product-detail?proId=${proId}&cateId=${cateId}">Cancel</a>
-                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="enableEditing()">Update</button>
+                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="updateForm()">Update</button>
                         </div>
                     </form>
                 </div>

@@ -365,7 +365,7 @@
                 <p >
                     ${pd.getProductDescription()}
                 </p>
-                <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
+                <img src="${p.getProductImageUrl()}">
                 <p >
                     ${b.getDescription()}
                 </p>

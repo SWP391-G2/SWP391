@@ -49,7 +49,9 @@
             <div class="main" style="margin-left: 50px; margin-right: 50px;">
                 <div class="topbar">
                 </div>
-
+                <c:if test="${requestScope.success !=null}">
+                    <input type="hidden" id="success" value="${requestScope.success}" >
+                </c:if>
 
 
                 <!<!-- product detail list -->
@@ -305,8 +307,6 @@
                                                                 },
                                                                 willClose: () => {
                                                                     clearInterval(timerInterval);
-                                                                    window.location.href = 'product-detail?search=' + search +
-                                                                            '&status=' + status + '&pageNo=1' + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size + '&detailId=' + detailId + '&newstatus=' + newStatus;
                                                                 }
                                                             }).then((result) => {
                                                                 /* Read more about handling dismissals below */
@@ -314,6 +314,8 @@
                                                                     console.log("I was closed by the timer");
                                                                 }
                                                             });
+                                                            window.location.href = 'product-detail?search=' + search +
+                                                                    '&status=' + status + '&pageNo=1' + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size + '&detailId=' + detailId + '&newstatus=' + newStatus;
 
                                                         }
                                                     });
@@ -326,5 +328,32 @@
                                                     const proId = document.querySelector('#proId').value;
                                                     window.location.href = 'product-detail?search=' + search +
                                                             '&status=' + status + '&pageNo=' + pageNo + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size;
-                                                }</script>
+                                                }
+                                                const success = document.getElementById('success') !== null ? document.getElementById('success') : null;
+                                                if (success.value !== '') {
+                                                    successfully('success');
+                                                }
+                                                function successfully(text) {
+                                                    console.log(text);
+                                                    let timerInterval;
+                                                    Swal.fire({
+                                                        title: text,
+                                                        icon: "success",
+                                                        showConfirmButton: false,
+                                                        timer: 1500,
+                                                        timerProgressBar: true,
+                                                        didOpen: () => {
+                                                            const timer = Swal.getPopup().querySelector("b");
+                                                            timerInterval = setInterval(() => {
+
+                                                            }, 100);
+                                                        },
+                                                        willClose: () => {
+                                                            clearInterval(timerInterval);
+                                                        }
+                                                    }).then((result) => {
+                                                    });
+                                                }
+
+    </script>
 </html>
