@@ -221,7 +221,7 @@
                                             </td>   
                                             <td style="width: 20px;">
                                                 <c:if test="${listvoucher.getStatus() == 0}">
-                                                    <a  onclick="showAlert('Maketing unblocked successfully!',${listvoucher.getVoucherID()}, 1);">
+                                                    <a  onclick="showDetail(${listvoucher.getVoucherID()})">
                                                         <button type="button" class="btn btn-success">
                                                             Update
                                                         </button>

@@ -10,38 +10,64 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  *
  * @author admin
  */
-public class VouchersDAO extends DBContext{
-    
-    public Vouchers getVoucherById(int id){
-        String sql ="select * from Vouchers where VoucherID = ?";
+public class VouchersDAO extends DBContext {
+
+    public void UpdateVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status,int id) {
+        String sql = "UPDATE [dbo].[Vouchers]\n"
+                + "   SET [Code] = ?,\n"
+                + "       [Discount] = ?,\n"
+                + "       [ExpiryDate] = ?,\n"
+                + "       [StartDate] = ?,\n"
+                + "       [Quantity] = ?,\n"
+                + "       [CreateAt] = ?,\n"
+                + "       [Status] = ?\n"
+                + " WHERE [VoucherID] = ?";
+        try{
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, code);
+            ur.setInt(2, discount);
+            ur.setDate(3, EndDate);
+            ur.setDate(4, StartDate);
+            ur.setInt(5, quantity);
+            ur.setDate(6, Create);
+            ur.setInt(7, status);
+            ur.setInt(8, id);
+            ur.executeQuery();
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public Vouchers getVoucherById(int id) {
+        String sql = "select * from Vouchers where VoucherID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new Vouchers(
-                        rs.getInt(1), 
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getFloat(3),
-                        rs.getDate(4), 
-                        rs.getDate(5), 
-                        rs.getInt(6), 
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getInt(8));
             }
-            
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
 
         }
         return null;
     }
-    
-    
+
     public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize) {
         ArrayList<Vouchers> listVoucher = new ArrayList<>();
         String sql = "SELECT * FROM Vouchers";
@@ -84,16 +110,16 @@ public class VouchersDAO extends DBContext{
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Vouchers voucher = new Vouchers(
-                        rs.getInt(1), 
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getFloat(3),
-                        rs.getDate(4), 
-                        rs.getDate(5), 
-                        rs.getInt(6), 
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getInt(6),
                         rs.getDate(7),
                         rs.getInt(8)
                 );
-                        
+
                 listVoucher.add(voucher);
             }
         } catch (Exception e) {
@@ -101,6 +127,7 @@ public class VouchersDAO extends DBContext{
 
         return listVoucher;
     }
+
     public void updateStatusVoucher(int status, int categoryID) {
         String sql = "UPDATE [dbo].[Vouchers]\n"
                 + "   SET [Status] = ?\n"
@@ -114,6 +141,7 @@ public class VouchersDAO extends DBContext{
             System.out.println(e);
         }
     }
+
     public int getTotalPage(int status, String search, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Vouchers";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.

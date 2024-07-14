@@ -51,14 +51,14 @@
                             <h1>Voucher #${voucher.getVoucherID()}</h1>
                     </div>
 
-                    <form action="updatefeedback" id="productForm" method="POST">
+                    <form action="updatevoucher" id="productForm" method="POST">
                         <input name="voucherId" hidden="" type="text" value="${voucher.getVoucherID()}" >       
 
                         <!-- Product Name -->
                         <div class="form-group row">
                             <div class="col-10">  
                                 <label for="detail">Voucher Name:</label>
-                                <input   name="voucherName" id="voucher" required=""  placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
+                                <input name="voucherName" id="voucher" placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
                             </div>
                         </div>
                         <!-- Other fields (Category, Brands, Status) -->
@@ -66,11 +66,11 @@
 
                             <div class="col-3 d-flex  align-items-center">
                                 Discount:
-                                <input type="text" name="discount" id="discount" required="" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
+                                <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
                             </div>
                             <div class="col-3 d-flex  align-items-center">
                                 Quantity:     
-                                <input type="text" name="quantity" id="quantity" required="" placeholder="${voucher.getQuantity()}" class="col-4 form-control">
+                                <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  placeholder="${voucher.getQuantity()}" class="col-4 form-control">
                             </div>
                             <div class="col-3 d-flex justify-content-around align-items-center">
                                 
