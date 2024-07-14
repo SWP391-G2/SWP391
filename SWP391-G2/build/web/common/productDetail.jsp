@@ -28,7 +28,7 @@
                 <div class="header_container sticky-header" style="padding: 0">
                     <div class="container-fluid" style="background-color: black">
                         <div class="row align-items-center" style="padding: 8px 0">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <div class="logo">
                                     <a href="home"><img src="images/logo/logo0.png" alt=""></a>
                                 </div>
@@ -96,7 +96,7 @@
                                     </form>
                                 </div>
                             </div>                 
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <jsp:include page="header_right.jsp"/>
                             </div>
                         </div>

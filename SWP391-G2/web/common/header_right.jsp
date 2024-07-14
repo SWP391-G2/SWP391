@@ -16,7 +16,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
-        <link rel="stylesheet" href="css/homestyle.css">    
+        <link rel="stylesheet" href="css/homestyle.css">   
+        <style>
+            .auth-links {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .nav-link {
+                text-decoration: none;
+                color: #fff;
+                padding: 0.5rem;
+                transition: color 0.3s ease, background-color 0.3s ease;
+                font-weight: bold;
+            }
+
+            .nav-link:hover {
+                color: #f44336;
+                background-color: #e9ecef;
+                border-radius: 0.25rem;
+            }
+
+            .auth-links span {
+                color: #fff;
+            }
+        </style>
 
     </head>
     <body>
@@ -32,6 +58,14 @@
                         <i class="fa fa-cart-plus"></i>
                     </a>
                 </div>     
+
+                <c:if test="${sessionScope.account == null}">
+                    <div class="auth-links">
+                        <a class="nav-link" href="login">Log In</a>
+                        <span>|</span>
+                        <a class="nav-link" href="signup">Sign Up</a>
+                    </div>
+                </c:if>
                 <c:if test="${sessionScope.account != null}">
                     <div class="my-user">
                         <a href="Profile" class="user-profile">
@@ -40,10 +74,11 @@
                     </div>
                     <a id="logout" href="#" onclick="confirmLogout('logoutModal')">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                        <div id="logoutModal" class="modal"></div>
-                    </a>
 
-                </c:if>
+                    </a>
+                    <div id="logoutModal" class="modal"></div>
+
+                </c:if> 
 
             </div>
         </div>

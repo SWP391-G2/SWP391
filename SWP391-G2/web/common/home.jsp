@@ -93,22 +93,6 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" href="blog">BLOGS</a>
                                             </li>
-                                            <c:if test="${sessionScope.account == null}">
-                                                <li class="nav-item">
-                                                    <a class="nav-link "href="#">ACCOUNT
-                                                        <i class="fa fa-caret-down" data-toggle="dropdown"></i>
-                                                    </a>
-
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item-lv2">                                                     
-                                                            <a class="nav-link" href="login">Log In</a>
-                                                            <a class="nav-link" href="signup">Sign Up</a>
-
-                                                        </li>
-                                                    </ul>     
-
-                                                </li>
-                                            </c:if>  
                                         </ul>
                                     </nav>
                                 </div>

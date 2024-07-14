@@ -230,12 +230,11 @@ public class AddressDAO extends DBContext {
 
     }
 
-    public Address getAddressByStatus(int account_id, int status) {
-        String sql = "select * from Address where account_id = ? and status =?";
+    public Address getAddressByStatus(int account_id) {
+        String sql = "select * from Address where account_id = ? and status = 1";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, account_id);
-            ur.setInt(2, status);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Address address = new Address(
@@ -272,7 +271,7 @@ public class AddressDAO extends DBContext {
 //        addressdao.updateAddress(address);
         //addressdao.setInsertAddress(address);
         //addressdao.DeleteAddress("6");
-        System.out.println(addressdao.getAddressByStatus(11, 0));
+        System.out.println(addressdao.getAddressByStatus(1).toString());
 
     }
 
