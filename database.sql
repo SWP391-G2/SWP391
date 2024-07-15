@@ -420,8 +420,8 @@ CREATE TABLE [dbo].[Wishlist] (
     FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Products]([ProductID])
 );
 /*======= INSERT VALUE OF [WishList] TABLE =======*/
-
-
+INSERT INTO [dbo].[Wishlist] (AccountID,ProductID) VALUES
+(1,1);
 /* ============[StatusOrder] TABLE============*/
 DROP TABLE IF EXISTS [dbo].[StatusOrder];
 CREATE TABLE [dbo].[StatusOrder] (
