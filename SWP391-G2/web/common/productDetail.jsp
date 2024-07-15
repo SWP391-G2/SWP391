@@ -127,7 +127,7 @@
                                 
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
-                                        <img src="images/Products/${c.getCategoryName()}/${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')">
+                                        <img src="${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
                                     </div>
                                 </c:forEach>
                             </div>
