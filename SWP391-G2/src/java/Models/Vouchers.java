@@ -4,84 +4,116 @@
  */
 package Models;
 
-import java.sql.Date;
-
 /**
  *
- * @author hatru
+ * @author nguye
  */
+import java.sql.Date;
+
 public class Vouchers {
+
+    private int voucherID;
+    private String code;
+    private double discount;
+    private Date expiryDate;
+    private Date startDate;
+    private int quantity;
+    private Date createAt;
+    private int status;
+
     private int VoucherID;
     private String Code;
     private float Discount;
-    private Date ExpiryDate;
+    private java.util.Date ExpiryDate;
     private int Quantity;
-    private Date CreateAt;
+    private java.util.Date CreateAt;
+
+    public Vouchers(int voucherID, String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
+        this.voucherID = voucherID;
+        this.code = code;
+        this.discount = discount;
+        this.expiryDate = expiryDate;
+        this.startDate = startDate;
+        this.quantity = quantity;
+        this.createAt = createAt;
+        this.status = status;
+    }
+
+    public Vouchers(String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
+        this.code = code;
+        this.discount = discount;
+        this.expiryDate = expiryDate;
+        this.startDate = startDate;
+        this.quantity = quantity;
+        this.createAt = createAt;
+        this.status = status;
+    }
 
     public Vouchers() {
     }
 
-    public Vouchers(int VoucherID, String Code, float Discount, Date ExpiryDate, int Quantity, Date CreateAt) {
-        this.VoucherID = VoucherID;
-        this.Code = Code;
-        this.Discount = Discount;
-        this.ExpiryDate = ExpiryDate;
-        this.Quantity = Quantity;
-        this.CreateAt = CreateAt;
-    }
-
     public int getVoucherID() {
-        return VoucherID;
+        return voucherID;
     }
 
-    public void setVoucherID(int VoucherID) {
-        this.VoucherID = VoucherID;
+    public void setVoucherID(int voucherID) {
+        this.voucherID = voucherID;
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
-    public void setCode(String Code) {
-        this.Code = Code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public float getDiscount() {
-        return Discount;
+    public double getDiscount() {
+        return discount;
     }
 
-    public void setDiscount(float Discount) {
-        this.Discount = Discount;
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public Date getExpiryDate() {
-        return ExpiryDate;
+        return expiryDate;
     }
 
-    public void setExpiryDate(Date ExpiryDate) {
-        this.ExpiryDate = ExpiryDate;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
-    public void setQuantity(int Quantity) {
-        this.Quantity = Quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Date getCreateAt() {
-        return CreateAt;
+        return createAt;
     }
 
-    public void setCreateAt(Date CreateAt) {
-        this.CreateAt = CreateAt;
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
-    @Override
-    public String toString() {
-        return "Vourchers{" + "VoucherID=" + VoucherID + ", Code=" + Code + ", Discount=" + Discount + ", ExpiryDate=" + ExpiryDate + ", Quantity=" + Quantity + ", CreateAt=" + CreateAt + '}';
+    public int getStatus() {
+        return status;
     }
-    
-    
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }

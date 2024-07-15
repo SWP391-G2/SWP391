@@ -6,7 +6,7 @@
 package controller.customer;
 
 import Dal.VoucherDAO;
-import Models.Vouchers;
+import Models.VoucherNew;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -64,7 +64,7 @@ public class ApplyVouchers extends HttpServlet {
         VoucherDAO dao = new VoucherDAO();
         HttpSession session = request.getSession();
         if (delete == null) {
-            Vouchers vou = dao.getVourcherByCode(voucher);
+            VoucherNew vou = dao.getVourcherByCode(voucher);
 
             if (vou != null) {
                 //request.setAttribute("discount", discount);

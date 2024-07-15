@@ -4,7 +4,7 @@
  */
 package Dal;
 
-import Models.Vouchers;
+import Models.VoucherNew;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,13 +17,13 @@ import java.util.Date;
 public class VoucherDAO extends DBContext {
 
 
-    public Vouchers getVoucher() {
+    public VoucherNew getVoucher() {
         String sql = "select * from Vouchers";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Vouchers voucher = new Vouchers(
+                VoucherNew voucher = new VoucherNew(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getFloat(3),
@@ -40,14 +40,14 @@ public class VoucherDAO extends DBContext {
         return null;
     }
 
-    public Vouchers getVourcherByCode(String code) {
+    public VoucherNew getVourcherByCode(String code) {
         String sql = "select * from Vouchers where Code = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, code);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Vouchers voucher = new Vouchers(
+                VoucherNew voucher = new VoucherNew(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getFloat(3),
@@ -66,7 +66,7 @@ public class VoucherDAO extends DBContext {
 
     public static void main(String[] args) {
         VoucherDAO dao = new VoucherDAO();
-        Vouchers voucher = dao.getVourcherByCode("NEWYEAR2024");
+        VoucherNew voucher = dao.getVourcherByCode("NEWYEAR2024");
         System.out.println(voucher.getCode());
     }
 }

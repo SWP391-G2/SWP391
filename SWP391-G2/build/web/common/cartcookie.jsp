@@ -310,7 +310,7 @@
                         <c:forEach items="${o.items}" var="i" >
                             <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.getName()}</td>
+                                    <td class="align-middle"><img width="150px" height="150px" src="${i.product.getImage()}" alt="alt"/></td>
                                     <td class="align-middle">${i.getName()}</td>
                             <input name="name" value="${i.getName()}" type="hidden"/>
                             <td class="align-middle">${i.product.getProductSize()}</td>
