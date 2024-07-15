@@ -49,7 +49,7 @@
                 <div class="col-12" style="margin-bottom: 40px;">
                     <h1>Category details</h1>
                 </div>
-                
+
                 <form action="categorydetail" method="post" onsubmit="return validateForm()" >
                     <input type="text" value="${requestScope.data.getCategoryID()}" name="id" hidden>
                     <input type="text" value="${requestScope.status}" name="status" id="status" hidden> 

@@ -78,6 +78,7 @@ public class MarketingAddProductDetail extends HttpServlet {
             detail = request.getParameter("detail") == null ? "" : request.getParameter("detail");
             price = request.getParameter("price") == null ? BigDecimal.valueOf(-1) : new BigDecimal(request.getParameter("price"));
         } catch (Exception e) {
+            
         }
 
         Date dateInit = new Date(System.currentTimeMillis());

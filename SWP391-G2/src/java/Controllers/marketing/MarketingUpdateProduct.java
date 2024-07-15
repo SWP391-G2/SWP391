@@ -75,7 +75,7 @@ public class MarketingUpdateProduct extends HttpServlet {
         List<Brands> brList = brDao.getBrands();
 
         request.setAttribute("size", size);
-
+        request.setAttribute("folder", Constant.constant.PRODUCT);
         request.setAttribute("product", product);
         request.setAttribute("status", status);
         request.setAttribute("cateName", cateName);
@@ -100,9 +100,10 @@ public class MarketingUpdateProduct extends HttpServlet {
         int newStatus = -1;
         int pageNo = -1;
         String productName = "";
-
+        String photo = "";
         try {
             productName = request.getParameter("productName") == null ? "" : request.getParameter("productName");
+            photo = request.getParameter("photo") == null ? "" : request.getParameter("photo");
             proId = request.getParameter("productId") == null ? -1 : Integer.parseInt(request.getParameter("productId"));
             newCateId = request.getParameter("newcateId") == null ? -1 : Integer.parseInt(request.getParameter("newcateId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
@@ -111,55 +112,18 @@ public class MarketingUpdateProduct extends HttpServlet {
         } catch (Exception e) {
         }
 
-        //file upload
-        CategoriesDAO cateDao = new CategoriesDAO();
-        Categories cate = cateDao.getCategoryById(newCateId);
-        String realPath = "../../web/images/Products/" + cate.getCategoryName() + "/";
-        String uploadFolder = getServletContext().getRealPath("") + realPath;
-
-        File folder = new File(uploadFolder);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        Part filePart = request.getPart("img");
-        String fileName = String.valueOf(proId) + "_0.jpg";
-        OutputStream out = null;
-        InputStream fileContent = null;
-        if (filePart != null) {
-            try {
-                out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-                fileContent = filePart.getInputStream();
-                int read = 0;
-                final byte[] bytes = new byte[1024];
-
-                while ((read = fileContent.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-            } catch (FileNotFoundException fne) {
-                fne.printStackTrace();
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-                if (fileContent != null) {
-                    fileContent.close();
-                }
-            }
-        }
-
         response.getWriter().println(proId);
-        response.getWriter().println(fileName);
+        response.getWriter().println(photo);
         response.getWriter().println(newBrandId);
         response.getWriter().println(newCateId);
         response.getWriter().println(newStatus);
         response.getWriter().print(productName);
 //        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
-        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, pageNo);
+        Products product = new Products(proId, productName, newStatus, photo, newBrandId, pageNo);
         
         proDao.updateProduct(product);
         
-        response.sendRedirect("marketing-manager-products?s=1");
+     //   response.sendRedirect("marketing-manager-products?s=1");
         //insert product
 //        var product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
 //        proDao.updateProduct(product);

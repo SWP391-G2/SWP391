@@ -3,84 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/css/homestyle.css</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/LogoutServlet.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/footer.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/Products.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/home.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/RefineServlet.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/refine.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/SliderDAO.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/DetailOfProduct.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/context/DBContext.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/Sliders.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/searchHome.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/Login.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/ProductsHome.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/header_right.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/common/SearchHome.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/js/clickevents.js</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/common/DetailOfProduct.java</file>
-=======
-<<<<<<< HEAD
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Signup.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Products.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProducts.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Util/Email.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Accounts.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/add-product.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewProduct.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Categories.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProductDetail.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/email/EmailService.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Address.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/common/DetailOfProduct.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Models/Brands.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Util/Validation.java</file>
-=======
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminBlockStatus.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-navigation.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Validation.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminDetails.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProducts.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/AccountsEmployee.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminProfile.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/brand.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingAddProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AddBlogController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admindetails.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/DetailOfProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandDetailController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-profile.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/CategoriesDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/partials/navigation.jsp</file>
->>>>>>> 062cd4586b0ebda5527964d64652ceb39ebb5a07
->>>>>>> d5d3422cbc735c965b01404feb6068458d23cc66
->>>>>>> 40d864e5108c32ef25ee6829ce6a920745853333
->>>>>>> 9622f5c9fb8224103eeeca11ec7afe1537415890
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/manager-products.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/ManagerCategory.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProduct.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Login.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/js/uploadImage.js</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/manage-category-detail.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddProductDetail.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProductDetail.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Util/Validation.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/DeleteAddress.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/product-profile.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/product-detail.jsp</file>
         </group>
     </open-files>
 </project-private>
