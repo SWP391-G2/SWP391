@@ -165,47 +165,33 @@
                                         <c:set var="tt" value="${tt+1}"/>
                                         <tr>
                                             <td>${tt}</td>
-                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>${o.getOrderContactName()}</td>
-                                            <td>${o.getOrderPhone() }</td>
+                                            <td>${o.getOrderPhone()}</td>
                                             <td>${o.getOrderAddress()}</td>
                                             <td>${o.getOrderDate()}</td>
                                             <td>${o.getOrderTotalPrice()}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${o.getOrderSoID()} == 1}">
-
-                                                        <button type="button" class="btn btn-danger">
-                                                            Processing
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 1}">
+                                                        Processing
                                                     </c:when>
-                                                    <c:when test="${o.getOrderSoID()} == 2}">
-
-                                                        <button type="button" class="btn btn-success">
-                                                            Done
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 2}">
+                                                        Done
                                                     </c:when>
-                                                    <c:when test="${o.getOrderSoID()} == 3}">
-
-                                                        <button type="button" class="btn btn-success">
-                                                            Cancelled
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 3}">
+                                                        Cancelled
                                                     </c:when>
+                                                    <c:otherwise>
+                                                        Unknown
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td>
-
-
-                                                <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
+                                                <a onclick="showAlert('Marketing unblocked successfully!', ${brand.getBrandID()}, 1);">
                                                     <button type="button" class="btn btn-success">
                                                         View Details
                                                     </button>
                                                 </a>
-
-
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -375,7 +361,7 @@
         function performSearch() {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'saleorder?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
@@ -385,7 +371,7 @@
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'saleorder?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
 
