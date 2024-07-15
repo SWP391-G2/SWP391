@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -86,15 +87,18 @@ public class VoucherManager extends HttpServlet {
         }
         String startStr = request.getParameter("start");
         String endStr = request.getParameter("end");
-        Date start = null;
-        Date end = null;
+        String start = null;
+        String end = null;
 
         try {
+             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (startStr != null && !startStr.isEmpty()) {
-              //String start = String.valueOf( Date.valueOf(startStr));
+               Date startDate_raw = Date.valueOf(startStr);
+               start = dateFormat.format(startDate_raw);
             }
             if (endStr != null && !endStr.isEmpty()) {
-                end = Date.valueOf(endStr);
+               Date end_raw = Date.valueOf(endStr);
+               end = dateFormat.format(end_raw);
             }
 
         } catch (ELException e) {
@@ -161,15 +165,18 @@ public class VoucherManager extends HttpServlet {
         final int pageSize = 10;
         String startStr = request.getParameter("start");
         String endStr = request.getParameter("end");
-        Date start = null;
-        Date end = null;
+        String start = null;
+        String end = null;
 
         try {
+             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (startStr != null && !startStr.isEmpty()) {
-                start = Date.valueOf(startStr);
+               Date startDate_raw = Date.valueOf(startStr);
+               start = dateFormat.format(startDate_raw);
             }
             if (endStr != null && !endStr.isEmpty()) {
-                end = Date.valueOf(endStr);
+               Date end_raw = Date.valueOf(endStr);
+               end = dateFormat.format(end_raw);
             }
 
         } catch (ELException e) {

@@ -94,7 +94,7 @@ public class VouchersDAO extends DBContext {
         return null;
     }
 
-    public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize, Date start, Date end) {
+    public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize, String start, String end) {
         ArrayList<Vouchers> listVoucher = new ArrayList<>();
         String sql = "SELECT * FROM Vouchers";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
@@ -158,19 +158,19 @@ public class VouchersDAO extends DBContext {
             }
 
             if (start != null && end == null) {
-                ur.setDate(parameterIndex, start);
+                ur.setString(parameterIndex, start);
                 parameterIndex++;
             }
 
             if (end != null && start == null) {
-                ur.setDate(parameterIndex, end);
+                ur.setString(parameterIndex, end);
                 parameterIndex++;
             }
 
             if (start != null && end != null) {
-                ur.setDate(parameterIndex, start);
+                ur.setString(parameterIndex, start);
                 parameterIndex++;
-                ur.setDate(parameterIndex, end);
+                ur.setString(parameterIndex, end);
                 parameterIndex++;
             }
 
