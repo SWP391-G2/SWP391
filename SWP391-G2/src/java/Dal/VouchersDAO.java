@@ -18,7 +18,33 @@ import java.sql.Date;
  */
 public class VouchersDAO extends DBContext {
 
-    public void UpdateVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status,int id) {
+    public void InsertVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
+        String sql = "INSERT INTO [dbo].[Vouchers]\n"
+                + "           ([Code]\n"
+                + "           ,[Discount]\n"
+                + "           ,[ExpiryDate]\n"
+                + "           ,[StartDate]\n"
+                + "           ,[Quantity]\n"
+                + "           ,[CreateAt]\n"
+                + "           ,[Status])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, code);
+            ur.setInt(2, discount);
+            ur.setDate(3, EndDate);
+            ur.setDate(4, StartDate);
+            ur.setInt(5, quantity);
+            ur.setDate(6, Create);
+            ur.setInt(7, status);
+            ur.executeQuery();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void UpdateVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status, int id) {
         String sql = "UPDATE [dbo].[Vouchers]\n"
                 + "   SET [Code] = ?,\n"
                 + "       [Discount] = ?,\n"
@@ -28,7 +54,7 @@ public class VouchersDAO extends DBContext {
                 + "       [CreateAt] = ?,\n"
                 + "       [Status] = ?\n"
                 + " WHERE [VoucherID] = ?";
-        try{
+        try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, code);
             ur.setInt(2, discount);
@@ -38,8 +64,8 @@ public class VouchersDAO extends DBContext {
             ur.setDate(6, Create);
             ur.setInt(7, status);
             ur.setInt(8, id);
-            ur.executeQuery();
-        }catch(SQLException e){
+            ur.executeUpdate();
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -68,45 +94,91 @@ public class VouchersDAO extends DBContext {
         return null;
     }
 
-    public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<Vouchers> getVouchersByFilter(int status, String search, int pageNo, int pageSize, Date start, Date end) {
         ArrayList<Vouchers> listVoucher = new ArrayList<>();
         String sql = "SELECT * FROM Vouchers";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (status != -1 || !search.isEmpty()) {
+
+        if (status != -1 || (search != null && !search.isEmpty()) || start != null || end != null) {
             sql += " WHERE";
+
             if (status != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
                 sql += " Status = ?";
                 whereAdded = true;
             }
-            if (!search.isEmpty()) {
+
+            if (search != null && !search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (Code LIKE ? OR Discount LIKE ? )";
+                sql += " (Code LIKE ? OR Discount LIKE ?)";
+                whereAdded = true;
+            }
+
+            if (start != null && end == null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " StartDate >= ?";
+                whereAdded = true;
+            }
+
+            if (end != null && start == null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " ExpiryDate <= ?";
+                whereAdded = true;
+            }
+
+            if (start != null && end != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " StartDate >= ? AND ExpiryDate <= ?";
             }
         }
 
         sql += " ORDER BY VoucherID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index
+
             if (status != -1) {
                 ur.setInt(parameterIndex, status);
                 parameterIndex++;
             }
-            if (!search.isEmpty()) {
+
+            if (search != null && !search.isEmpty()) {
                 for (int i = 0; i < 2; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
             }
+
+            if (start != null && end == null) {
+                ur.setDate(parameterIndex, start);
+                parameterIndex++;
+            }
+
+            if (end != null && start == null) {
+                ur.setDate(parameterIndex, end);
+                parameterIndex++;
+            }
+
+            if (start != null && end != null) {
+                ur.setDate(parameterIndex, start);
+                parameterIndex++;
+                ur.setDate(parameterIndex, end);
+                parameterIndex++;
+            }
+
             // Set the limit and offset parameters for pagination
             ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
             parameterIndex++;
             ur.setInt(parameterIndex, pageSize);
+
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 Vouchers voucher = new Vouchers(
@@ -123,6 +195,7 @@ public class VouchersDAO extends DBContext {
                 listVoucher.add(voucher);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return listVoucher;

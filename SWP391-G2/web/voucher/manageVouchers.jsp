@@ -131,18 +131,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="input-group">
-                            <input type="date" class="form-control" placeholder="Search" value="${search}"
-                                   id="search">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="input-group">
-                            <input type="date" class="form-control" placeholder="Search" value="${search}"
-                                   id="search">
-                        </div>
-                    </div>
+
                     <div class="col-2">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
@@ -154,14 +143,28 @@
                             <option value="0" ${status==0 ? 'selected' : '' }>In-Active</option>
                         </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="text-right">
                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#addnewModal">
+                                    onclick="addNew()" >
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
                     </div>
+                    <form id="filterForm" action="filterVouchers" method="post">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="start" value="${Start}" id="start" onchange="autoSubmitForm()" onblur="formatDate(this)">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="end" value="${End}" id="end" onchange="autoSubmitForm()" onblur="formatDate(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <!--                    <div class="col-3">
                     
                                             <div class="text-right">
@@ -338,6 +341,10 @@
 
 
     <script>
+                                                    
+                                                    function autoSubmitForm() {
+                                                        document.getElementById('voucher').submit();
+                                                    }
                                                     function showAlert(message, voucherID, status1) {
 
 
@@ -350,7 +357,7 @@
                                                         }
                                                     }
 
-             
+
 
                                                     function showDetail(voucherID) {
                                                         const search = document.querySelector('#search').value;
@@ -358,6 +365,13 @@
                                                         const pageNo = document.querySelector('#pageNo').value;
                                                         window.location.href = 'updatevoucher?search=' + search +
                                                                 '&status=' + status + '&pageNo=' + pageNo + '&voucherID=' + voucherID;
+                                                    }
+                                                    function addNew() {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        window.location.href = 'updatevoucher?search=' + search +
+                                                                '&status=' + status + '&pageNo=' + pageNo;
                                                     }
     </script>
     <script>

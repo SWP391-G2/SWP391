@@ -50,60 +50,76 @@
                         <div class="col-12" style="margin-bottom: 40px;">
                             <h1>Voucher #${voucher.getVoucherID()}</h1>
                     </div>
-
-                    <form action="updatevoucher" id="productForm" method="POST">
-                        <input name="voucherId" hidden="" type="text" value="${voucher.getVoucherID()}" >       
-
-                        <!-- Product Name -->
-                        <div class="form-group row">
-                            <div class="col-10">  
-                                <label for="detail">Voucher Name:</label>
-                                <input name="voucherName" id="voucher" placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
+                    <c:if test="${voucher.getVoucherID() != null}">
+                        <form action="updatevoucher" id="productForm" method="POST">
+                            <input name="voucherId" hidden="" type="text" value="${voucher.getVoucherID()}" >       
+                        </c:if>
+                        <c:if test="${voucher.getVoucherID() == null}">
+                            <form action="voucher" id="productForm" method="POST">                           
+                            </c:if>
+                            <!-- Product Name -->
+                            <div class="form-group row">
+                                <div class="col-10">  
+                                    <label for="detail">Voucher Name:</label>
+                                    <input name="voucherName" id="voucher" placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Other fields (Category, Brands, Status) -->
-                        <div class="form-group row d-flex col-10 justify-content-between ">
+                            <!-- Other fields (Category, Brands, Status) -->
+                            <div class="form-group row d-flex col-10 justify-content-between ">
 
-                            <div class="col-3 d-flex  align-items-center">
-                                Discount:
-                                <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
-                            </div>
-                            <div class="col-3 d-flex  align-items-center">
-                                Quantity:     
-                                <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  placeholder="${voucher.getQuantity()}" class="col-4 form-control">
-                            </div>
-                            <div class="col-3 d-flex justify-content-around align-items-center">
-                                
-                                Status:   
-                                <select class="form-control"  name="statusnew">
-                                    <option value="1" ${requestScope.voucher.getStatus()==1 ? 'selected' : '' }>Active</option>
-                                    <option value="0" ${requestScope.voucher.getStatus()==0 ? 'selected' : '' }>In-Active</option>
-                                </select>
-                            </div>
-                            <div class="col-3 d-flex justify-content-around align-items-center">
-                                Create Date:
-                                <input type="date" name="createDate" readonly="" value="${voucher.getCreateAt()}"/>
+                                <div class="col-3 d-flex  align-items-center">
+                                    Discount:
+                                    <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
+                                </div>
+                                <div class="col-3 d-flex  align-items-center">
+                                    Quantity:     
+                                    <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  placeholder="${voucher.getQuantity()}" class="col-4 form-control">
+                                </div>
+                                <div class="col-3 d-flex justify-content-around align-items-center">
+
+                                    Status:   
+                                    <select class="form-control"  name="statusnew">
+                                        <option value="1" ${requestScope.voucher.getStatus()==1 ? 'selected' : '' }>Active</option>
+                                        <option value="0" ${requestScope.voucher.getStatus()==0 ? 'selected' : '' }>In-Active</option>
+                                    </select>
+                                </div>
+                                <c:if test="${voucher.getVoucherID() != null}">
+                                    <div class="col-3 d-flex justify-content-around align-items-center">
+                                        Create Date:
+                                        <input type="date" name="createDate" readonly="" value="${voucher.getCreateAt()}"/>
+                                    </div>
+                                </c:if>
+
                             </div>
 
-                        </div>
+                            <div class="form-group row d-flex col-10 justify-content-between ">                       
 
-                        <div class="form-group row d-flex col-10 justify-content-between ">                       
+                                <div class="col-3 d-flex justify-content-around align-items-center">
+                                    Start Date:
+                                    <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
+                                    <% if (request.getAttribute("error") != null) { %>
+                                    <div class="error">
+                                        <%= request.getAttribute("error") %>
+                                    </div>
+                                    <% } %>
 
-                            <div class="col-3 d-flex justify-content-around align-items-center">
-                                Start Date:
-                                <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
-                            </div>   
-                            <div class="col-3 d-flex justify-content-around align-items-center">
-                                End Date:
-                                <input type="date" name="endDate" value="${voucher.getExpiryDate()}"/>
-                            </div>   
-                        </div>
-                        <!-- Submit and Cancel buttons -->
-                        <div class="d-flex justify-content-end">
-                            <a class="btn btn-danger ps-2 mx-2" href="../SWP391-G2/voucher">Cancel</a>
-                            <button type="submit" class="btn btn-primary ps-2" id="updateButton">Update</button>
-                        </div>
-                    </form>
+                                </div>   
+                                <div class="col-3 d-flex justify-content-around align-items-center">
+                                    End Date:
+                                    <input type="date" name="endDate" value="${voucher.getExpiryDate()}"/>
+                                </div>   
+                            </div>
+                            <!-- Submit and Cancel buttons -->
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-danger ps-2 mx-2" href="../SWP391-G2/voucher">Cancel</a>
+                                <c:if test="${voucher.getVoucherID() == null}">
+                                    <button type="submit" class="btn btn-primary ps-2" id="updateButton">ADD</button>
+                                </c:if>
+                                <c:if test="${voucher.getVoucherID() != null}">
+                                    <button type="submit" class="btn btn-primary ps-2" id="updateButton">Update</button>
+                                </c:if>
+                            </div>
+                        </form>
                 </div>
             </div>
         </div>
@@ -125,8 +141,8 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
     <script>
-        
-        
+
+
 
         document.addEventListener("DOMContentLoaded", function () {
             const input = document.getElementById("discount");
@@ -164,7 +180,7 @@
         }
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const createDateInput = document.querySelector('input[name="createDate"]');
             const startDateInput = document.querySelector('input[name="startDate"]');
             const endDateInput = document.querySelector('input[name="endDate"]');
