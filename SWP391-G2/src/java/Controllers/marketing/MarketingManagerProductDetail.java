@@ -14,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String s = null;
         String search = "";
         String size = "";
@@ -42,7 +41,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
-        
+
         try {
             detailId = request.getParameter("detailId") == null ? -1 : Integer.parseInt(request.getParameter("detailId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
@@ -69,9 +68,10 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         CategoriesDAO cateDao = new CategoriesDAO();
         String cateName = cateDao.getCategoryById(cateId).getCategoryName();
-        
-        
-        if(s != null) request.setAttribute("success", s);
+
+        if (s != null) {
+            request.setAttribute("success", s);
+        }
         request.setAttribute("cateName", cateName);
         request.setAttribute("size", size);
         request.setAttribute("cateId", cateId);
@@ -86,13 +86,12 @@ public class MarketingManagerProductDetail extends HttpServlet {
         request.setAttribute("listDetail", details);
 
         request.getRequestDispatcher("./marketing/product-detail.jsp").forward(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            
     }
 
     @Override

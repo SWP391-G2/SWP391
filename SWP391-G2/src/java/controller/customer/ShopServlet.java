@@ -9,6 +9,7 @@ import Dal.ProductDetailDAO;
 import Models.Cart;
 import Models.Item;
 import Models.ProductDetail;
+import Util.Validation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -73,14 +75,12 @@ public class ShopServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt = URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
+                    break;
                 }
             }
         }
-
         Cart cart = new Cart(txt, list);
-       
         //response.getWriter().print(cart.getItems().get(0).getName());
-        
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
     }
@@ -103,54 +103,52 @@ public class ShopServlet extends HttpServlet {
         if (arr != null) {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
-                    txt += o.getValue();
+                    txt = URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
                     o.setMaxAge(0);
                     response.addCookie(o);
+                    break;
                 }
             }
         }
+
         Cart cart = new Cart(txt, list);
         String add = request.getParameter("add");
         String minus = request.getParameter("minus");
-        String id_raw = request.getParameter("pdID");
-        //String deletecard = request.getParameter("deletecard");
-//        response.getWriter().print(num_raw);
-//        response.getWriter().print(id_raw);
+        String deletecard = request.getParameter("deletecard");
         String name = request.getParameter("name");
-        int id, addnum,minusnum = -2;
+        int prodId = -1;
         try {
-            id = Integer.parseInt(id_raw);
-            ProductDetail p = dao.getProductDetail(id);
-            int numstock = p.getProductAvaiable();
-            addnum = Integer.parseInt(add);
-            minusnum = Integer.parseInt(minus);
-            if (minusnum == -1 && (cart.getQuantityById(id) <= 1)) {
-                cart.removeItem(id);
-                 Item t = new Item(p, minusnum, name);
-                cart.addItem(t);
-            } 
-             if (addnum == 1 && (cart.getQuantityById(id) >= numstock)) {
-                addnum =0;
-                 Item t = new Item(p, addnum, name);
-                cart.addItem(t);
-            }         
-        } catch (NumberFormatException e) {
+            prodId = request.getParameter("pdID") != null ? Integer.parseInt(request.getParameter("pdID")) : -1;
+        } catch (Exception e) {
+        }
 
-        }
-        List<Item> items = cart.getItems();
-        txt = "";
-        if (items.size() > 0) {
-            txt = items.get(0).getProduct().getProductFullDetailID()+ ":"
-                    + items.get(0).getQuantity()+ ":"
-                     + items.get(0).getName();
-            for (int i = 1; i < items.size(); i++) {
-                txt += "," + items.get(i).getProduct().getProductFullDetailID() + ":"
-                        + items.get(i).getQuantity() + ":" + items.get(i).getName();
+        try {
+            if (add != null) {
+                Item item = new Item(dao.getProductDetail(prodId), 1, name);
+                cart.addItem(item);
+            } else if (minus != null) {
+                if (cart.getQuantityById(prodId) <= 1) {
+                    deleteCart(cart, prodId);
+                } else {
+                    Item item = cart.getItemById(prodId);
+                    item.setQuantity(item.getQuantity() - 1);
+                }
+            } else if (deletecard != null) {
+                deleteCart(cart, prodId);
             }
+
+        } catch (Exception e) {
         }
-        Cookie c = new Cookie("cart", txt);
-        c.setMaxAge(15 * 24 * 60 * 60);
-        response.addCookie(c);
+
+        Validation validation = new Validation();
+        txt = validation.txtCookie(cart);
+        txt = URLEncoder.encode(txt, StandardCharsets.UTF_8.toString());
+
+        Cookie cookie = new Cookie("cart", txt);
+        cookie.setMaxAge(15 * 24 * 60 * 60);
+        response.addCookie(cookie);
+
+        response.getWriter().print(cart.getItems().size());
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
     }
@@ -160,6 +158,10 @@ public class ShopServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    public void deleteCart(Cart cart, int id) {
+        cart.removeItem(id);
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";

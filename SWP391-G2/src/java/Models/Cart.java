@@ -4,6 +4,7 @@
  */
 package Models;
 
+import Dal.ProductDetailDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +43,16 @@ public class Cart {
     }
 
     public int getQuantityById(int id) {
-    Item item = getItemById(id);
-    if (item == null) {
-        // Return 0 or handle appropriately if the item is not found
-        return 0;
+        Item item = getItemById(id);
+        if (item == null) {
+            // Return 0 or handle appropriately if the item is not found
+            return 0;
+        }
+        return item.getQuantity();
     }
-    return item.getQuantity();
-}
 
     //add item to cart
-    public void addItem(Item t) {
+    public final void addItem(Item t) {
         Item i = getItemById(t.getProduct().getProductFullDetailID());
         if (i != null) {
             i.setQuantity(i.getQuantity() + t.getQuantity());
@@ -61,8 +62,9 @@ public class Cart {
     }
 
     public void removeItem(int id) {
-        if (getItemById(id) != null) {
-            items.remove(getItemById(id));
+        Item i = getItemById(id);
+        if (i != null) {
+            items.remove(i);
         }
     }
 
