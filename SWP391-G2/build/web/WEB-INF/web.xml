@@ -37,10 +37,6 @@
         <servlet-class>Controllers.AdminSale</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>Controllers.CartController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminControlAccount</servlet-name>
         <servlet-class>Controllers.admin.AdminControlAccount</servlet-class>
     </servlet>
@@ -211,10 +207,6 @@
     <servlet-mapping>
         <servlet-name>AdminSale</servlet-name>
         <url-pattern>/adminsale</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminControlAccount</servlet-name>

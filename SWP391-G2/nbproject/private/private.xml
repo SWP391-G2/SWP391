@@ -3,52 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/add-new-product-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/createaccount.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/manager-products.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/update-product-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminBlockStatus.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-navigation.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/ajax/search_slider_ajax.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Validation.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/addaccount.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminDetails.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminAddAccount.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/category.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/AccountsEmployee.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AddressDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/ForgotPassword.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/product-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Role.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminProfile.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AddBlogController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admindetails.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/ajax/search_ajax.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/manage-category-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/add-product.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/branddetails.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-profile.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/adminadd.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/VoucherDAO.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/Constants.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/VourcherController.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Vouchers.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/signup.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cart.jsp</file>
-=======
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Login.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Item.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/UpdateCart.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Util/Validation.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Cart.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
->>>>>>> da14ff7d668303fc50045dbfa4479ab2d2aabd74
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Voucher.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/checkout.jsp</file>
         </group>
     </open-files>
 </project-private>

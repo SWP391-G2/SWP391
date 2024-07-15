@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Email</label>
-                                    <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email">
+                                    <input class="form-control" value="${param.email}" type="text" id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Mobile No</label>
@@ -391,6 +391,46 @@
                 var input1Value = document.getElementById('email').value;
                 document.getElementById('emailc').value = input1Value;
             }
+
+
+            function validateForm() {
+                let isValid = true;
+                const fullname = document.forms["myForm"]["fullname"].value;
+                const email = document.forms["myForm"]["email"].value;
+                const phone = document.forms["myForm"]["phone"].value;
+                const addressDetails = document.forms["myForm"]["addressDetails"].value;
+                const note = document.forms["myForm"]["note"].value;
+
+                if (fullname === "") {
+                    alert("Full Name must be filled out");
+                    isValid = false;
+                }
+
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailPattern.test(email)) {
+                    alert("Please enter a valid email address");
+                    isValid = false;
+                }
+
+                const phonePattern = /^[0-9]{10,15}$/;
+                if (!phonePattern.test(phone)) {
+                    alert("Please enter a valid phone number");
+                    isValid = false;
+                }
+
+                if (addressDetails === "") {
+                    alert("Address Details must be filled out");
+                    isValid = false;
+                }
+
+                if (note === "") {
+                    alert("Note must be filled out");
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
 
         </script>
 
