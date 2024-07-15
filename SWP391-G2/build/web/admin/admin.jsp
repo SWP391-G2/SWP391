@@ -104,8 +104,7 @@
                     <div class="col-3">
 
                         <div class="text-right">
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#addnewModal">
+                            <button type="button" class="btn btn-success" onclick="redirectToAddAccount()">
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
@@ -236,16 +235,46 @@
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group row">
-                                        <div class="col-6">
-                                            <label for="firstName">Brand Name: </label>
+                                        <div class="col-12">
+                                            <label for="firstName">FirstName: </label>
                                             <input type="text" class="form-control" id="firstname"
                                                    name="firstname" required>
                                         </div>
-                                        <div class="col-6">
-                                            <label for="lastName">Description: </label>
+                                        <div class="col-12">
+                                            <label for="lastName">LastName: </label>
                                             <input type="text" class="form-control" id="lastname"
                                                    name="lastname" required>
                                         </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Password: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Gender </label>
+                                            <select name="gender" id="cars">
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                                <option value="3">None</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">BirthDate: </label>
+                                            <input type="date" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Gmail: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Role: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -356,6 +385,13 @@
             const status = document.querySelector('#status').value;
             window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
                     '&status=' + status + '&pageNo=' + pageNo;
+        }
+
+    </script>
+
+    <script>
+        function redirectToAddAccount() {
+            window.location.href = 'adminaddaccount';
         }
 
     </script>

@@ -98,7 +98,7 @@ public class AdminDetails extends HttpServlet {
             request.setAttribute("data", account);
 
         } else {
-            Accounts account = dao.getAccoutByID(accountID);
+            AccountsEmployee account = dao.getAccountEmployee(accountID);
             List<Role> listRole = daoRole.getAllRolesSaleMarket();
             request.setAttribute("listRole", listRole);
             //request.setAttribute("status", 1);

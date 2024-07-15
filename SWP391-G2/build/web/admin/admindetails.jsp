@@ -64,7 +64,7 @@
                             <div class="col-4">
                                 <label for="email">Date Of Birth:</label>
                                 <input type="date" class="form-control" id="dob" name="dob"
-                                       value="${data.getBirthday()}" readonly>
+                                       value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" readonly>
                             </div>
                         </div>
 
@@ -89,8 +89,8 @@
                             <div class="col-2">
                                 <label for="roleId">Role:</label>
                                 <select class="form-control" id="roleIDnew" name="roleIDnew">
-                                    <c:forEach items="${listRole}" var="role">
-                                        <option value="${role.getRoleID()}" ${role.getRoleID()==data.getRole() ? 'selected'
+                                    <c:forEach items="${requestScope.listRole}" var="role">
+                                        <option value="${role.getRoleID()}" ${role.getRoleID()==data.getRoleID() ? 'selected'
                                                          : '' }>
                                                     ${role.getRoleName()}
                                                 </option>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
 
-                                    <a class="btn btn-primary" onclick="cancel()">Cancel</a>
+                            <a class="btn btn-primary" onclick="cancel()">Cancel</a>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
@@ -132,27 +132,30 @@
         crossorigin="anonymous"></script>
 
         <script>
-                                    function showUpdateAlert() {
-                                        alert("Account details updated successfully!");
-                                    }
-                                    function chooseFile(fileInput) {
-                                        if (fileInput.files && fileInput.files[0]) {
-                                            var reader = new FileReader();
+                                function showUpdateAlert() {
+                                    alert("Account details updated successfully!");
+                                }
+                                function chooseFile(fileInput) {
+                                    if (fileInput.files && fileInput.files[0]) {
+                                        var reader = new FileReader();
 
-                                            reader.onload = function (e) {
-                                                $('#image').attr('src', e.target.result);
-                                            }
-                                            reader.readAsDataURL(fileInput.files[0]);
+                                        reader.onload = function (e) {
+                                            $('#image').attr('src', e.target.result);
                                         }
+                                        reader.readAsDataURL(fileInput.files[0]);
                                     }
-                                    function cancel() {
-                                            const search = document.querySelector('#search').value;
-                                            const roleId = document.querySelector('#roleId').value;
-                                            const status = document.querySelector('#status').value;
-                                            const pageNo = document.querySelector('#pageNo').value;
-                                            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo;
-                                        }
+                                }
+                                function cancel() {
+                                    const confirmation = confirm("Do you want to cancel?");
+                                    if (confirmation) {
+                                        const search = document.querySelector('#search').value;
+                                        const roleId = document.querySelector('#roleId').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+                                                '&status=' + status + '&pageNo=' + pageNo;
+                                    }
+                                }
         </script>
 
     </html>
