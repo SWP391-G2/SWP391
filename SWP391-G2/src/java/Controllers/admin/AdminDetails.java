@@ -7,6 +7,7 @@ package Controllers.admin;
 import Dal.AccountsDAO;
 import Dal.RoleDAO;
 import Models.Accounts;
+import Models.AccountsEmployee;
 import Models.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,7 +91,7 @@ public class AdminDetails extends HttpServlet {
         } catch (Exception e) {
         }
         if (roleID == 1 || roleID == 4) {
-            Accounts account = dao.getAccoutByID(accountID);
+            AccountsEmployee account = dao.getAccountEmployee(accountID);
             List<Role> listRole = daoRole.getAllRolesByID(roleID);
             request.setAttribute("listRole", listRole);
             //request.setAttribute("status", 1);

@@ -5,6 +5,8 @@
 package Util;
 
 import Constant.constant;
+import Models.Cart;
+import Models.Item;
 import java.util.regex.Pattern;
 
 /**
@@ -33,6 +35,17 @@ public class Validation {
 
     public boolean isPositiveRealNumberText(String s) {
         return s.matches("\\d*\\.?\\d+");
+    }
+
+    public String txtCookie(Cart cart) {
+        String txt = "";
+        for (Item ca : cart.getItems()) {
+            txt += String.valueOf(ca.getProduct().getProductFullDetailID()) + ":" + ca.getQuantity() + ":" + ca.getName() + ",";
+        }
+        if (txt != null && txt.length() > 0 && txt.charAt(txt.length() - 1) == ',') {
+            txt = txt.substring(0, txt.length() - 1);
+        }
+        return txt;
     }
 
     public boolean CheckPass(String password) {

@@ -130,15 +130,16 @@
                                     <c:forEach items="${listUser}" var="user" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                           
+                                            <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} + ${user.getLastName()}</a></td>
                                             <td>${user.getGender()}</td>
                                             <td>${user.getEmail()}</td>
-                                            
+                                            <td>${user.getPhone()}</td>
+                                            <td>${user.getAddress()}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${user.roleId == 1}">Admin</c:when>
-                                                    <c:when test="${user.roleId == 3}">Marketing</c:when>
-                                                    <c:when test="${user.roleId == 2}">Saler</c:when>
+                                                    <c:when test="${user.getRoleID() == 1}">Admin</c:when>
+                                                    <c:when test="${user.getRoleID() == 3}">Marketing</c:when>
+                                                    <c:when test="${user.getRoleID() == 2}">Saler</c:when>
                                                     <c:otherwise>User</c:otherwise>
                                                 </c:choose>
                                             </td>
@@ -147,14 +148,14 @@
                                             <td>
 
                                                 <c:choose>
-                                                    <c:when test="${user.getRoleID() == 1}">
+                                                    <c:when test="${user.getStatus() == 1}">
                                                         <a  onclick="showAlert('Admin blocked successfully!',${user.getAccountID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
                                                                 Block
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${user.getRoleID() == 0}">
+                                                    <c:when test="${user.getStatus() == 0}">
                                                         <a  onclick="showAlert('Admin unblocked successfully!',${user.getAccountID()}, 1);">
                                                             <button type="button" class="btn btn-success">
                                                                 UnBlock
@@ -304,18 +305,18 @@
                                         }
     </script>
     <script>
-        // handle filter search
         const searchInput = document.querySelector('#search');
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 performSearch();
             }
         });
-        
-        const btnSearch = document.querySelector('#search');
+        const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
         });
+
+
         function performSearch() {
             const search = document.querySelector('#search').value;
             const roleId = document.querySelector('#roleId').value;

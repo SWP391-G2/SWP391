@@ -3,26 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Signup.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Products.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProducts.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewProduct.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Categories.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProductDetail.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/email/EmailService.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/manager-products.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/ManagerCategory.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProduct.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Login.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/js/uploadImage.js</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/manage-category-detail.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddProductDetail.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProductDetail.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Item.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/UpdateCart.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Util/Validation.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/DeleteAddress.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/product-profile.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/marketing/product-detail.jsp</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Cart.java</file>
+            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
         </group>
     </open-files>
 </project-private>
