@@ -352,4 +352,8 @@
         <servlet-name>AdminAddAccount</servlet-name>
         <url-pattern>/adminaddaccount</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VourcherController</servlet-name>
+        <url-pattern>/applyvouchers</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -6,7 +6,9 @@ package controller.customer;
 
 import Dal.ProductDetailDAO;
 import Models.Cart;
+import Models.Item;
 import Models.ProductDetail;
+import Util.Validation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -51,48 +53,17 @@ public class CartCookieController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        /*
         ProductDetailDAO d = new ProductDetailDAO();
         List<ProductDetail> list = d.getAll();
         Cookie[] arr = request.getCookies();
         String txt = "";
-        HttpSession session = request.getSession();
-        int totalQuantity = 0;
-
-// Retrieve the current cart content from cookies
         if (arr != null) {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        
-        Cart cart = new Cart(txt, list);
-        List<Item> listItem = cart.getItems();
-        int n;
-        if(listItem != null){
-            n = listItem.size();
-        }
-        else{
-            n=0;
-        }
-        
-        
-        
-          String pdtID_raw = request.getParameter("pdtID");
-        String addquantity_raw = request.getParameter("quantity");
-        String productName_raw = request.getParameter("name");
-        String deletecart_raw = request.getParameter("deletecard");
-         */
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt = URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
+                    txt += URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
                     o.setMaxAge(0);
+                    response.addCookie(o);
+                    break;
                 }
             }
         }
@@ -104,11 +75,18 @@ public class CartCookieController extends HttpServlet {
         } else {
             txt += "," + pdID + ":" + quantity_raw + ":" + name;
         }
+        Cart cart = new Cart(txt, list);
+        Validation validation = new Validation();
+        txt = validation.txtCookie(cart);
         txt = URLEncoder.encode(txt, StandardCharsets.UTF_8.toString());
+        // response.getWriter().print(txt);
         Cookie cookie = new Cookie("cart", txt);
-        cookie.setMaxAge(15*24*60*60);
+        cookie.setMaxAge(15 * 24 * 60 * 60);
         response.addCookie(cookie);
-        request.getRequestDispatcher("shop").forward(request, response);
+        //response.getWriter().print(cart.getItems().get(0).getName());
+        request.setAttribute("cart", cart);
+//        response.getWriter().print(txtCookie(cart));
+        request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
     }
 
     /**
@@ -122,7 +100,7 @@ public class CartCookieController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

@@ -49,7 +49,7 @@
                         <div class="col-12" style="margin-bottom: 40px;">
                             <h1>Product #${product.getProductID()}</h1>
 
-                        
+
                     </div>
                     <div class="col-12 d-flex justify-content-end">
                         <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.categoryID}">View Product Detail</a>
@@ -59,9 +59,10 @@
                         <div class="form-group row">
                             <label for="productID">Product image:</label>
                             <div class="input-group image-preview-container">
+                                <input type="hidden" id="photo" name="photo"/>
                                 <div class="input-group">
                                     <input type="file" name="img" required="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                    <label for="img"><img src="images/Products/${cateName}/${product.productImageUrl}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
+                                    <label for="img"><img src="${product.productImageUrl}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
                                 <span id="productImageError" class="text-danger"></span>
                             </div>
@@ -109,14 +110,18 @@
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-danger ps-2 mx-2" href="./marketing-manager-products">Cancel</a>
-                            <button type="button" class="btn btn-primary ps-2" id="updateButton"  onclick="updateForm()">Update</button>
+                            <button type="button" class="btn btn-primary ps-2"  onclick="uploadImage('${folder}')">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </body>
-
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <script src="${pageContext.request.contextPath}/js/uploadImage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
 
     <!-- =========== Scripts =========  -->
     <script src="js/admin_manager.js"></script>
@@ -202,6 +207,7 @@
                                         }
                                     });
                                 }
+
                                 function updateForm() {
                                     var form = document.getElementById('productForm');
 

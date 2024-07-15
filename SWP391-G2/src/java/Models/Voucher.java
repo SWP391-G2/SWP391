@@ -18,6 +18,13 @@ public class Voucher {
     private int quantity;
     private Date createAt;
     private int status;
+    
+        private int VoucherID;
+    private String Code;
+    private float Discount;
+    private java.util.Date ExpiryDate;
+    private int Quantity;
+    private java.util.Date CreateAt;
 
     public Voucher(int voucherID, String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
         this.voucherID = voucherID;

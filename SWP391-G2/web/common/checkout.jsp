@@ -102,15 +102,31 @@
                         </div>
                         <h5 class="font-weight-medium mb-3">Products</h5>
                         <div class="card-body">
-                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                                <div class="d-flex justify-content-between">
-                                    <p>${listproduct[loop.index].getImage()}</p>
-                                    <p>${listcart[loop.index].getName()}</p>
-                                    <p>${listproduct[loop.index].getProductSize()}</p>
-                                    <p>${listcart[loop.index].getQuantity()}</p>
-                                    <p>${listproduct[loop.index].getProductPrice()}$</p>
-                                </div>
-                            </c:forEach>
+                            <table class="table border-0">
+                                <c:if test="${requestScope.listcart != null}">
+                                    <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                        <tr>
+                                            <td>${listproduct[loop.index].getImage()}</td>
+                                            <td>${listcart[loop.index].getName()}</td>
+                                            <td>${listproduct[loop.index].getProductSize()}</td>
+                                            <td>${listcart[loop.index].getQuantity()}</td>
+                                            <td>${listproduct[loop.index].getProductPrice()}$</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${requestScope.cookieCart != null}">
+                                    <c:set var="o" value="${requestScope.cookieCart}"/>
+                                    <c:forEach items="${o.items}" var="i" >
+                                        <tr>
+                                            <td>${i.product.getImage()}</td>
+                                            <td>${i.getName()}</td>
+                                            <td>${i.product.getProductSize()}</td>
+                                            <td>${i.getQuantity()}</td>
+                                            <td>${i.product.getProductPrice()}$</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+                            </table>
                             <div class="col-lg-4">
                                 <form class="mb-5" action="applyvouchers">
                                     <div class="input-group mb-3 d-flex">

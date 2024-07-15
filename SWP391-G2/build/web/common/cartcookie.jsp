@@ -312,40 +312,39 @@
                                 <tr>
                                     <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.getName()}</td>
                                     <td class="align-middle">${i.getName()}</td>
-                                    <td class="align-middle">${i.product.getProductSize()}</td>
-                                    <td class="align-middle">${i.product.getProductPrice()}$</td>
-                                    <td class="align-middle">
-                                        <form action="shop" method="post" id="myForm${loop.index}" class="form">
-                                            <div class="input-group quantity mx-auto">
-                                                <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
-                                                <input type="hidden" value="${i.getQuantity()}" name="quantity"/>
-                                                <input type="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
-                                                <span id="quanError${loop.index}" class="text-danger"></span>
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
-                                                        <i class="fa fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                                <input type="text" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" name="add" value="1">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </div>
+                            <input name="name" value="${i.getName()}" type="hidden"/>
+                            <td class="align-middle">${i.product.getProductSize()}</td>
+                            <td class="align-middle">${i.product.getProductPrice()}$</td>
+                            <td class="align-middle">
+                                <form action="shop" method="post" id="myForm${loop.index}" class="form">
+                                    <div class="input-group quantity mx-auto">
+                                        <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                        <span id="quanError${loop.index}" class="text-danger"></span>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" disabled="" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" ${i.product.getProductAvaiable()- i.getQuantity() <= 0 ? 'disabled' : ''} name="add" value="1">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
 
-                                            </div>
-                                        </form>
+                                    </div>
+                                </form>
 
-                                    </td>
-                                    <td class="align-middle">
-                                        <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
-                                        <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
-                                    </td>
-                                    <td class="align-middle "><a onclick="deleteCart()" href="shop?deletecard=${i.product.getProductFullDetailID()}">DELETE</a></td>
-                                </tr>
-                                <c:set var="total" value="${total + itemTotal}"/>
+                            </td>
+                            <td class="align-middle">
+                                <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
+                                <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
+                            </td>
+                            <td class="align-middle "><a onclick="deleteCart()" href="shop?deletecard=${i.product.getProductFullDetailID()}">DELETE</a></td>
+                            </tr>
+                            <c:set var="total" value="${total + itemTotal}"/>
 
-                            </c:forEach>
+                        </c:forEach>
 
 
                     </table>
@@ -408,41 +407,41 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                        function notice() {
-                                            if (confirm("Delete all items in cart?")) {
-                                                document.getElementById("deleteForm").submit();
+                                function notice() {
+                                    if (confirm("Delete all items in cart?")) {
+                                        document.getElementById("deleteForm").submit();
+                                    }
+                                }
+
+                                function deleteCart() {
+                                    if (confirm("Do you want delete product?")) {
+                                        document.getElementById("myForm${loop.index}").submit();
+                                    }
+                                }
+
+                                function sendCode(code) {
+                                    window.location.href = 'applyvouchers?code=' + code;
+                                }
+
+
+
+                                document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                    inputElement.addEventListener('keypress', (event) => {
+                                        if (event.key === 'Enter') {
+                                            event.preventDefault();
+                                            const value = document.getElementById('newquant' + index).value;
+                                            const value1 = document.getElementById('quantity' + index).value;
+                                            if (value1 < value) {
+                                                document.getElementById('quanError' + index).innerText = 'fail';
+                                                return false;
+                                            } else {
+                                                document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                document.getElementById('myForm' + index).submit();
                                             }
+
                                         }
-
-                                        function deleteCart() {
-                                            if (confirm("Do you want delete product?")) {
-                                                document.getElementById("myForm${loop.index}").submit();
-                                            }
-                                        }
-
-                                        function sendCode(code) {
-                                            window.location.href = 'applyvouchers?code=' + code;
-                                        }
-
-
-
-                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                            inputElement.addEventListener('keypress', (event) => {
-                                                if (event.key === 'Enter') {
-                                                    event.preventDefault();
-                                                    const value = document.getElementById('newquant' + index).value;
-                                                    const value1 = document.getElementById('quantity' + index).value;
-                                                    if (value1 < value) {
-                                                        document.getElementById('quanError' + index).innerText = 'fail';
-                                                        return false;
-                                                    } else {
-                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                        document.getElementById('myForm' + index).submit();
-                                                    }
-
-                                                }
-                                            });
-                                        });
+                                    });
+                                });
         </script>
     </body>
 

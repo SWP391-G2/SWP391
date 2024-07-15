@@ -4,29 +4,21 @@
  */
 package controller.customer;
 
-import Dal.CartsDAO;
-import Dal.ProductDetailDAO;
-import Models.Cart;
-import Models.Carts;
-import Models.ProductDetail;
+import Dal.VoucherDAO;
+import Models.Vouchers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author hatru
  */
-public class CheckoutController extends HttpServlet {
+public class VourcherController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class CheckoutController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutController</title>");
+            out.println("<title>Servlet VourcherController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckoutController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VourcherController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,54 +58,32 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        String voucher = request.getParameter("voucher");
+        String delete = request.getParameter("delete");
+        String totalprice = request.getParameter("totalprice");
+        VoucherDAO dao = new VoucherDAO();
         HttpSession session = request.getSession();
-        ProductDetailDAO productDAO = new ProductDetailDAO();
-        CartsDAO cart = new CartsDAO();
-        Cart ca = new Cart();
-        List<Carts> listCart = cart.getAllCart();
-        List<ProductDetail> listProduct = new ArrayList<>();
-        listProduct.clear();
-        boolean check = session.getAttribute("account") != null ? true : false;
+        if (delete == null) {
+            Vouchers vou = dao.getVourcherByCode(voucher);
 
-        if (check) {
-            for (Carts carts : listCart) {
-                ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
-                listProduct.add(p);
+            if (vou != null) {
+                //request.setAttribute("discount", discount);
+                session.setAttribute("dis", vou);
+                //response.sendRedirect("checkout");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+            } else {
+                request.setAttribute("error", "error");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+                //response.sendRedirect("checkout");
             }
         } else {
-            ProductDetailDAO d = new ProductDetailDAO();
-            List<ProductDetail> list = d.getAll();
-            Cookie[] arr = request.getCookies();
-            String txt = "";
-            if (arr != null) {
-                for (Cookie o : arr) {
-                    if (o.getName().equals("cart")) {
-                        txt = URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
-                        break;
-                    }
-                }
-            }
-            ca = new Cart(txt, list);
-            if (!txt.isEmpty()) {
-                String[] s = txt.split(",");
-                for (String string : s) {
-                    String[] i = string.split(":");
-                    ProductDetail p = productDAO.getInforProductDetail(Integer.parseInt(i[0]));
-                    listProduct.add(p);
-                }
-            }
+            session.invalidate();
+            request.setAttribute("totalprice", totalprice);
+            request.getRequestDispatcher("checkout").forward(request, response);
         }
 
-        String totalprice_raw = request.getParameter("totalprice");
-        if (check) {
-            request.setAttribute("listcart", listCart);
-        }else{
-            request.setAttribute("cookieCart", ca);
-        }
-        request.setAttribute("listproduct", listProduct);
-        request.setAttribute("totalprice", totalprice_raw);
-        request.getRequestDispatcher("common/checkout.jsp").forward(request, response);
     }
 
     /**
@@ -127,7 +97,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
