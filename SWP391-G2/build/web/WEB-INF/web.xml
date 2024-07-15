@@ -145,7 +145,6 @@
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
     <servlet>
- 
         <servlet-name>AddToWishlistServlet</servlet-name>
         <servlet-class>controller.customer.AddToWishlistServlet</servlet-class>
     </servlet>
@@ -153,7 +152,6 @@
         <servlet-name>ViewWishlistServlet</servlet-name>
         <servlet-class>controller.customer.ViewWishlistServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>CartCookieController</servlet-name>
         <servlet-class>controller.customer.CartCookieController</servlet-class>
@@ -173,7 +171,6 @@
     <servlet>
         <servlet-name>SaleControllerOrder</servlet-name>
         <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
- 
     </servlet>
     <servlet>
         <servlet-name>SaleOrderDetails</servlet-name>
@@ -182,6 +179,10 @@
     <servlet>
         <servlet-name>AdminAddAccount</servlet-name>
         <servlet-class>Controllers.admin.AdminAddAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Order</servlet-name>
+        <servlet-class>controller.Sale.Order</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -328,7 +329,6 @@
         <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
- 
         <servlet-name>AddToWishlistServlet</servlet-name>
         <url-pattern>/addToWishlist</url-pattern>
     </servlet-mapping>
@@ -355,7 +355,6 @@
     <servlet-mapping>
         <servlet-name>SaleControllerOrder</servlet-name>
         <url-pattern>/saleorder</url-pattern>
- 
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaleOrderDetails</servlet-name>
@@ -365,5 +364,8 @@
         <servlet-name>AdminAddAccount</servlet-name>
         <url-pattern>/adminaddaccount</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>Order</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
 </web-app>

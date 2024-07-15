@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="step-footer">
-                        <a href="/" class="step-footer-continue-btn btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/home" class="step-footer-continue-btn btn btn-primary">
                             <span class="btn-content">Continue Shopping</span>
                         </a>
                         <p class="step-footer-info">

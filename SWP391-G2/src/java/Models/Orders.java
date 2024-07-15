@@ -54,6 +54,20 @@ public class Orders {
         this.voucherID = voucherID;
     }
 
+    public Orders(Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+        this.orderDate = orderDate;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderContactName = orderContactName;
+        this.orderPhone = orderPhone;
+        this.orderAddress = orderAddress;
+        this.orderReceiveDate = orderReceiveDate;
+        this.orderNote = orderNote;
+        this.orderSoID = orderSoID;
+        this.voucherID = voucherID;
+    }
+    
+    
+
     public int getOrderID() {
         return orderID;
     }

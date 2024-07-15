@@ -71,24 +71,99 @@
             .btn-primary{
 
             }
+
+
         </style>
+
 
     </head>
 
     <body>
 
         <!-- Page Header Start -->
-        <div class="container-fluid bg-secondary mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
-                <div class="d-inline-flex">
-                    <p class="m-0"><a href="">Home</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">Checkout</p>
+        <header style="padding-bottom: 80px">
+            <div class="main_header header_transparent header-mobile-m">
+                <div class="header_container sticky-header" style="padding: 0">
+                    <div class="container-fluid" style="background-color: black">
+                        <div class="row align-items-center" style="padding: 8px 0">
+                            <div class="col-lg-2">
+                                <div class="logo">
+                                    <a href="home"><img src="images/logo/logo0.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="main_menu menu_two menu_position">
+                                    <nav>
+                                        <ul class="nav nav-pills nav-fill">
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="home">HOME</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">ABOUT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" class="${cid_refine==0?"active":""}" href="refine?cid=${0}">PERFUMES
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach var="category" items="${requestScope.categories}">
+                                                        <li class="nav-item-lv2">
+                                                            <a class="nav-link" class="${category.categoryID==cid_refine?"active":""}" href="refine?cid_refinee=${category.categoryID}">
+                                                                ${category.categoryName}'s Perfumes
+                                                            </a>
+                                                        </li>
+                                                    </c:forEach>                                                  
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">BRANDS
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu multi-column">
+                                                    <div class="row">
+                                                        <c:forEach var="brand" items="${requestScope.brands}">
+                                                            <div class="col-md-4">
+                                                                <li class="nav-item-lv2">
+                                                                    <a class="nav-link" href="refine?bid_refinee=${brand.getBrandID()}">${brand.getBrandName()}</a>
+                                                                </li>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">CONTACT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">BLOGS</a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="header_search search_form">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                        <span class="input-group-btn">
+                                            <button class="btn icon-fallback-text">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>                 
+                            <div class="col-lg-2">
+                                <jsp:include page="header_right.jsp"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
         <!-- Page Header End -->
+
 
 
         <!-- Checkout Start -->
@@ -220,7 +295,7 @@
                                     <label>Note</label>
                                     <input class="form-control" value="${param.note}" type="text" placeholder="Please deliver in the morning" name="note">
                                 </div>
-                               
+
                             </div>
                         </div>
                         <input type="hidden" value="${total - sessionScope.dis.getDiscount()*0.01*total}" name="total"/>
@@ -255,7 +330,11 @@
 
 
         <!-- Checkout End -->
-
+        <!-- Footer Start -->
+        <footer class="footer">        
+            <jsp:include page="footer.jsp"/>
+        </footer>
+        <!-- Footer End -->
 
 
 
@@ -339,47 +418,8 @@
             }
 
 
-            function validateForm() {
-                let isValid = true;
-                const fullname = document.forms["myForm"]["fullname"].value;
-                const email = document.forms["myForm"]["email"].value;
-                const phone = document.forms["myForm"]["phone"].value;
-                const addressDetails = document.forms["myForm"]["addressDetails"].value;
-                const note = document.forms["myForm"]["note"].value;
-
-                if (fullname === "") {
-                    alert("Full Name must be filled out");
-                    isValid = false;
-                }
-
-                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                if (!emailPattern.test(email)) {
-                    alert("Please enter a valid email address");
-                    isValid = false;
-                }
-
-                const phonePattern = /^[0-9]{10,15}$/;
-                if (!phonePattern.test(phone)) {
-                    alert("Please enter a valid phone number");
-                    isValid = false;
-                }
-
-                if (addressDetails === "") {
-                    alert("Address Details must be filled out");
-                    isValid = false;
-                }
-
-                if (note === "") {
-                    alert("Note must be filled out");
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-
         </script>
-
+        
 
     </body>
 
