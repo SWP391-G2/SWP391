@@ -4,9 +4,14 @@
  */
 package controller.customer;
 
+import Dal.BrandsDAO;
+import Dal.CategoriesDAO;
 import Dal.ProductDetailDAO;
+import Dal.ProductsDAO;
 import Dal.WishlistDAO;
 import Models.Accounts;
+import Models.Brands;
+import Models.Categories;
 import Models.ProductDetail;
 import Models.WishlistItems;
 import com.google.gson.Gson;
@@ -68,9 +73,15 @@ public class ViewWishlistServlet extends HttpServlet {
         Accounts account = (Accounts) session.getAttribute("account");
 
         if (account != null) {
+            CategoriesDAO categoriesDAO = new CategoriesDAO();
+            BrandsDAO brandsDAO = new BrandsDAO();
             WishlistDAO wishlistDAO = new WishlistDAO();
+            List<Categories> categories = categoriesDAO.loadCategory();
+            List<Brands> brands = brandsDAO.getBrands();
             List<WishlistItems> wishlist = wishlistDAO.getWishlistByAccountId(account.getAccountID());
 
+            request.setAttribute("brands", brands);
+            request.setAttribute("categories", categories);
             request.setAttribute("wishlist", wishlist);
             request.getRequestDispatcher("common/viewWishlist.jsp").forward(request, response);
         } else {

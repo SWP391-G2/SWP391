@@ -172,7 +172,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="wishlist">
-                                                                    <a href="#" onclick="" title="Thêm vào mục yêu thích">
+                                                                    <a href="#" onclick="addToWishlist(event, ${t.getProductID()})" title="Thêm vào mục yêu thích">
                                                                         <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                                                     </a>
                                                                 </li>
@@ -482,7 +482,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="wishlist">
-                                                                <a href="#"  title="Thêm vào mục yêu thích">
+                                                                <a href="#" onclick="addToWishlist(event, ${p.getProductID()})" title="Thêm vào mục yêu thích">
                                                                     <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>
@@ -562,7 +562,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="wishlist">
-                                                                <a href="#"  title="Thêm vào mục yêu thích">
+                                                                <a href="#" onclick="addToWishlist(event, ${p.getProductID()})" title="Thêm vào mục yêu thích">
                                                                     <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>
@@ -643,7 +643,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="wishlist">
-                                                                <a href="#"  title="Thêm vào mục yêu thích">
+                                                                <a href="#" onclick="addToWishlist(event, ${pUnisex.getProductID()})" title="Thêm vào mục yêu thích">
                                                                     <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>
@@ -830,55 +830,55 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                                                                            function setCountDown() {
-                                                                                var countdownElement = document.getElementById("countdown");
-                                                                                var countDownDate = new Date(countdownElement.getAttribute("data-countdown")).getTime();
-                                                                                var x = setInterval(function () {
-                                                                                    var now = new Date().getTime();
-                                                                                    var distance = countDownDate - now;
-                                                                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                                                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                                                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                                    function setCountDown() {
+                                                                        var countdownElement = document.getElementById("countdown");
+                                                                        var countDownDate = new Date(countdownElement.getAttribute("data-countdown")).getTime();
+                                                                        var x = setInterval(function () {
+                                                                            var now = new Date().getTime();
+                                                                            var distance = countDownDate - now;
+                                                                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                                                                    document.getElementById("day").innerHTML = days;
-                                                                                    document.getElementById("hour").innerHTML = hours;
-                                                                                    document.getElementById("minutes").innerHTML = minutes;
-                                                                                    document.getElementById("sec").innerHTML = seconds;
+                                                                            document.getElementById("day").innerHTML = days;
+                                                                            document.getElementById("hour").innerHTML = hours;
+                                                                            document.getElementById("minutes").innerHTML = minutes;
+                                                                            document.getElementById("sec").innerHTML = seconds;
 
-                                                                                    if (distance < 0) {
-                                                                                        clearInterval(x);
-                                                                                        document.getElementById("day").innerHTML = "EXPIRED";
-                                                                                        document.getElementById("hour").innerHTML = "EXPIRED";
-                                                                                        document.getElementById("minutes").innerHTML = "EXPIRED";
-                                                                                        document.getElementById("sec").innerHTML = "EXPIRED";
-                                                                                    }
-                                                                                }, 1000);
+                                                                            if (distance < 0) {
+                                                                                clearInterval(x);
+                                                                                document.getElementById("day").innerHTML = "EXPIRED";
+                                                                                document.getElementById("hour").innerHTML = "EXPIRED";
+                                                                                document.getElementById("minutes").innerHTML = "EXPIRED";
+                                                                                document.getElementById("sec").innerHTML = "EXPIRED";
                                                                             }
-                                                                            window.onload = setCountDown;
-                                                                            function addToWishlist(event, productID) {
-                                                                                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+                                                                        }, 1000);
+                                                                    }
+                                                                    window.onload = setCountDown;
+                                                                    function addToWishlist(event, productID) {
+                                                                        event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
 
-                                                                                // Gọi hàm Ajax để gửi yêu cầu thêm vào Wishlist
-                                                                                var xhr = new XMLHttpRequest();
-                                                                                xhr.open("POST", "addToWishlist", true);
-                                                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                                                xhr.onreadystatechange = function () {
-                                                                                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                                                                                        if (xhr.status === 200) {
-                                                                                            // Xử lý phản hồi từ servlet (nếu cần)
-                                                                                            alert("Sản phẩm đã được thêm vào Wishlist!");
-                                                                                        } else {
-                                                                                            // Xử lý lỗi nếu có
-                                                                                            alert("Đã xảy ra lỗi khi thêm sản phẩm vào Wishlist.");
-                                                                                        }
-                                                                                    }
-                                                                                };
-
-                                                                                // Chuẩn bị dữ liệu để gửi đi
-                                                                                var params = "productID=" + productID;
-                                                                                xhr.send(params);
+                                                                        // Gọi hàm Ajax để gửi yêu cầu thêm vào Wishlist
+                                                                        var xhr = new XMLHttpRequest();
+                                                                        xhr.open("POST", "addToWishlist", true);
+                                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                                        xhr.onreadystatechange = function () {
+                                                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                                                if (xhr.status === 200) {
+                                                                                    // Xử lý phản hồi từ servlet (nếu cần)
+                                                                                    alert("Sản phẩm đã được thêm vào Wishlist!");
+                                                                                } else {
+                                                                                    // Xử lý lỗi nếu có
+                                                                                    alert("Đã xảy ra lỗi khi thêm sản phẩm vào Wishlist.");
+                                                                                }
                                                                             }
+                                                                        };
+
+                                                                        // Chuẩn bị dữ liệu để gửi đi
+                                                                        var params = "productID=" + productID;
+                                                                        xhr.send(params);
+                                                                    }
         </script>
     </body>
 </html>

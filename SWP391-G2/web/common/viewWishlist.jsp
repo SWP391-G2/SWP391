@@ -211,7 +211,7 @@
                             </div>
                             <div class="col-2 mt-2 text_page">
                                 <div class="select-options">
-                                    <button class="btn-select">Select Options</button>
+                                    <button class="btn-select"><a href="detailofproduct?productID=${item.product.getProductID()}">Select Options</a></button>
                                 </div>
                                 <div class="delete-wishlist">
                                     <form action="viewWishlist" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');" >

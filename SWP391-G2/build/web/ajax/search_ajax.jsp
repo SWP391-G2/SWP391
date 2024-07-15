@@ -31,7 +31,7 @@
                                         </a>
                                     </li>
                                     <li class="wishlist">
-                                        <a href="#" onclick="" title="Thêm vào mục yêu thích">
+                                        <a href="#" onclick="addToWishlist(event, ${i.getProductID()})" title="Thêm vào mục yêu thích">
                                             <i style="color: #f6692a" class="fa-solid fa-heart"></i>
                                         </a>
                                     </li>

@@ -324,11 +324,11 @@
                                                                         <i class="fa fa-shopping-cart"></i>
                                                                     </a>
                                                                 </li>
-                                                                <li class="wishlist">
-                                                                    <a href="#" onclick="" title="Thêm vào mục yêu thích">
-                                                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
-                                                                    </a>
-                                                                </li>
+                                                                 <li class="wishlist">
+                                                                        <a href="#" onclick="addToWishlist(event, ${product.getProductID()})" title="Thêm vào mục yêu thích">
+                                                                            <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                        </a>
+                                                                    </li>
                                                                 <li style="border-color: orange" class="quick_button">
                                                                     <a href="#" data-toggle="modal" data-target="#modal_box" title="Xem sản phẩm">
                                                                         <i class="fa fa-eye"></i>
