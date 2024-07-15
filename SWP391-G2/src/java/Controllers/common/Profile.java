@@ -43,7 +43,7 @@ public class Profile extends HttpServlet {
         Accounts acc = Accdao.getAccount(emaill);
         int accountid = acc.getAccountID();
         AddressDAO addressDAO = new AddressDAO();
-        Address address = addressDAO.getAddressByStatus(accountid, 1);
+        Address address = addressDAO.getAddressByStatus(accountid);
         request.setAttribute("address", address);
         request.setAttribute("profile", acc);
         request.getRequestDispatcher("common/profile.jsp").forward(request, response);

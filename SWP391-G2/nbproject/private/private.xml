@@ -3,6 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/viewWishlist.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/home.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/Wishlist.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/refine.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/controller/customer/AddToWishlistServlet.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/WishlistDAO.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/controller/customer/ViewWishlistServlet.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/Item.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/ProductsHome.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Models/WishlistItems.java</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/common/header_right.jsp</file>
+            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/RoleDAO.java</file>
+=======
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/Login.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
@@ -12,6 +28,7 @@
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Util/Validation.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Cart.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
+>>>>>>> da14ff7d668303fc50045dbfa4479ab2d2aabd74
         </group>
     </open-files>
 </project-private>

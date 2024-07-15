@@ -2,34 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.common;
+package controller.customer;
 
 import Dal.BrandsDAO;
+import Dal.CategoriesDAO;
+import Dal.ProductDetailDAO;
+import Dal.ProductsDAO;
+import Dal.WishlistDAO;
+import Models.Accounts;
+import Models.Brands;
+import Models.Categories;
+import Models.ProductDetail;
+import Models.WishlistItems;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Dal.CategoriesDAO;
-import Dal.FeedbackDAO;
-import Dal.ProductsDAO;
-import Dal.SliderDAO;
-import Models.Brands;
-import Models.Categories;
-import Models.FeedBacks;
-import Models.ProductsHome;
-import Models.Sliders;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author pna29
  */
-public class HomeServlet extends HttpServlet {
+public class ViewWishlistServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +48,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");
+            out.println("<title>Servlet ViewWishlistServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ViewWishlistServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,46 +69,24 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CategoriesDAO categoriesDAO = new CategoriesDAO();
-        ProductsDAO productsDAO = new ProductsDAO();
-        BrandsDAO brandsDAO = new BrandsDAO();
-        SliderDAO sliDAO = new SliderDAO();
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-     
-   
-        List<Sliders> sliders = sliDAO.getAll();
-        List<ProductsHome> productsMen = productsDAO.getProductsByCategory(1);
-        List<ProductsHome> productsWomen = productsDAO.getProductsByCategory(2);
-        List<ProductsHome> productsUnisex = productsDAO.getProductsByCategory(3);
-        List<ProductsHome> giftSet = productsDAO.getProductsByCategory(4);
-        List<ProductsHome> productsTop5Sellers = productsDAO.getTopBestSellers("5");
-        List<Categories> categories = categoriesDAO.loadCategory();
-        List<Brands> brands = brandsDAO.getBrands();
-
-        Map<Integer,Integer> productAverageStars = new HashMap<>();
-        List<ProductsHome> allProducts = productsMen;
-        allProducts.addAll(productsWomen);
-        allProducts.addAll(productsUnisex);
-        allProducts.addAll(giftSet);
-        allProducts.addAll(productsTop5Sellers);
-
-       for (ProductsHome product : allProducts) {
-            int averageStars = feedbackDAO.getAverageStartByProductID(product.getProductID());
-            productAverageStars.put(product.getProductID(), averageStars);
-        }
-
-        request.setAttribute("productAverageStars", productAverageStars);
         HttpSession session = request.getSession();
-        session.setAttribute("sliders", sliders);
-        request.setAttribute("productsMen", productsMen);
-        request.setAttribute("productsWomen", productsWomen);
-        request.setAttribute("productsUnisex", productsUnisex);
-        request.setAttribute("productGiftset", giftSet);
-        request.setAttribute("productsTopSellers", productsTop5Sellers);
-        request.setAttribute("brands", brands);
-        request.setAttribute("categories", categories);
-    
-        request.getRequestDispatcher("common/home.jsp").forward(request, response);
+        Accounts account = (Accounts) session.getAttribute("account");
+
+        if (account != null) {
+            CategoriesDAO categoriesDAO = new CategoriesDAO();
+            BrandsDAO brandsDAO = new BrandsDAO();
+            WishlistDAO wishlistDAO = new WishlistDAO();
+            List<Categories> categories = categoriesDAO.loadCategory();
+            List<Brands> brands = brandsDAO.getBrands();
+            List<WishlistItems> wishlist = wishlistDAO.getWishlistByAccountId(account.getAccountID());
+
+            request.setAttribute("brands", brands);
+            request.setAttribute("categories", categories);
+            request.setAttribute("wishlist", wishlist);
+            request.getRequestDispatcher("common/viewWishlist.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("login");
+        }
     }
 
     /**
@@ -122,7 +100,19 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        if (account != null) {
+            WishlistDAO wishlistDAO = new WishlistDAO();
+            wishlistDAO.removeFromWishlist(account.getAccountID(), productID);
+            List<WishlistItems> wishlist = wishlistDAO.getWishlistByAccountId(account.getAccountID());
+
+            request.setAttribute("wishlist", wishlist);
+            request.getRequestDispatcher("common/viewWishlist.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("login");
+        }
     }
 
     /**
