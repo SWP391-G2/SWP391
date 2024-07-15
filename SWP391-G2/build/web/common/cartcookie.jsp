@@ -316,7 +316,6 @@
                                     <td class="align-middle">${i.product.getProductPrice()}$</td>
                                     <td class="align-middle">
                                         <form action="shop" method="post" id="myForm${loop.index}" class="form">
-                                            <input type ="hidden" value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
                                             <div class="input-group quantity mx-auto">
                                                 <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
                                                 <input type="hidden" value="${i.getQuantity()}" name="quantity"/>

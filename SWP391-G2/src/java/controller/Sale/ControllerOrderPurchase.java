@@ -2,28 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.customer;
+package controller.Sale;
 
+import Dal.CartsDAO;
 import Dal.ProductDetailDAO;
 import Models.Cart;
-import Models.Item;
+import Models.Carts;
 import Models.ProductDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author hatru
  */
-public class UpdateCart extends HttpServlet {
+public class ControllerOrderPurchase extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class UpdateCart extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateCart</title>");
+            out.println("<title>Servlet ControllerOrderPurchase</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateCart at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControllerOrderPurchase at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,62 +62,17 @@ public class UpdateCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        ProductDetailDAO dao = new ProductDetailDAO();
-        List<ProductDetail> list = dao.getAll();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
-                }
-            }
+        CartsDAO dao = new CartsDAO();
+        List<Carts> listCart = dao.getAllCart();
+        ProductDetailDAO productDAO = new ProductDetailDAO();
+        List<ProductDetail> listProduct = new ArrayList<>();
+        for (Carts carts : listCart) {
+            ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
+            listProduct.add(p);
         }
-        Cart cart = new Cart(txt, list);
-        String num_raw = request.getParameter("num");
-        String id_raw = request.getParameter("id");
-//        response.getWriter().print(num_raw);
-//        response.getWriter().print(id_raw);
-        String name = request.getParameter("name");
-        int id, num = -2;
-        try {
-            id = Integer.parseInt(id_raw);
-            ProductDetail p = dao.getProductDetail(id);
-            int numstock = p.getProductAvaiable();
-            num = Integer.parseInt(num_raw);
-            if (num == -1 && (cart.getQuantityById(id) <= 1)) {
-                cart.removeItem(id);
-            } else {
-                if (num == 1 && cart.getQuantityById(id) >= numstock) {
-                    num = 0;
-                }
-                //BigDecimal price = p.getProductPrice();
-                Item t = new Item(p, num, name);
-                cart.addItem(t);
-            }
-        } catch (NumberFormatException e) {
-
-        }
-        List<Item> items = cart.getItems();
-        txt = "";
-        if (items.size() > 0) {
-            txt = items.get(0).getProduct().getProductFullDetailID()+ ":"
-                    + items.get(0).getQuantity()+ ":"
-                     + items.get(0).getName();
-            for (int i = 1; i < items.size(); i++) {
-                txt += "," + items.get(i).getProduct().getProductFullDetailID() + ":"
-                        + items.get(i).getQuantity() + ":" + items.get(i).getName();
-            }
-        }
-        Cookie c = new Cookie("cart", txt);
-        c.setMaxAge(15 * 24 * 60 * 60);
-        response.addCookie(c);
-        request.setAttribute("cart", cart);
-        request.getRequestDispatcher("common/cartcookie.jsp").forward(request, response);
-
+        request.setAttribute("listproduct", listProduct);
+        request.setAttribute("listcart", listCart);
+        request.getRequestDispatcher("order.jsp").forward(request, response);
     }
 
     /**
@@ -132,7 +86,7 @@ public class UpdateCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+
     }
 
     /**

@@ -113,7 +113,7 @@ public class ShopServlet extends HttpServlet {
         String add = request.getParameter("add");
         String minus = request.getParameter("minus");
         String id_raw = request.getParameter("pdID");
-        String deletecard = request.getParameter("deletecard");
+        //String deletecard = request.getParameter("deletecard");
 //        response.getWriter().print(num_raw);
 //        response.getWriter().print(id_raw);
         String name = request.getParameter("name");
@@ -126,18 +126,14 @@ public class ShopServlet extends HttpServlet {
             minusnum = Integer.parseInt(minus);
             if (minusnum == -1 && (cart.getQuantityById(id) <= 1)) {
                 cart.removeItem(id);
-            } 
-            if(deletecard != null){
-                cart.removeItem(id);
-            }
-            else {
-                if (addnum == 1 && cart.getQuantityById(id) >= numstock) {
-                    addnum = 0;
-                }
-                //BigDecimal price = p.getProductPrice();
-                Item t = new Item(p, addnum, name);
+                 Item t = new Item(p, minusnum, name);
                 cart.addItem(t);
-            }
+            } 
+             if (addnum == 1 && (cart.getQuantityById(id) >= numstock)) {
+                addnum =0;
+                 Item t = new Item(p, addnum, name);
+                cart.addItem(t);
+            }         
         } catch (NumberFormatException e) {
 
         }

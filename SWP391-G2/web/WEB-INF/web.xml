@@ -164,6 +164,10 @@
         <servlet-name>UpdateCart</servlet-name>
         <servlet-class>controller.customer.UpdateCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaleControllerOrder</servlet-name>
+        <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -327,5 +331,9 @@
     <servlet-mapping>
         <servlet-name>UpdateCart</servlet-name>
         <url-pattern>/updatecart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleControllerOrder</servlet-name>
+        <url-pattern>/saleorder</url-pattern>
     </servlet-mapping>
 </web-app>
