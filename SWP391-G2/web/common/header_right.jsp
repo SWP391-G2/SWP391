@@ -72,11 +72,14 @@
                             <i class="fa fa-solid fa-user"></i>
                         </a>
                     </div>
-                    <a id="logout" href="#" onclick="confirmLogout('logoutModal')">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-
-                    </a>
-                    <div id="logoutModal" class="modal"></div>
+                    <div class="logout">
+                        <a id="logout" href="#" onclick="confirmLogout('logoutModal')">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            
+                        </a>
+                        <div id="logoutModal" class="modal"></div>
+                    </div>
+                    
 
                 </c:if> 
 
@@ -86,8 +89,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>   
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
-        <script src="js/countdown.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-        <script src="js/clickevents.js"></script>      
+        <script src="js/clickeventss.js"></script>      
     </body>
 </html>
