@@ -119,8 +119,7 @@
                                         <th scope="col">Full Name</th>
                                         <th scope="col">Gender</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
+                                        <th scope="col">BirthDate</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Details</th>
                                     </tr>
@@ -130,10 +129,16 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
                                             <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} + ${user.getLastName()}</a></td>
-                                            <td>${user.getGender()}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${user.getGender() == 1}">Male</c:when>
+                                                    <c:when test="${user.getGender() == 2}">Female</c:when>
+                                                    <c:when test="${user.getGender() == 3}">None</c:when>
+                                                    <c:otherwise>User</c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>${user.getEmail()}</td>
-                                            <td>${user.getPhone()}</td>
-                                            <td>${user.getAddress()}</td>
+                                            <td><fmt:formatDate value='${user.getBirthDay()}' pattern='yyyy-MM-dd'/></td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${user.getRoleID() == 1}">Admin</c:when>

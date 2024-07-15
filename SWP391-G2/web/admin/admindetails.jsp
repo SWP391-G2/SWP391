@@ -61,29 +61,21 @@
                                 <input type="text" class="form-control" id="lastName" name="lastName"
                                        value="${data.getLastName()}" readonly>
                             </div>
+                            
+                        </div>
+
+                        <div class="form-group row">
                             <div class="col-4">
                                 <label for="email">Date Of Birth:</label>
                                 <input type="date" class="form-control" id="dob" name="dob"
                                        value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" readonly>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
                             <div class="col-4">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email" name="email"
                                        value="${data.getEmail()}" readonly>
                             </div>
-                            <div class="col-4">
-                                <label for="phone">Phone Number:</label>
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                       value="${data.getPhone()}" readonly>
-                            </div>
-                            <div class="col-4">
-                                <label for="phone">Adress:</label>
-                                <input type="text" class="form-control" id="address" name="address"
-                                       value="${data.getAddress()}" readonly>
-                            </div>
+
                         </div>
                         <div class="form-group row">
                             <div class="col-2">

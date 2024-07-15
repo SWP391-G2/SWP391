@@ -431,7 +431,7 @@ public class AccountsDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " ac.Status = ?";
+                sql += " Status = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {

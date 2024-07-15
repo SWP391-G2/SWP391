@@ -103,7 +103,7 @@ public class AdminControlAccount extends HttpServlet {
         } catch (Exception e) {
         }
         AccountsDAO daoAccount = new AccountsDAO();
-        List<AccountsEmployee> listAccount = daoAccount.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<Accounts> listAccount = daoAccount.getListByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = daoAccount.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
         List<Role> listRole = daoRole.getAllRoles();
@@ -228,7 +228,7 @@ public class AdminControlAccount extends HttpServlet {
 
         }
         //List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
-        List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<Accounts> listAccount = dao.getListByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = dao.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
 
