@@ -6,6 +6,7 @@ package Dal;
 
 import context.DBContext;
 import Models.ProductDetail;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

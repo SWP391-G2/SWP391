@@ -96,16 +96,16 @@ public class HomeServlet extends HttpServlet {
             productAverageStars.put(product.getProductID(), averageStars);
         }
 
-          request.setAttribute("productAverageStars", productAverageStars);
+        request.setAttribute("productAverageStars", productAverageStars);
         HttpSession session = request.getSession();
         session.setAttribute("sliders", sliders);
-        request.setAttribute("categories", categories);
         request.setAttribute("productsMen", productsMen);
         request.setAttribute("productsWomen", productsWomen);
         request.setAttribute("productsUnisex", productsUnisex);
         request.setAttribute("productGiftset", giftSet);
         request.setAttribute("productsTopSellers", productsTop5Sellers);
         request.setAttribute("brands", brands);
+        request.setAttribute("categories", categories);
     
         request.getRequestDispatcher("common/home.jsp").forward(request, response);
     }

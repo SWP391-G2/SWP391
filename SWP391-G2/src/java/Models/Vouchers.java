@@ -9,8 +9,10 @@ package Models;
  * @author nguye
  */
 import java.sql.Date;
+
 public class Vouchers {
-     private int voucherID;
+
+    private int voucherID;
     private String code;
     private double discount;
     private Date expiryDate;
@@ -43,7 +45,6 @@ public class Vouchers {
     public Vouchers() {
     }
 
-    
     public int getVoucherID() {
         return voucherID;
     }
@@ -107,6 +108,5 @@ public class Vouchers {
     public void setStatus(int status) {
         this.status = status;
     }
-    
-    
+
 }

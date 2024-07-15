@@ -61,7 +61,7 @@ public class BrandsDAO extends DBContext {
             }
         }
 
-        sql += " ORDER BY BrandID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY  BrandID desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index

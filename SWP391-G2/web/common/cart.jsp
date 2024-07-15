@@ -307,7 +307,7 @@
                         <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
                             <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${listproduct[loop.index].getImage()}</td>
+                                    <td class="align-middle"><img width="150px" height="150px" src="${listcart[loop.index].getImage()}" alt="alt"/></td>
                                     <td class="align-middle">${listcart[loop.index].getName()}</td>
                                     <td class="align-middle">${listproduct[loop.index].getProductSize()}</td>
                                     <td class="align-middle">${listproduct[loop.index].getProductPrice()}$</td>

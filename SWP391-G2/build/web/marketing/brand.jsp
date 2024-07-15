@@ -178,14 +178,14 @@
                                                     <c:when test="${brand.getStatus() == 1}">
                                                         <a  onclick="showAlert('Marketing blocked successfully!',${brand.getBrandID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
-                                                                View
+                                                                Block
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                     <c:when test="${brand.getStatus() == 0}">
                                                         <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
                                                             <button type="button" class="btn btn-success">
-                                                                Hide
+                                                                Unblock
                                                             </button>
                                                         </a>
                                                     </c:when>
@@ -335,48 +335,50 @@
         }
 
         function validateForm() {
-            // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
+            
+            var name = document.getElementById('name').value.trim();
+            var description = document.getElementById('description').value.trim();
 
-            // Lấy các phần tử để hiển thị lỗi
             var nameError = document.getElementById('nameError');
             var descriptionError = document.getElementById('descriptionError');
 
-            // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{0,198}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 2 đến 200 ký tự
+            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập toàn khoảng trắng
 
-            // Xóa thông báo lỗi trước đó
             nameError.textContent = '';
             descriptionError.textContent = '';
 
-            // Kiểm tra input
             var valid = true;
 
-            // Kiểm tra name
             if (isOnlyWhitespace(name)) {
                 nameError.textContent = 'Brand Name cannot contain only whitespace.';
                 valid = false;
             } else if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
+                nameError.textContent = 'Brand names must be between 2 and 200 characters, and contain only letters, numbers, and spaces.';
                 valid = false;
             } else if (/^\d+$/.test(name)) {
                 nameError.textContent = 'Brand Name cannot contain whole numbers.';
                 valid = false;
             }
 
-            // Kiểm tra description
             if (isOnlyWhitespace(description)) {
                 descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
                 valid = false;
             } else if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
+                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters.';
                 valid = false;
             }
 
-            // Nếu tất cả đều hợp lệ, return true để submit form
+            if (valid) {
+                document.getElementById('name').value = name;
+                document.getElementById('description').value = description;
+            }
+
             return valid;
+        }
+
+        function isOnlyWhitespace(input) {
+            return /^\s*$/.test(input);
         }
     </script>
     <script>

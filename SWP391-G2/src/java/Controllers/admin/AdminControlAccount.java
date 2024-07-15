@@ -10,19 +10,18 @@ import Models.Accounts;
 import Models.AccountsEmployee;
 import Models.Role;
 import Util.Security;
+import Util.Validation;
+import static Util.Validation.isValidFirstName;
+import static Util.Validation.isValidLastName;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -100,7 +99,7 @@ public class AdminControlAccount extends HttpServlet {
         } catch (Exception e) {
         }
         AccountsDAO daoAccount = new AccountsDAO();
-        List<AccountsEmployee> listAccount = daoAccount.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<Accounts> listAccount = daoAccount.getListByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = daoAccount.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
         List<Role> listRole = daoRole.getAllRoles();
@@ -114,7 +113,7 @@ public class AdminControlAccount extends HttpServlet {
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-            //response.getWriter().print(listAccount.get(0).toString());
+        //response.getWriter().print(listAccount.get(0).toString());
     }
 
     /**
@@ -130,6 +129,9 @@ public class AdminControlAccount extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         AccountsDAO dao = new AccountsDAO();
+        Validation valid = new Validation();
+        RoleDAO roledao = new RoleDAO();
+        List<Role> listRole = roledao.getAllRolesSaleMarket();
 
         String search = "";
         int roleId = -1;
@@ -150,23 +152,34 @@ public class AdminControlAccount extends HttpServlet {
         String email = request.getParameter("email");
 
         try {
-
             Accounts account = dao.getAccount(email);
             if (account == null) {
                 String firstName = request.getParameter("firstname");
+                if (isValidFirstName(firstName) == false) {
+                    request.setAttribute("error", "firstname is wrong format!");
+                    request.setAttribute("listRole", listRole);
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
+                }
                 String lastName = request.getParameter("lastname");
-                String image = request.getParameter("image");
+                if (isValidLastName(lastName) == false) {
+                    request.setAttribute("error", "lastname is wrong format!");
+                    request.setAttribute("listRole", listRole);
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
+                }
+                if (!valid.CheckPass(password)) {
+                    request.setAttribute("error", "Password must containsAt least 8 characters length At least 1 number (0..9) At least 1 lowercase letter (a..z)At least 1 special symbol (!..$)At least 1 uppercase letter (A..Z)");
+                    request.setAttribute("listRole", listRole);
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
+                }
+                String image = "";
 // Removed unnecessary parts for brevity
 
                 String gender1 = request.getParameter("gender");
-
-                String address = request.getParameter("address");
 
                 String roleID1 = request.getParameter("roleID");
 
                 int roleID = -1;
                 int gender = -1;
-                Date birthday = null;
 
                 try {
 
@@ -175,46 +188,43 @@ public class AdminControlAccount extends HttpServlet {
                 } catch (NumberFormatException e) {
                     System.out.println(e);
                 }
-                out.print(gender1);
-
-                out.print(roleID1);
-                String datebirthday = request.getParameter("birthday");
+                String datebirthday = request.getParameter("birthDate");
                 Date createdate = new Date(System.currentTimeMillis());
 
 // Add debugging information
                 SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    java.util.Date utilDate = formatdate.parse(datebirthday);
-                    birthday = new Date(utilDate.getTime());
-                } catch (ParseException e) {
-                    System.out.println("Error parsing date: " + e.getMessage());
-                    e.printStackTrace();
-                }
                 Security security = new Security();
-                String p = null;
-                try {
-                    p = security.getPasswordSecurity(password);
-                } catch (Exception ex) {
 
-                }
-
+                java.util.Date utilDate = formatdate.parse(datebirthday);
+                Date birthday = new Date(utilDate.getTime());
+                String p = security.getPasswordSecurity(password);
                 Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, email, 1, createdate, roleID);
 
-                dao.setInsertAccount(a);
-                request.setAttribute("success", "Create successfully!");
+                response.getWriter().println(firstName);
+                response.getWriter().println(lastName);
+                response.getWriter().println(p);
+                response.getWriter().println(gender);
+                response.getWriter().println(birthday);
+                response.getWriter().println(email);
+                response.getWriter().println(createdate);
+                response.getWriter().println(roleID);
+                dao.setInsert(a);
 
             } else {
-                throw new Exception("Email is esixt!!");
+                request.setAttribute("error", "Email already exist!");
+                request.setAttribute("listRole", listRole);
+                request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
             }
-
+            response.getWriter().println(email);
         } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
 
         }
-        List<AccountsEmployee> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        response.getWriter().print(email);
+
+        //List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<Accounts> listAccount = dao.getListByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = dao.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
-        List<Role> listRole = daoRole.getAllRoles();
 
         request.setAttribute("search", search);
         request.setAttribute("roleId", roleId);
@@ -224,7 +234,6 @@ public class AdminControlAccount extends HttpServlet {
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-
     }
 
     /**

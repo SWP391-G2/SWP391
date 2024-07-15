@@ -59,19 +59,7 @@ public class SaleControllerOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         //processRequest(request, response);
-        int status_new = -1;
-        int brandID = -1;
-        try {
-            status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
-            brandID = request.getParameter("brandID") == null ? -1 : Integer.parseInt(request.getParameter("brandID"));
-        } catch (Exception e) {
-        }
-
-        if (status_new != -1) {
-            BrandsDAO brandDAO = new BrandsDAO();
-            brandDAO.updateStatusBrand(status_new, brandID);
-        }
-
+     
         String search = "";
         int status = -1;
         int pageNo = 1;

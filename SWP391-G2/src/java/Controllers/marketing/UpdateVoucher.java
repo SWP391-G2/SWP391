@@ -109,6 +109,8 @@ public class UpdateVoucher extends HttpServlet {
         String CreateDate = request.getParameter("createDate");
         String StartDate = request.getParameter("startDate");
         String EndDate = request.getParameter("endDate");
+        VouchersDAO voucherDAO = new VouchersDAO();
+       
         try {
             int id = Integer.parseInt(voucherID);
             int status = Integer.parseInt(statusnew);
@@ -116,8 +118,7 @@ public class UpdateVoucher extends HttpServlet {
             int quantity = Integer.parseInt(quantity_raw);
             Date create = Date.valueOf(CreateDate);
             Date start = Date.valueOf(StartDate);
-            Date end = Date.valueOf(EndDate);
-            VouchersDAO voucherDAO = new VouchersDAO();
+            Date end = Date.valueOf(EndDate);  
             voucherDAO.UpdateVoucher(code, discount, end, start, quantity, create, status, id);
             response.sendRedirect("voucher");
         } catch (Exception e) {

@@ -36,7 +36,7 @@
                 <div class="header_container sticky-header" style="padding: 0">
                     <div class="container-fluid" style="background-color: black">
                         <div class="row align-items-center" style="padding: 8px 0">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <div class="logo">
                                     <a href="home"><img src="images/logo/logo0.png" alt=""></a>
                                 </div>
@@ -104,7 +104,7 @@
                                     </form>
                                 </div>
                             </div>                 
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <jsp:include page="header_right.jsp"/>
                             </div>
                         </div>
@@ -117,17 +117,29 @@
                 <div class="row gx-5 align-items-center">
                     <aside class="col-lg-5">
                         <div class="mb-3">
+<<<<<<< HEAD
                             <img id="product-image" src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded-4 shadow">
+=======
+                            <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
+>>>>>>> 643208164fd27432cd1560c58848fd949621ee44
                         </div>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
+<<<<<<< HEAD
                                     <img src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
+=======
+                                    <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
+>>>>>>> 643208164fd27432cd1560c58848fd949621ee44
                                 </div>
                                 
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
+<<<<<<< HEAD
                                         <img src="${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
+=======
+                                        <img src="${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
+>>>>>>> 643208164fd27432cd1560c58848fd949621ee44
                                     </div>
                                 </c:forEach>
                             </div>

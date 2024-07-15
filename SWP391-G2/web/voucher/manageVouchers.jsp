@@ -157,16 +157,16 @@
                                 <div class="col-2">
                                     <div class="col-12">Start Date</div>
                                     <div class="input-group">                           
-                                        <input type="date" class="form-control" name="start" placeholder="${start}"  id="start" >
+                                        <input type="date" class="form-control" name="start" value="${start}"  id="start" >
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="col-12">End Date</div>
                                     <div class="input-group">                
-                                        <input type="date" class="form-control" name="end" placeholder="${end}"  id="end" >
+                                        <input type="date" class="form-control" name="end" value="${end}"  id="end" >
                                     </div>
                                 </div>
-                                    <button class="col-1" type="submit">Filter</button>
+                                <button class="col-1" type="submit">Filter</button>
                             </div>
                         </form>
                     </div>

@@ -33,10 +33,6 @@
         <servlet-class>Controllers.AdminSale</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>Controllers.CartController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminControlAccount</servlet-name>
         <servlet-class>Controllers.admin.AdminControlAccount</servlet-class>
     </servlet>
@@ -153,13 +149,20 @@
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>VoucherManager</servlet-name>
         <servlet-class>Controllers.marketing.VoucherManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateVoucher</servlet-name>
         <servlet-class>Controllers.marketing.UpdateVoucher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.AddToWishlistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.ViewWishlistServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartCookieController</servlet-name>
@@ -180,6 +183,18 @@
     <servlet>
         <servlet-name>SaleControllerOrder</servlet-name>
         <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleOrderDetails</servlet-name>
+        <servlet-class>controller.Sale.SaleOrderDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddAccount</servlet-name>
+        <servlet-class>Controllers.admin.AdminAddAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Order</servlet-name>
+        <servlet-class>controller.Sale.Order</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -212,10 +227,6 @@
     <servlet-mapping>
         <servlet-name>AdminSale</servlet-name>
         <url-pattern>/adminsale</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminControlAccount</servlet-name>
@@ -334,7 +345,6 @@
         <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
- 
         <servlet-name>VoucherManager</servlet-name>
         <url-pattern>/voucher</url-pattern>
     </servlet-mapping>
@@ -342,7 +352,14 @@
         <servlet-name>UpdateVoucher</servlet-name>
         <url-pattern>/updatevoucher</url-pattern>
     </servlet-mapping>
-        
+    <servlet-mapping>
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <url-pattern>/addToWishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <url-pattern>/viewWishlist</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CartCookieController</servlet-name>
         <url-pattern>/cartcookie</url-pattern>
@@ -362,6 +379,17 @@
     <servlet-mapping>
         <servlet-name>SaleControllerOrder</servlet-name>
         <url-pattern>/saleorder</url-pattern>
-         
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleOrderDetails</servlet-name>
+        <url-pattern>/saleorderdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddAccount</servlet-name>
+        <url-pattern>/adminaddaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Order</servlet-name>
+        <url-pattern>/order</url-pattern>
     </servlet-mapping>
 </web-app>

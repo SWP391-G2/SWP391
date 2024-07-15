@@ -416,6 +416,243 @@ public class ProductsDAO extends DBContext {
         return products;
     }
 
+    public List<ProductsHome> getProductsByPricerangeAndCateAndBrand(int minPrice, int maxPrice, int[] categoryIDs, int[] brandIDs) {
+        List<ProductsHome> products = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT p.*, ")
+                .append("origPrices.priceMin AS priceMin, ")
+                .append("origPrices.priceMax AS priceMax ")
+                .append("FROM Products p ")
+                .append("JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID ")
+                .append("JOIN (SELECT pdProductID, ")
+                .append("             MIN(ProductPrice) AS priceMin, ")
+                .append("             MAX(ProductPrice) AS priceMax ")
+                .append("      FROM ProductFullDetail ")
+                .append("      GROUP BY pdProductID) origPrices ")
+                .append("ON p.ProductID = origPrices.pdProductID ")
+                .append("WHERE pd.ProductPrice BETWEEN ? AND ? ");
+
+        // Adding category filter if categoryIDs are provided
+        if (categoryIDs != null && categoryIDs.length > 0) {
+            sql.append("AND p.CategoryID IN (");
+            for (int i = 0; i < categoryIDs.length; i++) {
+                sql.append("?");
+                if (i < categoryIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        // Adding brand filter if brandIDs are provided
+        if (brandIDs != null && brandIDs.length > 0) {
+            sql.append("AND p.BrandID IN (");
+            for (int i = 0; i < brandIDs.length; i++) {
+                sql.append("?");
+                if (i < brandIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, ")
+                .append("p.ProductStatus, p.ProductImageUrl, p.BrandID, origPrices.priceMin, origPrices.priceMax");
+
+        try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+            int index = 1;
+            ps.setInt(index++, minPrice);
+            ps.setInt(index++, maxPrice);
+
+            if (categoryIDs != null && categoryIDs.length > 0) {
+                for (int categoryID : categoryIDs) {
+                    ps.setInt(index++, categoryID);
+                }
+            }
+
+            if (brandIDs != null && brandIDs.length > 0) {
+                for (int brandID : brandIDs) {
+                    ps.setInt(index++, brandID);
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<ProductsHome> getProductsByPriceLowToHigh(int[] categoryIDs, int[] brandIDs) {
+        List<ProductsHome> products = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT p.*, ")
+                .append("origPrices.priceMin AS priceMin, ")
+                .append("origPrices.priceMax AS priceMax ")
+                .append("FROM Products p ")
+                .append("JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID ")
+                .append("JOIN (SELECT pdProductID, ")
+                .append("             MIN(ProductPrice) AS priceMin, ")
+                .append("             MAX(ProductPrice) AS priceMax ")
+                .append("      FROM ProductFullDetail ")
+                .append("      GROUP BY pdProductID) origPrices ")
+                .append("ON p.ProductID = origPrices.pdProductID ")
+                .append("WHERE 1=1 ");
+
+        // Adding category filter if categoryIDs are provided
+        if (categoryIDs != null && categoryIDs.length > 0) {
+            sql.append("AND p.CategoryID IN (");
+            for (int i = 0; i < categoryIDs.length; i++) {
+                sql.append("?");
+                if (i < categoryIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        // Adding brand filter if brandIDs are provided
+        if (brandIDs != null && brandIDs.length > 0) {
+            sql.append("AND p.BrandID IN (");
+            for (int i = 0; i < brandIDs.length; i++) {
+                sql.append("?");
+                if (i < brandIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, ")
+                .append("p.ProductStatus, p.ProductImageUrl, p.BrandID, origPrices.priceMin, origPrices.priceMax ")
+                .append("ORDER BY priceMin ASC");
+
+        try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+            int index = 1;
+
+            if (categoryIDs != null && categoryIDs.length > 0) {
+                for (int categoryID : categoryIDs) {
+                    ps.setInt(index++, categoryID);
+                }
+            }
+
+            if (brandIDs != null && brandIDs.length > 0) {
+                for (int brandID : brandIDs) {
+                    ps.setInt(index++, brandID);
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<ProductsHome> getProductsByPriceHighToLow(int[] categoryIDs, int[] brandIDs) {
+        List<ProductsHome> products = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT p.*, ")
+                .append("origPrices.priceMin AS priceMin, ")
+                .append("origPrices.priceMax AS priceMax ")
+                .append("FROM Products p ")
+                .append("JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID ")
+                .append("JOIN (SELECT pdProductID, ")
+                .append("             MIN(ProductPrice) AS priceMin, ")
+                .append("             MAX(ProductPrice) AS priceMax ")
+                .append("      FROM ProductFullDetail ")
+                .append("      GROUP BY pdProductID) origPrices ")
+                .append("ON p.ProductID = origPrices.pdProductID ")
+                .append("WHERE 1=1 ");
+
+        // Adding category filter if categoryIDs are provided
+        if (categoryIDs != null && categoryIDs.length > 0) {
+            sql.append("AND p.CategoryID IN (");
+            for (int i = 0; i < categoryIDs.length; i++) {
+                sql.append("?");
+                if (i < categoryIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        // Adding brand filter if brandIDs are provided
+        if (brandIDs != null && brandIDs.length > 0) {
+            sql.append("AND p.BrandID IN (");
+            for (int i = 0; i < brandIDs.length; i++) {
+                sql.append("?");
+                if (i < brandIDs.length - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(") ");
+        }
+
+        sql.append("GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, ")
+                .append("p.ProductStatus, p.ProductImageUrl, p.BrandID, origPrices.priceMin, origPrices.priceMax ")
+                .append("ORDER BY priceMin DESC");
+
+        try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+            int index = 1;
+
+            if (categoryIDs != null && categoryIDs.length > 0) {
+                for (int categoryID : categoryIDs) {
+                    ps.setInt(index++, categoryID);
+                }
+            }
+
+            if (brandIDs != null && brandIDs.length > 0) {
+                for (int brandID : brandIDs) {
+                    ps.setInt(index++, brandID);
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsHome product = new ProductsHome(
+                        rs.getInt("ProductID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getDate("ProductCreateDate"),
+                        rs.getInt("ProductStatus"),
+                        rs.getString("ProductImageUrl"),
+                        rs.getInt("BrandID"),
+                        rs.getBigDecimal("priceMin"),
+                        rs.getBigDecimal("priceMax")
+                );
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
 
     //Get Product by ProductID
     public Products getProductByProductID(int id) {
@@ -662,7 +899,7 @@ public class ProductsDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public List<Products> getProductSimilar(int id) {
         List<Products> p = new ArrayList<>();
         String sql = "select * from Products where BrandID = ?";
@@ -672,11 +909,11 @@ public class ProductsDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 p.add(new Products(
-                        rs.getInt(1),               
+                        rs.getInt(1),
                         rs.getString(2),
-                        rs.getDate(3),                        
+                        rs.getDate(3),
                         rs.getInt(4),
-                        rs.getString(5),                                        
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getInt(7)
                 ));
@@ -687,24 +924,24 @@ public class ProductsDAO extends DBContext {
         }
         return p;
     }
-    
+
     public static void main(String[] args) {
-        ProductsDAO dao = new ProductsDAO();
-//        Products product = new  Products(10, "d", 0, "1", 2, 1);
-//        dao.updateProduct(product);
-//        Date date = new Date(System.currentTimeMillis());
-//        Products product = new Products("test", date, 1, "1", 1, 1);
-//        dao.insertNewProduct(product);
-        System.out.println(dao.getTotalPage(1, -1, "", -1, 10));
+        ProductsDAO productsDAO = new ProductsDAO();
 
-        System.out.println(dao.getListProductByFilter(-1, -1,"", -1, 1, 10).size());
-        System.out.println(dao.getLastProductId());
+        // Example scenario: Simulating parameters or conditions you want to test
+//        int[] categoryIDs = {1, 2}; // Example category IDs
+//        int[] brandIDs = {3};      // Example brand IDs
+        int minPrice = 50;         // Example minimum price
+        int maxPrice = 100;
+        int[] categoryID = {1};
+        int[] brandID = {1};// Example maximum price
 
-        List<ProductsHome> proHome = dao.getProductsByBrand(1);
-        for (ProductsHome productsHome : proHome) {
-            System.out.println(productsHome.getProductName());
+        // Test getProductsByCategoriesAndBrandsAndPriceRange method
+        System.out.println("Testing getProductsByCategoriesAndBrandsAndPriceRange:");
+        List<ProductsHome> products1 = productsDAO.getProductsByPricerangeAndCateAndBrand(minPrice, maxPrice, categoryID, brandID);
+        for (ProductsHome product : products1) {
+            System.out.println(product.getPriceMin() + "-" + product.getPriceMax());
         }
     }
-
 
 }
