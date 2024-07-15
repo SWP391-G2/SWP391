@@ -151,20 +151,26 @@
                             </button>
                         </div>
                     </div>
-                    <form id="filterForm" action="filterVouchers" method="post">
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" name="start" value="${Start}" id="start" onchange="autoSubmitForm()" onblur="formatDate(this)">
+                    <div class="col-12" style="margin-top: 20px">
+                        <form id="filterForm" action="voucher" method="get">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="col-12">Start Date</div>
+                                    <div class="input-group">                           
+                                        <input type="date" class="form-control" name="start" placeholder="${start}"  id="start" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" name="end" value="${End}" id="end" onchange="autoSubmitForm()" onblur="formatDate(this)">
+                                <div class="col-2">
+                                    <div class="col-12">End Date</div>
+                                    <div class="input-group">                
+                                        <input type="date" class="form-control" name="end" placeholder="${end}"  id="end" >
+                                    </div>
                                 </div>
+                                    <button class="col-1" type="submit">Filter</button>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                                    
                     <!--                    <div class="col-3">
                     
                                             <div class="text-right">
@@ -341,7 +347,7 @@
 
 
     <script>
-                                                    
+
                                                     function autoSubmitForm() {
                                                         document.getElementById('voucher').submit();
                                                     }
@@ -374,56 +380,11 @@
                                                                 '&status=' + status + '&pageNo=' + pageNo;
                                                     }
     </script>
-    <script>
-        function validateForm() {
-            // Lấy giá trị của các input
 
-            var reply = document.getElementById('reply').value;
-
-            // Lấy các phần tử để hiển thị lỗi
-
-            var replyError = document.getElementById('replyError');
-
-            // Định nghĩa các regex cho kiểm tra input
-            //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
-
-            var reply = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
-
-            // Xóa thông báo lỗi trước đóx
-            replyError.textContent = '';
-
-            // Kiểm tra input
-            var valid = true;
-
-            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
-            if (/^\d+$/.test(reply)) {
-                reply.textContent = 'Reply cannot contain whole numbers.';
-                valid = false;
-            }
-
-            if (/^\s{2,}/.test(name)) {
-                reply.textContent = 'Reply cannot start with multiple spaces.';
-                valid = false;
-            }
-
-            if (!descriptionRegex.test(description)) {
-                reply.textContent = 'Reply must be from 10 to 200 characters.';
-                valid = false;
-            }
-
-            // Nếu tất cả đều hợp lệ, return true để submit form
-            return valid;
-        }
-    </script>
     <script>
         // handle filter search
 
-        const searchInput = document.querySelector('#search');
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                performSearch();
-            }
-        });
+
         const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function

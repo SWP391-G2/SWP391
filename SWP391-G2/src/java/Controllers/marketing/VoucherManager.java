@@ -114,7 +114,8 @@ public class VoucherManager extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listvoucher", listvoucher);
-
+        request.setAttribute("start", start);  
+        request.setAttribute("end", end);      
         request.getRequestDispatcher("voucher/manageVouchers.jsp").forward(request, response);
     }
 
