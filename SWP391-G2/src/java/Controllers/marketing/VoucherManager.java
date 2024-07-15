@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -140,7 +141,7 @@ public class VoucherManager extends HttpServlet {
         String EndDate = request.getParameter("endDate");
         try {
             int status = Integer.parseInt(statusnew);
-            int discount = Integer.parseInt(discounts);
+            double discount = Double.parseDouble(discounts);
             int quantity = Integer.parseInt(quantity_raw);
             Date create = new Date(System.currentTimeMillis());
             Date start = Date.valueOf(StartDate);

@@ -18,7 +18,7 @@ import java.sql.Date;
  */
 public class VouchersDAO extends DBContext {
 
-    public void InsertVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
+    public void InsertVoucher(String code, double discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
         String sql = "INSERT INTO [dbo].[Vouchers]\n"
                 + "           ([Code]\n"
                 + "           ,[Discount]\n"
@@ -32,7 +32,7 @@ public class VouchersDAO extends DBContext {
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, code);
-            ur.setInt(2, discount);
+            ur.setDouble(2, discount);
             ur.setDate(3, EndDate);
             ur.setDate(4, StartDate);
             ur.setInt(5, quantity);
@@ -44,7 +44,7 @@ public class VouchersDAO extends DBContext {
         }
     }
 
-    public void UpdateVoucher(String code, int discount, Date EndDate, Date StartDate, int quantity, Date Create, int status, int id) {
+    public void UpdateVoucher(String code, double discount, Date EndDate, Date StartDate, int quantity, Date Create, int status, int id) {
         String sql = "UPDATE [dbo].[Vouchers]\n"
                 + "   SET [Code] = ?,\n"
                 + "       [Discount] = ?,\n"
@@ -57,7 +57,7 @@ public class VouchersDAO extends DBContext {
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, code);
-            ur.setInt(2, discount);
+            ur.setDouble(2, discount);
             ur.setDate(3, EndDate);
             ur.setDate(4, StartDate);
             ur.setInt(5, quantity);
@@ -80,7 +80,7 @@ public class VouchersDAO extends DBContext {
                 return new Vouchers(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getFloat(3),
+                        rs.getDouble(3),
                         rs.getDate(4),
                         rs.getDate(5),
                         rs.getInt(6),
@@ -184,7 +184,7 @@ public class VouchersDAO extends DBContext {
                 Vouchers voucher = new Vouchers(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getFloat(3),
+                        rs.getDouble(3),
                         rs.getDate(4),
                         rs.getDate(5),
                         rs.getInt(6),

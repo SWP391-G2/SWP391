@@ -112,7 +112,7 @@ public class UpdateVoucher extends HttpServlet {
         try {
             int id = Integer.parseInt(voucherID);
             int status = Integer.parseInt(statusnew);
-            int discount = Integer.parseInt(discounts);
+            double discount = Double.parseDouble(discounts);
             int quantity = Integer.parseInt(quantity_raw);
             Date create = Date.valueOf(CreateDate);
             Date start = Date.valueOf(StartDate);

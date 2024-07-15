@@ -66,10 +66,18 @@
                             </div>
                             <!-- Other fields (Category, Brands, Status) -->
                             <div class="form-group row d-flex col-10 justify-content-between ">
-                                <div class="col-3 d-flex  align-items-center">
-                                    Discount:
-                                    <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" class="col-4 form-control">
-                                </div>
+                                <c:if test="${voucher.getVoucherID() != null}">
+                                    <div class="col-3 d-flex  align-items-center">
+                                        Discount:
+                                        <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" class="col-4 form-control">
+                                    </div>
+                                </c:if>
+                                <c:if test="${voucher.getVoucherID() == null}">
+                                    <div class="col-3 d-flex  align-items-center">
+                                        Discount:
+                                        <input type="text" name="discount" id="discount"  class="col-4 form-control">
+                                    </div> 
+                                </c:if>
                                 <div class="col-3 d-flex  align-items-center">
                                     Quantity:     
                                     <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  class="col-4 form-control">
@@ -98,7 +106,7 @@
                                     <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
                                     <% if (request.getAttribute("error") != null) { %>
                                     <div class="error">
-                                        <%= requestScope.error %>
+                                        <%= request.getAttribute("error") %>
                                     </div>
                                     <% } %>
 
@@ -141,21 +149,48 @@
     crossorigin="anonymous"></script>
     <script>
 
-
-
         document.addEventListener("DOMContentLoaded", function () {
             const discountInput = document.getElementById("discount");
+
+// Không hiển thị giá trị mặc định là 0
+            if (parseFloat(discountInput.defaultValue) === 0) {
+                discountInput.defaultValue = '';
+            }
+
             discountInput.addEventListener("input", function () {
                 let value = discountInput.value;
-                // Chỉ giữ lại các ký tự số
-                value = value.replace(/[^0-9]/g, '');
-                // Loại bỏ các số ngoài khoảng 1 đến 99
-                if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 99)) {
-                    value = discountInput.defaultValue;
+
+                // Chỉ giữ lại các ký tự số và dấu chấm thập phân
+                value = value.replace(/[^0-9.]/g, '');
+
+                // Đảm bảo chỉ có một dấu chấm thập phân
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
                 }
+
+                // Giới hạn số chữ số thập phân (ở đây giới hạn 2 chữ số thập phân)
+                if (parts.length > 1 && parts[1].length > 2) {
+                    value = parts[0] + '.' + parts[1].substring(0, 2);
+                }
+
+                // Chuyển đổi giá trị thành số thực (float) để kiểm tra phạm vi
+                const numericValue = parseFloat(value);
+
+                // Loại bỏ các số ngoài khoảng 1 đến 99
+                if (!isNaN(numericValue) && (numericValue < 1 || numericValue > 99)) {
+                    value = discountInput.defaultValue.toString();
+                }
+
                 discountInput.value = value;
             });
-            discountInput.defaultValue = parseInt(discountInput.defaultValue) || 0;
+
+// Loại bỏ giá trị mặc định là 0 khi tải trang
+            if (discountInput.value === '0') {
+                discountInput.value = '';
+            }
+            
+
             const quantityInput = document.getElementById("quantity");
             quantityInput.addEventListener("input", function () {
                 let value = quantityInput.value;
@@ -168,7 +203,7 @@
                 quantityInput.value = value;
             });
         });
-        
+
         function updateForm() {
             var form = document.getElementById('productForm');
             // Gọi hành động submit của form
