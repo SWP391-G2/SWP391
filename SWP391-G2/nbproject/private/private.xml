@@ -3,96 +3,40 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/add-new-product-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/addressmain.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/CategoryController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Cart.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/addressdetail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Address.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/login.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-navigation.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/footer.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/header_right.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/LoginGoogleHandler.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/vnpay/Config.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/assets/css/cssCart.css</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/BlogResponseDTO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/sale/saleorder.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/Sale/SaleControllerOrder.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CartController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Orders.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AddressDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/assets/css/testcss/css/style.css</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/product-detail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/editaddress.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminProfile.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/UpdateCart.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AddBlogController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandDetailController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/assets/css/homestyle.css</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-profile.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/OrderDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/profile.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/Sale/SaleOrderDetails.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/ProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Security.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Products.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/Sale/order.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/SliderDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Item.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/CartsDAO.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/createaccount.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/Sale/ControllerOrderPurchase.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/manager-products.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/update-product-detail.jsp</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminBlockStatus.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Carts.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/CartController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/BlogDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-navigation.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/ajax/search_slider_ajax.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Validation.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/addaccount.jsp</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminDetails.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Email.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/RoleDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/home.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/OrderDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminAddAccount.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/category.jsp</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/AccountsEmployee.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/Login.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/forgotpasswordotp.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/brand.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingManagerProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateProductDetail.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/MarketingAddProductDetail.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/AddressDAO.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/ForgotPassword.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/product-detail.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Role.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminProfile.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AddBlogController.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admindetails.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/vnpay/VNPAY.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/product-profile.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/common/DetailOfProduct.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/FeedbackDAO.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/checkout.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/order.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/changepassword.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/ajax/search_ajax.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/manage-category-detail.jsp</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/add-product.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/OrderDetailDAO.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/marketing/branddetails.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/FeedBacks.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/email.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/admin-profile.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/admin/adminadd.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/signup.jsp</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cart.jsp</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/marketing/ManagerCategory.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Dal/CategoriesDAO.java</file>
         </group>
     </open-files>
 </project-private>

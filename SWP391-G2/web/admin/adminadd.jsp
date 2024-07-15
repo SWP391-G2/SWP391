@@ -45,30 +45,8 @@
                 border-color: #f5c6cb; /* Viền đỏ nhạt */
             }
 
-            /* Form Control */
-            .form-control {
-                border-radius: 4px; /* Bo góc các trường nhập liệu */
-                border: 1px solid #ced4da; /* Màu viền sáng */
-                padding: 10px; /* Padding để tăng kích thước các trường nhập liệu */
-            }
-
-            /* Nút bấm */
-            .btn {
-                border-radius: 4px; /* Bo góc cho các nút */
-                font-weight: bold; /* Chữ đậm */
-            }
-
-            /* Nút bấm Close */
-            .btn-secondary {
-                background-color: #6c757d; /* Màu nền nút Close */
-                color: #fff; /* Màu chữ trắng */
-            }
-
-            /* Nút bấm Add New */
-            .btn-primary {
-                background-color: #007bff; /* Màu nền nút Add New */
-                color: #fff; /* Màu chữ trắng */
-            }
+           
+            
         </style>
     </head>
 
