@@ -106,7 +106,7 @@
                                     <c:forEach items="${listProduct}" varStatus="loop" var="listProduct">
                                         <tr>
                                             <td>${listProduct.productID}</td>
-                                            <td><img src="images/Products/${cateListName[listProduct.getFk_category_id()-1]}/${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
+                                            <td><img src="${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
                                             <td><a href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
                                             <td>${listCate[listProduct.getCategoryID()-1].getCategoryName()}</td>                                      
                                             <td>${listBrands[listProduct.getBrandID()-1].getBrandName()}</td>   

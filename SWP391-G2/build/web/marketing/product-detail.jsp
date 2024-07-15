@@ -123,7 +123,7 @@
                                     <c:forEach items="${requestScope.listDetail}" varStatus="loop" var="detail">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-                                            <td><img src="images/Products/${cateName}/${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
+                                            <td><img src="${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
                                             <td class="w-50" >${detail.getProductDescription()}</td>
                                             <td>${detail.getProductCreateDate()}</td>  
                                             <td>${detail.getProductSize()}</td> 
