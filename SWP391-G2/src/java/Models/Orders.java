@@ -19,7 +19,6 @@ public class Orders {
     private String orderContactName;
     private String orderPhone;
     private String orderAddress;
-    private int orderStatus;
     private Date orderReceiveDate;
     private String orderNote;
     private int orderSoID;
@@ -84,14 +83,6 @@ public class Orders {
         this.orderAddress = orderAddress;
     }
 
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     public Date getOrderReceiveDate() {
         return orderReceiveDate;
     }
@@ -124,21 +115,20 @@ public class Orders {
         this.voucherID = voucherID;
     }
 
-    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, int orderStatus, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
         this.orderAddress = orderAddress;
-        this.orderStatus = orderStatus;
         this.orderReceiveDate = orderReceiveDate;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
 
-    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, int orderStatus, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
@@ -146,7 +136,6 @@ public class Orders {
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
         this.orderAddress = orderAddress;
-        this.orderStatus = orderStatus;
         this.orderReceiveDate = orderReceiveDate;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;

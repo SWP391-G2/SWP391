@@ -411,16 +411,13 @@ CREATE TABLE [dbo].[Cart] (
 GO
 /* ============[WishList] TABLE============*/
 DROP TABLE IF EXISTS [dbo].[WishList];
-CREATE TABLE [dbo].[WishList] (
-    WishListID INT PRIMARY KEY IDENTITY(1,1),
-    ProductFullDetailID INT NOT NULL,
-    AccountID INT NOT NULL,
-    TotalPrice DECIMAL(18,2),
-    ProductName NVARCHAR(255),
-    ProductSize NVARCHAR(MAX),
-    image VARCHAR(100),
-    FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts]([AccountID]),
-    FOREIGN KEY (ProductFullDetailID) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
+CREATE TABLE [dbo].[Wishlist] (
+    [WishlistID] [INT] PRIMARY KEY IDENTITY(1,1),
+    [AccountID] [INT] NOT NULL,
+    [ProductID] [INT] NOT NULL,
+    [DateAdded] DATE NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY ([AccountID]) REFERENCES [dbo].[Accounts]([AccountID]),
+    FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Products]([ProductID])
 );
 /*======= INSERT VALUE OF [WishList] TABLE =======*/
 
