@@ -20,6 +20,56 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <style>
+            .form-title {
+                font-size: 2.5rem; /* Kích thước chữ lớn */
+                color: #333; /* Màu chữ tối */
+                text-align: center; /* Căn giữa tiêu đề */
+                margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+                font-weight: bold; /* Chữ đậm */
+            }
+
+            /* Thông báo lỗi */
+            .alert {
+                padding: 15px;
+                border-radius: 4px;
+                margin-bottom: 20px; /* Khoảng cách giữa thông báo lỗi và form */
+                font-size: 1rem; /* Kích thước chữ */
+                font-weight: bold; /* Chữ đậm */
+            }
+
+            /* Cải tiến thông báo lỗi cho dạng danger */
+            .alert-danger {
+                color: #721c24; /* Màu chữ đỏ đậm */
+                background-color: #f8d7da; /* Nền đỏ nhạt */
+                border-color: #f5c6cb; /* Viền đỏ nhạt */
+            }
+
+            /* Form Control */
+            .form-control {
+                border-radius: 4px; /* Bo góc các trường nhập liệu */
+                border: 1px solid #ced4da; /* Màu viền sáng */
+                padding: 10px; /* Padding để tăng kích thước các trường nhập liệu */
+            }
+
+            /* Nút bấm */
+            .btn {
+                border-radius: 4px; /* Bo góc cho các nút */
+                font-weight: bold; /* Chữ đậm */
+            }
+
+            /* Nút bấm Close */
+            .btn-secondary {
+                background-color: #6c757d; /* Màu nền nút Close */
+                color: #fff; /* Màu chữ trắng */
+            }
+
+            /* Nút bấm Add New */
+            .btn-primary {
+                background-color: #007bff; /* Màu nền nút Add New */
+                color: #fff; /* Màu chữ trắng */
+            }
+        </style>
     </head>
 
     <body>
@@ -30,7 +80,12 @@
                 <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                     <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                 <div class="col-12" style="margin-bottom: 40px;">
-                    <h1>Add New Account</h1>
+                    <h1 class="form-title">Add New Account</h1>
+                    <c:if test="${requestScope.error != null}">
+                        <div class="alert alert-danger" role="alert">
+                            ${requestScope.error}
+                        </div>
+                    </c:if>
                 </div>
                 <form action="admincontrolaccount" method="post" >
                     <input type="text" value="${data.getAccountID()}" name="id" hidden>

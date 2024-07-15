@@ -134,6 +134,8 @@ public class AdminControlAccount extends HttpServlet {
         PrintWriter out = response.getWriter();
         AccountsDAO dao = new AccountsDAO();
         Validation valid = new Validation();
+        RoleDAO roledao = new RoleDAO();
+        List<Role> listRole = roledao.getAllRolesSaleMarket();
 
         String search = "";
         int roleId = -1;
@@ -159,15 +161,18 @@ public class AdminControlAccount extends HttpServlet {
                 String firstName = request.getParameter("firstname");
                 if (isValidFirstName(firstName) == false) {
                     request.setAttribute("error", "firstname is wrong format!");
+                    request.setAttribute("listRole", listRole);
                     request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
                 }
                 String lastName = request.getParameter("lastname");
                 if (isValidLastName(lastName) == false) {
                     request.setAttribute("error", "lastname is wrong format!");
+                    request.setAttribute("listRole", listRole);
                     request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
                 }
                 if (!valid.CheckPass(password)) {
                     request.setAttribute("error", "Password must containsAt least 8 characters length At least 1 number (0..9) At least 1 lowercase letter (a..z)At least 1 special symbol (!..$)At least 1 uppercase letter (A..Z)");
+                    request.setAttribute("listRole", listRole);
                     request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
                 }
                 String image = "";
@@ -215,16 +220,17 @@ public class AdminControlAccount extends HttpServlet {
 
             } else {
                 request.setAttribute("error", "Email already exist!");
+                request.setAttribute("listRole", listRole);
                 request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
 
         }
-        List<AccountsEmployee> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        //List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
+        List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
         int totalPage = dao.getTotalPage(roleId, status, search, pageSize);
         RoleDAO daoRole = new RoleDAO();
-        List<Role> listRole = daoRole.getAllRoles();
 
         request.setAttribute("search", search);
         request.setAttribute("roleId", roleId);
