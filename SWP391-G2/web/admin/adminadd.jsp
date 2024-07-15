@@ -20,28 +20,7 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
-        <style>
-
-
-            /* Thông báo lỗi */
-            .alert {
-                padding: 15px;
-                border-radius: 4px;
-                margin-bottom: 20px; /* Khoảng cách giữa thông báo lỗi và form */
-                font-size: 1rem; /* Kích thước chữ */
-                font-weight: bold; /* Chữ đậm */
-            }
-
-            /* Cải tiến thông báo lỗi cho dạng danger */
-            .alert-danger {
-                color: #721c24; /* Màu chữ đỏ đậm */
-                background-color: #f8d7da; /* Nền đỏ nhạt */
-                border-color: #f5c6cb; /* Viền đỏ nhạt */
-            }
-
-
-
-        </style>
+    
     </head>
 
     <body>
@@ -103,7 +82,7 @@
                     <div class="form-group row">
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="confirmClose()">Close</button>
+                            <button type="button" class="btn btn-secondary" onclick="confirmClose()">Close</button>
                             <button type="submit" class="btn btn-primary">Add New</button>
                         </div>
                     </div>
