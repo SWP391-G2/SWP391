@@ -45,32 +45,139 @@ public class OrderDAO extends DBContext {
             System.err.println(e);
         }
     }
-    
-    public List<Orders> getListOrder(){
+
+    public List<Orders> getListOrder() {
         List<Orders> listOrder = new ArrayList<>();
         String sql = "select * from Orders";
-        try{
+        try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Orders order = new Orders(rs.getInt(1), 
-                        rs.getDate(2), 
-                        rs.getFloat(3),
-                        rs.getString(4), 
-                        rs.getString(5), 
+                Orders order = new Orders(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getFloat(4),
+                        rs.getString(5),
                         rs.getString(6),
-                        rs.getDate(7), 
-                        rs.getString(8),
-                        rs.getInt(9),
-                        rs.getInt(10));
-               
+                        rs.getString(7),
+                        rs.getDate(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11));
                 listOrder.add(order);
             }
-        }
-        catch( SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
         }
         return listOrder;
+    }
+    
+    public ArrayList<Orders> getBrandByFilter(int status, String search, int pageNo, int pageSize) {
+        ArrayList<Orders> listOrder = new ArrayList<>();
+        String sql = "select * from Orders";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " status = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+            }
+        }
+
+        sql += " ORDER BY OrderID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 2; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            // Set the limit and offset parameters for pagination
+            ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
+            parameterIndex++;
+            ur.setInt(parameterIndex, pageSize);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Orders order = new Orders(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getFloat(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getDate(8),
+                        rs.getString(9),
+                        rs.getInt(10),
+                        rs.getInt(11));
+                listOrder.add(order);
+                
+            }
+        } catch (Exception e) {
+        }
+
+        return listOrder;
+    }
+
+    public int getTotalPage(int status, String search, int pageSize) {
+        String sql = "SELECT COUNT(*) FROM Orders";
+        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
+        if (status != -1 || !search.isEmpty()) {
+            sql += " WHERE";
+            if (status != -1) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " status = ?";
+                whereAdded = true;
+            }
+            if (!search.isEmpty()) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+            }
+        }
+
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            int parameterIndex = 1; // Start with the first parameter index
+            if (status != -1) {
+                ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (!search.isEmpty()) {
+                for (int i = 0; i < 2; i++) {
+                    ur.setString(parameterIndex, "%" + search + "%");
+                    parameterIndex++;
+                }
+            }
+            ResultSet rs = ur.executeQuery();
+            if (rs.next()) {
+                int totalRecord = rs.getInt(1);
+                int totalPage = totalRecord / pageSize;
+                if (totalRecord % pageSize != 0) {
+                    totalPage++;
+                }
+                return totalPage;
+            }
+        } catch (Exception e) {
+        }
+        return 0;
     }
 
     public int getOrderID() {
@@ -78,7 +185,7 @@ public class OrderDAO extends DBContext {
         int orderID = -1;
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
-              ResultSet rs = ur.executeQuery();
+            ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 orderID = rs.getInt(1);
             }

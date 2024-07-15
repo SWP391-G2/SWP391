@@ -5,12 +5,17 @@
 
 package controller.Sale;
 
+import Dal.BrandsDAO;
+import Dal.OrderDAO;
+import Models.Brands;
+import Models.Orders;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -53,7 +58,44 @@ public class SaleControllerOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        int status_new = -1;
+        int brandID = -1;
+        try {
+            status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            brandID = request.getParameter("brandID") == null ? -1 : Integer.parseInt(request.getParameter("brandID"));
+        } catch (Exception e) {
+        }
+
+        if (status_new != -1) {
+            BrandsDAO brandDAO = new BrandsDAO();
+            brandDAO.updateStatusBrand(status_new, brandID);
+        }
+
+        String search = "";
+        int status = -1;
+        int pageNo = 1;
+        final int pageSize = 10;
+        try {
+
+            search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+
+        } catch (Exception e) {
+        }
+
+        OrderDAO dao = new OrderDAO();
+        List<Orders> listOrder  = dao.getBrandByFilter(status, search, pageNo, pageSize);
+        int totalPage = dao.getTotalPage(status, search, pageSize);
+
+        request.setAttribute("search", search);
+        request.setAttribute("status", status);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("currentPage", pageNo);
+        request.setAttribute("listorder", listOrder);
+
+         request.getRequestDispatcher("sale/saleorder.jsp").forward(request, response);
     } 
 
     /** 

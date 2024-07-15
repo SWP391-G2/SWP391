@@ -1,159 +1,404 @@
 <%-- 
-    Document   : saleorder
-    Created on : Jul 10, 2024, 12:23:22 AM
+    Document   : admin
+    Created on : Jun 4, 2024, 11:25:56 PM
     Author     : hatru
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Manage Admin | The Perfume Shop</title>
+        <link rel="icon" type="image/x-icon" href="img/logo.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+        <!-- Include Bootstrap CSS via CDN link -->
+        <!-- ======= Styles ====== -->
+
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin_manager.css">
+
+        <style>
+            .form-control.custom-width {
+                width: 400px; /* Thay đổi giá trị này theo nhu cầu của bạn */
+            }
+            .error-message {
+                color: red;
+                font-size: 0.9em;
+            }
 
 
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://mdbootstrap.com/previews/ecommerce-demo/css/bootstrap.min.css">
-        <!-- Material Design Bootstrap -->
-        <link rel="stylesheet" href="https://mdbootstrap.com/previews/ecommerce-demo/css/mdb-pro.min.css">
-        <!-- Material Design Bootstrap Ecommerce -->
-        <link rel="stylesheet" href="https://mdbootstrap.com/previews/ecommerce-demo/css/mdb.ecommerce.min.css">
-        <!-- Your custom styles (optional) -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!------ Include the above in your HEAD tag ------>
-<!--        <link href="css/style.css" rel="stylesheet" type="text/css"/>-->
-          <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap"><link rel="stylesheet" type="text/css" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb5/3.8.1/compiled.min.css"><link rel="stylesheet" type="text/css" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css"><style>body {
-                background-color: #fbfbfb;
-            }
-            @media (min-width: 991.98px) {
-                main {
-                    padding-left: 240px;
-                }
+            .custom-button {
+                background: none; /* Không có màu nền */
+                border: none; /* Bỏ viền */
+                padding: 10px 20px; /* Khoảng cách bên trong nút bấm */
+                font-size: 16px; /* Kích thước chữ */
+                cursor: pointer; /* Con trỏ chuột */
+                color: #1E90FF; /* Màu chữ xanh nước biển nhẹ */
+                text-decoration: none; /* Bỏ gạch chân mặc định */
+                position: relative; /* Để tạo đường gạch ngang bên dưới */
             }
 
-            /* Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                padding: 58px 0 0; /* Height of navbar */
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-                width: 240px;
-                z-index: 600;
+            .custom-button::after {
+                content: ""; /* Nội dung giả */
+                position: absolute; /* Định vị tuyệt đối */
+                left: 0; /* Căn trái */
+                bottom: 0; /* Căn dưới */
+                width: 0; /* Chiều rộng ban đầu */
+                height: 2px; /* Độ dày của đường gạch ngang */
+                background-color: #1E90FF; /* Màu của đường gạch ngang */
+                transition: width 0.3s ease; /* Hiệu ứng chuyển đổi chiều rộng */
             }
 
-            @media (max-width: 991.98px) {
-                .sidebar {
-                    width: 100%;
-                }
-            }
-            .sidebar .active {
-                border-radius: 5px;
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+            .custom-button:hover::after {
+                width: 100%; /* Chiều rộng khi hover */
             }
 
-            .sidebar-sticky {
-                position: relative;
-                top: 0;
-                height: calc(100vh - 48px);
-                padding-top: 0.5rem;
-                overflow-x: hidden;
-                overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+            .custom-button:focus {
+                outline: none; /* Bỏ viền focus mặc định */
             }
-            .text_page_head{
-                font-size: 18px;
-                font-weight: 600;
+
+            .table-button {
+                text-align: center; /* Căn giữa nút bấm trong ô bảng */
             }
-            .text_page {
-                font-size: 14px;
-                font-weight: 600;
-            }
+
         </style>
     </head>
+
     <body>
-        <header>
-            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-black" style="padding: 0px; width: 270px; background-color: black">
-                <div class="position-sticky" >
-                    <div class="list-group list-group-flush mx-3 mt-4" style="margin: 0">
-                        <div class="footer_logo" style="text-align: center; margin-bottom: 0">
-                            <a href="home"><img src="images/logo/logo0.png" alt="Logo" style="height: 53px"></a>
+        <c:if test="${requestScope.error !=null}">
+            <div class="row fixed-top text-center">
+
+                <div class=" alert alert-warning" role="alert">
+                    ${requestScope.error}
+
+                </div>
+            </div>
+
+        </c:if>
+        <c:if test="${requestScope.success !=null}">
+            <div class="row fixed-top text-center">
+
+                <div class=" alert alert-success" role="alert">
+                    ${requestScope.success}
+                </div>
+            </div>
+        </c:if>
+
+        <jsp:include page="../partials/navigation.jsp"></jsp:include>
+            <div class="container-fluid">
+                <!-- Navigation -->
+
+
+                <!-- Main Content -->
+                <div class="main" style="margin-left: 50px; margin-right: 50px;">
+                    <div class="topbar">
+                        <!-- <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+        <div class="user">
+            <img src="assets/imgs/customer01.jpg" alt="">
+        </div> -->
+                    </div>
+
+                    <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
+                        <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
+                    <div class="col-12" style="margin-bottom: 40px;">
+                        <h1>Sale Manager Order</h1>
+
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" value="${search}"
+                                   id="search">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button" id="btnSearch">
+                                    <ion-icon name="search-outline"></ion-icon>
+                                </button>
+                            </div>
                         </div>
-                        <a href="manageSlider" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 10px;">
-                            <i style="margin-right: 10px; font-size: 18px" class="fa-solid fa-sliders"></i>
-                            <span style="font-size: 16px; font-weight: 600">Manage Slider</span>
-                        </a> 
-                        <a href="login" class="list-group-item list-group-item-action" style="margin-top: 10px">
-                            <i style="margin-right: 10px; font-size: 18px" <i class="fa-solid fa-right-from-bracket"></i>
-                            <span style="font-size: 16px; font-weight: 600">Log Out</span>
-                        </a>
+                    </div>
+
+                    <div class="col-3">
+                        <!-- <select class="form-control" id="status">
+                            <option value="1" selected>Status: Active</option>
+                            <option value="0">Status: In-Active</option>
+                        </select> -->
+                        <select class="form-control" id="status" name="status">
+                            <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
+                            <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
+                            <option value="0" ${status==2 ? 'selected' : '' }>Done</option>
+                            <option value="0" ${status==3 ? 'selected' : '' }>Cancelled</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-12" style="margin-top: 10px;">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Customer Name</th>
+                                        <th scope="col">Customer Phone</th>
+                                        <th scope="col">Customer Address</th>
+                                        <th scope="col">Order Date</th>
+                                        <th scope="col">Total Price</th>
+                                        <th scope="col">Order Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:set var="tt" value="0" />
+                                    <c:forEach items="${requestScope.listorder}" var="o" varStatus="loop">
+                                        <c:set var="tt" value="${tt+1}"/>
+                                        <tr>
+                                            <td>${tt}</td>
+                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
+                                            <td>${o.getOrderContactName()}</td>
+                                            <td>${o.getOrderPhone() }</td>
+                                            <td>${o.getOrderAddress()}</td>
+                                            <td>${o.getOrderDate()}</td>
+                                            <td>${o.getOrderTotalPrice()}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${o.getOrderSoID()} == 1}">
+
+                                                        <button type="button" class="btn btn-danger">
+                                                            Processing
+                                                        </button>
+
+                                                    </c:when>
+                                                    <c:when test="${o.getOrderSoID()} == 2}">
+
+                                                        <button type="button" class="btn btn-success">
+                                                            Done
+                                                        </button>
+
+                                                    </c:when>
+                                                    <c:when test="${o.getOrderSoID()} == 3}">
+
+                                                        <button type="button" class="btn btn-success">
+                                                            Cancelled
+                                                        </button>
+
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+
+
+                                                <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
+                                                    <button type="button" class="btn btn-success">
+                                                        View Details
+                                                    </button>
+                                                </a>
+
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination -->
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-end">
+                                <c:if test="${currentPage == 1}">
+                                    <li class="page-item disabled">
+                                        <button class="page-link" onclick="changePage(${currentPage - 1})">
+                                            Previous
+                                        </button>
+                                    </li>
+                                </c:if>
+                                <c:if test="${currentPage != 1}">
+                                    <li class="page-item">
+                                        <button class="page-link" onclick="changePage(${currentPage - 1})">
+                                            Previous
+                                        </button>
+                                    </li>
+                                </c:if>
+                                <c:forEach begin="1" end="${totalPage}" var="i">
+                                    <c:if test="${currentPage == i}">
+                                        <li class="page-item active" aria-current="page">
+                                            <button class="page-link" onclick="changePage(${i})">
+                                                ${i}
+                                                <span class="sr-only">(current)</span>
+                                            </button>
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${currentPage != i}">
+                                        <li class="page-item">
+                                            <button class="page-link" onclick="changePage(${i})">${i}</button>
+                                        </li>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${currentPage == totalPage}">
+                                    <li class="page-item disabled">
+                                        <button class="page-link"
+                                                onclick="changePage(${currentPage + 1})">Next</button>
+                                    </li>
+                                </c:if>
+                                <c:if test="${currentPage != totalPage}">
+                                    <li class="page-item">
+                                        <button class="page-link"
+                                                onclick="changePage(${currentPage + 1})">Next</button>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
+
+
+
                     </div>
                 </div>
-            </nav>
-        </header>
-        <main>
-                <div class="container pt-4"><!--Section: Sales Performance KPIs-->
-                    <section class="mb-4">                  
 
-                    <div class="card">
-                        <div class="py-3 row">
-                            <div class="col-sm-12" style="padding:15px 0">
-                                <h3 class="mb-0 text-center" id="">
-                                    <strong>Doanh thu</strong>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="text_page_head" scope="col"></th>
-                                            <th  class="text_page_head" scope="col">ID đơn hàng</th>
-                                            <th class="text_page_head" scope="col">Tên tài khoản</th>
-                                            <th class="text_page_head" scope="col">Tổng ($)</th>
-                                            <th class="text_page_head" scope="col">Ngày đặt hàng</th>
-                                            <th class="text_page_head" scope="col">Trạng thái</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="content">
-                                        <c:forEach items="${listAllInvoice}" var="i">
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td  class="text_page">${i.orderId}</td>
-                                                <td class="text_page">${i.userName}</td>
-                                                <td class="text_page">${String.format("%.02f",i.total)}</td>
-                                                <td class="text_page">${i.date}</td> 
-                                                <td id="status" class="text_page">
-                                                    ${i.status?"Delivered":"Not delivery"}
-                                                    <c:if test="${!i.status}">
-                                                        <button style="margin-left: 20px" onclick="changeStatus(this, ${i.orderId})">
-                                                            <i style="color: green" class="fa-solid fa-check"></i>
-                                                        </button>
-                                                    </c:if>
-                                                </td> 
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
+
             </div>
-        </main>
+        </div>
     </body>
+
+
+    <!-- =========== Scripts =========  -->
+    <script src="js/admin_manager.js"></script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+
+    <script>
+                                                    function showAlert(message, brandID, status1) {
+
+
+                                                        if (confirm(message)) {
+                                                            const search = document.querySelector('#search').value;
+                                                            const status = document.querySelector('#status').value;
+                                                            const pageNo = document.querySelector('#pageNo').value;
+                                                            window.location.href = 'brand?search=' + search +
+                                                                    '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
+                                                        }
+                                                    }
+                                                    function showDetail(brandID) {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        window.location.href = 'branddetail?search=' + search +
+                                                                '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
+                                                    }
+
+    </script>
+
+    <script>
+        function isOnlyWhitespace(input) {
+            return /^\s*$/.test(input);
+        }
+
+        function validateForm() {
+            // Lấy giá trị của các input
+            var name = document.getElementById('name').value;
+            var description = document.getElementById('description').value;
+
+            // Lấy các phần tử để hiển thị lỗi
+            var nameError = document.getElementById('nameError');
+            var descriptionError = document.getElementById('descriptionError');
+
+            // Định nghĩa các regex cho kiểm tra input
+            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
+
+            // Xóa thông báo lỗi trước đó
+            nameError.textContent = '';
+            descriptionError.textContent = '';
+
+            // Kiểm tra input
+            var valid = true;
+
+            // Kiểm tra name
+            if (isOnlyWhitespace(name)) {
+                nameError.textContent = 'Brand Name cannot contain only whitespace.';
+                valid = false;
+            } else if (!nameRegex.test(name)) {
+                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
+                valid = false;
+            } else if (/^\d+$/.test(name)) {
+                nameError.textContent = 'Brand Name cannot contain whole numbers.';
+                valid = false;
+            }
+
+            // Kiểm tra description
+            if (isOnlyWhitespace(description)) {
+                descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
+                valid = false;
+            } else if (!descriptionRegex.test(description)) {
+                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
+                valid = false;
+            }
+
+            // Nếu tất cả đều hợp lệ, return true để submit form
+            return valid;
+        }
+    </script>
+    <script>
+        // handle filter search
+        const searchInput = document.querySelector('#search');
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        const btnSearch = document.querySelector('#btnSearch');
+        btnSearch.addEventListener('click', () => {
+            performSearch(); // call function
+        });
+        function performSearch() {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            window.location.href = 'brand?search=' + search +
+                    '&status=' + status + '&pageNo=1';
+        }
+        ;
+
+        // handle filter status
+        const status = document.querySelector('#status');
+        status.addEventListener('change', () => {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            window.location.href = 'brand?search=' + search +
+                    '&status=' + status + '&pageNo=1';
+        });
+
+        // handle pagination
+        function changePage(pageNo) {
+            const search = document.querySelector('#search').value;
+            const status = document.querySelector('#status').value;
+            window.location.href = 'saleorder?search=' + search +
+                    '&status=' + status + '&pageNo=' + pageNo;
+        }
+
+
+    </script>
+
+
 </html>
