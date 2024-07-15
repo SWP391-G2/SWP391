@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controllers.common;
+package controller.customer;
 
+import Dal.VoucherDAO;
+import Models.Vouchers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,10 +18,10 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author pna29
+ * @author hatru
  */
-@WebServlet(name="LogoutServlet", urlPatterns={"/logout"})
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name="ApplyVouchers", urlPatterns={"/applyvouchers"})
+public class ApplyVouchers extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +38,10 @@ public class LogoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LogoutServlet</title>");  
+            out.println("<title>Servlet ApplyVouchers</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ApplyVouchers at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,17 +58,34 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
- HttpSession session = request.getSession(false);
+         String voucher = request.getParameter("voucher");
+        String delete = request.getParameter("delete");
+        String totalprice = request.getParameter("totalprice");
+        VoucherDAO dao = new VoucherDAO();
+        HttpSession session = request.getSession();
+        if (delete == null) {
+            Vouchers vou = dao.getVourcherByCode(voucher);
 
-        if (session != null) {
-            // Hủy session
+            if (vou != null) {
+                //request.setAttribute("discount", discount);
+                session.setAttribute("dis", vou);
+                //response.sendRedirect("checkout");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+            } else {
+                request.setAttribute("error", "error");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+                //response.sendRedirect("checkout");
+            }
+        } else {
             session.invalidate();
+            request.setAttribute("totalprice", totalprice);
+            request.getRequestDispatcher("checkout").forward(request, response);
         }
 
-        // Chuyển hướng về trang chủ hoặc trang đăng nhập
-        response.sendRedirect(request.getContextPath() + "/home");
+    } 
 
-    }
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request

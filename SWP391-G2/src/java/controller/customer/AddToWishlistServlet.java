@@ -4,8 +4,8 @@
  */
 package controller.customer;
 
-import Dal.VoucherDAO;
-import Models.Vouchers;
+import Dal.WishlistDAO;
+import Models.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,9 +16,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author hatru
+ * @author pna29
  */
-public class VourcherController extends HttpServlet {
+public class AddToWishlistServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class VourcherController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VourcherController</title>");
+            out.println("<title>Servlet AddToWishlistServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet VourcherController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddToWishlistServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,32 +58,7 @@ public class VourcherController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String voucher = request.getParameter("voucher");
-        String delete = request.getParameter("delete");
-        String totalprice = request.getParameter("totalprice");
-        VoucherDAO dao = new VoucherDAO();
-        HttpSession session = request.getSession();
-        if (delete == null) {
-            Vouchers vou = dao.getVourcherByCode(voucher);
-
-            if (vou != null) {
-                //request.setAttribute("discount", discount);
-                session.setAttribute("dis", vou);
-                //response.sendRedirect("checkout");
-                request.setAttribute("totalprice", totalprice);
-                request.getRequestDispatcher("checkout").forward(request, response);
-            } else {
-                request.setAttribute("error", "error");
-                request.setAttribute("totalprice", totalprice);
-                request.getRequestDispatcher("checkout").forward(request, response);
-                //response.sendRedirect("checkout");
-            }
-        } else {
-            session.invalidate();
-            request.setAttribute("totalprice", totalprice);
-            request.getRequestDispatcher("checkout").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -97,6 +72,19 @@ public class VourcherController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+
+        if (account != null) {
+            int productID = Integer.parseInt(request.getParameter("productID"));
+
+            WishlistDAO wishlistDAO = new WishlistDAO();
+            wishlistDAO.addToWishlist(account.getAccountID(), productID);
+            response.sendRedirect("viewWishlist"); // Redirect to the wishlist page servlet
+
+        } else {
+            response.sendRedirect("login"); // Redirect to login if session is invalid
+        }
 
     }
 

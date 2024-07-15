@@ -68,47 +68,28 @@ public class RefineServlet extends HttpServlet {
         CategoriesDAO categoriesDAO = new CategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
-         FeedbackDAO feedbackDAO = new FeedbackDAO();
-       
-        // Load categories, brands, and all products initially
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+
+        // Load categories and brands initially
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
-        List<ProductsHome> allProducts = productsDAO.loadProducts();
 
         // Retrieve parameters from request
         String nameSearch = request.getParameter("nameSearch");
-        String cidRefineRaw = request.getParameter("cid_refine");
-        String bidRefineRaw = request.getParameter("bid_refine");
+        String priceRange = request.getParameter("priceRange");
+        String sortOrder = request.getParameter("sortOrder");
+
         String[] cidRefineeRaw = request.getParameterValues("cid_refinee");
         String[] bidRefineeRaw = request.getParameterValues("bid_refinee");
-        String priceRange = request.getParameter("priceRange");
 
-// Initialize variables for category and brand refinement
-        int cidRefine = 0;
-        int bidRefine = 0;
+        // Initialize variables for category and brand refinement
         int[] cidRefinee = null;
         int[] bidRefinee = null;
-
-// Parse and process category refinement parameters
-        if (cidRefineRaw != null) {
-            cidRefine = Integer.parseInt(cidRefineRaw);
-            if (cidRefine != 0) {
-                allProducts = productsDAO.getProductsByCategory(cidRefine);
-            }
-        }
 
         if (cidRefineeRaw != null) {
             cidRefinee = new int[cidRefineeRaw.length];
             for (int i = 0; i < cidRefineeRaw.length; i++) {
                 cidRefinee[i] = Integer.parseInt(cidRefineeRaw[i]);
-            }
-        }
-
-// Parse and process brand refinement parameters
-        if (bidRefineRaw != null) {
-            bidRefine = Integer.parseInt(bidRefineRaw);
-            if (bidRefine != 0) {
-                allProducts = productsDAO.getProductsByBrand(bidRefine);
             }
         }
 
@@ -119,46 +100,47 @@ public class RefineServlet extends HttpServlet {
             }
         }
 
-// Parse and process price range refinement parameters
+        // Parse and process price range refinement parameters
+        int minPrice = 0;
+        int maxPrice = Integer.MAX_VALUE;
+
         if (priceRange != null && !priceRange.isEmpty()) {
             switch (priceRange) {
                 case "under25":
-                    allProducts = productsDAO.getProductsByPriceRange(0, 25);
+                    maxPrice = 25;
                     break;
                 case "25to50":
-                    allProducts = productsDAO.getProductsByPriceRange(25, 50);
+                    minPrice = 25;
+                    maxPrice = 50;
                     break;
                 case "50to100":
-                    allProducts = productsDAO.getProductsByPriceRange(50, 100);
+                    minPrice = 50;
+                    maxPrice = 100;
                     break;
                 case "100to150":
-                    allProducts = productsDAO.getProductsByPriceRange(100, 150);
+                    minPrice = 100;
+                    maxPrice = 150;
                     break;
                 case "over150":
-                    allProducts = productsDAO.getProductsByPriceRange(150, Integer.MAX_VALUE);
-                    break;
-                default:
-                    // Handle default case or do nothing
+                    minPrice = 150;
                     break;
             }
         }
 
-// Apply both category and brand refinements if selected
-        if (cidRefinee != null || bidRefinee != null) {
-            allProducts = productsDAO.getProductsByCategoriesAndBrands(cidRefinee, bidRefinee);
-        }
+        // Apply filters and get the filtered products
+        List<ProductsHome> allProducts = productsDAO.getProductsByPricerangeAndCateAndBrand(minPrice, maxPrice, cidRefinee, bidRefinee);
 
-// Initialize variables for checkbox states
+        // Initialize variables for checkbox states
         Boolean[] chid = new Boolean[categories.size() + 1];
         Boolean[] bhid = new Boolean[brands.size() + 1];
 
-// Process the checkboxes for categories and brands
+        // Process the checkboxes for categories and brands
         if (cidRefineeRaw != null) {
             for (int i = 0; i < chid.length; i++) {
                 chid[i] = false;
             }
-            for (int i = 0; i < cidRefineeRaw.length; i++) {
-                int cid = Integer.parseInt(cidRefineeRaw[i]);
+            for (String cidRaw : cidRefineeRaw) {
+                int cid = Integer.parseInt(cidRaw);
                 for (int j = 0; j < categories.size(); j++) {
                     if (categories.get(j).getCategoryID() == cid) {
                         chid[j + 1] = true;
@@ -172,8 +154,8 @@ public class RefineServlet extends HttpServlet {
             for (int i = 0; i < bhid.length; i++) {
                 bhid[i] = false;
             }
-            for (int i = 0; i < bidRefineeRaw.length; i++) {
-                int bid = Integer.parseInt(bidRefineeRaw[i]);
+            for (String bidRaw : bidRefineeRaw) {
+                int bid = Integer.parseInt(bidRaw);
                 for (int j = 0; j < brands.size(); j++) {
                     if (brands.get(j).getBrandID() == bid) {
                         bhid[j + 1] = true;
@@ -183,7 +165,7 @@ public class RefineServlet extends HttpServlet {
             }
         }
 
-// Update the stringForLink for pagination and refine links
+        // Update the stringForLink for pagination and refine links
         StringBuilder stringForLinkBuilder = new StringBuilder();
         if (cidRefineeRaw != null) {
             for (String cid : cidRefineeRaw) {
@@ -198,13 +180,16 @@ public class RefineServlet extends HttpServlet {
         if (priceRange != null) {
             stringForLinkBuilder.append("priceRange=").append(priceRange).append("&");
         }
+        if (sortOrder != null) {
+            stringForLinkBuilder.append("sortOrder=").append(sortOrder).append("&");
+        }
 
         String stringForLink = stringForLinkBuilder.toString();
         if (stringForLink.endsWith("&")) {
             stringForLink = stringForLink.substring(0, stringForLink.length() - 1);
         }
 
-// Paging
+        // Paging
         int page = 1, numPerPage = 12;
         int size = allProducts.size();
         int numberpage = ((size % numPerPage == 0) ? (size / numPerPage) : (size / numPerPage) + 1);
@@ -219,25 +204,36 @@ public class RefineServlet extends HttpServlet {
 
         if (nameSearch != null && !nameSearch.isEmpty()) {
             listByPage = productsDAO.searchByName(nameSearch);
+        } else {
+        // Apply sorting order if specified
+        if ("lowToHigh".equals(sortOrder)) {
+            listByPage = productsDAO.getProductsByPriceLowToHigh(cidRefinee, bidRefinee);
+        } else if ("highToLow".equals(sortOrder)) {
+            listByPage = productsDAO.getProductsByPriceHighToLow(cidRefinee, bidRefinee);
         }
-         Map<Integer, Double> productRatings = new HashMap<>();
+    }
+
+        // Get product ratings
+        Map<Integer, Double> productRatings = new HashMap<>();
         for (ProductsHome product : listByPage) {
             double averageRating = feedbackDAO.getAverageStartByProductID(product.getProductID());
             productRatings.put(product.getProductID(), averageRating);
         }
-        
-// Set attributes and forward to refine.jsp
+
+        // Set attributes and forward to refine.jsp
         request.setAttribute("stringForLink", stringForLink);
         request.setAttribute("searchAtHome", nameSearch);
 
         request.setAttribute("chid", chid);
         request.setAttribute("cid_refinee", cidRefinee);
-        request.setAttribute("cid_refine", cidRefine);
+        request.setAttribute("cid_refine", 0); // Not used, can be removed if not needed
 
         request.setAttribute("bhid", bhid);
         request.setAttribute("bid_refinee", bidRefinee);
-        request.setAttribute("bid_refine", bidRefine);
-
+        request.setAttribute("bid_refine", 0); // Not used, can be removed if not needed
+        
+        request.setAttribute("sortOrder", sortOrder);
+        request.setAttribute("priceRange", priceRange);
         request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("products", allProducts);
@@ -245,12 +241,10 @@ public class RefineServlet extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("numberpage", numberpage);
         request.setAttribute("allproduct", allProducts);
-        
         request.setAttribute("productRatings", productRatings);
+
         request.getRequestDispatcher("common/refine.jsp").forward(request, response);
     }
-
-
 
     /**
      * Handles the HTTP <code>POST</code> method.

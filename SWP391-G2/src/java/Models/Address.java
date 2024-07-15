@@ -120,4 +120,9 @@ public class Address {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "Address{" + "addressId=" + addressId + ", accountId=" + accountId + ", phone=" + phone + ", addressLine=" + addressLine + ", city=" + city + ", district=" + district + ", wards=" + wards + ", status=" + status + ", createdAt=" + createdAt + '}';
+    }
+
 }

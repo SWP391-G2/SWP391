@@ -145,6 +145,16 @@
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
     <servlet>
+ 
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.AddToWishlistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.ViewWishlistServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>CartCookieController</servlet-name>
         <servlet-class>controller.customer.CartCookieController</servlet-class>
     </servlet>
@@ -163,6 +173,7 @@
     <servlet>
         <servlet-name>SaleControllerOrder</servlet-name>
         <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
+ 
     </servlet>
     <servlet>
         <servlet-name>SaleOrderDetails</servlet-name>
@@ -317,6 +328,15 @@
         <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+ 
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <url-pattern>/addToWishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <url-pattern>/viewWishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CartCookieController</servlet-name>
         <url-pattern>/cartcookie</url-pattern>
     </servlet-mapping>
@@ -335,6 +355,7 @@
     <servlet-mapping>
         <servlet-name>SaleControllerOrder</servlet-name>
         <url-pattern>/saleorder</url-pattern>
+ 
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaleOrderDetails</servlet-name>
@@ -344,8 +365,5 @@
         <servlet-name>AdminAddAccount</servlet-name>
         <url-pattern>/adminaddaccount</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VourcherController</servlet-name>
-        <url-pattern>/applyvouchers</url-pattern>
-    </servlet-mapping>
+
 </web-app>

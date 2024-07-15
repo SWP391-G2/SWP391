@@ -7,6 +7,7 @@ package controller.Sale;
 import Dal.CartsDAO;
 import Dal.OrderDAO;
 import Dal.ProductDetailDAO;
+import Models.Accounts;
 import Models.Carts;
 import Models.Orders;
 import Models.ProductDetail;
@@ -17,6 +18,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.mail.Session;
@@ -87,6 +89,7 @@ public class order extends HttpServlet {
 //        String firstName = request.getParameter("firstname");
 //        String lastName = request.getParameter("lastname");
 //        String phone = request.getParameter("phone");
+    
         String total = request.getParameter("total");
 
         // Chuyển đổi giá trị từ String sang double
@@ -122,7 +125,9 @@ public class order extends HttpServlet {
         String note = request.getParameter("note");
         String addressdetails = request.getParameter("addressDetails");
         String address = addressdetails + ward + district + city;
-        int AccountID = 9;
+        HttpSession session = request.getSession();
+        Accounts accounts = (Accounts) session.getAttribute("account");
+        int AccountID = accounts.getAccountID();
 
 //        response.getWriter().print(email);
 //        response.getWriter().print(phone);
@@ -171,11 +176,7 @@ public class order extends HttpServlet {
                 request.setAttribute("listcart", listCart);
                 request.setAttribute("total", amount);
                 request.setAttribute("listproduct", listProduct);
-                request.getRequestDispatcher("order.jsp").forward(request, response);
-                break;
-            case "bank":
-                // Code xử lý cho "bank"
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("common/order.jsp").forward(request, response);
                 break;
             default:
                 throw new AssertionError();

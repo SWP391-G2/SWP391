@@ -17,7 +17,7 @@
         <div class="site-footer">
             <div class="container">
                 <div class="footer-inner">
-                    <div class="row">
+                    <div class="row" style="border: none">
                         <div class="col-xs-12 col-sm-6 col-md-2">
                             <div class="footer-widget">
                                 <h4>
@@ -104,7 +104,7 @@
     </footer>
     <div class="footer_bottom">
         <div class="container">
-            <div class="row ">
+            <div class="row " style="border: none">
                 <div class="col-lg-12 col-md-12">
                     <div class="copyright_area">
                         <p>Copyright &copy; 2024 <a href="home">The Perfume Shop</a> All right Reserved.</p>

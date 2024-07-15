@@ -291,12 +291,6 @@
                                         <label class="custom-control-label" for="directcheck">Direct Check</label>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer" value="bank">
-                                        <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
                                 <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3">Place Order</button>

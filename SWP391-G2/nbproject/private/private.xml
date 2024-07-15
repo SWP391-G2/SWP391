@@ -7,11 +7,25 @@
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/Constants.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/VourcherController.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Vouchers.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
-            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Voucher.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/UpdateCart.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/vnpay/VNPAY.java</file>
             <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/checkout.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/footer.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/AddToWishlistServlet.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/common/order.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/header.jsp</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/ViewWishlistServlet.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Util/Validation.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Controllers/vnpay/Config.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Models/Voucher.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/controller/customer/CartController.java</file>
+            <file>file:/D:/New%20folder/SWP-FIX/SWP391/SWP391-G2/src/java/Constant/constant.java</file>
         </group>
     </open-files>
 </project-private>

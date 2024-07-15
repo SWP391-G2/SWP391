@@ -69,14 +69,14 @@
                             </svg>
                             <div class="os-header-heading">
                                 <h2 class="os-header-title">
-                                    Đặt hàng thành công
+                                    Order Successful
                                 </h2>
 
                                 <span class="os-order-number">
-                                    Mã đơn hàng ${requestScope.orderID}
+                                    Order ID: ${requestScope.orderID}
                                 </span>
                                 <span class="os-description">
-                                    Cám ơn bạn đã mua hàng!
+                                    Thank you for your purchase!
                                 </span>
                             </div>
                         </div>
@@ -86,15 +86,15 @@
                         <div class="section-content">
                             <div class="content-box">
                                 <div class="content-box-row content-box-row-padding content-box-row-no-border">
-                                    <h2>Thông tin đơn hàng</h2>
+                                    <h2>Order Information</h2>
                                 </div>
                                 <div class="content-box-row content-box-row-padding">
                                     <div class="section-content">
                                         <div class="section-content-column">
-                                            <h3>Thông tin giao hàng</h3>
+                                            <h3>Shipping Information</h3>
                                             <p>${requestScope.fullname}<br>${requestScope.phone}<br>${requestScope.addressdetails}<br>${requestScope.ward}<br>${requestScope.district}<br>${requestScope.city}<br>Vietnam</p>
-                                            <h3>Phương thức thanh toán</h3>
-                                            <p>COD (Thanh toán khi nhận hàng)</p>
+                                            <h3>Payment Method</h3>
+                                            <p>COD (Cash on Delivery)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -103,29 +103,29 @@
                     </div>
                     <div class="step-footer">
                         <a href="/" class="step-footer-continue-btn btn btn-primary">
-                            <span class="btn-content">Tiếp tục mua hàng</span>
+                            <span class="btn-content">Continue Shopping</span>
                         </a>
                         <p class="step-footer-info">
                             <i class="icon icon-os-question"></i>
-                            <span>Cần hỗ trợ? <a href="mailto:hotro@namperfume.net">Liên hệ chúng tôi</a></span>
+                            <span>Need help? <a href="mailto:support@namperfume.net">Contact us</a></span>
                         </p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="sidebar-content">
                         <div class="order-summary">
-                            <h2 class="visually-hidden">Thông tin đơn hàng</h2>
+                            <h2 class="visually-hidden">Order Summary</h2>
                             <div class="order-summary-sections">
                                 <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
 
                                     <table class="product-table table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th scope="col"><span class="visually-hidden">Hình ảnh</span></th>
-                                                <th scope="col"><span class="visually-hidden">Mô tả</span></th>
+                                                <th scope="col"><span class="visually-hidden">Image</span></th>
+                                                <th scope="col"><span class="visually-hidden">Description</span></th>
                                                 <th scope="col"><span class="visually-hidden">Size</span></th>
-                                                <th scope="col"><span class="visually-hidden">Số lượng</span></th>
-                                                <th scope="col"><span class="visually-hidden">Giá</span></th>
+                                                <th scope="col"><span class="visually-hidden">Quantity</span></th>
+                                                <th scope="col"><span class="visually-hidden">Price</span></th>
                                             </tr>
                                         </thead>
                                        
@@ -135,7 +135,7 @@
                                                     <td class="product-image">
                                                         <div class="product-thumbnail">
                                                             <div class="product-thumbnail-wrapper">
-                                                                <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}">
+                                                                <img class="product-thumbnail-image" alt="Product Image" src="${listproduct[loop.index].getImage()}">
                                                             </div>
                                                         </div>
                                                     </td>
@@ -163,26 +163,25 @@
                                     <table class="total-line-table table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th scope="col"><span class="visually-hidden">Mô tả</span></th>
-                                                <th scope="col"><span class="visually-hidden">Giá</span></th>
+                                                <th scope="col"><span class="visually-hidden">Description</span></th>
+                                                <th scope="col"><span class="visually-hidden">Price</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                    
                                             <tr class="total-line total-line-shipping">
-                                                <td class="total-line-name">Phí vận chuyển</td>
+                                                <td class="total-line-name">Shipping Fee</td>
                                                 <td class="total-line-price">
-                                                    <span class="order-summary-emphasis" data-checkout-total-shipping-target="0">Miễn phí</span>
+                                                    <span class="order-summary-emphasis" data-checkout-total-shipping-target="0">Free</span>
                                                 </td>
                                             </tr>
                                         </tbody>
                                         <tfoot class="total-line-table-footer">
                                             <tr class="total-line">
                                                 <td class="total-line-name payment-due-label">
-                                                    <span class="payment-due-label-total">Tổng cộng</span>
+                                                    <span class="payment-due-label-total">Total</span>
                                                 </td>
                                                 <td class="total-line-name payment-due">
-                                                    <span class="payment-due-currency">Usd</span>
+                                                    <span class="payment-due-currency">USD</span>
                                                     <span class="payment-due-price" data-checkout-payment-due-target="137750000">${requestScope.total}</span>
                                                     <span class="checkout_version" display:none="" data_checkout_version="0"></span>
                                                 </td>

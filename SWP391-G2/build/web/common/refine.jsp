@@ -158,8 +158,8 @@
             </div>
         </header>
         <div class="home_section_two color_two mb-70" style="margin-top: 100px; margin-bottom: 50px">
-            <div class="container">
-                <div class="row" style="width: 1360px;">
+            <div class="container" >
+                <div class="row" style="width: 1400px;">
                     <div class="col-lg-2 col-md-12">
                         <div class="home_section_left">      
                             <c:set var="cat" value="${requestScope.categories}"/>
@@ -293,7 +293,19 @@
                                     </div>
 
                                 </div>
+                                <form action="refine" method="get">
+                                    <!-- Existing form fields for category, brand, price range, etc. -->
 
+                                    <!-- Sorting options -->
+                                    <div class="sorting-options">
+                                        <label for="sortOrder">Sort by:</label>
+                                        <select name="sortOrder" id="sortOrder" onchange="this.form.submit()">
+                                            <option value="">Select</option>
+                                            <option value="lowToHigh" ${param.sortOrder == 'lowToHigh' ? 'selected' : ''}>Price: Low to High</option>
+                                            <option value="highToLow" ${param.sortOrder == 'highToLow' ? 'selected' : ''}>Price: High to Low</option>
+                                        </select>
+                                    </div>
+                                </form>
                                 <c:set var="page" value="${requestScope.page}"/>
                                 <div id="contentt" class="row">
                                     <c:set var="proA" value=""/>
@@ -312,11 +324,11 @@
                                                                         <i class="fa fa-shopping-cart"></i>
                                                                     </a>
                                                                 </li>
-                                                                <li class="wishlist">
-                                                                    <a href="#" onclick="" title="Thêm vào mục yêu thích">
-                                                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
-                                                                    </a>
-                                                                </li>
+                                                                 <li class="wishlist">
+                                                                        <a href="#" onclick="addToWishlist(event, ${product.getProductID()})" title="Thêm vào mục yêu thích">
+                                                                            <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                        </a>
+                                                                    </li>
                                                                 <li style="border-color: orange" class="quick_button">
                                                                     <a href="#" data-toggle="modal" data-target="#modal_box" title="Xem sản phẩm">
                                                                         <i class="fa fa-eye"></i>
@@ -355,7 +367,7 @@
                                 </div>
                                 <div class="pagination col-md-12 active" style="margin-top: 20px; display: flex; justify-content: center">
 
-                                    <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null && requestScope.priceRange == null}">
+                                    <c:if test="${requestScope.cid_refinee == null && requestScope.bid_refinee == null && requestScope.priceRange == null && requestScope.sortOrder == null}">
                                         <c:choose>
                                             <c:when test="${requestScope.currentPage > 1}">
                                                 <a href="refine?page=${requestScope.currentPage - 1}">&laquo;</a>
@@ -419,27 +431,27 @@
         <script src="js/main.js"></script>
         <script type="text/javascript">
 
-                                                               function setCheck(obj) {
+                    function setCheck(obj) {
 
-                                                                   document.getElementById('f1').submit();
-                                                               }
+                        document.getElementById('f1').submit();
+                    }
 
-                                                               function searchByName() {
-                                                                   var text = document.querySelector("#searchId").value;
-                                                                   $.ajax({
-                                                                       url: "/SWP391-G2/searchRefine",
-                                                                       type: "get",
-                                                                       data: {
-                                                                           txt: text
-                                                                       },
-                                                                       success: function (data) {
-                                                                           var row = document.getElementById("contentt");
-                                                                           row.innerHTML = data;
-                                                                       },
-                                                                       error: function (xhr) {
-                                                                       }
-                                                                   });
-                                                               }
+                    function searchByName() {
+                        var text = document.querySelector("#searchId").value;
+                        $.ajax({
+                            url: "/SWP391-G2/searchRefine",
+                            type: "get",
+                            data: {
+                                txt: text
+                            },
+                            success: function (data) {
+                                var row = document.getElementById("contentt");
+                                row.innerHTML = data;
+                            },
+                            error: function (xhr) {
+                            }
+                        });
+                    }
 
         </script>
     </body>
