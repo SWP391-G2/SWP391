@@ -4,6 +4,8 @@
  */
 package Models;
 
+import Dal.ProductDetailDAO;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,72 +14,97 @@ import java.util.List;
  * @author hatru
  */
 public class Cart {
+
     private List<Item> items;
 
     public Cart() {
         items = new ArrayList<>();
     }
-    
-     public void setItems(List<Item> items){
+
+    public void setItems(List<Item> items) {
         this.items = items;
     }
-    
-    public List<Item> getItems(){
+
+    public List<Item> getItems() {
         return items;
     }
 
     public Cart(List<Item> items) {
         this.items = items;
     }
-    
-    private Item getItemById(int id){
+
+    public Item getItemById(int id) {
         for (Item i : items) {
-            if(i.getProduct().getPdProductID() == id){
+            if (i.getProduct().getProductFullDetailID() == id) {
                 return i;
             }
         }
         return null;
     }
-    
-    public int getQuantityById(int id){
-        return getItemById(id).getQuantity();
-    }
-    
-    //add item to cart
-    public void add(Item t){
-        //Exist in cart
-        if(getItemById(t.getProduct().getPdProductID()) != null) {
-            Item i = getItemById(t.getProduct().getPdProductID());
-            i.setQuantity(i.getQuantity() + t.getQuantity());
+
+    public int getQuantityById(int id) {
+        Item item = getItemById(id);
+        if (item == null) {
+            // Return 0 or handle appropriately if the item is not found
+            return 0;
         }
-        //Not exist in cart
-        else{
+        return item.getQuantity();
+    }
+
+    //add item to cart
+    public final void addItem(Item t) {
+        Item i = getItemById(t.getProduct().getProductFullDetailID());
+        if (i != null) {
+            i.setQuantity(i.getQuantity() + t.getQuantity());
+        } else {
             items.add(t);
         }
     }
-    
-    public void removeItem(int id){
-        if(getItemById(id) != null){
-            items.remove(getItemById(id));
+
+    public void removeItem(int id) {
+        Item i = getItemById(id);
+        if (i != null) {
+            items.remove(i);
         }
     }
-    
-    public double getTotalMoney(){
-        double t=0;
+
+    public BigDecimal getTotalMoney() {
+        BigDecimal t = BigDecimal.valueOf(0);
         for (Item i : items) {
-            t+= i.getQuantity()*i.getPrice();
+            BigDecimal quantity = BigDecimal.valueOf(i.getQuantity());
+            t = t.add(quantity.multiply(i.getProduct().getProductPrice()));
         }
         return t;
     }
-    
-    private ProductDetail getProductDetailByID(int id, List<ProductDetail> list){
+
+    private ProductDetail getProductDetailByID(int id, List<ProductDetail> list) {
         for (ProductDetail i : list) {
-            if(i.getPdProductID()  == id){
+            if (i.getProductFullDetailID() == id) {
                 return i;
             }
         }
         return null;
     }
-  
-    
+
+    public Cart(String txt, List<ProductDetail> list) {
+        items = new ArrayList<>();
+        try {
+            if (txt != null && txt.length() != 0) {
+                String[] s = txt.split(",");
+                for (String i : s) {
+                    String[] n = i.split(":");
+                    int id = Integer.parseInt(n[0]);
+                    int quantity = Integer.parseInt(n[1]);
+                    String name = n[2];
+                    ProductDetail p = getProductDetailByID(id, list);
+                    Item t = new Item(p, quantity, name);
+                    addItem(t);
+                }
+            }
+        } catch (NumberFormatException e) {
+
+        }
+
+    }
+
 }

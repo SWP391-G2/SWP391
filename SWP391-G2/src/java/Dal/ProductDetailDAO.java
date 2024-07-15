@@ -14,14 +14,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author admin
  */
 public class ProductDetailDAO extends DBContext {
+<<<<<<< HEAD
       
   
+=======
+
+>>>>>>> da14ff7d668303fc50045dbfa4479ab2d2aabd74
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from ProductFullDetail where pdProductID  = ?";
@@ -32,10 +35,10 @@ public class ProductDetailDAO extends DBContext {
             while (rs.next()) {
                 list.add(new ProductDetail(
                         rs.getInt(1),
-                        rs.getInt(2), 
+                        rs.getInt(2),
                         rs.getString(3),
                         rs.getDate(4),
-                        rs.getInt(5), 
+                        rs.getInt(5),
                         rs.getString(6),
                         rs.getBigDecimal(7),
                         rs.getInt(8),
@@ -47,6 +50,7 @@ public class ProductDetailDAO extends DBContext {
         }
         return list;
     }
+
     public ProductDetail getProductDetail(int id) {
         String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
         try {
@@ -55,15 +59,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getInt(5),
-                    rs.getString(6),
-                    rs.getBigDecimal(7),
-                    rs.getInt(8),
-                    rs.getString(9)
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getBigDecimal(7),
+                        rs.getInt(8),
+                        rs.getString(9)
                 );
 
             }
@@ -130,7 +134,7 @@ public class ProductDetailDAO extends DBContext {
         return 1;
     }
 
-     public int getProductDetailID(int pdID, String size) {     
+    public int getProductDetailID(int pdID, String size) {
         String sql = "select * from ProductFullDetail where pdProductID = ? and ProductSize like ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -139,15 +143,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 ProductDetail p = new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getInt(5),
-                    rs.getString(6),
-                    rs.getBigDecimal(7),
-                    rs.getInt(8),
-                    rs.getString(9));
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getBigDecimal(7),
+                        rs.getInt(8),
+                        rs.getString(9));
                 return p.getProductFullDetailID();
             }
         } catch (SQLException e) {
@@ -157,7 +161,7 @@ public class ProductDetailDAO extends DBContext {
         return 0;
     }
 
-     public List<String> getSize(int id) {
+    public List<String> getSize(int id) {
         String sql = "select ProductSize from ProductFullDetail where pdProductID = ?";
         List<String> listSize = new ArrayList<>();
         try {
@@ -224,15 +228,15 @@ public class ProductDetailDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 productDetail = new ProductDetail(
-                    rs.getInt(1),
-                    rs.getInt(2),
-                    rs.getString(3),
-                    rs.getDate(4),
-                    rs.getInt(5),
-                    rs.getString(6),
-                    rs.getBigDecimal(7),
-                    rs.getInt(8),
-                    rs.getString(9)
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getBigDecimal(7),
+                        rs.getInt(8),
+                        rs.getString(9)
                 );
                 listProduct.add(productDetail);
             }
@@ -342,8 +346,6 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
-   
-
     public ProductDetail getInforProductDetail(int pdID) {
 
         String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
@@ -411,4 +413,30 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
+    public List<ProductDetail> getAll() {
+
+        String sql = "select * from ProductFullDetail";
+        List<ProductDetail> details = new ArrayList<>();
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                ProductDetail p = new ProductDetail(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getBigDecimal(7),
+                        rs.getInt(8),
+                        rs.getString(9));
+                details.add(p);
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return details;
+    }
 }

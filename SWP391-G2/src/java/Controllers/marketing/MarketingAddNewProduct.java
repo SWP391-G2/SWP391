@@ -40,11 +40,11 @@ public class MarketingAddNewProduct extends HttpServlet {
 
         //get categories are active
         CategoriesDAO cateDao = new CategoriesDAO();
-        List<Categories> cateList = cateDao.getAll();
+        List<Categories> cateList = cateDao.loadCategory();
 
         //get brands are active
         BrandsDAO brDao = new BrandsDAO();
-        List<Brands> brList = brDao.getAll();
+        List<Brands> brList = brDao.getBrands();
 
         //get productId last
         ProductsDAO pDao = new ProductsDAO();
