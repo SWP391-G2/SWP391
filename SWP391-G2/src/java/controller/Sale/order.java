@@ -86,10 +86,6 @@ public class order extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String firstName = request.getParameter("firstname");
-//        String lastName = request.getParameter("lastname");
-//        String phone = request.getParameter("phone");
-    
         String total = request.getParameter("total");
 
         // Chuyển đổi giá trị từ String sang double
@@ -101,19 +97,6 @@ public class order extends HttpServlet {
 //        response.getWriter().print(lastName);
 //        response.getWriter().print(phone);
         //response.getWriter().print(total);
-
-//        if (validatePhone(phone) == false) {
-//            request.setAttribute("errorphone", "Wrong format phone number");
-//            request.getRequestDispatcher("checkout").forward(request, response);
-//        }
-//        if (validateUsername(firstName) == false) {
-//            request.setAttribute("errorfisrtname", "Wrong frmat for firstname");
-//            request.getRequestDispatcher("checkout").forward(request, response);
-//        }
-//        if (validateUsername(lastName) == false) {
-//            request.setAttribute("errorlastname", "Wrong format for lastname");
-//            request.getRequestDispatcher("checkout").forward(request, response);
-//        }
         String payment = request.getParameter("payment");
 
         String fullName = request.getParameter("fullname");
@@ -136,7 +119,7 @@ public class order extends HttpServlet {
             case "vnpay":
                 // Code xử lý cho "vnpay"s
                 request.setAttribute("total", amount);
-                request.getRequestDispatcher("form.jsp").forward(request, response);
+                request.getRequestDispatcher("common/form.jsp").forward(request, response);
                 break;
             case "direct":
                 // Code xử lý cho "direct"

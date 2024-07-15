@@ -220,55 +220,7 @@
                                     <label>Note</label>
                                     <input class="form-control" value="${param.note}" type="text" placeholder="Please deliver in the morning" name="note">
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount" name="newaccount">
-                                        <label class="custom-control-label" for="newaccount">Create an account</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="shipto" name="shipto">
-                                        <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="collapse mb-4" id="shipping-address">
-                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label>Full Name</label>
-                                    <input class="form-control" type="text" placeholder="John" name="shippingFirstName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control" type="text" placeholder="Doe" name="shippingLastName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="example@email.com" name="shippingEmail">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="+84944362986" name="shippingPhone">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 1</label>
-                                    <input class="form-control" type="text" placeholder="123 Street" name="shippingAddress1">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>City</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingCity">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>State</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingState">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>ZIP Code</label>
-                                    <input class="form-control" type="text" placeholder="123" name="shippingZip">
-                                </div>
+                               
                             </div>
                         </div>
                         <input type="hidden" value="${total - sessionScope.dis.getDiscount()*0.01*total}" name="total"/>
