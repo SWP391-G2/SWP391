@@ -19,12 +19,7 @@ import java.util.List;
  * @author admin
  */
 public class ProductDetailDAO extends DBContext {
-<<<<<<< HEAD
-      
-  
-=======
 
->>>>>>> da14ff7d668303fc50045dbfa4479ab2d2aabd74
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from ProductFullDetail where pdProductID  = ?";
