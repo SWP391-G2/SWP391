@@ -656,6 +656,15 @@ public class AccountsDAO extends DBContext {
             System.err.println(e);
         }
     }
+    
+    public static void main(String[] args) {
+        AccountsDAO dao = new AccountsDAO();
+        Date date = new Date(2024, 6, 18);
+        Date date1 = new Date(2024, 6, 20);
+        Accounts a = new Accounts("Ha", "Trung", "Hatrung8888-", "", 1, date, "Hatrung03022003@gmail.com", 1, date1, 2);
+//        dao.setInsert(a);
+        System.out.println(dao.getAccount("dohminhg@example.com"));
+    }
 
 
 }
