@@ -117,7 +117,7 @@ public class AdminControlAccount extends HttpServlet {
         request.setAttribute("listUser", listAccount);
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-            //response.getWriter().print(listAccount.get(0).toString());
+        //response.getWriter().print(listAccount.get(0).toString());
     }
 
     /**
@@ -151,23 +151,26 @@ public class AdminControlAccount extends HttpServlet {
         }
 
         String password = request.getParameter("password");
-        if(!valid.CheckPass(password)){
-            request.setAttribute("error", "Password must containsAt least 8 characters length At least 1 number (0..9) At least 1 lowercase letter (a..z)At least 1 special symbol (!..$)At least 1 uppercase letter (A..Z)");
-        }
         String email = request.getParameter("email");
 
         try {
             Accounts account = dao.getAccount(email);
             if (account == null) {
                 String firstName = request.getParameter("firstname");
-                if(isValidFirstName(firstName)==false){
+                if (isValidFirstName(firstName) == false) {
                     request.setAttribute("error", "firstname is wrong format!");
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
                 }
                 String lastName = request.getParameter("lastname");
-                if(isValidLastName(lastName)==false){
+                if (isValidLastName(lastName) == false) {
                     request.setAttribute("error", "lastname is wrong format!");
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
                 }
-                String image = ;
+                if (!valid.CheckPass(password)) {
+                    request.setAttribute("error", "Password must containsAt least 8 characters length At least 1 number (0..9) At least 1 lowercase letter (a..z)At least 1 special symbol (!..$)At least 1 uppercase letter (A..Z)");
+                    request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
+                }
+                String image = "";
 // Removed unnecessary parts for brevity
 
                 String gender1 = request.getParameter("gender");
@@ -212,10 +215,10 @@ public class AdminControlAccount extends HttpServlet {
 
             } else {
                 request.setAttribute("error", "Email already exist!");
+                request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
-            
 
         }
         List<AccountsEmployee> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);

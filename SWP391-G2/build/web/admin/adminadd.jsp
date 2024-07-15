@@ -32,7 +32,7 @@
                 <div class="col-12" style="margin-bottom: 40px;">
                     <h1>Add New Account</h1>
                 </div>
-                <form action="admincontrolaccount" method="post" enctype="multipart/form-data"  onsubmit="showUpdateAlert()">
+                <form action="admincontrolaccount" method="post" >
                     <input type="text" value="${data.getAccountID()}" name="id" hidden>
                     <input type="text" value="${requestScope.roleId}" name="roleId" id="roleId" hidden>
                     <input type="text" value="${requestScope.status}" name="status" id="status" hidden> 
@@ -41,17 +41,17 @@
                     <div class="form-group row">
                         <div class="col-4">
                             <label for="firstName">First Name:</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                            <input type="text" class="form-control" id="firstName" name="firstname" required>
                         </div>
                         <div class="col-4">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                            <input type="text" class="form-control" id="lastName" name="lastname" required>
                         </div>
                         <div class="col-4">
-                            <label for="email">Date Of Birth:</label>
-                            <input type="date" class="form-control" id="dob" name="birthDate"
-                                   value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" required>
+                            <label for="lastName">Password:</label>
+                            <input type="password" class="form-control" id="lastName" name="password" required>
                         </div>
+
                     </div>
 
                     <div class="form-group row">
@@ -60,8 +60,9 @@
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="col-4">
-                            <label for="phone">Phone Number:</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required>
+                            <label for="email">Date Of Birth:</label>
+                            <input type="date" class="form-control" id="dob" name="birthDate"
+                                   value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" required>
                         </div>
                         <div class="col-4">
                             <label for="roleId">Role:</label>
