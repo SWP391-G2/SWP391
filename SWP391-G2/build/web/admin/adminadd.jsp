@@ -21,13 +21,7 @@
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
         <style>
-            .form-title {
-                font-size: 2.5rem; /* Kích thước chữ lớn */
-                color: #333; /* Màu chữ tối */
-                text-align: center; /* Căn giữa tiêu đề */
-                margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
-                font-weight: bold; /* Chữ đậm */
-            }
+
 
             /* Thông báo lỗi */
             .alert {
@@ -45,8 +39,8 @@
                 border-color: #f5c6cb; /* Viền đỏ nhạt */
             }
 
-           
-            
+
+
         </style>
     </head>
 
@@ -144,6 +138,19 @@
 
 
     <script>
+                                const today = new Date();
+
+                                // Lấy các thành phần của ngày
+                                const year = today.getFullYear() - 16;
+                                const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+                                const day = String(today.getDate()).padStart(2, '0'); // Ngày của tháng
+
+                                // Định dạng ngày theo 'yyyy-dd-MM'
+                                const formattedDate = (year) + '-' + month + '-' + day;
+
+                                // Đặt thuộc tính 'max' của phần tử input
+                                document.getElementById('dob').setAttribute('max', formattedDate);
+
                                 function showAlert(message, accountID, status1) {
 
 
