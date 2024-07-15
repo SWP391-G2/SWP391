@@ -153,12 +153,33 @@
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>VoucherManager</servlet-name>
         <servlet-class>Controllers.marketing.VoucherManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateVoucher</servlet-name>
         <servlet-class>Controllers.marketing.UpdateVoucher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartCookieController</servlet-name>
+        <servlet-class>controller.customer.CartCookieController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>controller.customer.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShopServlet</servlet-name>
+        <servlet-class>controller.customer.ShopServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCart</servlet-name>
+        <servlet-class>controller.customer.UpdateCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleControllerOrder</servlet-name>
+        <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -313,11 +334,34 @@
         <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+ 
         <servlet-name>VoucherManager</servlet-name>
         <url-pattern>/voucher</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateVoucher</servlet-name>
         <url-pattern>/updatevoucher</url-pattern>
+    </servlet-mapping>
+        
+    <servlet-mapping>
+        <servlet-name>CartCookieController</servlet-name>
+        <url-pattern>/cartcookie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShopServlet</servlet-name>
+        <url-pattern>/shop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCart</servlet-name>
+        <url-pattern>/updatecart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleControllerOrder</servlet-name>
+        <url-pattern>/saleorder</url-pattern>
+         
     </servlet-mapping>
 </web-app>

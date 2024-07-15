@@ -6,6 +6,7 @@ package controller.customer;
 
 import Dal.CartsDAO;
 import Dal.ProductDetailDAO;
+import Models.Accounts;
 import Models.Carts;
 import Models.ProductDetail;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import javax.mail.Session;
 import org.apache.tomcat.util.net.SSLSupport;
 
 /**
@@ -67,44 +69,50 @@ public class CartController extends HttpServlet {
 //        HttpSession session = request.getSession();
 //        
 //        session.invalidate();
+        HttpSession session = request.getSession();
         CartsDAO cart = new CartsDAO();
         //String accountID_raw = sessio
-        String pdtID_raw = request.getParameter("pdtID");
+
+        String pdtID_raw = request.getParameter("productfulldetailid");
         String addquantity_raw = request.getParameter("quantity");
-        String productName_raw = request.getParameter("name");
+        String productName_raw = request.getParameter("productname");
         String deletecart_raw = request.getParameter("deletecard");
         int cartID = -1, pdID = -1, addquantity = -1;
-        int account = 3;
+
+
+        Accounts accounts = (Accounts) session.getAttribute("account");
+        int account = accounts == null ? Integer.parseInt(request.getParameter("accountID")) : accounts.getAccountID();
         try {
-            cartID = Integer.parseInt(deletecart_raw);
-            pdID = Integer.parseInt(pdtID_raw);
-            addquantity = Integer.parseInt(addquantity_raw);
+            pdID = pdtID_raw != null ?Integer.parseInt(pdtID_raw): -1;
+            addquantity = addquantity_raw != null? Integer.parseInt(addquantity_raw):-1;
+            cartID = deletecart_raw != null ? Integer.parseInt(deletecart_raw) :-1;
+
         } catch (Exception e) {
 
         }
         if (deletecart_raw != null) {
             cart.deleteCart(cartID);
-        }
-//        else if(cart.checkExist(pdID, account) != null){
-//            //Update quantity exist in DB
-//            int oldQuantity = cart.checkExist(16, 9).getQuantity();
-//            cart.updateQuantityProduct(oldQuantity, addquantity, pdID, account, productName_raw);
-//        }
-//        else if(cart.checkExist(pdID, account) == null){
-//            //Insert new productdetail in DB
-//            cart.insetNewCart(pdID, account, addquantity, productName_raw);
-//        }
+        } else if (cart.checkExist(pdID, account) != null) {
+            //Update quantity exist in DB
+            int oldQuantity = cart.checkExist(pdID, account).getQuantity();
+            cart.updateQuantityProduct(oldQuantity, addquantity, pdID, account);
 
-        List<Carts> listCart = cart.getAllCart();
+        } else if (cart.checkExist(pdID, account) == null) {
+            //Insert new productdetail in DB
+            cart.insetNewCart(pdID, account, addquantity, productName_raw);
+        }
+
+        List<Carts> listCart = cart.getCartByAccountID(account);
         ProductDetailDAO productDAO = new ProductDetailDAO();
         List<ProductDetail> listProduct = new ArrayList<>();
         for (Carts carts : listCart) {
             ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
             listProduct.add(p);
         }
+       
         request.setAttribute("listcart", listCart);
         request.setAttribute("listproduct", listProduct);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        request.getRequestDispatcher("common/cart.jsp").forward(request, response);
     }
 
     /**
@@ -118,7 +126,6 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String productID_raw = request.getParameter("pdID");
         String quantity_raw = request.getParameter("quantity");
         String minus_raw = request.getParameter("minus");
@@ -145,34 +152,31 @@ public class CartController extends HttpServlet {
         if (minus_raw != null) {
 
             if (quantity - 1 <= 0) {
-                session.setAttribute("error", "error");
-                response.sendRedirect("cartcontroller");
+                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             } else {
                 session.invalidate();
                 cartDAO.minusQuantity(quantity, productID, accountID);
-                //pdDAO.updateMinusAvaiableProductDetail(avaiable, productID);
-                response.sendRedirect("cartcontroller");
+                //pdDAO.updateAddAvaiableProductDetail(avaiable, productID);
+                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             }
 
         } else if (add_raw != null) {
 
             if (quantity + 1 > avaiable) {
-                session.setAttribute("error", "error");
-                response.sendRedirect("cartcontroller");
-
+                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             } else {
                 session.invalidate();
                 cartDAO.addQuantity(quantity, productID, accountID);
                 //pdDAO.updateAddAvaiableProductDetail(avaiable, productID);
-                response.sendRedirect("cartcontroller");
+                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             }
         } else if (delete != null) {
-            //cartDAO.deleteCart(cartID);
-            //response.sendRedirect("cartcontroller");
-            response.getWriter().print(cartID);
+            cartDAO.deleteCart(cartID);
+            response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
         } else {
             cartDAO.updateQuantity(newquantity, productID, accountID);
-            response.sendRedirect("cartcontroller");
+                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+
             //response.getWriter().print("success");
         }
 

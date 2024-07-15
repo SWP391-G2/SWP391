@@ -29,6 +29,9 @@
     </head>
     <body>
         <header>
+            <input type="text" id="productname" value="${p.getProductName()}" hidden="">
+            <input type="text" id="category" value="${c.getCategoryName()}" hidden="">
+            <input type="text" id="productductFullDetailID" value="${priceandsize[0].productFullDetailID}" hidden="">
             <div class="main_header header_transparent header-mobile-m">
                 <div class="header_container sticky-header" style="padding: 0">
                     <div class="container-fluid" style="background-color: black">
@@ -116,13 +119,12 @@
                         <div class="mb-3">
                             <img id="product-image" src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded-4 shadow">
                         </div>
-                        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
-                        <button class="next" onclick="changeImage(1)">&#10095;</button>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
                                     <img src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
                                 </div>
+                                
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
                                         <img src="images/Products/${c.getCategoryName()}/${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')">
@@ -148,9 +150,9 @@
                             <dl class="row">
                                 <dt class="col-sm-4">Trademark:</dt>
                                 <dd class="col-sm-8">${b.getBrandName()}</dd>
-                                <dt class="col-sm-4">Status:</dt>
+                                <dt class="col-sm-4" id="status">Status:</dt>
                                 <dd class="col-sm-8">${(priceandsize[0].productStatus == 0  ? 'Out Of Stock' : 'In Stock')}</dd>
-                                <dt class="col-sm-4">Quantity:</dt>
+                                <dt class="col-sm-4" id="quantitie" >Quantity:</dt>
                                 <dd class="col-sm-8">${priceandsize[0].productAvaiable}</dd>
                                 <dt class="col-sm-4">Price:</dt>
                                 <dd class="col-sm-8" id="price"><input type="text" value="${priceandsize[0].productPrice}" id="priceofproduct" hidden="">${priceandsize[0].productPrice} $</dd>
@@ -173,10 +175,20 @@
                                 </div>
                             </div>
 
-                            <div class="button-group">
-                                <button type="button" class="btn btn-add-to-cart"><i class="fa-solid fa-cart-plus" style="color: #fff; padding-right: 5px"></i><span style="color: #fff;font-weight: bold">Add to Cart</span></button>
-                                <button type="button" class="btn btn-add-to-wishlist"><i class="fa-regular fa-heart" style="color: #fff"></i></button>
-                            </div>
+                            <c:if test="${sessionScope.account != null}">
+                                <div class="button-group">
+                                    <button type="button" class="btn btn-add-to-cart" id="addToCartBtn" onclick="addToCart(${priceandsize[0].productFullDetailID})"><i class="fa-solid fa-cart-plus" style="color: #fff; padding-right: 5px"></i><span style="color: #fff;font-weight: bold">Add to Cart</span></button>
+                                    <button type="button" class="btn btn-add-to-wishlist"><i class="fa-regular fa-heart" style="color: #fff"></i></button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${sessionScope.account == null}">
+                                <div class="button-group">
+                                    <button type="button" class="btn btn-add-to-cart" id="addToCartBtn" onclick="addToCartCookie(${priceandsize[0].productFullDetailID})"><i class="fa-solid fa-cart-plus" style="color: #fff; padding-right: 5px"></i><span style="color: #fff;font-weight: bold">Add to Cart</span></button>
+                                    <button type="button" class="btn btn-add-to-wishlist"><i class="fa-regular fa-heart" style="color: #fff"></i></button>
+                                </div>
+                            </c:if>
+
                         </div>
                     </main>
                 </div>
@@ -439,18 +451,17 @@
         // Láº·p qua danh sÃ¡ch cÃ¡c size Äá» tÃ¬m size tÆ°Æ¡ng á»©ng vÃ  cáº­p nháº­t giÃ¡
         for (var i = 0; i < priceAndSizeData.length; i++) {
             if (priceAndSizeData[i].size == selectedSize) {
-                // Hiá»n thá» giÃ¡ cá»§a size ÄÆ°á»£c chá»n
+         
                 document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
-                document.getElementById('priceofproduct').setAttribute("value", priceAndSizeData[i].price);
                 document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                 document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
-
-                var statusText = (priceAndSizeData[i].quantity == 0 || priceAndSizeData[i].status == 0) ? 'Out Of Stock' : 'In Stock';
+                console.log(document.getElementById("productductFullDetailID"));
+                var statusText = (priceAndSizeData[i].quantity === 0 || priceAndSizeData[i].status === 0) ? 'Out Of Stock' : 'In Stock';
                 document.getElementById("status").innerText = statusText;
 
                 // Cáº­p nháº­t tráº¡ng thÃ¡i cá»§a nÃºt "Add to Cart"
                 var addToCartBtn = document.getElementById("addToCartBtn");
-                if (priceAndSizeData[i].quantity == 0) {
+                if (priceAndSizeData[i].quantity === 0) {
                     addToCartBtn.setAttribute("disabled", "true");
                     addToCartBtn.removeAttribute("onclick");
                 } else {
@@ -463,12 +474,23 @@
             }
         }
     });
-    function addToCart(productID) {
+    <c:if test="${sessionScope.account != null}">
+    function addToCart(productductFullDetailID) {
         var productname = document.getElementById('productname').value;
         var quantity = document.getElementById('quantity').value;
-        var productfulldetailid = document.getElementById('productductFullDetailID').value;
-        window.location.href = "/SWP391-G2/cart?productID=" + productID + "&&quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productfulldetailid;
+        window.location.href = "/SWP391-G2/cartcontroller?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID;
     }
+    </c:if>
+
+    <c:if test="${sessionScope.account == null}">
+    function addToCartCookie(productductFullDetailID) {
+        var productname = document.getElementById('productname').value;
+        var quantity = document.getElementById('quantity').value;
+        var category = document.getElementById('category').value;
+        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID +"&&category=" +category;
+    }
+    </c:if>
+
 </script>
 <script src="js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

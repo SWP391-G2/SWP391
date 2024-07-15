@@ -64,6 +64,34 @@ public class AccountsDAO extends DBContext {
         }
         return listEmployee;
     }
+    
+    public AccountsEmployee getAccountEmployee(int id) {
+        String sql = " select AccountID, FirstName, LastName, [Password], [Image], Gender, BirthDay, Email,ac.Status,CreateDate, RoleID, phone, address_line from Accounts ac join [Address] a on a.account_id = ac.AccountID where AccountID = 1";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                AccountsEmployee account = new AccountsEmployee(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getDate(10),
+                        rs.getInt(11),
+                        rs.getString(12),
+                        rs.getString(13));
+               return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     //get All customer in database
     public List<Accounts> getAll() {

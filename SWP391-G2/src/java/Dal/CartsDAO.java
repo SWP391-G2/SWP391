@@ -41,6 +41,29 @@ public class CartsDAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Carts> getCartByAccountID(int accountID) {
+        List<Carts> list = new ArrayList<>();
+        String sql = "select * from Cart where AccountID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, accountID);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Carts cart = new Carts(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5));
+                list.add(cart);
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
     public void minusQuantity(int quantity, int pdID, int accountID) {
         String sql = "UPDATE Cart set Quantity = ? - 1 where ProductFullDetailID = ? and AccountID = ?";
@@ -133,7 +156,7 @@ public class CartsDAO extends DBContext {
         }
     }
 
-    public void updateQuantityProduct(int oldQuantity, int addQuantity, int pdID, int accountID, String productName) {
+    public void updateQuantityProduct(int oldQuantity, int addQuantity, int pdID, int accountID) {
         String sql = "UPDATE Cart set Quantity = ? + ? where ProductFullDetailID=? and AccountID = ?";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -141,7 +164,6 @@ public class CartsDAO extends DBContext {
             ur.setInt(2, addQuantity);
             ur.setInt(3, pdID);
             ur.setInt(4, accountID);
-            ur.setString(5, productName);
             ur.executeUpdate();
 
         } catch (SQLException e) {
@@ -179,9 +201,14 @@ public class CartsDAO extends DBContext {
 //          System.out.println(false);
 //      }
 //      
-        //dao.insetNewCart(16, 9, 10, "Gucci");
+        dao.insetNewCart(81, 1, 3, "XERJOFF%20NAXOS%20EDP");
         //dao.updateQuantityProduct(12, 6, 16, 9);
-        System.out.println( dao.checkExist(16, 9).getQuantity());
-
+        //System.out.println( dao.checkExist(16, 9).getQuantity());
+//        List<Carts> cart  = dao.getCartByAccountID(9);
+//        for (Carts carts : cart) {
+//            System.out.println(carts.getName());
+//        }
+//        Carts cart = dao.checkExist(3, 8);
+//        System.out.println(cart.getName());
     }
 }
