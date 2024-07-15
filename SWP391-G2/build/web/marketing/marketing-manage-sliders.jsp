@@ -1,8 +1,4 @@
-<%-- 
-    Document   : marketing-manage-sliders
-    Created on : 25 thg 6, 2024, 09:13:40
-    Author     : pna29
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
