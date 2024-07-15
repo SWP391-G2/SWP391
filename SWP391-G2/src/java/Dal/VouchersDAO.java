@@ -69,7 +69,7 @@ public class VouchersDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
-
+    
     public Vouchers getVoucherById(int id) {
         String sql = "select * from Vouchers where VoucherID = ?";
         try {

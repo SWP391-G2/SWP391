@@ -60,7 +60,7 @@
                             <!-- Product Name -->
                             <div class="form-group row">
                                 <div class="col-10">  
-                                    <label for="detail">Voucher Name:</label>
+                                    <label for="detail">Code:</label>
                                     <input name="voucherName" id="voucher" value="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
                                 </div>
                             </div>
