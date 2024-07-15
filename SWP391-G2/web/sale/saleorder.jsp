@@ -137,8 +137,8 @@
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
                             <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
-                            <option value="0" ${status==2 ? 'selected' : '' }>Done</option>
-                            <option value="0" ${status==3 ? 'selected' : '' }>Cancelled</option>
+                            <option value="2" ${status==2 ? 'selected' : '' }>Done</option>
+                            <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
                         </select>
                     </div>
 
@@ -187,11 +187,8 @@
                                                 </c:choose>
                                             </td>
                                             <td>
-                                                <a onclick="showAlert('Marketing unblocked successfully!', ${brand.getBrandID()}, 1);">
-                                                    <button type="button" class="btn btn-success">
-                                                        View Details
-                                                    </button>
-                                                </a>
+                                                <a href="saleorderdetails">View Details</a>                                                    
+                                                
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -293,57 +290,6 @@
                                                                 '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
                                                     }
 
-    </script>
-
-    <script>
-        function isOnlyWhitespace(input) {
-            return /^\s*$/.test(input);
-        }
-
-        function validateForm() {
-            // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
-
-            // Lấy các phần tử để hiển thị lỗi
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
-
-            // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-
-            // Xóa thông báo lỗi trước đó
-            nameError.textContent = '';
-            descriptionError.textContent = '';
-
-            // Kiểm tra input
-            var valid = true;
-
-            // Kiểm tra name
-            if (isOnlyWhitespace(name)) {
-                nameError.textContent = 'Brand Name cannot contain only whitespace.';
-                valid = false;
-            } else if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
-                valid = false;
-            } else if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Brand Name cannot contain whole numbers.';
-                valid = false;
-            }
-
-            // Kiểm tra description
-            if (isOnlyWhitespace(description)) {
-                descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
-                valid = false;
-            } else if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
-                valid = false;
-            }
-
-            // Nếu tất cả đều hợp lệ, return true để submit form
-            return valid;
-        }
     </script>
     <script>
         // handle filter search
