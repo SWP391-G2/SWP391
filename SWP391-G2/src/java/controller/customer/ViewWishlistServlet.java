@@ -89,7 +89,19 @@ public class ViewWishlistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        if (account != null) {
+            WishlistDAO wishlistDAO = new WishlistDAO();
+            wishlistDAO.removeFromWishlist(account.getAccountID(), productID);
+            List<WishlistItems> wishlist = wishlistDAO.getWishlistByAccountId(account.getAccountID());
+
+            request.setAttribute("wishlist", wishlist);
+            request.getRequestDispatcher("common/viewWishlist.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("login");
+        }
     }
 
     /**

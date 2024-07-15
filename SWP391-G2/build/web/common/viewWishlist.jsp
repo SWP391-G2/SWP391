@@ -18,124 +18,218 @@
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+        <style>
+            /* General styling */
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+            }
+
+            .text_page_head, .text_page {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .product-image img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .btn-select {
+                background-color: #333;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                cursor: pointer;
+                border-radius: 3px;
+                margin-bottom: 10px;
+                width: 150px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+            .btn-select:hover {
+                background-color: #fd7e14;
+            }
+            .delete-wishlist .btn-delete:hover{
+                background-color: #fd7e14;
+            }
+            .delete-wishlist .btn-delete{
+                background-color: #b93f06;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                cursor: pointer;
+                border-radius: 3px;
+                margin-bottom: 10px;
+                width: 150px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+
+            @keyframes fire {
+                from {
+                    transform: translateY(0);
+                }
+                to {
+                    transform: translateY(-5px);
+                }
+            }
+
+        </style>
     </head>
     <body>
-        <div class="container px-4 py-5 mx-auto text-center">
-            <c:if test="${empty wishlist}">
-                <<img src="images/emptycart2.png" width="600px"  alt="Emptycart" />
-            </c:if>
-            <c:if test="${not empty wishlist}">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-12">
-                        <div class="row text-right">
-                            <div class="col-2 mt-2 text_page_head">
-                                Nhà cung cấp
+        <header>
+            <div class="main_header header_transparent header-mobile-m">
+                <div class="header_container sticky-header" style="padding: 0">
+                    <div class="container-fluid" style="background-color: black">
+                        <div class="row align-items-center" style="padding: 8px 0">
+                            <div class="col-lg-3">
+                                <div class="logo">
+                                    <a href="home"><img src="images/logo/logo0.png" alt=""></a>
+                                </div>
                             </div>
-                            <div class="col-2 mt-2 text_page_head">
-                                Giá
+                            <div class="col-lg-6">
+                                <div class="main_menu menu_two menu_position">
+                                    <nav>
+                                        <ul class="nav nav-pills nav-fill">
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="home">HOME</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">ABOUT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" class="${cid_refine==0?"active":""}" href="refine?cid=${0}">PERFUMES
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach var="category" items="${requestScope.categories}">
+                                                        <li class="nav-item-lv2">
+                                                            <a class="nav-link" class="${category.categoryID==cid_refine?"active":""}" href="refine?cid_refinee=${category.categoryID}">
+                                                                ${category.categoryName}'s Perfumes
+                                                            </a>
+                                                        </li>
+                                                    </c:forEach>                                                  
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">BRANDS
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu multi-column">
+                                                    <div class="row">
+                                                        <c:forEach var="brand" items="${requestScope.brands}">
+                                                            <div class="col-md-4">
+                                                                <li class="nav-item-lv2">
+                                                                    <a class="nav-link" href="refine?bid_refinee=${brand.getBrandID()}">${brand.getBrandName()}</a>
+                                                                </li>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">CONTACT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">BLOGS</a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
-                            <div class="col-2 mt-2 text_page_head" style="padding-right: 30px">
-                                Lựa chọn
-                            </div>
-                            <div class="col-2 mt-2 text_page_head">
-                                Nhà cung cấp
-                            </div>
-                            <div class="col-2 mt-2 text_page_head">
-                                Nhà cung cấp
-                            </div>
-                            <div class="col-2 mt-2 text_page_head">
-                                Nhà cung cấp
-                            </div>
-                            <div class="col-2 mt-2 text_page_head">
-                                Nhà cung cấp
+                            <div class="col-lg-3">
+                                <jsp:include page="header_right.jsp"/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <c:forEach items="${sessionScope.wishlist}" var="item">
-                    <c:set var="p" value="${item.product}" />
-                    <div class="row d-flex justify-content-center border-top">
-                        <div class="col-4">
-                            <div class="row d-flex">
-                                <div class="book col-7" style="margin-right: 30px; flex: 1">
-                                    <img src="${item.product.image[0]}" style="width: 170px; height: 150px" class="book-img">
-                                </div>
-                                <div class="my-auto flex-column d-flex pad-left col-5">
-                                    <h6 class="mob-text">${item.product.name}</h6>
-                                </div>
-                            </div>
+            </div>
+        </header>
+        <div class="container px-4 py-5 mx-auto text-center" >
+            <c:if test="${empty wishlist}">
+                <img src="images/emptycart2.png" width="700px" alt="Emptycart" />
+            </c:if>
+            <c:if test="${not empty wishlist}">
+                <h2 class="ani-fire" style="padding: 60px;
+                    font-weight: bold ">YOUR WISHLIST</h2>
+                <div class="wishlist-table">
+                    <div class="row text-left" style="background-color: #f8f8f8;
+                         margin-bottom: 10px;
+                         border: 2px solid #ddd;
+                         padding: 10px;">
+                        <div class="col mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">NO</span>
                         </div>
-                        <div class="my-auto col-8 ">
-                            <div class="row text-right">
-                                <div class="col-4 text_page">
-                                    <p class="mob-text">${item.product.supplier.companyName}</p>
-                                </div>
-                                <div class="col-2 text_page">
-                                    ${item.price}
-                                </div>
-                                <div class="col-6" style="margin-top: -15px;display: flex; justify-content: space-between; align-items: center;" >
-                                    <div class="col-9">
-                                        <form action="viewwishlist" method="post" style="display:flex">
-                                            <input name="quantity" type="number" min="1" max="100" step="1" value="1" style="width:100px">
-                                            <input name="id" type="hidden" value="${p.id}">
-                                            <input name="role" type="hidden" value="add">
-                                            <button type="submit"  style="padding: 7px 15px; border: none; border-radius: 5px; background-color: orangered; color: white"F >
-                                                Thêm
-                                            </button>                                         
-                                        </form>
-                                    </div>
-                                    <div class="col-3" style="text-align: center">
-                                        <a  href="viewwishlist?rid=${item.product.id}"
-                                            style="color: orange; font-size: 30px">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-2 mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">PRODUCT IMAGE</span>
+                        </div>
+                        <div class="col-3 mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">PRODUCT NAME</span> 
+                        </div>
+                        <div class="col mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">STATUS</span>
+                        </div>
+                        <div class="col mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">PRICE</span>
+                        </div>
+                        <div class="col-2 mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">DATE ADDED </span>
+                        </div>
+                        <div class="col-2 mt-2 text_page_head ani-fire">
+                            <span style=" font-weight: bolder;">OPTIONS</span>
                         </div>
                     </div>
-                </c:forEach>
+                    <c:set var="stt" value="0"/>
+                    <c:forEach var="item" items="${wishlist}">
+                        <c:set var="stt" value="${stt+1}"/>
+                        <div class="row text-left" style="background-color: #f8f8f8";
+                             margin-bottom: 10px;
+                             border: 2px solid #ddd;
+                             padding: 10px;">
+                            <div class="col mt-2 text_page">
+                                ${stt}
+                            </div>
+                            <div class="col-2 mt-2 text_page">
+                                <div class="product-image">
+                                    <img src="${item.product.productImageUrl}" style="width: 110px;
+                                         height: 110px" alt="Product Image">
+                                </div>
+                            </div>
+                            <div class="col-3 mt-2 text_page">
+                                ${item.product.productName} 
+                            </div>
+                            <div class="col mt-2 text_page">
+                                ${(item.product.productStatus == 0  ? 'Out Of Stock' : 'In Stock')}
+                            </div>
+                            <div class="col mt-2 text_page">
+                                $${item.productFullDetail.productPrice}
+                            </div>
+                            <div class="col-2 mt-2 text_page">
+                                ${item.dateAdded} 
+                            </div>
+                            <div class="col-2 mt-2 text_page">
+                                <div class="select-options">
+                                    <button class="btn-select">Select Options</button>
+                                </div>
+                                <div class="delete-wishlist">
+                                    <form action="viewWishlist" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');" >
+                                        <input type="hidden" name="accountID" value="${sessionScope.account.accountID}" />
+                                        <input type="hidden" name="productID" value="${item.product.productID}" />
+                                        <button type="submit" class="btn-delete">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:if>
         </div>
-        <h1>Your Wishlist</h1>
-        <c:if test="${not empty wishlist}">
-
-            <table border="1">
-                <tr>
-                    <th>No</th>
-                    <th>Product Name</th>
-                    <th>Image</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Size</th>
-                    <th>Date Added</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <c:set var="stt" value="0"/>
-                <c:forEach var="item" items="${wishlist}">
-                    <c:set var="stt"  value="${stt+1}"/>
-                    <tr>
-                        <td>${stt}</td>
-                        <td>${item.product.productName}</td>
-                        <td><img src="${item.product.productImageUrl}" alt="alt"/></td>
-                        <td>${item.productFullDetail.productDescription}</td>
-                        <td>${item.productFullDetail.productSize}</td>
-                        <td>${item.productFullDetail.productPrice}</td>
-                        <td>${item.dateAdded}</td>
-                        <td><button>Delete</button></td>
-                        <td><button>Add to Cart</button></td>
-                    </tr>
-                </c:forEach>
-
-            </table>
-
-        </c:if>
-        <c:if test="${empty wishlist}">
-            <p>Your wishlist is empty.</p>
-        </c:if>
+        <div class="footer">
+            <jsp:include page="footer.jsp"/>
+        </div>
         <script>
-
         </script>
 
     </body>
