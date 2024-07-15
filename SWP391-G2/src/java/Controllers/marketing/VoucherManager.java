@@ -86,12 +86,12 @@ public class VoucherManager extends HttpServlet {
         }
         String startStr = request.getParameter("start");
         String endStr = request.getParameter("end");
-        Date start_raw = null;
+        Date start = null;
         Date end = null;
 
         try {
             if (startStr != null && !startStr.isEmpty()) {
-              String start = String.valueOf( Date.valueOf(startStr));
+              //String start = String.valueOf( Date.valueOf(startStr));
             }
             if (endStr != null && !endStr.isEmpty()) {
                 end = Date.valueOf(endStr);

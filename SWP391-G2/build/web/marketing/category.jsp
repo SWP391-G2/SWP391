@@ -175,7 +175,6 @@
                                             <td>${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
-
                                                 <c:choose>
                                                     <c:when test="${category.getStatus() == 1}">
                                                         <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
@@ -260,7 +259,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
+                            <form action="category" method="post" onsubmit="return validateForm()">
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group">
