@@ -167,7 +167,7 @@ public class AdminControlAccount extends HttpServlet {
                 if(isValidLastName(lastName)==false){
                     request.setAttribute("error", "lastname is wrong format!");
                 }
-                String image = request.getParameter("image");
+                String image = ;
 // Removed unnecessary parts for brevity
 
                 String gender1 = request.getParameter("gender");

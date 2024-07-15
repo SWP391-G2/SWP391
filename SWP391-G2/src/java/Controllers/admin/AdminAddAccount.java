@@ -59,7 +59,7 @@ public class AdminAddAccount extends HttpServlet {
         RoleDAO dao = new RoleDAO();
         List<Role> listRole = dao.getAllRoles();
         request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("admin/addaccount.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
     } 
 
     /** 
