@@ -57,7 +57,7 @@ public class AdminAddAccount extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         RoleDAO dao = new RoleDAO();
-        List<Role> listRole = dao.getAllRoles();
+        List<Role> listRole = dao.getAllRolesSaleMarket();
         request.setAttribute("listRole", listRole);
         request.getRequestDispatcher("admin/adminadd.jsp").forward(request, response);
     } 
