@@ -61,19 +61,18 @@
                             <div class="form-group row">
                                 <div class="col-10">  
                                     <label for="detail">Voucher Name:</label>
-                                    <input name="voucherName" id="voucher" placeholder="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
+                                    <input name="voucherName" id="voucher" value="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
                                 </div>
                             </div>
                             <!-- Other fields (Category, Brands, Status) -->
                             <div class="form-group row d-flex col-10 justify-content-between ">
-
                                 <div class="col-3 d-flex  align-items-center">
                                     Discount:
-                                    <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" placeholder="${voucher.getDiscount()}" class="col-4 form-control">
+                                    <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" class="col-4 form-control">
                                 </div>
                                 <div class="col-3 d-flex  align-items-center">
                                     Quantity:     
-                                    <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  placeholder="${voucher.getQuantity()}" class="col-4 form-control">
+                                    <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  class="col-4 form-control">
                                 </div>
                                 <div class="col-3 d-flex justify-content-around align-items-center">
 
@@ -99,7 +98,7 @@
                                     <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
                                     <% if (request.getAttribute("error") != null) { %>
                                     <div class="error">
-                                        <%= request.getAttribute("error") %>
+                                        <%= requestScope.error %>
                                     </div>
                                     <% } %>
 
@@ -145,34 +144,31 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            const input = document.getElementById("discount");
-            input.addEventListener("input", function (event) {
-                let value = input.value;
+            const discountInput = document.getElementById("discount");
+            discountInput.addEventListener("input", function () {
+                let value = discountInput.value;
                 // Chỉ giữ lại các ký tự số
                 value = value.replace(/[^0-9]/g, '');
-                // Loại bỏ các số từ 1 đến 99
+                // Loại bỏ các số ngoài khoảng 1 đến 99
                 if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 99)) {
-                    value = '';
+                    value = discountInput.defaultValue;
                 }
-
-                input.value = value;
+                discountInput.value = value;
             });
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const input = document.getElementById("quantity");
-            input.addEventListener("input", function (event) {
-                let value = input.value;
+            discountInput.defaultValue = parseInt(discountInput.defaultValue) || 0;
+            const quantityInput = document.getElementById("quantity");
+            quantityInput.addEventListener("input", function () {
+                let value = quantityInput.value;
                 // Chỉ giữ lại các ký tự số
                 value = value.replace(/[^0-9]/g, '');
-                // Loại bỏ các số từ 1 đến 99
+                // Loại bỏ các số ngoài khoảng 1 đến 99
                 if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 99)) {
-                    value = '';
+                    value = quantityInput.defaultValue;
                 }
-
-                input.value = value;
+                quantityInput.value = value;
             });
         });
+        
         function updateForm() {
             var form = document.getElementById('productForm');
             // Gọi hành động submit của form
