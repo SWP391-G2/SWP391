@@ -59,6 +59,37 @@ public class Validation {
         }
         return isNumber && islower && isspecital && isupper;
     }
+    
+    public static boolean isValidFirstName(String firstName) {
+        // Kiểm tra nếu firstname không rỗng và không chỉ chứa khoảng trắng
+        if (firstName == null || firstName.trim().isEmpty()) {
+            return false;
+        }
+
+        // Kiểm tra độ dài của firstname
+        if (firstName.length() < 2 || firstName.length() > 50) {
+            return false;
+        }
+
+        // Kiểm tra nếu firstname chỉ chứa chữ cái và khoảng trắng
+        return firstName.matches("[a-zA-Z ]+");
+    }
+    
+    public static boolean isValidLastName(String firstName) {
+        // Kiểm tra nếu firstname không rỗng và không chỉ chứa khoảng trắng
+        if (firstName == null || firstName.trim().isEmpty()) {
+            return false;
+        }
+
+        // Kiểm tra độ dài của firstname
+        if (firstName.length() < 2 || firstName.length() > 50) {
+            return false;
+        }
+
+        // Kiểm tra nếu firstname chỉ chứa chữ cái và khoảng trắng
+        return firstName.matches("[a-zA-Z ]+");
+    }
+
 
     public static void main(String[] args) {
         Validation validation = new Validation();

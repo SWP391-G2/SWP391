@@ -92,7 +92,8 @@
                 opacity: 1;
             }
 
-            .select-css {
+            /* Custom styles for the select element */
+            .select-custom {
                 display: block;
                 font-size: 16px;
                 font-family: Arial, sans-serif;
@@ -104,9 +105,15 @@
                 border-radius: 4px;
                 background-color: #fff;
                 margin-bottom: 15px;
+                appearance: none; /* Removes default arrow in some browsers */
+                background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="0,0 20,0 10,10" fill="%23434340"/></svg>'); /* Custom arrow */
+                background-repeat: no-repeat;
+                background-position: right 10px center;
+                background-size: 10px;
+                padding-right: 30px; /* Ensure padding for the arrow */
             }
 
-            .select-css:focus {
+            .select-custom:focus {
                 border-color: #495057;
                 box-shadow: none;
             }
@@ -119,7 +126,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Add New Users</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="confirmClose()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -157,17 +164,16 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="role">Role:</label>
-                                    <c:forEach items="${listRole}" var="role">
-                                        <option value="${role.roleID}" ${role.roleID==roleId ? 'selected' : '' }>
-                                            ${role.roleName}
-                                        </option>
-                                    </c:forEach>
-
+                                    <select name="role" id="role" class="form-control select-custom">
+                                        <c:forEach items="${requestScope.listRole}" var="i">
+                                            <option value="${i.getRoleID()}">${i.getRoleName()}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="confirmClose()">Close</button>
                             <button type="submit" class="btn btn-primary">Add New</button>
                         </div>
                     </form>
@@ -194,25 +200,33 @@
 
 
     <script>
-        function showAlert(message, accountID, status1) {
+                                function showAlert(message, accountID, status1) {
 
 
-            if (confirm(message)) {
-                const search = document.querySelector('#search').value;
-                const roleId = document.querySelector('#roleId').value;
-                const status = document.querySelector('#status').value;
-                const pageNo = document.querySelector('#pageNo').value;
-                window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                        '&status=' + status + '&pageNo=' + pageNo + "&accountID=" + accountID + "&statusnew=" + status1;
+                                    if (confirm(message)) {
+                                        const search = document.querySelector('#search').value;
+                                        const roleId = document.querySelector('#roleId').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+                                                '&status=' + status + '&pageNo=' + pageNo + "&accountID=" + accountID + "&statusnew=" + status1;
+                                    }
+                                }
+                                function showDetail(accountID, accountRole) {
+                                    const search = document.querySelector('#search').value;
+                                    const roleId = document.querySelector('#roleId').value;
+                                    const status = document.querySelector('#status').value;
+                                    const pageNo = document.querySelector('#pageNo').value;
+                                    window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
+                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
+                                }
+    </script>
+    <script>
+        function confirmClose() {
+            if (confirm("Do you want to close?")) {
+                // Chuyển hướng về trang servlet cũ
+                window.location.href = 'admincontrolaccount';
             }
-        }
-        function showDetail(accountID, accountRole) {
-            const search = document.querySelector('#search').value;
-            const roleId = document.querySelector('#roleId').value;
-            const status = document.querySelector('#status').value;
-            const pageNo = document.querySelector('#pageNo').value;
-            window.location.href = 'admindetails?search=' + search + '&roleId=' + roleId +
-                    '&status=' + status + '&pageNo=' + pageNo + '&id=' + accountID + '&roleID=' + accountRole;
         }
     </script>
 </html>

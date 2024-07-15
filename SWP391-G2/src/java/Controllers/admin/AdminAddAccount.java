@@ -5,12 +5,15 @@
 
 package Controllers.admin;
 
+import Dal.RoleDAO;
+import Models.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -53,7 +56,10 @@ public class AdminAddAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        RoleDAO dao = new RoleDAO();
+        List<Role> listRole = dao.getAllRoles();
+        request.setAttribute("listRole", listRole);
+        request.getRequestDispatcher("admin/addaccount.jsp").forward(request, response);
     } 
 
     /** 

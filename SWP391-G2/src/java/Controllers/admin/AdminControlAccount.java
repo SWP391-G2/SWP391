@@ -10,6 +10,9 @@ import Models.Accounts;
 import Models.AccountsEmployee;
 import Models.Role;
 import Util.Security;
+import Util.Validation;
+import static Util.Validation.isValidFirstName;
+import static Util.Validation.isValidLastName;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -130,6 +133,7 @@ public class AdminControlAccount extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         AccountsDAO dao = new AccountsDAO();
+        Validation valid = new Validation();
 
         String search = "";
         int roleId = -1;
@@ -147,20 +151,26 @@ public class AdminControlAccount extends HttpServlet {
         }
 
         String password = request.getParameter("password");
+        if(!valid.CheckPass(password)){
+            request.setAttribute("error", "Password must containsAt least 8 characters length At least 1 number (0..9) At least 1 lowercase letter (a..z)At least 1 special symbol (!..$)At least 1 uppercase letter (A..Z)");
+        }
         String email = request.getParameter("email");
 
         try {
-
             Accounts account = dao.getAccount(email);
             if (account == null) {
                 String firstName = request.getParameter("firstname");
+                if(isValidFirstName(firstName)==false){
+                    request.setAttribute("error", "firstname is wrong format!");
+                }
                 String lastName = request.getParameter("lastname");
+                if(isValidLastName(lastName)==false){
+                    request.setAttribute("error", "lastname is wrong format!");
+                }
                 String image = request.getParameter("image");
 // Removed unnecessary parts for brevity
 
                 String gender1 = request.getParameter("gender");
-
-                String address = request.getParameter("address");
 
                 String roleID1 = request.getParameter("roleID");
 
@@ -175,9 +185,6 @@ public class AdminControlAccount extends HttpServlet {
                 } catch (NumberFormatException e) {
                     System.out.println(e);
                 }
-                out.print(gender1);
-
-                out.print(roleID1);
                 String datebirthday = request.getParameter("birthday");
                 Date createdate = new Date(System.currentTimeMillis());
 
@@ -204,11 +211,11 @@ public class AdminControlAccount extends HttpServlet {
                 request.setAttribute("success", "Create successfully!");
 
             } else {
-                throw new Exception("Email is esixt!!");
+                request.setAttribute("error", "Email already exist!");
             }
 
         } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
+            
 
         }
         List<AccountsEmployee> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
