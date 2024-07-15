@@ -119,7 +119,7 @@ public class VouchersDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " StartDate >= ?";
+                sql += " StartDate = ?";
                 whereAdded = true;
             }
 
@@ -127,7 +127,7 @@ public class VouchersDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " ExpiryDate <= ?";
+                sql += " ExpiryDate = ?";
                 whereAdded = true;
             }
 
