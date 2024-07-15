@@ -17,14 +17,14 @@ public class WishlistItems {
     private int accountID;
     private int productID;
     private Date dateAdded;
-    private ProductsHome product;
+    private Products product;
     private ProductDetail productFullDetail;
 
      
     public WishlistItems() {
     }
 
-    public WishlistItems(int wishlistID, int accountID, int productID, Date dateAdded, ProductsHome product, ProductDetail productFullDetail) {
+    public WishlistItems(int wishlistID, int accountID, int productID, Date dateAdded, Products product, ProductDetail productFullDetail) {
         this.wishlistID = wishlistID;
         this.accountID = accountID;
         this.productID = productID;
@@ -65,11 +65,11 @@ public class WishlistItems {
         this.dateAdded = dateAdded;
     }
 
-    public ProductsHome getProduct() {
+    public Products getProduct() {
         return product;
     }
 
-    public void setProduct(ProductsHome product) {
+    public void setProduct(Products product) {
         this.product = product;
     }
 

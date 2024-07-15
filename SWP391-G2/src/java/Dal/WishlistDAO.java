@@ -35,17 +35,17 @@ public class WishlistDAO extends DBContext {
     public List<WishlistItems> getWishlistByAccountId(int accountID) {
         String sql = "SELECT w.WishlistID, w.AccountID, w.ProductID, w.DateAdded, "
                 + "p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, "
-                + "MIN(pd.ProductPrice) AS priceMin, MAX(pd.ProductPrice) AS priceMax, "
                 + "pd.ProductFullDetailID, pd.ProductDescription, pd.ProductCreateDate AS DetailCreateDate, pd.ProductStatus AS DetailStatus, "
                 + "pd.ProductSize, pd.ProductPrice, pd.ProductAvaiable, pd.image "
                 + "FROM Wishlist w "
                 + "JOIN Products p ON w.ProductID = p.ProductID "
-                + "LEFT JOIN ProductFullDetail pd ON w.ProductID = pd.pdProductID "
-                + "WHERE w.AccountID = ? "
-                + "GROUP BY w.WishlistID, w.AccountID, w.ProductID, w.DateAdded, "
-                + "p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, "
-                + "pd.ProductFullDetailID, pd.ProductDescription, pd.ProductCreateDate, pd.ProductStatus, "
-                + "pd.ProductSize, pd.ProductPrice, pd.ProductAvaiable, pd.image";
+                + "JOIN ( "
+                + "    SELECT pdProductID, MIN(ProductPrice) AS minProductPrice "
+                + "    FROM ProductFullDetail "
+                + "    GROUP BY pdProductID "
+                + ") minPrice ON p.ProductID = minPrice.pdProductID "
+                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID AND pd.ProductPrice = minPrice.minProductPrice "
+                + "WHERE w.AccountID = ?";
 
         List<WishlistItems> wishlist = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -58,7 +58,7 @@ public class WishlistDAO extends DBContext {
                 item.setProductID(rs.getInt("ProductID"));
                 item.setDateAdded(rs.getDate("DateAdded"));
 
-                ProductsHome product = new ProductsHome();
+                Products product = new Products();
                 product.setProductID(rs.getInt("ProductID"));
                 product.setProductName(rs.getString("ProductName"));
                 product.setProductCreateDate(rs.getDate("ProductCreateDate"));
@@ -66,8 +66,6 @@ public class WishlistDAO extends DBContext {
                 product.setProductImageUrl(rs.getString("ProductImageUrl"));
                 product.setBrandID(rs.getInt("BrandID"));
                 product.setCategoryID(rs.getInt("CategoryID"));
-                product.setPriceMin(rs.getBigDecimal("PriceMin"));
-                product.setPriceMax(rs.getBigDecimal("PriceMax"));
 
                 ProductDetail productFullDetail = new ProductDetail();
                 productFullDetail.setProductFullDetailID(rs.getInt("ProductFullDetailID"));
