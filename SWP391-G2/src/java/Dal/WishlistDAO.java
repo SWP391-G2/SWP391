@@ -10,6 +10,7 @@ package Dal;
  */
 import Models.ProductDetail;
 import Models.Products;
+import Models.ProductsHome;
 import Models.WishlistItems;
 import context.DBContext;
 import java.sql.PreparedStatement;
@@ -18,27 +19,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistDAO extends DBContext{
-     public void addToWishlist(int accountID, int productID)  {
+public class WishlistDAO extends DBContext {
+
+    public void addToWishlist(int accountID, int productID) {
         String sql = "INSERT INTO Wishlist (AccountID, ProductID, DateAdded) VALUES (?, ?, GETDATE())";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, accountID);
             stmt.setInt(2, productID);
             stmt.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public List<WishlistItems> getWishlistByAccountId(int accountID) {
-        String sql = "SELECT w.WishlistID, w.AccountID, w.ProductID, w.DateAdded, " +
-                 "p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, " +
-                 "pd.ProductFullDetailID, pd.ProductDescription, pd.ProductCreateDate AS DetailCreateDate, pd.ProductStatus AS DetailStatus, " +
-                 "pd.ProductSize, pd.ProductPrice, pd.ProductAvaiable, pd.image " +
-                 "FROM Wishlist w " +
-                 "JOIN Products p ON w.ProductID = p.ProductID " +
-                 "JOIN ProductFullDetail pd ON w.ProductID = pd.pdProductID " + 
-                 "WHERE w.AccountID = ?";
+        String sql = "SELECT w.WishlistID, w.AccountID, w.ProductID, w.DateAdded, "
+                + "p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, "
+                + "MIN(pd.ProductPrice) AS priceMin, MAX(pd.ProductPrice) AS priceMax, "
+                + "pd.ProductFullDetailID, pd.ProductDescription, pd.ProductCreateDate AS DetailCreateDate, pd.ProductStatus AS DetailStatus, "
+                + "pd.ProductSize, pd.ProductPrice, pd.ProductAvaiable, pd.image "
+                + "FROM Wishlist w "
+                + "JOIN Products p ON w.ProductID = p.ProductID "
+                + "LEFT JOIN ProductFullDetail pd ON w.ProductID = pd.pdProductID "
+                + "WHERE w.AccountID = ? "
+                + "GROUP BY w.WishlistID, w.AccountID, w.ProductID, w.DateAdded, "
+                + "p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID, p.CategoryID, "
+                + "pd.ProductFullDetailID, pd.ProductDescription, pd.ProductCreateDate, pd.ProductStatus, "
+                + "pd.ProductSize, pd.ProductPrice, pd.ProductAvaiable, pd.image";
 
         List<WishlistItems> wishlist = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -51,7 +58,7 @@ public class WishlistDAO extends DBContext{
                 item.setProductID(rs.getInt("ProductID"));
                 item.setDateAdded(rs.getDate("DateAdded"));
 
-                Products product = new Products();
+                ProductsHome product = new ProductsHome();
                 product.setProductID(rs.getInt("ProductID"));
                 product.setProductName(rs.getString("ProductName"));
                 product.setProductCreateDate(rs.getDate("ProductCreateDate"));
@@ -59,6 +66,8 @@ public class WishlistDAO extends DBContext{
                 product.setProductImageUrl(rs.getString("ProductImageUrl"));
                 product.setBrandID(rs.getInt("BrandID"));
                 product.setCategoryID(rs.getInt("CategoryID"));
+                product.setPriceMin(rs.getBigDecimal("PriceMin"));
+                product.setPriceMax(rs.getBigDecimal("PriceMax"));
 
                 ProductDetail productFullDetail = new ProductDetail();
                 productFullDetail.setProductFullDetailID(rs.getInt("ProductFullDetailID"));
@@ -75,7 +84,7 @@ public class WishlistDAO extends DBContext{
                 item.setProductFullDetail(productFullDetail);
                 wishlist.add(item);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return wishlist;
@@ -87,12 +96,13 @@ public class WishlistDAO extends DBContext{
             stmt.setInt(1, accountID);
             stmt.setInt(2, productID);
             stmt.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-public static void main(String[] args) {
-    WishlistDAO wlDAO = new WishlistDAO();
-    System.out.println(wlDAO.getWishlistByAccountId(1).size());
- }
+
+    public static void main(String[] args) {
+        WishlistDAO wlDAO = new WishlistDAO();
+        System.out.println(wlDAO.getWishlistByAccountId(1).size());
+    }
 }

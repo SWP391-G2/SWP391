@@ -6,6 +6,7 @@ package Dal;
 
 import context.DBContext;
 import Models.ProductDetail;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public class ProductDetailDAO extends DBContext {
       
+  
     public List<ProductDetail> getPriceAllowSize(int id) {
         List<ProductDetail> list = new ArrayList<>();
         String sql = "select * from ProductFullDetail where pdProductID  = ?";

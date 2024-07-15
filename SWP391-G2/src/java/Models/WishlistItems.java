@@ -4,7 +4,9 @@
  */
 package Models;
 
+
 import java.util.Date;
+
 
 /**
  *
@@ -15,13 +17,14 @@ public class WishlistItems {
     private int accountID;
     private int productID;
     private Date dateAdded;
-    private Products product;
+    private ProductsHome product;
     private ProductDetail productFullDetail;
 
+     
     public WishlistItems() {
     }
 
-    public WishlistItems(int wishlistID, int accountID, int productID, Date dateAdded, Products product, ProductDetail productFullDetail) {
+    public WishlistItems(int wishlistID, int accountID, int productID, Date dateAdded, ProductsHome product, ProductDetail productFullDetail) {
         this.wishlistID = wishlistID;
         this.accountID = accountID;
         this.productID = productID;
@@ -62,11 +65,11 @@ public class WishlistItems {
         this.dateAdded = dateAdded;
     }
 
-    public Products getProduct() {
+    public ProductsHome getProduct() {
         return product;
     }
 
-    public void setProduct(Products product) {
+    public void setProduct(ProductsHome product) {
         this.product = product;
     }
 
@@ -77,11 +80,6 @@ public class WishlistItems {
     public void setProductFullDetail(ProductDetail productFullDetail) {
         this.productFullDetail = productFullDetail;
     }
-
-  
-
-  
-   
-
+    
     
 }

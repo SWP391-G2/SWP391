@@ -148,6 +148,14 @@
         <servlet-name>ForgotPasswordOTP</servlet-name>
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.AddToWishlistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <servlet-class>controller.customer.ViewWishlistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -295,5 +303,13 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordOTP</servlet-name>
         <url-pattern>/ForgotPasswordOTP</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToWishlistServlet</servlet-name>
+        <url-pattern>/addToWishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewWishlistServlet</servlet-name>
+        <url-pattern>/viewWishlist</url-pattern>
     </servlet-mapping>
 </web-app>
