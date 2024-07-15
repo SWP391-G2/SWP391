@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : marketing-manage-sliders
+    Created on : 25 thg 6, 2024, 09:13:40
+    Author     : pna29
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -141,7 +145,7 @@
                 <!--Section: Quan Ly tai Khoan-->
                 <section class="mb-4">
                     <div class="card">
-                        <div class="row" style="">
+                        <div class="row">
                             <div class="col-sm-4" style="text-align: center; margin-top: 20px; padding-top: 20px">
                                 <h3 class="mb-0" id="">
                                     <strong class="ani-fire" style="font-size: 30px">Manage Sliders</strong>
@@ -155,13 +159,14 @@
                             </div>
                             <div class="col-lg-2" style="text-align: center; margin-top: 20px; margin-bottom: 20px;padding-top: 20px">
                                 <form action="manageSlider" method="post" >
-                                    <select name="status" style=" width: 150px; border: 2px solid #000;" >
-                                        <option value="" ${param.status == '' ? 'selected' : ''}>Select Status</option>
-                                        <option value="1" ${param.status == '1' ? 'selected' : ''}>View</option>
-                                        <option value="0" ${param.status == '0' ? 'selected' : ''}>Hide</option>
+                                    <select name="status" style="width: 150px;border-radius: 15px; border: 2px solid #000;" onchange="this.form.submit()">
+                                        <option value="-1" ${status==null ? 'selected' : '' }>All Status</option>
+                                        <option value="1" ${status==1 ? 'selected' : '' }>Unblock</option>
+                                        <option value="0" ${status==0 ? 'selected' : '' }>Block</option>
                                     </select>
                                 </form>
                             </div>
+
                             <div class="col-lg-2">
                                 <a href="#addEmployeeModal" style="height: 40px" class="buttonadd btn btn-success" data-toggle="modal"><i class="fa-solid fa-plus"></i></a>
 
@@ -177,60 +182,64 @@
                         <% } %>
 
                         <div class="card-body">
-                            <div class="table-responsive"  id="contentt">
-                                <table  class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="text_page_head" scope="col">Slider ID</th>
-                                            <th class="text_page_head" style="text-align: center" scope="col">Image</th>
-                                            <th class="text_page_head" scope="col">Slider Title</th>
-                                            <th class="text_page_head" scope="col">Update At</th>
-                                            <th class="text_page_head" scope="col">Account ID</th>
-                                            <th class="text_page_head" scope="col">Status</th>
-                                            <th class="text_page_head" scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody >
-                                        <c:forEach items="${listByPage}" var="slider">
-                                            <tr class="product_items">
-                                                <td class="text_page">${slider.sliderID}</td>
-                                                <td style="text-align: center">
-                                                    <img style="width: 170px; height:180px" src="${slider.sliderImage}" alt="img"">
-                                                </td>
-                                                <td style="max-width: 280px;
-                                                    padding: 10px;
-                                                    white-space: nowrap;
-                                                    overflow: hidden;
-                                                    text-overflow: ellipsis;
-                                                    word-wrap: break-word;" class="text_page">${slider.sliderTitle}</td>                                               
-                                                <td class="text_page">${slider.updateAt}</td>
-                                                <td class="text_page">${slider.accountId}</td>
-                                                <td class="text_page">
-                                                    <c:choose>
-                                                        <c:when test="${slider.sliderStatus == 1}">
-                                                            <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}" onclick="return confirmAction('block');">
-                                                                <button type="button" class="btn btn-danger">
-                                                                    Hide
-                                                                </button>
-                                                            </a>
-                                                        </c:when>
-                                                        <c:when test="${slider.sliderStatus == 0}">
-                                                            <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}" onclick="return confirmAction('unblock');">
-                                                                <button type="button" class="btn btn-success">
-                                                                    View
-                                                                </button>
-                                                            </a>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </td>
-
-                                                <td class="text_page">
-                                                    <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>                                                  
-                                                </td>
+                            <div class="table-responsive" id="contentt">
+                                    <table  class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="text_page_head" scope="col">No</th>
+                                                <th class="text_page_head" style="text-align: center" scope="col">Image</th>
+                                                <th class="text_page_head" scope="col">Slider Title</th>
+                                                <th class="text_page_head" scope="col">Update At</th>
+                                                <th class="text_page_head" scope="col">Account ID</th>
+                                                <th class="text_page_head" scope="col">Status</th>
+                                                <th class="text_page_head" scope="col">Actions</th>
                                             </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody >
+
+                                            <c:set var="stt" value="0"/>
+                                            <c:forEach items="${listByPage}" var="slider">
+                                                <c:set var="stt" value="${stt+1}"/>
+                                                <tr class="product_items">
+                                                    <td class="text_page">${stt}</td>
+                                                    <td style="text-align: center">
+                                                        <img style="width: 170px; height:180px" src="${slider.sliderImage}" alt="img"">
+                                                    </td>
+                                                    <td style="max-width: 280px;
+                                                        padding: 10px;
+                                                        white-space: nowrap;
+                                                        overflow: hidden;
+                                                        text-overflow: ellipsis;
+                                                        word-wrap: break-word;" class="text_page">${slider.sliderTitle}</td>                                               
+                                                    <td class="text_page">${slider.updateAt}</td>
+                                                    <td class="text_page">${slider.accountId}</td>
+                                                    <td class="text_page">
+                                                        <c:choose>
+                                                            <c:when test="${slider.sliderStatus == 1}">
+                                                                <a href="updateStatusSlider?status=0&sliderId=${slider.sliderID}" onclick="return confirmAction('block');">
+                                                                    <button type="button" class="btn btn-danger">
+                                                                        Block
+                                                                    </button>
+                                                                </a>
+                                                            </c:when>
+                                                            <c:when test="${slider.sliderStatus == 0}">
+                                                                <a href="updateStatusSlider?status=1&sliderId=${slider.sliderID}" onclick="return confirmAction('unblock');">
+                                                                    <button type="button" class="btn btn-success">
+                                                                        Unblock
+                                                                    </button>
+                                                                </a>
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </td>
+
+                                                    <td class="text_page">
+                                                        <a href="./sliderDetails?sliderId=${slider.sliderID}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>                                                  
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+
+                                        </tbody>
+                                    </table>
 
                                 <div class="clearfix" style="text-align: center">
                                     <ul class="pagination justify-content-center">
@@ -248,6 +257,7 @@
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
                 </section>
@@ -277,14 +287,6 @@
                                     <option value="0" ${slider.sliderStatus==0 ? 'selected' : '' }>Hide</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <input type="hidden" id="stringdateolb" value="${slider.updateAt}">
-                                <label style="margin-bottom: 10px; width: 100%">Update At:</label>
-                                <input type="hidden" name="date" value="" id="here"/>
-                                <select class="bear-dates" id="dobDay"></select>
-                                <select class="bear-months" id="dobMonth"></select>
-                                <select class="bear-years" id="dobYear"></select>
-                            </div> 
                             <div class="form-group">
                                 <label for="image">Image:</label>
                                 <div class="image-preview-container">
@@ -396,6 +398,7 @@
                     }
                 });
             }
+
         </script>
         <script src="js/admin_manager.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

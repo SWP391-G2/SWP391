@@ -41,6 +41,29 @@ public class SliderDAO extends DBContext {
         return slider;
     }
 
+    public List<Sliders> getSlidersByStatus(int status) {
+        List<Sliders> sliders = new ArrayList<>();
+        String sql = "SELECT * FROM Sliders WHERE status = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, status);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Sliders slider = new Sliders(
+                            rs.getInt("SliderID"),
+                            rs.getString("SliderImage"),
+                            rs.getInt("SliderStatus"),
+                            rs.getString("SliderTitle"),
+                            rs.getDate("UpdateAt"),
+                            rs.getInt("AccountID"));
+                    sliders.add(slider);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sliders;
+    }
+
     public List<Sliders> getAllActiveStatus() {
         List<Sliders> slider = new ArrayList<>();
         String sql = "select * from Sliders";

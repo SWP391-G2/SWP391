@@ -41,7 +41,7 @@
         </style>
     </head>
     <body>
-        <div class="container">      
+        <div class="container justify-content-center" style="width: 500px">      
             <div id="editEmployeeModal">
                 <div class="modal-dialog" style="width: 100%">
                     <div class="modal-content">
@@ -66,8 +66,8 @@
                                 <div class="form-group">
                                     <label for="status">Status:</label>
                                     <select class="form-control" id="status" name="status">
-                                        <option value="1" ${slider.sliderStatus == 1 ? 'selected' : ''}>View</option>
-                                        <option value="0" ${slider.sliderStatus == 0 ? 'selected' : ''}>Hide</option>
+                                        <option value="1" ${slider.sliderStatus == 1 ? 'selected' : ''}>Unblock</option>
+                                        <option value="0" ${slider.sliderStatus == 0 ? 'selected' : ''}>Block</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
