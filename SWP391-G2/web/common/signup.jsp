@@ -21,10 +21,11 @@
                 color: #232836;
                 padding: 0 15px;
             }
+
         </style>
     </head>
     <body>
-        <div class="row vh-100 g-0" >
+        <div class="row vh-100 g-0 " style="background-color: pink">
             <c:if test="${requestScope.err != null}">
                 <div class="p-0 m-0 fixed-top text-center">
 
@@ -41,8 +42,8 @@
             <!-- right side  -->
             <div class="d-flex justify-content-center">
 
-                <div class=" col col-sm-9 col-lg-9 col-xl-6  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
-                    <div class="" >
+                <div class=" col col-sm-9 col-lg-7 col-xl-5  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
+                    <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff">
                         <div class="text-center mb-5">
                             <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
                             <form action="./signup" method="post" >
@@ -123,7 +124,7 @@
                                             <label for="floatingInputGroup1">Password</label>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
 
@@ -151,7 +152,7 @@
 
                                 <div class="input-group mb-3 d-flex justify-content-between">
                                     <div>
-                                        <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
+                                        <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none">Forgot Password ?</a></small>
                                     </div>
                                     <div class="col-1 p-0 m-0 d-flex justify-content-end float-right">
                                         <p></p>
@@ -161,14 +162,11 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
-                               <div class="text-center">
-                            <small>Return to the Login page <a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Log In</a></small>
-                        </div>
+                                <div class="text-center">
+                                    <small>Return to the <a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none;font-weight: bold;">LOGIN PAGE</a></small>
+                                </div>
                             </form>
-                            <div>
-                                <hr/>
-
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

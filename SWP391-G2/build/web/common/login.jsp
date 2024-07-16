@@ -49,7 +49,7 @@
             <div class=" col col-sm-9 col-lg-7 col-xl-5  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
                 <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff">
                     <div class="text-center mb-5">
-                        <h1 class="fw-bold pb-5">Login</h1>
+                        <h1 class="fw-bold pb-5">LOGIN</h1>
                         <div class="mt-3 mb-3">
 
                             <a class="btn btn-lg btn-light w-100 border"  href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/SWP391-G2/LoginGoogleHandler&response_type=code&client_id=64210906671-gn1cclen03hhngkbb5ultf010ppcss6p.apps.googleusercontent.com&approval_prompt=force"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
@@ -87,14 +87,14 @@
                                     <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
                                 </div>
                                 <div>
-                                    <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
+                                    <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none">Forgot Password?</a></small>
                                 </div>
                             </div>
                             <button class="btn btn-dark btn-lg  w-100 mb-3" name="login"> Login</button>
 
                         </form>
                         <div class="text-center">
-                            <small>Don't have an accout? <a href="${pageContext.request.contextPath}/signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign Up</a></small>
+                            <small>Don't have an accout ? <a href="${pageContext.request.contextPath}/signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none;font-weight: bold;" >SIGN UP</a></small>
                         </div>
                     </div>
                 </div>
