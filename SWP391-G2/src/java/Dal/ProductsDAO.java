@@ -690,7 +690,7 @@ public class ProductsDAO extends DBContext {
             }
         }
 
-        sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY ProductID DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);

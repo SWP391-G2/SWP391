@@ -123,7 +123,7 @@ public class MarketingAddProductDetail extends HttpServlet {
         //insert product
         ProductDetail details = new ProductDetail(proId, detail, dateInit, status, size, price, quantity, fileName);
         pddao.insertNewProductDetail(details);
-        response.sendRedirect("../SWP391-G2/product-detail?proId=" + proId + "&cateId=" + cateId);
+//        response.sendRedirect("../SWP391-G2/product-detail?proId=" + proId + "&cateId=" + cateId);
 
     }
 

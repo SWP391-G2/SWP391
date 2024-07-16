@@ -75,7 +75,6 @@ public class MarketingUpdateProduct extends HttpServlet {
         List<Brands> brList = brDao.getBrands();
 
         request.setAttribute("size", size);
-        request.setAttribute("folder", Constant.constant.PRODUCT);
         request.setAttribute("product", product);
         request.setAttribute("status", status);
         request.setAttribute("cateName", cateName);

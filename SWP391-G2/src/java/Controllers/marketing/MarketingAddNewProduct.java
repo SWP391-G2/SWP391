@@ -66,47 +66,12 @@ public class MarketingAddNewProduct extends HttpServlet {
         int status = Integer.parseInt(request.getParameter("status"));
         String productName = request.getParameter("productName");
         Date dateInit = new Date(System.currentTimeMillis());
-
-        //file upload
-        CategoriesDAO cateDao = new CategoriesDAO();
-        Categories cate = cateDao.getCategoryById(cateId);
-        String realPath = "../../web/images/Products/" + cate.getCategoryName() + "/";
-        String uploadFolder = getServletContext().getRealPath("") + realPath;
-
-        File folder = new File(uploadFolder);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        Part filePart = request.getPart("img");
-        String fileName = String.valueOf(proDao.getLastProductId() + 1) + "_0.jpg";
-        OutputStream out = null;
-        InputStream fileContent = null;
-
-        try {
-            out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-            fileContent = filePart.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
-            while ((read = fileContent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-        } catch (FileNotFoundException fne) {
-            fne.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (fileContent != null) {
-                fileContent.close();
-            }
-        }
-
+        String fileName = request.getParameter("ima");
         //insert product
         Products product = new Products(productName, dateInit, status, fileName, brandId, cateId);
         proDao.insertNewProduct(product);
-        response.sendRedirect("../SWP391-G2/marketing-manager-products");
+        response.getWriter().print(fileName);
+        response.sendRedirect("../SWP391-G2/marketing-manager-products?s=1");
     }
 
     @Override

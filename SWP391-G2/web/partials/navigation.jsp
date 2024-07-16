@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="../assets/css/styles.css"/>
+
 
 <div class="navigation" style="left:0;">
     <ul style="padding: 0;">
         <li>
             <div style="display: flex; margin: 10px;">
                 <span class="icon">
-                    <img style="margin-top: 4px;" src="${pageContext.request.contextPath}/img/logo.png" width="40" height="40" />
+    
                 </span>
                 <span class="title">The Perfume<span class="shop-text">Shop</span></span>
             </div>
