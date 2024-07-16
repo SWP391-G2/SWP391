@@ -131,6 +131,10 @@
                             <i style="margin-right: 10px; font-size: 18px" class="fa-solid fa-sliders"></i>
                             <span style="font-size: 16px; font-weight: 600">Manage Slider</span>
                         </a> 
+                        <a href="statisticRevenue" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 10px;">
+                            <i style="margin-right: 10px; font-size: 18px" class="fa-solid fa-sliders"></i>
+                            <span style="font-size: 16px; font-weight: 600">Statistic Revenue</span>
+                        </a> 
                         <a href="login" class="list-group-item list-group-item-action" style="margin-top: 10px">
                             <i style="margin-right: 10px; font-size: 18px" <i class="fa-solid fa-right-from-bracket"></i>
                             <span style="font-size: 16px; font-weight: 600">Log Out</span>

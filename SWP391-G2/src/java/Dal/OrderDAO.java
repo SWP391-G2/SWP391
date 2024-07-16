@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class OrderDAO extends DBContext {
 
+    
     public int getSumRevenue() {
         String sql = "select SUM(OrderTotalPrice) from Orders";
         try {
@@ -37,9 +38,9 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
-    
-     public int getSumQuantitySold() {
-        String sql = "select SUM(odQuantity) from OrderDetail";
+
+    public int getTotalDeals() {
+        String sql = "SELECT COUNT(DISTINCT odID) FROM [dbo].[OrderDetail];";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -51,6 +52,74 @@ public class OrderDAO extends DBContext {
         return 0;
     }
 
+    public int getSumQuantitySold() {
+        String sql = "select SUM(odQuantity) from OrderDetail";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+        public double totalRevenueMonth(int month, int year) {
+        String sql = "select SUM([OrderTotalPrice]) from [Orders]\r\n"
+                + "where MONTH([OrderReceiveDate])=? and year([OrderReceiveDate])=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, month);
+            st.setInt(2, year);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    public double totalRevenueByWeek(int day, int from, int to, int year, int month) {
+        String sql = "";
+        if (from > to) {
+            sql = "SELECT SUM(OrderTotalPrice) "
+                    + "FROM Orders "
+                    + "WHERE ((DAY(OrderReceiveDate) >= ? AND MONTH(OrderReceiveDate) = ?) "
+                    + "OR (DAY(OrderReceiveDate) <= ? AND MONTH(OrderReceiveDate) = ?)) "
+                    + "AND YEAR(OrderReceiveDate) = ? AND DATEPART(dw, OrderReceiveDate) = ?";
+        } else {
+            sql = "SELECT SUM(OrderTotalPrice) "
+                    + "FROM Orders "
+                    + "WHERE DAY(OrderReceiveDate) BETWEEN ? AND ? "
+                    + "AND MONTH(OrderReceiveDate) = ? "
+                    + "AND YEAR(OrderReceiveDate) = ? "
+                    + "AND DATEPART(dw, OrderReceiveDate) = ?";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if (from > to) {
+                st.setInt(1, from);
+                st.setInt(2, month);
+                st.setInt(3, to);
+                st.setInt(4, (month + 1));
+                st.setInt(5, year);
+                st.setInt(6, day);
+            } else {
+                st.setInt(1, from);
+                st.setInt(2, to);
+                st.setInt(3, month);
+                st.setInt(4, year);
+                st.setInt(5, day);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public void insertOrder(Orders order) {
         String sql = "INSERT INTO Orders(AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderReceiveDate,OrderNote, OrderSoID, VoucherID)\n"
@@ -235,6 +304,10 @@ public class OrderDAO extends DBContext {
         for (Orders orders : list) {
             System.out.println(orders.toString());
         }
-        System.out.println(dao.getSumQuantitySold());
+        System.out.println(dao.getTotalDeals());
+        
+
+        double a = dao.totalRevenueMonth(7, 2024);
+        System.out.println(a);
     }
 }
