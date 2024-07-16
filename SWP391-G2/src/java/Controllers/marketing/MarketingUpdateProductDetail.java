@@ -73,7 +73,7 @@ public class MarketingUpdateProductDetail extends HttpServlet {
         String size = "";
         String detail = "";
         BigDecimal price = BigDecimal.valueOf(-1);
-
+        String fileName = request.getParameter("ima");
         try {
             cateId = request.getParameter("cateId") == null ? -1 : Integer.parseInt(request.getParameter("cateId"));
             proId = request.getParameter("proId") == null ? -1 : Integer.parseInt(request.getParameter("proId"));
@@ -94,49 +94,15 @@ public class MarketingUpdateProductDetail extends HttpServlet {
         response.getWriter().println(status);
         response.getWriter().println(detail);
         response.getWriter().print(price);
+        response.getWriter().print(fileName);
         //file upload
-        CategoriesDAO cateDao = new CategoriesDAO();
-        Categories cate = cateDao.getCategoryById(cateId);
-        String realPath = "../../web/images/Products/" + cate.getCategoryName() + "/";
-        String uploadFolder = getServletContext().getRealPath("") + realPath;
-
-        File folder = new File(uploadFolder);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        Part filePart = request.getPart("img");
-        String fileName = String.valueOf(detailId + 1) + ".jpg";
-        OutputStream out = null;
-        InputStream fileContent = null;
-        if (filePart != null) {
-            try {
-                out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-                fileContent = filePart.getInputStream();
-                int read = 0;
-                final byte[] bytes = new byte[1024];
-
-                while ((read = fileContent.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-            } catch (FileNotFoundException fne) {
-                fne.printStackTrace();
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-                if (fileContent != null) {
-                    fileContent.close();
-                }
-            }
-        }
 
         //insert product
         ProductDetailDAO pddao = new ProductDetailDAO();
         ProductDetail details = new ProductDetail(detailId, detail, status, size, price, quantity, fileName);
         pddao.updateProductDetail(details);
-   
-       response.sendRedirect("product-detail?proId=" + proId + "&cateId=" + cateId+"&s=1");
+
+        response.sendRedirect("product-detail?s=1&&proId=" + proId + "&cateId=" + cateId + "&s=1");
 
     }
 

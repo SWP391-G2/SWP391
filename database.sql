@@ -145,7 +145,7 @@ CREATE TABLE [dbo].[Products] (
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductStatus] int NOT NULL,
-    [ProductImageUrl] [nvarchar](255) NOT NULL,
+    [ProductImageUrl] [nvarchar](MAX) NOT NULL,
 	[BrandID] [int] NULL,
 	[CategoryID][int],
 	FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories](CategoryID),
@@ -246,7 +246,7 @@ CREATE TABLE [dbo].[ProductFullDetail] (
     [ProductSize] [NVARCHAR](max) NULL,
     [ProductPrice] [decimal](18, 2) NOT NULL,
     [ProductAvaiable] [int] NOT NULL,
-	[image] varchar(100),
+	[image] varchar(MAX),
 	FOREIGN KEY ([pdProductID]) REFERENCES [dbo].[Products]([ProductID])
 )
 /*======= INSERT VALUE OF [ProductFullDetail] TABLE =======*/
@@ -528,7 +528,7 @@ CREATE TABLE [dbo].[Feedbacks] (
     fbProductID INT NOT NULL,
     fbStar INT NOT NULL,
     fbContent NVARCHAR(255) NULL,
-    fbImage NVARCHAR(255) NULL,
+    fbImage NVARCHAR(MAX) NULL,
     fbDate DATE NOT NULL,
     fbStatus INT NOT NULL,
 	[reply] nvarchar (250) NULL,

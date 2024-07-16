@@ -124,7 +124,7 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
                                             <td><img src="${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td class="w-50" >${detail.getProductDescription()}</td>
+                                            <td class="w-50" ><a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="link-primary">${detail.getProductDescription()}</a></td>
                                             <td>${detail.getProductCreateDate()}</td>  
                                             <td>${detail.getProductSize()}</td> 
                                             <td>${detail.getProductPrice()}</td>   
@@ -143,9 +143,6 @@
                                                         </button>
                                                     </c:when>
                                                 </c:choose>
-                                                <a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="text-black"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                                    </svg></a>
                                             </td>
                                         </tr>
                                     </c:forEach>

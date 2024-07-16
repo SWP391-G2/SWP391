@@ -73,7 +73,7 @@ public class ProductDetailDAO extends DBContext {
     }
 
     public int getTotalPage(int proId, int status, String size, int pageSize) {
-        String sql = "select * from ProductFullDetail";
+        String sql = "select count(*) from ProductFullDetail";
         boolean whereAdded = false;
         if (proId != -1 || status != -1 || !size.isEmpty()) {
             sql += " WHERE";
@@ -438,6 +438,6 @@ public class ProductDetailDAO extends DBContext {
         ProductDetailDAO pddao = new ProductDetailDAO();
         Date date = new Date(System.currentTimeMillis());
         ProductDetail detail = new ProductDetail(90, "sdsa dd", date, 1, "30ml", BigDecimal.valueOf(-1), 100, "");
-        pddao.insertNewProductDetail(detail);
+        System.out.println(pddao.getTotalPage(1, -1, "", 10));
     }
 }
