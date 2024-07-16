@@ -1,24 +1,4 @@
-USE [master];
-GO
 
-DECLARE @databaseName NVARCHAR(128) = 'TPS';
-
-IF EXISTS (
-    SELECT name 
-    FROM sys.databases 
-    WHERE name = @databaseName
-)
-BEGIN
-    DECLARE @kill varchar(8000) = '';
-    SELECT @kill = @kill + 'KILL ' + CONVERT(varchar(5), session_id) + ';'
-    FROM sys.dm_exec_sessions
-    WHERE database_id  = DB_ID(@databaseName);
-    EXEC(@kill);
-    EXEC('DROP DATABASE ' + @databaseName);
-END;
-
-EXEC('CREATE DATABASE ' + @databaseName);
-GO
 
 USE [TPS]
 GO
@@ -458,7 +438,16 @@ CREATE TABLE [dbo].[Orders] (
 /*======= INSERT VALUE OF [Orders] TABLE =======*/
 INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
 (1, '2024-01-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-01-05', 'Please deliver in the morning', 1, 1),
-(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-02-05', 'Leave at the front door', 2, 2);
+(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-02-05', 'Leave at the front door', 2, 2),
+(3, '2024-03-01', 300.00, 'Alice Johnson', '1122334455', 'N 789 Trần Duy Hưng - Hà Nội', 1, '2024-03-05', 'Ring the bell', 1, 1),
+(4, '2024-04-01', 250.00, 'Bob Brown', '2233445566', 'N 101 Đội Cấn - Hà Nội', 2, '2024-04-05', 'Call upon arrival', 2, 1),
+(5, '2024-05-01', 180.00, 'Charlie White', '3344556677', 'N 202 Kim Mã - Hà Nội', 1, '2024-05-05', 'Deliver to reception', 1, 1),
+(6, '2024-06-01', 220.00, 'David Green', '4455667788', 'N 303 Hoàng Hoa Thám - Hà Nội', 2, '2024-06-05', 'No special instructions', 2, 1),
+(7, '2024-07-01', 275.00, 'Eva Black', '5566778899', 'N 404 Bà Triệu - Hà Nội', 1, '2024-07-05', 'Deliver before noon', 1, 1),
+(8, '2024-08-01', 190.00, 'Frank Blue', '6677889900', 'N 505 Tôn Đức Thắng - Hà Nội', 2, '2024-08-05', 'Contact before delivery', 2, 1),
+(9, '2024-09-01', 210.00, 'Grace Yellow', '7788990011', 'N 606 Hàng Bài - Hà Nội', 1, '2024-09-05', 'Deliver after 2 PM', 1, 1),
+(10, '2024-10-01', 230.00, 'Henry Red', '8899001122', 'N 707 Cầu Giấy - Hà Nội', 2, '2024-10-05', 'No specific time', 2, 1);
+
 GO
 
 /* ============[Orders] TABLE============*/
@@ -476,7 +465,25 @@ CREATE TABLE [dbo].[OrderDetail] (
 /*======= INSERT VALUE OF [OrderDetail] TABLE =======*/
 INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductID, odQuantity, odPrice) VALUES
 (1, 1, 2, 100.00),
-(2, 2, 1, 150.00);
+(1, 2, 1, 100.00),
+(2, 1, 3, 30.00),
+(2, 1, 2, 45.00),
+(3, 3, 1, 300.00),
+(3, 2, 2, 150.00),
+(4, 1, 1, 250.00),
+(4, 2, 2, 125.00),
+(5, 4, 2, 90.00),
+(5, 5, 1, 180.00),
+(6, 5, 3, 73.33),
+(6, 4, 2, 110.00),
+(7, 3, 1, 275.00),
+(7, 1, 2, 137.50),
+(8, 2, 1, 190.00),
+(8, 1, 2, 95.00),
+(9, 2, 1, 210.00),
+(9, 3, 2, 105.00),
+(10, 4, 2, 115.00),
+(10, 5, 1, 230.00);
 GO
 
 

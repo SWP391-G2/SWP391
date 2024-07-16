@@ -434,4 +434,20 @@ public class ProductDetailDAO extends DBContext {
         }
         return details;
     }
+    public int countAllProduct() {
+        String sql = "select sum([ProductAvaiable]) from ProductFullDetail";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    public static void main (String[] args){
+        ProductDetailDAO prdDAO = new ProductDetailDAO();
+        System.out.println(prdDAO.countAllProduct());
+    }
 }
