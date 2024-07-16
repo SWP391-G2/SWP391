@@ -859,6 +859,12 @@
                                                                     function addToWishlist(event, productID) {
                                                                         event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
 
+                                                                        if (!isLoggedIn) {
+                                                                            // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+                                                                            window.location.href = "login";
+                                                                            return;
+                                                                        }
+
                                                                         // Gọi hàm Ajax để gửi yêu cầu thêm vào Wishlist
                                                                         var xhr = new XMLHttpRequest();
                                                                         xhr.open("POST", "addToWishlist", true);
@@ -879,6 +885,9 @@
                                                                         var params = "productID=" + productID;
                                                                         xhr.send(params);
                                                                     }
+        </script>
+        <script>
+            var isLoggedIn = <%= request.getAttribute("isLoggedIn") %>;
         </script>
     </body>
 </html>

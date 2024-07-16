@@ -123,7 +123,7 @@
                                             <label for="floatingInputGroup1">Password</label>
                                         </div>
                                     </div>
-                                    <div class="position-relative line" style="width: 100%; height: 1px;"></div>
+                                   
                                 </div>
 
 
@@ -161,6 +161,9 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
+                               <div class="text-center">
+                            <small>Return to the Login page <a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Log In</a></small>
+                        </div>
                             </form>
                             <div>
                                 <hr/>
