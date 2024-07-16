@@ -81,10 +81,10 @@
 
                     <div class="col-2">
                         <div class="text-right">
-                            <button type="button" class="btn btn-info w-100" data-toggle="modal"
-                                    data-target="#addnewModal">
-                                <a style="color: white;" href="add-new-product">Add New</a>
-                            </button>
+                           
+                                <a style="color: white;" href="add-new-product"> <button type="button" class="btn btn-info w-100" data-toggle="modal"
+                                    data-target="#addnewModal">Add New </button></a>
+                           
                         </div>
                     </div>
                     <div class="col-12" style="margin-top: 10px;">

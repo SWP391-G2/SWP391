@@ -21,19 +21,6 @@ import javax.swing.UIManager;
  */
 public class AccountsDAO extends DBContext {
 
-    private int accountID;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String image;
-    private int gender;
-    private java.util.Date birthDay;
-    private String email;
-    private int status;
-    private java.util.Date createDate;
-    private int roleID;
-    private String phone;
-    private String address;
 
     //get All account Employee
     public List<AccountsEmployee> getAllEmployee() {

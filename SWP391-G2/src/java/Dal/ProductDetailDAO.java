@@ -434,4 +434,10 @@ public class ProductDetailDAO extends DBContext {
         }
         return details;
     }
+    public static void main(String[] args) {
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        Date date = new Date(System.currentTimeMillis());
+        ProductDetail detail = new ProductDetail(90, "sdsa dd", date, 1, "30ml", BigDecimal.valueOf(-1), 100, "");
+        pddao.insertNewProductDetail(detail);
+    }
 }
