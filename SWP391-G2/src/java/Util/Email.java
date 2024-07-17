@@ -86,6 +86,9 @@ public class Email {
         String su = e.subjectEmail();
         e.sendEmail(su, otps, "bichnqhe173220@fpt.edu.vn");
     }
+    public Email(){
+        
+    }
 
     public String subjectEmail() {
         return "The Perfume Shop - Verify your recovery email";

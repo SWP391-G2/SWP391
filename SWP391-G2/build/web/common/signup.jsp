@@ -123,7 +123,6 @@
                                             <label for="floatingInputGroup1">Password</label>
                                         </div>
                                     </div>
-                                    <div class="position-relative line" style="width: 100%; height: 1px;"></div>
                                 </div>
 
 
@@ -153,9 +152,9 @@
                                     <div>
                                         <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
                                     </div>
-                                    <div class="col-1 p-0 m-0 d-flex justify-content-end float-right">
-                                        <p></p>
+                                    <div id="showButton" class="col-1 p-0 m-0 d-flex justify-content-end float-right"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
+                                        Show Password Requirements
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
                                         </svg>
                                     </div>
@@ -164,6 +163,16 @@
                             </form>
                             <div>
                                 <hr/>
+                                <div id="more">
+                                    <ul id="dropdown-menu" class="dropdown-menu shadow-sm">
+                                        <li class="dropdown-item">Password must contain:</li>
+                                        <li class="dropdown-item">At least 8 characters in length</li>
+                                        <li class="dropdown-item">At least 1 number (0-9)</li>
+                                        <li class="dropdown-item">At least 1 lowercase letter (a-z)</li>
+                                        <li class="dropdown-item">At least 1 special symbol (!-$)</li>
+                                        <li class="dropdown-item">At least 1 uppercase letter (A-Z)</li>
+                                    </ul>
+                                </div>
 
                             </div>
                         </div>
@@ -176,7 +185,6 @@
     </body>
     <script>
         const today = new Date();
-
         // Lấy các thành phần của ngày
         const year = today.getFullYear() - 16;
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
@@ -184,9 +192,19 @@
 
         // Định dạng ngày theo 'yyyy-dd-MM'
         const formattedDate = (year) + '-' + month + '-' + day;
-
         // Đặt thuộc tính 'max' của phần tử input
         document.getElementById('dateinput').setAttribute('max', formattedDate);
+        document.addEventListener('DOMContentLoaded', function () {
+            var button = document.getElementById("showButton");
+            button.addEventListener("click", function () {
+                var dropdownMenu = document.getElementById("dropdown-menu");
+                if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
+                    dropdownMenu.style.display = "block";
+                } else {
+                    dropdownMenu.style.display = "none";
+                }
+            });
+        });
 
     </script>
 </html>

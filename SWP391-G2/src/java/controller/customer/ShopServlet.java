@@ -133,7 +133,8 @@ public class ShopServlet extends HttpServlet {
                     Item item = cart.getItemById(prodId);
                     item.setQuantity(item.getQuantity() - 1);
                 }
-            } else if (deletecard != null) {
+            }
+            if (deletecard != null) {
                 deleteCart(cart, prodId);
             }
 

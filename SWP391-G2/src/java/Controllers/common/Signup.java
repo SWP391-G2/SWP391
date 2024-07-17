@@ -65,7 +65,17 @@ public class Signup extends HttpServlet {
                                 date,
                                 4);
                         session.setAttribute("accountForSign", a);
-                        request.getRequestDispatcher("email").forward(request, response);
+                        response.getWriter().print(a.getFirstName());
+                        response.getWriter().print(a.getLastName());
+                        response.getWriter().print(a.getPassword());
+                        response.getWriter().print(a.getGender());
+                        response.getWriter().print(a.getBirthDay());
+                        response.getWriter().print(a.getEmail());
+                        response.getWriter().print(a.getStatus());
+                        response.getWriter().print(a.getCreateDate());
+                        response.getWriter().print(a.getRoleID());
+//                        request.getRequestDispatcher("email").forward(request, response);
+                        response.sendRedirect("email");
                     } else {
                         throw new Exception("Password and Confirm password is not equals!!");
                     }

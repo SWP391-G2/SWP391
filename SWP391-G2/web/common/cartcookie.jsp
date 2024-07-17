@@ -310,7 +310,7 @@
                         <c:forEach items="${o.items}" var="i" >
                             <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.getName()}</td>
+                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.product.getImage()}</td>
                                     <td class="align-middle">${i.getName()}</td>
                             <input name="name" value="${i.getName()}" type="hidden"/>
                             <td class="align-middle">${i.product.getProductSize()}</td>
@@ -340,7 +340,7 @@
                                 <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
                                 <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
                             </td>
-                            <td class="align-middle "><a onclick="deleteCart()" href="shop?deletecard=${i.product.getProductFullDetailID()}">DELETE</a></td>
+                            <!--<td class="align-middle "><button class="btn btn-danger" type="submit"  onclick="deleteCart()" name="deletecard" value="${i.product.getProductFullDetailID()}">DELETE</button></td>-->
                             </tr>
                             <c:set var="total" value="${total + itemTotal}"/>
 
@@ -415,7 +415,8 @@
 
                                 function deleteCart() {
                                     if (confirm("Do you want delete product?")) {
-                                        document.getElementById("myForm${loop.index}").submit();
+                                        console.log(document.getElementById(''))
+//                                        document.getElementById("myForm${loop.index}").submit();
                                     }
                                 }
 
