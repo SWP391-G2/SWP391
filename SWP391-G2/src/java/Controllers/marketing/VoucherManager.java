@@ -138,6 +138,7 @@ public class VoucherManager extends HttpServlet {
         String discounts = request.getParameter("discount");
         String StartDate = request.getParameter("startDate");
         String EndDate = request.getParameter("endDate");
+
         try {
             int status = Integer.parseInt(statusnew);
             double discount = Double.parseDouble(discounts);
@@ -145,8 +146,29 @@ public class VoucherManager extends HttpServlet {
             Date create = new Date(System.currentTimeMillis());
             Date start = Date.valueOf(StartDate);
             Date end = Date.valueOf(EndDate);
+            boolean hasError = false;
+            code = code.trim();
+            if (code.isEmpty() || code.matches(".*\\d.*")) {
+                if (code.isEmpty()) {
+                    request.setAttribute("codeErr", "Code must not be empty or whitespace");
+                } else if (code.matches(".*\\d.*")) {
+                    request.setAttribute("codeErr", "Code must not contain numbers");
+                }
+                hasError = true;
+            }
+
             if (end.before(start)) {
-                request.setAttribute("err", "date errr");         
+                request.setAttribute("dateErr", "End date must be after start date");
+                hasError = true;
+            }
+
+            if (hasError) {
+                request.setAttribute("code", code);
+                request.setAttribute("discounts", discounts);
+                request.setAttribute("startdate", start);
+                request.setAttribute("quantity", quantity);
+                request.setAttribute("statusnew", statusnew);
+
                 request.getRequestDispatcher("voucher/update-mange-vouchers.jsp").forward(request, response);
                 return;
             }

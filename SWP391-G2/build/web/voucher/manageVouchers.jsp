@@ -170,7 +170,7 @@
                             </div>
                         </form>
                     </div>
-                                    
+
                     <!--                    <div class="col-3">
                     
                                             <div class="text-right">
@@ -307,13 +307,13 @@
                                 <c:if test="${currentPage == totalPage}">
                                     <li class="page-item disabled">
                                         <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
+                       onclick="changePage(${currentPage + 1})">Next</button>
                                     </li>
                                 </c:if>
                                 <c:if test="${currentPage != totalPage}">
                                     <li class="page-item">
                                         <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
+                       onclick="changePage(${currentPage + 1})">Next</button>
                                     </li>
                                 </c:if>
                             </ul>

@@ -11,12 +11,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
  * @author admin
  */
 public class VouchersDAO extends DBContext {
+
+    public List<Vouchers> getVoucherByName(){
+        String sql = "select Code from Vouchers";
+        List<Vouchers> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Vouchers voucher = new Vouchers(rs.getString(1));
+                list.add(voucher);
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
     public void InsertVoucher(String code, double discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
         String sql = "INSERT INTO [dbo].[Vouchers]\n"
@@ -69,7 +87,7 @@ public class VouchersDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public Vouchers getVoucherById(int id) {
         String sql = "select * from Vouchers where VoucherID = ?";
         try {

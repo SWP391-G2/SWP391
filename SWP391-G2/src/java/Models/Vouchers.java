@@ -21,6 +21,10 @@ public class Vouchers {
     private Date createAt;
     private int status;
 
+    public Vouchers(String code) {
+        this.code = code;
+    }
+
     public Vouchers(int voucherID, String code, double discount, Date expiryDate, Date startDate, int quantity, Date createAt, int status) {
         this.voucherID = voucherID;
         this.code = code;

@@ -32,6 +32,10 @@
                 height: auto; /* Đảm bảo tỷ lệ khung hình bảo toàn */
                 border: 1px solid #ccc; /* Đường viền để phân biệt vùng ảnh */
             }
+            .error-message {
+                color: red;
+                display: none;
+            }
         </style>
 
     </head>
@@ -51,36 +55,46 @@
                             <h1>Voucher #${voucher.getVoucherID()}</h1>
                     </div>
                     <c:if test="${voucher.getVoucherID() != null}">
-                        <form action="updatevoucher" id="productForm" method="POST">
+                        <form action="updatevoucher" id="productForm" method="POST" >
                             <input name="voucherId" hidden="" type="text" value="${voucher.getVoucherID()}" >       
                         </c:if>
                         <c:if test="${voucher.getVoucherID() == null}">
                             <form action="voucher" id="productForm" method="POST">                           
-                            </c:if>
+                         </c:if>
                             <!-- Product Name -->
                             <div class="form-group row">
                                 <div class="col-10">  
                                     <label for="detail">Code:</label>
-                                    <input name="voucherName" id="voucher" value="${voucher.getCode()}"  class="col-4 form-control" aria-label="With textarea"/>
+                                    <c:if test="${voucher.getVoucherID() != null}">
+                                        <input name="voucherName" id="voucher" value="${voucher.getCode()}" required="" class="col-4 form-control" aria-label="With textarea"/>
+                                    </c:if>
+                                    <c:if test="${voucher.getVoucherID() == null}">
+                                        <input name="voucherName" id="voucher" value="${requestScope.code}" required="" class="col-4 form-control" aria-label="With textarea"/>
+                                    </c:if>
+                                    <div class="error">
+                                        <p style="color: red">${requestScope.codeErr}</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Other fields (Category, Brands, Status) -->
                             <div class="form-group row d-flex col-10 justify-content-between ">
-                                <c:if test="${voucher.getVoucherID() != null}">
-                                    <div class="col-3 d-flex  align-items-center">
-                                        Discount:
-                                        <input type="text" name="discount" id="discount" value="${voucher.getDiscount()}" class="col-4 form-control">
-                                    </div>
-                                </c:if>
-                                <c:if test="${voucher.getVoucherID() == null}">
-                                    <div class="col-3 d-flex  align-items-center">
-                                        Discount:
-                                        <input type="text" name="discount" id="discount"  class="col-4 form-control">
-                                    </div> 
-                                </c:if>
+                                <div class="col-3 d-flex  align-items-center">
+                                    Discount:
+                                    <c:if test="${voucher.getVoucherID() != null}">
+                                        <input type="text" name="discount" id="discount" required="" value="${voucher.getDiscount()}" class="col-4 form-control">  
+                                    </c:if>
+                                    <c:if test="${voucher.getVoucherID() == null}">
+                                        <input type="text" name="discount" id="discount" required="" value="${requestScope.discounts}" class="col-4 form-control">    
+                                    </c:if>
+                                </div> 
                                 <div class="col-3 d-flex  align-items-center">
                                     Quantity:     
-                                    <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  class="col-4 form-control">
+                                    <c:if test="${voucher.getVoucherID() != null}">
+                                        <input type="text" name="quantity" id="quantity" value="${voucher.getQuantity()}"  class="col-4 form-control">
+                                    </c:if>
+                                    <c:if test="${voucher.getVoucherID() == null}">
+                                        <input type="text" name="quantity" id="quantity" required="" value="${requestScope.quantity}"  class="col-4 form-control">
+                                    </c:if>
                                 </div>
                                 <div class="col-3 d-flex justify-content-around align-items-center">
 
@@ -101,23 +115,28 @@
 
                             <div class="form-group row d-flex col-10 justify-content-between ">                       
 
-                                <div class="col-3 d-flex justify-content-around align-items-center">
-                                    Start Date:
-                                    <c:if test="${voucher.getVoucherID() != null}">
-                                        <input type="date" name="startDate"  id="startDate" value="${voucher.getStartDate()}"/>
-                                    </c:if>
-                                    <c:if test="${voucher.getVoucherID() == null}">
-                                        <input type="date" name="startDate" id="startDate" readonly="" value="${requestScope.startdate}"/>
-                                    </c:if>
-                                    <div class="error">
-                                        <p style="color: red">${requestScope.err}</p>
-                                    </div>
+                                <div class="col-3 d-flex align-items-start flex-column">
 
+                                    <div>
+                                        Start Date:
+                                        <c:if test="${voucher.getVoucherID() != null}">
+                                            <input type="date" name="startDate"  id="startDate" required="" value="${voucher.getStartDate()}"/>
+                                        </c:if>
+                                        <c:if test="${voucher.getVoucherID() == null}">
+                                            <input type="date" name="startDate" id="startDate" readonly="" value="${requestScope.startdate}"/>
+                                        </c:if>
+                                    </div>
                                 </div>   
-                                <div class="col-3 d-flex justify-content-around align-items-center">
-                                    End Date:
-                                    <input type="date" name="endDate" value="${voucher.getExpiryDate()}"/>
-                                </div>   
+                                <div class="col-3 d-flex align-items-start flex-column">
+                                    <div>
+                                        End Date:
+                                        <input type="date" name="endDate" required="" value="${voucher.getExpiryDate()}"/>
+                                    </div>
+                                    <c:if test="${not empty requestScope.dateErr}">
+                                        <p style="color: red">${requestScope.dateErr}</p>
+                                    </c:if>     
+                                </div>  
+
                             </div>
                             <!-- Submit and Cancel buttons -->
                             <div class="d-flex justify-content-end">
@@ -152,66 +171,62 @@
     crossorigin="anonymous"></script>
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const discountInput = document.getElementById("discount");
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const discountInput = document.getElementById("discount");
 
 // Không hiển thị giá trị mặc định là 0
-            if (parseFloat(discountInput.defaultValue) === 0) {
-                discountInput.defaultValue = '';
-            }
+                                if (parseFloat(discountInput.defaultValue) === 0) {
+                                    discountInput.defaultValue = '';
+                                }
 
-            discountInput.addEventListener("input", function () {
-                let value = discountInput.value;
+                                discountInput.addEventListener("input", function () {
+                                    let value = discountInput.value;
 
-                // Chỉ giữ lại các ký tự số và dấu chấm thập phân
-                value = value.replace(/[^0-9.]/g, '');
+                                    // Chỉ giữ lại các ký tự số và dấu chấm thập phân
+                                    value = value.replace(/[^0-9.]/g, '');
 
-                // Đảm bảo chỉ có một dấu chấm thập phân
-                const parts = value.split('.');
-                if (parts.length > 2) {
-                    value = parts[0] + '.' + parts.slice(1).join('');
-                }
+                                    // Đảm bảo chỉ có một dấu chấm thập phân
+                                    const parts = value.split('.');
+                                    if (parts.length > 2) {
+                                        value = parts[0] + '.' + parts.slice(1).join('');
+                                    }
 
-                // Giới hạn số chữ số thập phân (ở đây giới hạn 2 chữ số thập phân)
-                if (parts.length > 1 && parts[1].length > 2) {
-                    value = parts[0] + '.' + parts[1].substring(0, 2);
-                }
+                                    // Giới hạn số chữ số thập phân (ở đây giới hạn 2 chữ số thập phân)
+                                    if (parts.length > 1 && parts[1].length > 2) {
+                                        value = parts[0] + '.' + parts[1].substring(0, 2);
+                                    }
 
-                // Chuyển đổi giá trị thành số thực (float) để kiểm tra phạm vi
-                const numericValue = parseFloat(value);
+                                    // Chuyển đổi giá trị thành số thực (float) để kiểm tra phạm vi
+                                    const numericValue = parseFloat(value);
 
-                // Loại bỏ các số ngoài khoảng 1 đến 99
-                if (!isNaN(numericValue) && (numericValue < 1 || numericValue > 99)) {
-                    value = discountInput.defaultValue.toString();
-                }
+                                    // Loại bỏ các số ngoài khoảng 1 đến 99
+                                    if (!isNaN(numericValue) && (numericValue < 1 || numericValue > 99)) {
+                                        value = discountInput.defaultValue.toString();
+                                    }
 
-                discountInput.value = value;
-            });
+                                    discountInput.value = value;
+                                });
 
 // Loại bỏ giá trị mặc định là 0 khi tải trang
-            if (discountInput.value === '0') {
-                discountInput.value = '';
-            }
+                                if (discountInput.value === '0') {
+                                    discountInput.value = '';
+                                }
 
 
-            const quantityInput = document.getElementById("quantity");
-            quantityInput.addEventListener("input", function () {
-                let value = quantityInput.value;
-                // Chỉ giữ lại các ký tự số
-                value = value.replace(/[^0-9]/g, '');
-                // Loại bỏ các số ngoài khoảng 1 đến 99
-                if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 99)) {
-                    value = quantityInput.defaultValue;
-                }
-                quantityInput.value = value;
-            });
-        });
+                                const quantityInput = document.getElementById("quantity");
+                                quantityInput.addEventListener("input", function () {
+                                    let value = quantityInput.value;
+                                    // Chỉ giữ lại các ký tự số
+                                    value = value.replace(/[^0-9]/g, '');
+                                    // Loại bỏ các số ngoài khoảng 1 đến 99
+                                    if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 99)) {
+                                        value = quantityInput.defaultValue;
+                                    }
+                                    quantityInput.value = value;
+                                });
+                            });
 
-        function updateForm() {
-            var form = document.getElementById('productForm');
-            // Gọi hành động submit của form
-            form.submit();
-        }
+
     </script>
     <script>
         // Function to set the default date to today
@@ -232,6 +247,6 @@
                 // Set the default date when the page loads
                 window.onload = setDefaultDate;
     </script>
-
+  
 
 </html>

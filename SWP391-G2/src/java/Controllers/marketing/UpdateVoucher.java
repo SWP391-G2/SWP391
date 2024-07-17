@@ -123,6 +123,32 @@ public class UpdateVoucher extends HttpServlet {
             Date create = Date.valueOf(CreateDate);
             Date start = Date.valueOf(StartDate);
             Date end = Date.valueOf(EndDate);
+            boolean hasError = false;
+
+            if (code.trim().isEmpty() || code.matches(".*\\d.*")) {
+                if (code.trim().isEmpty()) {
+                    request.setAttribute("codeErr", "Code must not be empty or whitespace");
+                } else if (code.matches(".*\\d.*")) {
+                    request.setAttribute("codeErr", "Code must not contain numbers");
+                }
+                hasError = true;
+            }
+
+            if (end.before(start)) {
+                request.setAttribute("dateErr", "End date must be after start date");
+                hasError = true;
+            }
+
+            if (hasError) {
+                request.setAttribute("code", code);
+                request.setAttribute("discounts", discounts);
+                request.setAttribute("startdate", start);
+                request.setAttribute("quantity", quantity);
+                request.setAttribute("statusnew", statusnew);
+
+                request.getRequestDispatcher("voucher/update-mange-vouchers.jsp").forward(request, response);
+                return;
+            }
             voucherDAO.UpdateVoucher(code, discount, end, start, quantity, create, status, id);
             response.sendRedirect("voucher");
         } catch (Exception e) {
