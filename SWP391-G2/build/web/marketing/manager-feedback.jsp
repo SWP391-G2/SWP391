@@ -125,7 +125,17 @@
                         </div>
                     </div>
                     <div class="col-3">
-
+                        
+                    </div>
+                    <div class="col-3">
+                        <!-- <select class="form-control" id="status">
+                            <option value="1" selected>Status: Active</option>
+                            <option value="0">Status: In-Active</option>
+                        </select> -->
+                        <select class="form-control" id="status" name="filterbyreply">
+                            <option value=" ${feedback.getReply() == null ? 'selected' : '' }">Non-Reply</option>
+                            <option value=" ${feedback.getReply() != null ? 'selected' : '' }">Reply</option>
+                        </select>
                     </div>
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
@@ -138,6 +148,8 @@
                             <option value="0" ${status==0 ? 'selected' : '' }>In-Active</option>
                         </select>
                     </div>
+
+
 
                     <!--                    <div class="col-3">
                     
@@ -169,7 +181,7 @@
                                                     <button type="button" class="custom-button">${listAccount[loop.index].getFirstName()} ${listAccount[loop.index].getLastName()}</button>
                                                 </a>
                                             </td>
-                                             <td>${listProduct[loop.index].getProductName()}</td>
+                                            <td>${listProduct[loop.index].getProductName()}</td>
                                             <td>${feedback.getFbContent()}</td>
 
                                             <c:if test="${feedback.getReply() != null}">
@@ -203,7 +215,7 @@
                                                     </c:when>
                                                     <c:when test="${feedback.getFbStatus() == 0}">
                                                         <a  onclick="showAlert('Maketing unblocked successfully!',${feedback.getFbID()}, 1);">
-                                                           <button style="width: 86px;" type="button" class="btn btn-danger" >
+                                                            <button style="width: 86px;" type="button" class="btn btn-danger" >
                                                                 Block
                                                             </button>
                                                         </a>
@@ -334,9 +346,9 @@
                                                                     '&status=' + status + '&pageNo=' + pageNo + "&feedbackID=" + feedbackID + "&statusnew=" + status1;
                                                         }
                                                     }
-                                function showDetail(feedbackid) {
-                                    window.location.href = 'updatefeedback?&id=' + feedbackid;
-                                }
+                                                    function showDetail(feedbackid) {
+                                                        window.location.href = 'updatefeedback?&id=' + feedbackid;
+                                                    }
     </script>
     <script>
         function validateForm() {

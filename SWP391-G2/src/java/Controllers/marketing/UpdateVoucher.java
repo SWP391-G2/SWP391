@@ -12,7 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -46,6 +48,30 @@ public class UpdateVoucher extends HttpServlet {
         }
     }
 
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final int LENGTH = 7;
+    private static final SecureRandom random = new SecureRandom();
+
+    public static String generateRandomString() {
+        StringBuilder sb = new StringBuilder(LENGTH);
+        for (int i = 0; i < LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+        return sb.toString();
+    }
+
+    public boolean isCodeExist(String code) {
+        VouchersDAO vouchersDAO = new VouchersDAO();
+        List<Vouchers> vouchers = vouchersDAO.getVoucherByName();
+        for (Vouchers voucher : vouchers) {
+            if (voucher.getCode().equals(code)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -69,6 +95,14 @@ public class UpdateVoucher extends HttpServlet {
         if (voucherID == -1) {
             Date startdate = new Date(System.currentTimeMillis());
             request.setAttribute("startdate", startdate);
+            Date createdate = new Date(System.currentTimeMillis());
+            request.setAttribute("create", createdate);
+            String code;
+            do {
+                code = generateRandomString();
+            } while (isCodeExist(code));
+
+            request.setAttribute("code", code);
         }
         String search = "";
         int status = -1;
@@ -124,9 +158,9 @@ public class UpdateVoucher extends HttpServlet {
             Date start = Date.valueOf(StartDate);
             Date end = Date.valueOf(EndDate);
             boolean hasError = false;
-
-            if (code.trim().isEmpty() || code.matches(".*\\d.*")) {
-                if (code.trim().isEmpty()) {
+            code = code.trim().toUpperCase();
+            if (code.isEmpty() || code.matches(".*\\d.*")) {
+                if (code.isEmpty()) {
                     request.setAttribute("codeErr", "Code must not be empty or whitespace");
                 } else if (code.matches(".*\\d.*")) {
                     request.setAttribute("codeErr", "Code must not contain numbers");
@@ -140,17 +174,22 @@ public class UpdateVoucher extends HttpServlet {
             }
 
             if (hasError) {
+                request.setAttribute("id", id);
                 request.setAttribute("code", code);
                 request.setAttribute("discounts", discounts);
                 request.setAttribute("startdate", start);
                 request.setAttribute("quantity", quantity);
                 request.setAttribute("statusnew", statusnew);
+                request.setAttribute("enddate", end);
+                  request.setAttribute("create", create);
 
                 request.getRequestDispatcher("voucher/update-mange-vouchers.jsp").forward(request, response);
                 return;
+            } else {
+                voucherDAO.UpdateVoucher(code, discount, end, start, quantity, create, status, id);
+                response.sendRedirect("voucher");
             }
-            voucherDAO.UpdateVoucher(code, discount, end, start, quantity, create, status, id);
-            response.sendRedirect("voucher");
+
         } catch (Exception e) {
             response.sendRedirect("voucher");
         }

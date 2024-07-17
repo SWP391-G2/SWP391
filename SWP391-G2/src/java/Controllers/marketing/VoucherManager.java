@@ -119,6 +119,17 @@ public class VoucherManager extends HttpServlet {
         request.getRequestDispatcher("voucher/manageVouchers.jsp").forward(request, response);
     }
 
+    public boolean isCodeExist(String code) {
+        VouchersDAO vouchersDAO = new VouchersDAO();
+        List<Vouchers> vouchers = vouchersDAO.getVoucherByName();
+        for (Vouchers voucher : vouchers) {
+            if (voucher.getCode().equals(code)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -147,13 +158,16 @@ public class VoucherManager extends HttpServlet {
             Date start = Date.valueOf(StartDate);
             Date end = Date.valueOf(EndDate);
             boolean hasError = false;
-            code = code.trim();
+            code = code.trim().toUpperCase();
             if (code.isEmpty() || code.matches(".*\\d.*")) {
                 if (code.isEmpty()) {
                     request.setAttribute("codeErr", "Code must not be empty or whitespace");
                 } else if (code.matches(".*\\d.*")) {
                     request.setAttribute("codeErr", "Code must not contain numbers");
                 }
+                hasError = true;
+            } else if (isCodeExist(code)) {
+                request.setAttribute("codeErr", "Code already exists");
                 hasError = true;
             }
 
@@ -167,7 +181,8 @@ public class VoucherManager extends HttpServlet {
                 request.setAttribute("discounts", discounts);
                 request.setAttribute("startdate", start);
                 request.setAttribute("quantity", quantity);
-                request.setAttribute("statusnew", statusnew);
+                request.setAttribute("statusnew", status);
+                request.setAttribute("create", create);
 
                 request.getRequestDispatcher("voucher/update-mange-vouchers.jsp").forward(request, response);
                 return;

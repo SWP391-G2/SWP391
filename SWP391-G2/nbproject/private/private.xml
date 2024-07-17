@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/UpdateVoucher.java</file>
             <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/voucher/update-mange-vouchers.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/voucher/manageVouchers.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/marketing/manager-feedback.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Dal/VouchersDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/feedback/FeedbackController.java</file>
             <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/VoucherManager.java</file>
         </group>
     </open-files>
