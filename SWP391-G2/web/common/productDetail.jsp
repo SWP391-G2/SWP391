@@ -117,29 +117,17 @@
                 <div class="row gx-5 align-items-center">
                     <aside class="col-lg-5">
                         <div class="mb-3">
-<<<<<<< HEAD
                             <img id="product-image" src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded-4 shadow">
-=======
-                            <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
->>>>>>> 643208164fd27432cd1560c58848fd949621ee44
+
                         </div>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
-<<<<<<< HEAD
                                     <img src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
-=======
-                                    <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
->>>>>>> 643208164fd27432cd1560c58848fd949621ee44
-                                </div>
-                                
+                                </div>                               
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
-<<<<<<< HEAD
                                         <img src="${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
-=======
-                                        <img src="${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
->>>>>>> 643208164fd27432cd1560c58848fd949621ee44
                                     </div>
                                 </c:forEach>
                             </div>
@@ -390,9 +378,14 @@
                      color: rgba(0, 0, 0, 0.87);
                      margin-top: 0.75rem;
                      white-space: pre-wrap;">${fb.getFbContent()}</div>
+                <div style="font-size: 20px;
+                     line-height: 10px;
+                     color: rgba(0, 0, 0, 0.87);
+                     margin-top: 1.75rem;
+                     white-space: pre-wrap;"><h4 style="color: red;">${fb.getReply()}</h4></div>
                 <div style="margin-top: 0.95rem;">
                     <c:if test="${fb.getFbImage() != null}" >
-                        <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
+                        <img src="${fb.getFbImage()}" style="width: 100px; height: 100px" />
                     </c:if>
                 </div>
 
@@ -463,7 +456,7 @@
         // Láº·p qua danh sÃ¡ch cÃ¡c size Äá» tÃ¬m size tÆ°Æ¡ng á»©ng vÃ  cáº­p nháº­t giÃ¡
         for (var i = 0; i < priceAndSizeData.length; i++) {
             if (priceAndSizeData[i].size == selectedSize) {
-         
+
                 document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
                 document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                 document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
@@ -499,7 +492,7 @@
         var productname = document.getElementById('productname').value;
         var quantity = document.getElementById('quantity').value;
         var category = document.getElementById('category').value;
-        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID +"&&category=" +category;
+        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID + "&&category=" + category;
     }
     </c:if>
 

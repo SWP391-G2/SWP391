@@ -103,12 +103,15 @@
 
                                 <div class="col-3 d-flex justify-content-around align-items-center">
                                     Start Date:
-                                    <input type="date" name="startDate" value="${voucher.getStartDate()}"/>
-                                    <% if (request.getAttribute("error") != null) { %>
+                                    <c:if test="${voucher.getVoucherID() != null}">
+                                        <input type="date" name="startDate"  id="startDate" value="${voucher.getStartDate()}"/>
+                                    </c:if>
+                                    <c:if test="${voucher.getVoucherID() == null}">
+                                        <input type="date" name="startDate" id="startDate" readonly="" value="${requestScope.startdate}"/>
+                                    </c:if>
                                     <div class="error">
-                                        <%= request.getAttribute("error") %>
+                                        <p style="color: red">${requestScope.err}</p>
                                     </div>
-                                    <% } %>
 
                                 </div>   
                                 <div class="col-3 d-flex justify-content-around align-items-center">
@@ -189,7 +192,7 @@
             if (discountInput.value === '0') {
                 discountInput.value = '';
             }
-            
+
 
             const quantityInput = document.getElementById("quantity");
             quantityInput.addEventListener("input", function () {
@@ -211,32 +214,23 @@
         }
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const createDateInput = document.querySelector('input[name="createDate"]');
-            const startDateInput = document.querySelector('input[name="startDate"]');
-            const endDateInput = document.querySelector('input[name="endDate"]');
+        // Function to set the default date to today
+        function setDefaultDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${dd}-${mm}-${yyyy}`;
 
-            function validateDates() {
-                const createDate = new Date(createDateInput.value);
-                const startDate = new Date(startDateInput.value);
-                const endDate = new Date(endDateInput.value);
-
-                // Kiểm tra startDate không thể chọn trước ngày createDate
-                if (startDate < createDate) {
-                    alert("Start date cannot be before create date.");
-                    startDateInput.value = "";
+                    // Only set the date if no date is already provided
+                    const startDateInput = document.getElementById('startDate');
+                    if (!startDateInput.value) {
+                        startDateInput.value = formattedDate;
+                    }
                 }
 
-                // Kiểm tra endDate không được chọn trước ngày startDate và createDate
-                if (endDate < startDate || endDate < createDate) {
-                    alert("End date cannot be before start date or create date.");
-                    endDateInput.value = "";
-                }
-            }
-
-            startDateInput.addEventListener('change', validateDates);
-            endDateInput.addEventListener('change', validateDates);
-        });
+                // Set the default date when the page loads
+                window.onload = setDefaultDate;
     </script>
 
 

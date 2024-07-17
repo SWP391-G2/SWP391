@@ -196,15 +196,15 @@
                                                 <c:choose>
                                                     <c:when test="${feedback.getFbStatus() == 1}">
                                                         <a  onclick="showAlert('Maketing blocked successfully!',${feedback.getFbID()}, 0)">
-                                                            <button type="button" class="btn btn-danger">
-                                                                View
+                                                            <button type="button" class="btn btn-success">
+                                                                UnBlock
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                     <c:when test="${feedback.getFbStatus() == 0}">
                                                         <a  onclick="showAlert('Maketing unblocked successfully!',${feedback.getFbID()}, 1);">
-                                                            <button type="button" class="btn btn-success">
-                                                                Hide
+                                                           <button style="width: 86px;" type="button" class="btn btn-danger" >
+                                                                Block
                                                             </button>
                                                         </a>
                                                     </c:when>

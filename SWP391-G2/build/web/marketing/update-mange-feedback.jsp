@@ -61,7 +61,7 @@
                             <label for="productID">Feedback Image Of Product:</label>
                             <div class="input-group image-preview-container">
                                 <div class="input-group">
-                                    <label for="img"><img src="images/Products/${cateName}/${detail.getImage()}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
+                                    <label for="img"><img src="${feedback.getFbImage()}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
                                 <span id="productImageError" class="text-danger"></span>
                             </div>

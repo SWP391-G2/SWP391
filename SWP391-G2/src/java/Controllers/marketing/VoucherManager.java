@@ -13,7 +13,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -92,14 +91,14 @@ public class VoucherManager extends HttpServlet {
         String end = null;
 
         try {
-             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (startStr != null && !startStr.isEmpty()) {
-               Date startDate_raw = Date.valueOf(startStr);
-               start = dateFormat.format(startDate_raw);
+                Date startDate_raw = Date.valueOf(startStr);
+                start = dateFormat.format(startDate_raw);
             }
             if (endStr != null && !endStr.isEmpty()) {
-               Date end_raw = Date.valueOf(endStr);
-               end = dateFormat.format(end_raw);
+                Date end_raw = Date.valueOf(endStr);
+                end = dateFormat.format(end_raw);
             }
 
         } catch (ELException e) {
@@ -115,8 +114,8 @@ public class VoucherManager extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listvoucher", listvoucher);
-        request.setAttribute("start", start);  
-        request.setAttribute("end", end);      
+        request.setAttribute("start", start);
+        request.setAttribute("end", end);
         request.getRequestDispatcher("voucher/manageVouchers.jsp").forward(request, response);
     }
 
@@ -146,6 +145,11 @@ public class VoucherManager extends HttpServlet {
             Date create = new Date(System.currentTimeMillis());
             Date start = Date.valueOf(StartDate);
             Date end = Date.valueOf(EndDate);
+            if (end.before(start)) {
+                request.setAttribute("err", "date errr");         
+                request.getRequestDispatcher("voucher/update-mange-vouchers.jsp").forward(request, response);
+                return;
+            }
             VouchersDAO voucherDAO = new VouchersDAO();
             voucherDAO.InsertVoucher(code, discount, end, start, quantity, create, status);
         } catch (Exception e) {
@@ -171,14 +175,14 @@ public class VoucherManager extends HttpServlet {
         String end = null;
 
         try {
-             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (startStr != null && !startStr.isEmpty()) {
-               Date startDate_raw = Date.valueOf(startStr);
-               start = dateFormat.format(startDate_raw);
+                Date startDate_raw = Date.valueOf(startStr);
+                start = dateFormat.format(startDate_raw);
             }
             if (endStr != null && !endStr.isEmpty()) {
-               Date end_raw = Date.valueOf(endStr);
-               end = dateFormat.format(end_raw);
+                Date end_raw = Date.valueOf(endStr);
+                end = dateFormat.format(end_raw);
             }
 
         } catch (ELException e) {
@@ -193,7 +197,7 @@ public class VoucherManager extends HttpServlet {
         }
 
         VouchersDAO voucherDAO = new VouchersDAO();
-        List<Vouchers> listvoucher = voucherDAO.getVouchersByFilter(status, search, pageNo, pageSize,start,end);
+        List<Vouchers> listvoucher = voucherDAO.getVouchersByFilter(status, search, pageNo, pageSize, start, end);
         int totalPage = voucherDAO.getTotalPage(status, search, pageSize);
 
         request.setAttribute("search", search);

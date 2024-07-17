@@ -198,7 +198,7 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>                              
                                             <td class="table-button">
-                                                <a onclick="showDetail(${listvoucher.getVoucherID()})">
+                                                <a >
                                                     <button type="button" class="custom-button">${listvoucher.getCode()}</button>
                                                 </a>
                                             </td>
@@ -376,8 +376,7 @@
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
                                                         const pageNo = document.querySelector('#pageNo').value;
-                                                        window.location.href = 'updatevoucher?search=' + search +
-                                                                '&status=' + status + '&pageNo=' + pageNo;
+                                                        window.location.href = 'updatevoucher'
                                                     }
     </script>
 
