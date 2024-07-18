@@ -76,7 +76,7 @@ public class FeedbackController extends HttpServlet {
         try {
             status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
             feedbackID = request.getParameter("feedbackID") == null ? -1 : Integer.parseInt(request.getParameter("feedbackID"));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -89,24 +89,24 @@ public class FeedbackController extends HttpServlet {
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
-        Boolean replyNotNull = null;
+        Boolean filterByReply = null;
 
         try {
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
-            String filterByReply = request.getParameter("filterbyreply");
-            if ("Non-Reply".equals(filterByReply)) {
-                replyNotNull = false;
-            } else if ("Reply".equals(filterByReply)) {
-                replyNotNull = true;
+            String filterByReplyStr = request.getParameter("filterbyreply");
+            if ("Non-Reply".equals(filterByReplyStr)) {
+                filterByReply = false;
+            } else if ("Reply".equals(filterByReplyStr)) {
+                filterByReply = true;
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-        List<FeedBacks> listfeedback = feedbackDAO.getListFeedback(replyNotNull);
+        ArrayList<FeedBacks> listfeedback = feedbackDAO.getFeedbacksByFilter(status, search, filterByReply, pageNo, pageSize);
         int totalPage = feedbackDAO.getTotalPage(status, search, pageSize);
 
         List<Accounts> listAccount = new ArrayList<>();
@@ -130,7 +130,7 @@ public class FeedbackController extends HttpServlet {
         request.setAttribute("listfeedback", listfeedback);
         request.setAttribute("listAccount", listAccount);
         request.setAttribute("listProduct", listProduct);
-        request.setAttribute("filterbyreply", replyNotNull);
+        request.setAttribute("filterbyreply", filterByReply); // Đảm bảo cập nhật lại thuộc tính này để trả về view
         request.getRequestDispatcher("marketing/manager-feedback.jsp").forward(request, response);
     }
 

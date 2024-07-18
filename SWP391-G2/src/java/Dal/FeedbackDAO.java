@@ -167,16 +167,14 @@ public class FeedbackDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, Boolean filterByReply, int pageNo, int pageSize) {
         ArrayList<FeedBacks> listFeedback = new ArrayList<>();
-        String sql = "select * from Feedbacks";
+        String sql = "SELECT * FROM Feedbacks";
+
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (status != -1 || !search.isEmpty()) {
+        if (status != -1 || !search.isEmpty() || filterByReply != null) {
             sql += " WHERE";
             if (status != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
                 sql += " fbStatus = ?";
                 whereAdded = true;
             }
@@ -185,6 +183,17 @@ public class FeedbackDAO extends DBContext {
                     sql += " AND";
                 }
                 sql += " (fbContent LIKE ? OR reply LIKE ?)";
+                whereAdded = true;
+            }
+            if (filterByReply != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                if (filterByReply) {
+                    sql += " reply IS NOT NULL";
+                } else {
+                    sql += " reply IS NULL";
+                }
             }
         }
 
@@ -197,15 +206,19 @@ public class FeedbackDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
-                    ur.setString(parameterIndex, "%" + search + "%");
-                    parameterIndex++;
-                }
+                ur.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
+                ur.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
+            }
+            if (filterByReply != null) {
+                // No need to set parameters for filterByReply here since it's handled in the SQL directly
             }
             // Set the limit and offset parameters for pagination
             ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
             parameterIndex++;
             ur.setInt(parameterIndex, pageSize);
+
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 FeedBacks feedback = new FeedBacks(
@@ -222,7 +235,8 @@ public class FeedbackDAO extends DBContext {
 
                 listFeedback.add(feedback);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
         }
 
         return listFeedback;
