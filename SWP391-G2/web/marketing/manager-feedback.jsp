@@ -125,16 +125,17 @@
                         </div>
                     </div>
                     <div class="col-3">
-                        
+
                     </div>
                     <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
                         </select> -->
-                        <select class="form-control" id="status" name="filterbyreply">
-                            <option value=" ${feedback.getReply() == null ? 'selected' : '' }">Non-Reply</option>
-                            <option value=" ${feedback.getReply() != null ? 'selected' : '' }">Reply</option>
+                        <select class="form-control" id="filterbyreply" name="filterbyreply">
+                            <option value="All" ${filterbyreply == null ? 'selected' : ''}>All</option>
+                            <option value="Non-Reply" ${filterbyreply == false ? 'selected' : ''}>Non-Reply</option>
+                            <option value="Reply" ${filterbyreply == true ? 'selected' : ''}>Reply</option>
                         </select>
                     </div>
                     <div class="col-3">
@@ -426,7 +427,14 @@
                     '&status=' + status + '&pageNo=1';
         });
 
-
+        const filterbyreply = document.querySelector('#filterbyreply');
+        filterbyreply.addEventListener('change', () => {
+            const search = document.querySelector('#search').value;
+            const statusValue = document.querySelector('#status').value;
+            const filterbyreplyValue = document.querySelector('#filterbyreply').value;
+            window.location.href = 'feedback?search=' + search +
+                    '&status=' + statusValue + '&filterbyreply=' + filterbyreplyValue + '&pageNo=1';
+        });
 
 
         // handle pagination

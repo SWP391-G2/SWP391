@@ -17,8 +17,38 @@ import context.DBContext;
  *
  * @author admin
  */
-
 public class FeedbackDAO extends DBContext {
+
+    public List<FeedBacks> getListFeedback(Boolean replyNotNull) {
+        List<FeedBacks> list = new ArrayList<>();
+        String sql = "SELECT * FROM Feedbacks";
+
+        if (replyNotNull != null) {
+            sql += " WHERE reply " + (replyNotNull ? "IS NOT NULL" : "IS NULL");
+        }
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                FeedBacks feedback = new FeedBacks(
+                        rs.getInt(1), // FeedbackID
+                        rs.getInt(2), // fbAccountID
+                        rs.getInt(3), // fbProductID
+                        rs.getInt(4), // fbRating
+                        rs.getString(5), // fbComment
+                        rs.getString(6), // reply
+                        rs.getDate(7), // fbDate
+                        rs.getInt(8), // AccountID
+                        rs.getString(9) // AccountName
+                );
+                list.add(feedback);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Thêm in ra lỗi để dễ dàng kiểm tra và debug
+        }
+        return list;
+    }
 
     public void updateReplyFeedback(String reply, int id) {
         String sql = "UPDATE [dbo].[Feedbacks]\n"
@@ -34,7 +64,6 @@ public class FeedbackDAO extends DBContext {
         }
     }
 
-    
     public List<FeedBacks> getFeedbacksByProductID(int productID) {
         List<FeedBacks> feedbacks = new ArrayList<>();
         String sql = "SELECT * FROM [dbo].[Feedbacks] WHERE fbProductID = ?";
@@ -43,15 +72,15 @@ public class FeedbackDAO extends DBContext {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     FeedBacks feedback = new FeedBacks(
-                        rs.getInt("fbID"),
-                        rs.getInt("fbAccountID"),
-                        rs.getInt("fbProductID"),
-                        rs.getInt("fbStar"),
-                        rs.getString("fbContent"),
-                        rs.getString("fbImage"),
-                        rs.getDate("fbDate"),
-                        rs.getInt("fbStatus"),
-                        rs.getString("reply")
+                            rs.getInt("fbID"),
+                            rs.getInt("fbAccountID"),
+                            rs.getInt("fbProductID"),
+                            rs.getInt("fbStar"),
+                            rs.getString("fbContent"),
+                            rs.getString("fbImage"),
+                            rs.getDate("fbDate"),
+                            rs.getInt("fbStatus"),
+                            rs.getString("reply")
                     );
                     feedbacks.add(feedback);
                 }

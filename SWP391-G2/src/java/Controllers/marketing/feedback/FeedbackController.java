@@ -77,38 +77,52 @@ public class FeedbackController extends HttpServlet {
             status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
             feedbackID = request.getParameter("feedbackID") == null ? -1 : Integer.parseInt(request.getParameter("feedbackID"));
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+
         if (status_new != -1) {
             FeedbackDAO feedbackDAO = new FeedbackDAO();
             feedbackDAO.updateStatusFeedback(status_new, feedbackID);
         }
+
         String search = "";
         int status = -1;
         int pageNo = 1;
         final int pageSize = 10;
+        Boolean replyNotNull = null;
+
         try {
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+            String filterByReply = request.getParameter("filterbyreply");
+            if ("Non-Reply".equals(filterByReply)) {
+                replyNotNull = false;
+            } else if ("Reply".equals(filterByReply)) {
+                replyNotNull = true;
+            }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-        List<FeedBacks> listfeedback = feedbackDAO.getFeedbacksByFilter(status, search, pageNo, pageSize);
+        List<FeedBacks> listfeedback = feedbackDAO.getListFeedback(replyNotNull);
         int totalPage = feedbackDAO.getTotalPage(status, search, pageSize);
+
         List<Accounts> listAccount = new ArrayList<>();
         AccountsDAO accDAO = new AccountsDAO();
         for (FeedBacks listfb : listfeedback) {
             Accounts a = accDAO.getAccoutByID(listfb.getFbAccountID());
             listAccount.add(a);
         }
+
         List<Products> listProduct = new ArrayList<>();
         ProductsDAO proDAO = new ProductsDAO();
         for (FeedBacks listfb : listfeedback) {
             Products pro = proDAO.getProduct(listfb.getFbProductID());
             listProduct.add(pro);
         }
+
         request.setAttribute("search", search);
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);
@@ -116,6 +130,7 @@ public class FeedbackController extends HttpServlet {
         request.setAttribute("listfeedback", listfeedback);
         request.setAttribute("listAccount", listAccount);
         request.setAttribute("listProduct", listProduct);
+        request.setAttribute("filterbyreply", replyNotNull);
         request.getRequestDispatcher("marketing/manager-feedback.jsp").forward(request, response);
     }
 
