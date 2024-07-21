@@ -180,6 +180,30 @@
         <servlet-name>AdminAddAccount</servlet-name>
         <servlet-class>Controllers.admin.AdminAddAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <servlet-class>Controllers.marketing.MakertingManageSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingAddNewSlider</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingAddNewSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingManageSliderDetail</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingManageSliderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingUpdateStatusSlider</servlet-name>
+        <servlet-class>Controllers.marketing.MarketingUpdateStatusSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatisticRevenue</servlet-name>
+        <servlet-class>Controllers.marketing.StatisticRevenue</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSliderServlet</servlet-name>
+        <servlet-class>Controllers.marketing.SearchSliderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -359,5 +383,29 @@
     <servlet-mapping>
         <servlet-name>AdminAddAccount</servlet-name>
         <url-pattern>/adminaddaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakertingManageSlider</servlet-name>
+        <url-pattern>/manageSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingAddNewSlider</servlet-name>
+        <url-pattern>/addSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingManageSliderDetail</servlet-name>
+        <url-pattern>/sliderDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingUpdateStatusSlider</servlet-name>
+        <url-pattern>/updateStatusSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticRevenue</servlet-name>
+        <url-pattern>/statisticRevenue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSliderServlet</servlet-name>
+        <url-pattern>/searchSlider</url-pattern>
     </servlet-mapping>
 </web-app>

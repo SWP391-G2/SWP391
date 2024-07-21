@@ -190,7 +190,7 @@
                                                     <figcaption class="product_content">
                                                         <!-- for deals timing -->
                                                         <div class="product_timing">
-                                                            <div id="countdown" data-countdown="2024-06-29T00:00:00">
+                                                            <div id="countdown" data-countdown="2024-07-18T00:00:00">
                                                                 <div class="countdown_area">
                                                                     <div class="single_countdown ani-fire">
                                                                         <div id="day" class="countdown_number"></div>
@@ -216,8 +216,8 @@
                                                         </h4>
 
                                                         <div class="price_box">
-                                                            <span class="old_price">Rs. 9100</span>
-                                                            <span class="current_price">Rs. 8650</span>
+                                                            <span class="old_price">$120</span>
+                                                            <span class="current_price">$80</span>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
@@ -726,7 +726,7 @@
                                             delectus velit at obcaecati. Nam dolorem eligendi voluptates.
                                         </p>
                                         <footer class="btn_more">
-                                            <a href="#">Read More...</a>
+                                            <a href="blog">Read More...</a>
                                         </footer>
                                     </figcaption>
                                 </figure>
@@ -753,7 +753,7 @@
                                             delectus velit at obcaecati. Nam dolorem eligendi voluptates.
                                         </p>
                                         <footer class="btn_more">
-                                            <a href="#">Read More...</a>
+                                            <a href="blog">Read More...</a>
                                         </footer>
                                     </figcaption>
                                 </figure>
@@ -780,7 +780,7 @@
                                             delectus velit at obcaecati. Nam dolorem eligendi voluptates.
                                         </p>
                                         <footer class="btn_more">
-                                            <a href="#">Read More...</a>
+                                            <a href="blog">Read More...</a>
                                         </footer>
                                     </figcaption>
                                 </figure>
@@ -807,7 +807,7 @@
                                             delectus velit at obcaecati. Nam dolorem eligendi voluptates.
                                         </p>
                                         <footer class="btn_more">
-                                            <a href="#">Read More...</a>
+                                            <a href="blog">Read More...</a>
                                         </footer>
                                     </figcaption>
                                 </figure>
@@ -859,6 +859,12 @@
                                                                     function addToWishlist(event, productID) {
                                                                         event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
 
+                                                                        if (!isLoggedIn) {
+                                                                            // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+                                                                            window.location.href = "login";
+                                                                            return;
+                                                                        }
+
                                                                         // Gọi hàm Ajax để gửi yêu cầu thêm vào Wishlist
                                                                         var xhr = new XMLHttpRequest();
                                                                         xhr.open("POST", "addToWishlist", true);
@@ -879,6 +885,9 @@
                                                                         var params = "productID=" + productID;
                                                                         xhr.send(params);
                                                                     }
+        </script>
+        <script>
+            var isLoggedIn = <%= request.getAttribute("isLoggedIn") %>;
         </script>
     </body>
 </html>

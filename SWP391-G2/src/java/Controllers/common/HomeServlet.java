@@ -15,6 +15,7 @@ import Dal.CategoriesDAO;
 import Dal.FeedbackDAO;
 import Dal.ProductsDAO;
 import Dal.SliderDAO;
+import Models.Accounts;
 import Models.Brands;
 import Models.Categories;
 import Models.FeedBacks;
@@ -69,13 +70,18 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         CategoriesDAO categoriesDAO = new CategoriesDAO();
         ProductsDAO productsDAO = new ProductsDAO();
         BrandsDAO brandsDAO = new BrandsDAO();
         SliderDAO sliDAO = new SliderDAO();
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-     
-   
+        HttpSession session = request.getSession();
+        Accounts account = (Accounts) session.getAttribute("account");
+
+        boolean isLoggedIn = (account != null);
+        request.setAttribute("isLoggedIn", isLoggedIn);
+
         List<Sliders> sliders = sliDAO.getAll();
         List<ProductsHome> productsMen = productsDAO.getProductsByCategory(1);
         List<ProductsHome> productsWomen = productsDAO.getProductsByCategory(2);
@@ -85,20 +91,19 @@ public class HomeServlet extends HttpServlet {
         List<Categories> categories = categoriesDAO.loadCategory();
         List<Brands> brands = brandsDAO.getBrands();
 
-        Map<Integer,Integer> productAverageStars = new HashMap<>();
+        Map<Integer, Integer> productAverageStars = new HashMap<>();
         List<ProductsHome> allProducts = productsMen;
         allProducts.addAll(productsWomen);
         allProducts.addAll(productsUnisex);
         allProducts.addAll(giftSet);
         allProducts.addAll(productsTop5Sellers);
 
-       for (ProductsHome product : allProducts) {
+        for (ProductsHome product : allProducts) {
             int averageStars = feedbackDAO.getAverageStartByProductID(product.getProductID());
             productAverageStars.put(product.getProductID(), averageStars);
         }
 
         request.setAttribute("productAverageStars", productAverageStars);
-        HttpSession session = request.getSession();
         session.setAttribute("sliders", sliders);
         request.setAttribute("productsMen", productsMen);
         request.setAttribute("productsWomen", productsWomen);
@@ -107,7 +112,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("productsTopSellers", productsTop5Sellers);
         request.setAttribute("brands", brands);
         request.setAttribute("categories", categories);
-    
+
         request.getRequestDispatcher("common/home.jsp").forward(request, response);
     }
 

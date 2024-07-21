@@ -100,8 +100,6 @@
                 </div>
             </div>
         </div>
-
-    </footer>
     <div class="footer_bottom">
         <div class="container">
             <div class="row " style="border: none">

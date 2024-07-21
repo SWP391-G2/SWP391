@@ -61,10 +61,11 @@ public class ProductsDAO extends DBContext {
                 + "MAX(pd.ProductPrice) AS priceMax "
                 + "FROM Products p "
                 + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
+                + "JOIN OrderDetail od ON p.ProductID = od.odProductID "
                 + "WHERE p.CategoryID <> 4 "
                 + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
                 + "p.ProductStatus, p.ProductImageUrl, p.BrandID "
-                + "ORDER BY NEWID()";
+                + "ORDER BY SUM(od.odQuantity) DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -690,7 +691,7 @@ public class ProductsDAO extends DBContext {
             }
         }
 
-        sql += " ORDER BY ProductID DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -905,19 +906,9 @@ public class ProductsDAO extends DBContext {
     public static void main(String[] args) {
         ProductsDAO productsDAO = new ProductsDAO();
 
-        // Example scenario: Simulating parameters or conditions you want to test
-//        int[] categoryIDs = {1, 2}; // Example category IDs
-//        int[] brandIDs = {3};      // Example brand IDs
-        int minPrice = 50;         // Example minimum price
-        int maxPrice = 100;
-        int[] categoryID = {1};
-        int[] brandID = {1};// Example maximum price
-
-        // Test getProductsByCategoriesAndBrandsAndPriceRange method
-        System.out.println("Testing getProductsByCategoriesAndBrandsAndPriceRange:");
-        List<ProductsHome> products1 = productsDAO.getProductsByPricerangeAndCateAndBrand(minPrice, maxPrice, categoryID, brandID);
+        List<ProductsHome> products1 = productsDAO.getTopBestSellers("5");
         for (ProductsHome product : products1) {
-            System.out.println(product.getPriceMin() + "-" + product.getPriceMax());
+            System.out.println(product.getProductName());
         }
     }
 

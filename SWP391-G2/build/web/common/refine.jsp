@@ -70,6 +70,56 @@
                 height: 20px;
             }
 
+            /* Styling the sorting-options container */
+            .sorting-options {
+                margin: 20px 0;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end; /* Aligns the sorting options to the right */
+                font-family: Arial, sans-serif;
+            }
+
+            /* Styling the label */
+            .sorting-options label {
+                margin-right: 10px;
+                font-weight: bold;
+                font-size: 16px;
+                color: #333;
+            }
+
+            /* Styling the select box */
+            .sorting-options select {
+                padding: 8px 12px;
+                border: 2px solid #000;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+                font-size: 16px;
+                color: #333;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-bottom :7px;
+            }
+
+            /* Adding focus and hover effects */
+            .sorting-options select:focus,
+            .sorting-options select:hover {
+                border-color: #007BFF;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+            /* Adding transition effect for the select box */
+            .sorting-options select option {
+                padding: 10px;
+            }
+
+            /* Adjusting form submission on select change */
+            .sorting-options select:active {
+                outline: none;
+                border-color: #007BFF;
+                box-shadow: none;
+            }
+
 
         </style>
     </head>
@@ -324,11 +374,11 @@
                                                                         <i class="fa fa-shopping-cart"></i>
                                                                     </a>
                                                                 </li>
-                                                                 <li class="wishlist">
-                                                                        <a href="#" onclick="addToWishlist(event, ${product.getProductID()})" title="Thêm vào mục yêu thích">
-                                                                            <i style="color: #f6692a" class="fa-solid fa-heart"></i>
-                                                                        </a>
-                                                                    </li>
+                                                                <li class="wishlist">
+                                                                    <a href="#" onclick="addToWishlist(event, ${product.getProductID()})" title="Thêm vào mục yêu thích">
+                                                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                    </a>
+                                                                </li>
                                                                 <li style="border-color: orange" class="quick_button">
                                                                     <a href="#" data-toggle="modal" data-target="#modal_box" title="Xem sản phẩm">
                                                                         <i class="fa fa-eye"></i>
@@ -431,27 +481,27 @@
         <script src="js/main.js"></script>
         <script type="text/javascript">
 
-                    function setCheck(obj) {
+                                                                        function setCheck(obj) {
 
-                        document.getElementById('f1').submit();
-                    }
+                                                                            document.getElementById('f1').submit();
+                                                                        }
 
-                    function searchByName() {
-                        var text = document.querySelector("#searchId").value;
-                        $.ajax({
-                            url: "/SWP391-G2/searchRefine",
-                            type: "get",
-                            data: {
-                                txt: text
-                            },
-                            success: function (data) {
-                                var row = document.getElementById("contentt");
-                                row.innerHTML = data;
-                            },
-                            error: function (xhr) {
-                            }
-                        });
-                    }
+                                                                        function searchByName() {
+                                                                            var text = document.querySelector("#searchId").value;
+                                                                            $.ajax({
+                                                                                url: "/SWP391-G2/searchRefine",
+                                                                                type: "get",
+                                                                                data: {
+                                                                                    txt: text
+                                                                                },
+                                                                                success: function (data) {
+                                                                                    var row = document.getElementById("contentt");
+                                                                                    row.innerHTML = data;
+                                                                                },
+                                                                                error: function (xhr) {
+                                                                                }
+                                                                            });
+                                                                        }
 
         </script>
     </body>
