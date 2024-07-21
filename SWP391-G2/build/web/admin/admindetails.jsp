@@ -61,36 +61,28 @@
                                 <input type="text" class="form-control" id="lastName" name="lastName"
                                        value="${data.getLastName()}" readonly>
                             </div>
-                            <div class="col-4">
-                                <label for="email">Date Of Birth:</label>
-                                <input type="date" class="form-control" id="dob" name="dob"
-                                       value="${data.getBirthday()}" readonly>
-                            </div>
+                            
                         </div>
 
                         <div class="form-group row">
+                            <div class="col-4">
+                                <label for="email">Date Of Birth:</label>
+                                <input type="date" class="form-control" id="dob" name="dob"
+                                       value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" readonly>
+                            </div>
                             <div class="col-4">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email" name="email"
                                        value="${data.getEmail()}" readonly>
                             </div>
-                            <div class="col-4">
-                                <label for="phone">Phone Number:</label>
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                       value="${data.getPhone()}" readonly>
-                            </div>
-                            <div class="col-4">
-                                <label for="phone">Adress:</label>
-                                <input type="text" class="form-control" id="address" name="address"
-                                       value="${data.getAddress()}" readonly>
-                            </div>
+
                         </div>
                         <div class="form-group row">
                             <div class="col-2">
                                 <label for="roleId">Role:</label>
                                 <select class="form-control" id="roleIDnew" name="roleIDnew">
-                                    <c:forEach items="${listRole}" var="role">
-                                        <option value="${role.getRoleID()}" ${role.getRoleID()==data.getRole() ? 'selected'
+                                    <c:forEach items="${requestScope.listRole}" var="role">
+                                        <option value="${role.getRoleID()}" ${role.getRoleID()==data.getRoleID() ? 'selected'
                                                          : '' }>
                                                     ${role.getRoleName()}
                                                 </option>
@@ -106,7 +98,7 @@
                                 </div>
                             </div>
 
-                                    <a class="btn btn-primary" onclick="cancel()">Cancel</a>
+                            <a class="btn btn-primary" onclick="cancel()">Cancel</a>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
@@ -132,27 +124,30 @@
         crossorigin="anonymous"></script>
 
         <script>
-                                    function showUpdateAlert() {
-                                        alert("Account details updated successfully!");
-                                    }
-                                    function chooseFile(fileInput) {
-                                        if (fileInput.files && fileInput.files[0]) {
-                                            var reader = new FileReader();
+                                function showUpdateAlert() {
+                                    alert("Account details updated successfully!");
+                                }
+                                function chooseFile(fileInput) {
+                                    if (fileInput.files && fileInput.files[0]) {
+                                        var reader = new FileReader();
 
-                                            reader.onload = function (e) {
-                                                $('#image').attr('src', e.target.result);
-                                            }
-                                            reader.readAsDataURL(fileInput.files[0]);
+                                        reader.onload = function (e) {
+                                            $('#image').attr('src', e.target.result);
                                         }
+                                        reader.readAsDataURL(fileInput.files[0]);
                                     }
-                                    function cancel() {
-                                            const search = document.querySelector('#search').value;
-                                            const roleId = document.querySelector('#roleId').value;
-                                            const status = document.querySelector('#status').value;
-                                            const pageNo = document.querySelector('#pageNo').value;
-                                            window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
-                                                    '&status=' + status + '&pageNo=' + pageNo;
-                                        }
+                                }
+                                function cancel() {
+                                    const confirmation = confirm("Do you want to cancel?");
+                                    if (confirmation) {
+                                        const search = document.querySelector('#search').value;
+                                        const roleId = document.querySelector('#roleId').value;
+                                        const status = document.querySelector('#status').value;
+                                        const pageNo = document.querySelector('#pageNo').value;
+                                        window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
+                                                '&status=' + status + '&pageNo=' + pageNo;
+                                    }
+                                }
         </script>
 
     </html>

@@ -178,7 +178,7 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " OrderSoID = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
@@ -198,7 +198,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 4; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -238,7 +238,7 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " OrderSoID = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {

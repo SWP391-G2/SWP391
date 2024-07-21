@@ -104,8 +104,7 @@
                     <div class="col-3">
 
                         <div class="text-right">
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#addnewModal">
+                            <button type="button" class="btn btn-success" onclick="redirectToAddAccount()">
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
@@ -120,8 +119,7 @@
                                         <th scope="col">Full Name</th>
                                         <th scope="col">Gender</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
+                                        <th scope="col">BirthDate</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Details</th>
                                     </tr>
@@ -131,10 +129,16 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
                                             <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} + ${user.getLastName()}</a></td>
-                                            <td>${user.getGender()}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${user.getGender() == 1}">Male</c:when>
+                                                    <c:when test="${user.getGender() == 2}">Female</c:when>
+                                                    <c:when test="${user.getGender() == 3}">None</c:when>
+                                                    <c:otherwise>User</c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>${user.getEmail()}</td>
-                                            <td>${user.getPhone()}</td>
-                                            <td>${user.getAddress()}</td>
+                                            <td><fmt:formatDate value='${user.getBirthDay()}' pattern='yyyy-MM-dd'/></td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${user.getRoleID() == 1}">Admin</c:when>
@@ -226,7 +230,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Brand</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add new Users</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -236,16 +240,46 @@
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group row">
-                                        <div class="col-6">
-                                            <label for="firstName">Brand Name: </label>
+                                        <div class="col-12">
+                                            <label for="firstName">FirstName: </label>
                                             <input type="text" class="form-control" id="firstname"
                                                    name="firstname" required>
                                         </div>
-                                        <div class="col-6">
-                                            <label for="lastName">Description: </label>
+                                        <div class="col-12">
+                                            <label for="lastName">LastName: </label>
                                             <input type="text" class="form-control" id="lastname"
                                                    name="lastname" required>
                                         </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Password: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Gender </label>
+                                            <select name="gender" id="cars">
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                                <option value="3">None</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">BirthDate: </label>
+                                            <input type="date" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Gmail: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lastName">Role: </label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                   name="lastname" required>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -356,6 +390,13 @@
             const status = document.querySelector('#status').value;
             window.location.href = 'admincontrolaccount?search=' + search + '&roleId=' + roleId +
                     '&status=' + status + '&pageNo=' + pageNo;
+        }
+
+    </script>
+
+    <script>
+        function redirectToAddAccount() {
+            window.location.href = 'adminaddaccount';
         }
 
     </script>

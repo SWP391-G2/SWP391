@@ -71,24 +71,99 @@
             .btn-primary{
 
             }
+
+
         </style>
+
 
     </head>
 
     <body>
 
         <!-- Page Header Start -->
-        <div class="container-fluid bg-secondary mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
-                <div class="d-inline-flex">
-                    <p class="m-0"><a href="">Home</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">Checkout</p>
+        <header style="padding-bottom: 80px">
+            <div class="main_header header_transparent header-mobile-m">
+                <div class="header_container sticky-header" style="padding: 0">
+                    <div class="container-fluid" style="background-color: black">
+                        <div class="row align-items-center" style="padding: 8px 0">
+                            <div class="col-lg-2">
+                                <div class="logo">
+                                    <a href="home"><img src="images/logo/logo0.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="main_menu menu_two menu_position">
+                                    <nav>
+                                        <ul class="nav nav-pills nav-fill">
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="home">HOME</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">ABOUT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" class="${cid_refine==0?"active":""}" href="refine?cid=${0}">PERFUMES
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach var="category" items="${requestScope.categories}">
+                                                        <li class="nav-item-lv2">
+                                                            <a class="nav-link" class="${category.categoryID==cid_refine?"active":""}" href="refine?cid_refinee=${category.categoryID}">
+                                                                ${category.categoryName}'s Perfumes
+                                                            </a>
+                                                        </li>
+                                                    </c:forEach>                                                  
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">BRANDS
+                                                    <i class="fa fa-caret-down" data-toggle="dropdown"></i>
+                                                </a>
+                                                <ul class="dropdown-menu multi-column">
+                                                    <div class="row">
+                                                        <c:forEach var="brand" items="${requestScope.brands}">
+                                                            <div class="col-md-4">
+                                                                <li class="nav-item-lv2">
+                                                                    <a class="nav-link" href="refine?bid_refinee=${brand.getBrandID()}">${brand.getBrandName()}</a>
+                                                                </li>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">CONTACT US</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="">BLOGS</a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="header_search search_form">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                        <span class="input-group-btn">
+                                            <button class="btn icon-fallback-text">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>                 
+                            <div class="col-lg-2">
+                                <jsp:include page="header_right.jsp"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
         <!-- Page Header End -->
+
 
 
         <!-- Checkout Start -->
@@ -106,7 +181,7 @@
                                 <c:if test="${requestScope.listcart != null}">
                                     <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
                                         <tr>
-                                            <td>${listproduct[loop.index].getImage()}</td>
+                                            <td><img width="150px" height="150px" src="${listproduct[loop.index].getImage()}" alt="alt"/></td>
                                             <td>${listcart[loop.index].getName()}</td>
                                             <td>${listproduct[loop.index].getProductSize()}</td>
                                             <td>${listcart[loop.index].getQuantity()}</td>
@@ -118,7 +193,7 @@
                                     <c:set var="o" value="${requestScope.cookieCart}"/>
                                     <c:forEach items="${o.items}" var="i" >
                                         <tr>
-                                            <td>${i.product.getImage()}</td>
+                                            <td><img width="40px" src="${i.product.getImage()}" alt="alt"/></td>
                                             <td>${i.getName()}</td>
                                             <td>${i.product.getProductSize()}</td>
                                             <td>${i.getQuantity()}</td>
@@ -178,96 +253,55 @@
 
                 </div>
                 <div class="col-lg-5">
-                    <form id="billingForm" action="order" method="post">
+                    <form id="billingForm" action="order" method="post" onsubmit="return validateForm()">
                         <div class="mb-4">
                             <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label>Full Name</label>
-                                    <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname">
+                                    <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname" required>
+                                    <div class="invalid-feedback" id="fullnameError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Email</label>
-                                    <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email">
+                                    <input class="form-control" value="${param.email}" type="text" id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email" required>
+                                    <div class="invalid-feedback" id="emailError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Mobile No</label>
-                                    <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone">
+                                    <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone" required>
+                                    <div class="invalid-feedback" id="phoneError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Country</label>
                                     <select class="form-select form-select-sm mb-3" value="${param.city}" id="city" name="city" aria-label=".form-select-sm">
                                         <option value="" selected>Chọn tỉnh thành</option>
                                     </select>
+                                    <div class="invalid-feedback" id="cityError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>District</label>
                                     <select class="form-select form-select-sm mb-3" value="${param.district}" id="district" name="district" aria-label=".form-select-sm">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
+                                    <div class="invalid-feedback" id="districtError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Ward</label>
-                                    <select class="form-select form-select-sm" value="${param.ward}"  id="ward" name="ward" aria-label=".form-select-sm">
+                                    <select class="form-select form-select-sm" value="${param.ward}" id="ward" name="ward" aria-label=".form-select-sm">
                                         <option value="" selected>Chọn phường xã</option>
                                     </select>
+                                    <div class="invalid-feedback" id="wardError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Address Details</label>
-                                    <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails">
+                                    <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails" required>
+                                    <div class="invalid-feedback" id="addressDetailsError"></div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Note</label>
                                     <input class="form-control" value="${param.note}" type="text" placeholder="Please deliver in the morning" name="note">
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount" name="newaccount">
-                                        <label class="custom-control-label" for="newaccount">Create an account</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="shipto" name="shipto">
-                                        <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="collapse mb-4" id="shipping-address">
-                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label>Full Name</label>
-                                    <input class="form-control" type="text" placeholder="John" name="shippingFirstName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control" type="text" placeholder="Doe" name="shippingLastName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="example@email.com" name="shippingEmail">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="+84944362986" name="shippingPhone">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 1</label>
-                                    <input class="form-control" type="text" placeholder="123 Street" name="shippingAddress1">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>City</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingCity">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>State</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingState">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>ZIP Code</label>
-                                    <input class="form-control" type="text" placeholder="123" name="shippingZip">
+                                    <div class="invalid-feedback" id="noteError"></div>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +315,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="paypal" value="vnpay">
+                                        <input type="radio" class="custom-control-input" name="payment" id="paypal" value="vnpay" required>
                                         <label class="custom-control-label" for="paypal">VN Pay</label>
                                     </div>
                                 </div>
@@ -291,25 +325,25 @@
                                         <label class="custom-control-label" for="directcheck">Direct Check</label>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer" value="bank">
-                                        <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
-                                    </div>
-                                </div>
+                                <div class="invalid-feedback" id="paymentError"></div>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
                                 <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3">Place Order</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
 
 
         <!-- Checkout End -->
-
+        <!-- Footer Start -->
+        <footer class="footer">        
+            <jsp:include page="footer.jsp"/>
+        </footer>
+        <!-- Footer End -->
 
 
 
@@ -334,66 +368,142 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
         <script>
 
-            document.addEventListener('DOMContentLoaded', function () {
-                var input1 = document.getElementById('input1');
-                var input2 = document.getElementById('input2');
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var input1 = document.getElementById('input1');
+                            var input2 = document.getElementById('input2');
 
-                if (input1 && input2) {
-                    input1.addEventListener('input', function () {
-                        input2.value = input1.value;
-                    });
-                } else {
-                    console.error('Không tìm thấy các thẻ input với ID "input1" hoặc "input2".');
-                }
-            });
-            var citis = document.getElementById("city");
-            var districts = document.getElementById("district");
-            var wards = document.getElementById("ward");
-            var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
-            };
-            var promise = axios(Parameter);
-            promise.then(function (result) {
-                renderCity(result.data);
-            });
+                            if (input1 && input2) {
+                                input1.addEventListener('input', function () {
+                                    input2.value = input1.value;
+                                });
+                            } else {
+                                console.error('Không tìm thấy các thẻ input với ID "input1" hoặc "input2".');
+                            }
+                        });
+                        var citis = document.getElementById("city");
+                        var districts = document.getElementById("district");
+                        var wards = document.getElementById("ward");
+                        var Parameter = {
+                            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                            method: "GET",
+                            responseType: "application/json",
+                        };
+                        var promise = axios(Parameter);
+                        promise.then(function (result) {
+                            renderCity(result.data);
+                        });
 
-            function renderCity(data) {
-                for (const x of data) {
-                    citis.options[citis.options.length] = new Option(x.Name, x.Id);
-                }
-                citis.onchange = function () {
-                    district.length = 1;
-                    ward.length = 1;
-                    if (this.value != "") {
-                        const result = data.filter(n => n.Id === this.value);
+                        function renderCity(data) {
+                            for (const x of data) {
+                                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                            }
+                            citis.onchange = function () {
+                                district.length = 1;
+                                ward.length = 1;
+                                if (this.value != "") {
+                                    const result = data.filter(n => n.Id === this.value);
 
-                        for (const k of result[0].Districts) {
-                            district.options[district.options.length] = new Option(k.Name, k.Id);
+                                    for (const k of result[0].Districts) {
+                                        district.options[district.options.length] = new Option(k.Name, k.Id);
+                                    }
+                                }
+                            };
+                            district.onchange = function () {
+                                ward.length = 1;
+                                const dataCity = data.filter((n) => n.Id === citis.value);
+                                if (this.value != "") {
+                                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                                    for (const w of dataWards) {
+                                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                                    }
+                                }
+                            };
                         }
-                    }
-                };
-                district.onchange = function () {
-                    ward.length = 1;
-                    const dataCity = data.filter((n) => n.Id === citis.value);
-                    if (this.value != "") {
-                        const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
 
-                        for (const w of dataWards) {
-                            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                        function syncInputs() {
+                            var input1Value = document.getElementById('email').value;
+                            document.getElementById('emailc').value = input1Value;
                         }
-                    }
-                };
+
+
+        </script>
+        <script>
+            function isOnlyWhitespace(input) {
+                return /^\s*$/.test(input);
             }
 
-            function syncInputs() {
-                var input1Value = document.getElementById('email').value;
-                document.getElementById('emailc').value = input1Value;
+            function validateForm() {
+                // Clear previous errors
+                document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
+                let valid = true;
+
+                // Get form values
+                const fullname = document.getElementById('fullname').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const addressDetails = document.getElementById('addressDetails').value.trim();
+                const note = document.getElementById('note').value.trim();
+                const paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+                // Validate Full Name
+                if (isOnlyWhitespace(fullname)) {
+                    document.getElementById('fullnameError').textContent = 'Full Name cannot contain only whitespace.';
+                    valid = false;
+                } else if (!/^[a-zA-Z\s]{2,200}$/.test(fullname)) {
+                    document.getElementById('fullnameError').textContent = 'Full Name must be between 2 and 200 characters, and contain only letters and spaces.';
+                    valid = false;
+                }
+
+                // Validate Email
+                if (isOnlyWhitespace(email)) {
+                    document.getElementById('emailError').textContent = 'Email cannot contain only whitespace.';
+                    valid = false;
+                } else if (!validateEmail(email)) {
+                    document.getElementById('emailError').textContent = 'Email is not valid.';
+                    valid = false;
+                }
+
+                // Validate Mobile No
+                if (isOnlyWhitespace(phone)) {
+                    document.getElementById('phoneError').textContent = 'Mobile No cannot contain only whitespace.';
+                    valid = false;
+                } else if (!/^\d{10,15}$/.test(phone)) {
+                    document.getElementById('phoneError').textContent = 'Mobile No must be between 10 and 15 digits.';
+                    valid = false;
+                }
+
+                // Validate Address Details
+                if (isOnlyWhitespace(addressDetails)) {
+                    document.getElementById('addressDetailsError').textContent = 'Address Details cannot contain only whitespace.';
+                    valid = false;
+                } else if (addressDetails.length < 10 || addressDetails.length > 200) {
+                    document.getElementById('addressDetailsError').textContent = 'Address Details must be between 10 and 200 characters.';
+                    valid = false;
+                }
+
+                // Validate Note (optional, can be omitted if you don't want to validate this field)
+                if (note.length > 100) {
+                    document.getElementById('noteError').textContent = 'Note cannot exceed 100 characters.';
+                    valid = false;
+                }
+
+                // Validate Payment Method
+                if (!paymentMethod) {
+                    document.getElementById('paymentError').textContent = 'Please select a payment method.';
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+// Email validation function
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
             }
 
         </script>
-
 
     </body>
 
