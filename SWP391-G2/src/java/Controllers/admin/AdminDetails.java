@@ -91,7 +91,7 @@ public class AdminDetails extends HttpServlet {
         } catch (Exception e) {
         }
         if (roleID == 1 || roleID == 4) {
-            AccountsEmployee account = dao.getAccountEmployee(accountID);
+            Accounts account = dao.getAccoutByID(accountID);
             List<Role> listRole = daoRole.getAllRolesByID(roleID);
             request.setAttribute("listRole", listRole);
             //request.setAttribute("status", 1);
