@@ -12,12 +12,58 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import context.DBContext;
+
 /**
  *
  * @author admin
  */
-public class FeedbackDAO extends DBContext{
+public class FeedbackDAO extends DBContext {
     
+    public List<FeedBacks> getListFeedback(Boolean replyNotNull) {
+        List<FeedBacks> list = new ArrayList<>();
+        String sql = "SELECT * FROM Feedbacks";
+
+        if (replyNotNull != null) {
+            sql += " WHERE reply " + (replyNotNull ? "IS NOT NULL" : "IS NULL");
+        }
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                FeedBacks feedback = new FeedBacks(
+                        rs.getInt(1), // FeedbackID
+                        rs.getInt(2), // fbAccountID
+                        rs.getInt(3), // fbProductID
+                        rs.getInt(4), // fbRating
+                        rs.getString(5), // fbComment
+                        rs.getString(6), // reply
+                        rs.getDate(7), // fbDate
+                        rs.getInt(8), // AccountID
+                        rs.getString(9) // AccountName
+                );
+                list.add(feedback);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Thêm in ra lỗi để dễ dàng kiểm tra và debug
+        }
+        return list;
+    }
+
+    public void updateReplyFeedback(String reply, int id) {
+        String sql = "UPDATE [dbo].[Feedbacks]\n"
+                + "   SET [reply] = ?\n"
+                + " WHERE [fbID] = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setString(1, reply);
+            ur.setInt(2, id);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public List<FeedBacks> getFeedbacksByProductID(int productID) {
         List<FeedBacks> feedbacks = new ArrayList<>();
         String sql = "SELECT * FROM [dbo].[Feedbacks] WHERE fbProductID = ?";
@@ -26,15 +72,15 @@ public class FeedbackDAO extends DBContext{
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     FeedBacks feedback = new FeedBacks(
-                        rs.getInt("fbID"),
-                        rs.getInt("fbAccountID"),
-                        rs.getInt("fbProductID"),
-                        rs.getInt("fbStar"),
-                        rs.getString("fbContent"),
-                        rs.getString("fbImage"),
-                        rs.getDate("fbDate"),
-                        rs.getInt("fbStatus"),
-                        rs.getString("reply")
+                            rs.getInt("fbID"),
+                            rs.getInt("fbAccountID"),
+                            rs.getInt("fbProductID"),
+                            rs.getInt("fbStar"),
+                            rs.getString("fbContent"),
+                            rs.getString("fbImage"),
+                            rs.getDate("fbDate"),
+                            rs.getInt("fbStatus"),
+                            rs.getString("reply")
                     );
                     feedbacks.add(feedback);
                 }
@@ -44,6 +90,7 @@ public class FeedbackDAO extends DBContext{
         }
         return feedbacks;
     }
+
     public int getTotalFeedbackByProductId(int id) {
         String sql = "select COUNT(fbProductID) from Feedbacks where fbProductID = ?";
         try {
@@ -120,16 +167,14 @@ public class FeedbackDAO extends DBContext{
         return list;
     }
 
-    public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<FeedBacks> getFeedbacksByFilter(int status, String search, Boolean filterByReply, int pageNo, int pageSize) {
         ArrayList<FeedBacks> listFeedback = new ArrayList<>();
-        String sql = "select * from Feedbacks";
+        String sql = "SELECT * FROM Feedbacks";
+
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (status != -1 || !search.isEmpty()) {
+        if (status != -1 || !search.isEmpty() || filterByReply != null) {
             sql += " WHERE";
             if (status != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
                 sql += " fbStatus = ?";
                 whereAdded = true;
             }
@@ -138,6 +183,17 @@ public class FeedbackDAO extends DBContext{
                     sql += " AND";
                 }
                 sql += " (fbContent LIKE ? OR reply LIKE ?)";
+                whereAdded = true;
+            }
+            if (filterByReply != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                if (filterByReply) {
+                    sql += " reply IS NOT NULL";
+                } else {
+                    sql += " reply IS NULL";
+                }
             }
         }
 
@@ -150,15 +206,19 @@ public class FeedbackDAO extends DBContext{
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
-                    ur.setString(parameterIndex, "%" + search + "%");
-                    parameterIndex++;
-                }
+                ur.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
+                ur.setString(parameterIndex, "%" + search + "%");
+                parameterIndex++;
+            }
+            if (filterByReply != null) {
+                // No need to set parameters for filterByReply here since it's handled in the SQL directly
             }
             // Set the limit and offset parameters for pagination
             ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
             parameterIndex++;
             ur.setInt(parameterIndex, pageSize);
+
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
                 FeedBacks feedback = new FeedBacks(
@@ -170,12 +230,13 @@ public class FeedbackDAO extends DBContext{
                         rs.getString(6),
                         rs.getDate(7),
                         rs.getInt(8),
-                        rs.getString(9)       
+                        rs.getString(9)
                 );
 
                 listFeedback.add(feedback);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
         }
 
         return listFeedback;
@@ -243,7 +304,7 @@ public class FeedbackDAO extends DBContext{
     }
 
     public FeedBacks getFeedback(int id) {
-        String sql = "select * from Feedbacks where fbProductID = ?";
+        String sql = "select * from Feedbacks where fbID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);

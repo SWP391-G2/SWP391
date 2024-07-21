@@ -1,10 +1,10 @@
 <%-- 
-    Document   : category
-    Created on : Jul 12, 2024, 4:27:25 PM
+    Document   : manageVouchers
+    Created on : Jul 3, 2024, 3:37:55 PM
     Author     : admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -24,7 +24,15 @@
               crossorigin="anonymous">
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_manager.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            rel="stylesheet"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+            />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <style>
         .form-control.custom-width {
@@ -36,9 +44,7 @@
         }
 
 
-        th {
-            white-space: nowrap;
-        }
+
         .custom-button {
             background: none; /* Không có màu nền */
             border: none; /* Bỏ viền */
@@ -75,6 +81,7 @@
 
     </style>
     <body>
+          <jsp:include page="../partials/navigation.jsp"></jsp:include>
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
 
@@ -94,8 +101,6 @@
             </div>
         </c:if>
 
-        
-        <jsp:include page="../partials/navigation.jsp"></jsp:include>
         <div class="container-fluid">
             <!-- Navigation -->
 
@@ -113,7 +118,7 @@
                 <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                     <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
-                        <h1>Category</h1>
+                        <h1>Vouchers</h1>
 
                     </div>
                     <div class="col-3">
@@ -127,10 +132,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
 
-                    </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
@@ -141,59 +144,132 @@
                             <option value="0" ${status==0 ? 'selected' : '' }>In-Active</option>
                         </select>
                     </div>
-
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="text-right">
                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#addnewModal">
+                                    onclick="addNew()" >
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
                     </div>
+                    <div class="col-12" style="margin-top: 20px">
+                        <form id="filterForm" action="voucher" method="get">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="col-12">Start Date</div>
+                                    <div class="input-group">                           
+                                        <input type="date" class="form-control" name="start" value="${start}"  id="start" >
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="col-12">End Date</div>
+                                    <div class="input-group">                
+                                        <input type="date" class="form-control" name="end" value="${end}"  id="end" >
+                                    </div>
+                                </div>
+                                <button class="col-1" type="submit">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--                    <div class="col-3">
+                    
+                                            <div class="text-right">
+                    
+                                            </div>
+                    
+                                        </div>-->
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Name</th>             
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Create Date</th>
-                                        <th scope="col">Details</th>
+                                        <th scope="col">No</th>                                  
+                                        <th scope="col" style="text-align: center">Code</th>             
+                                        <th scope="col">Discount</th>
+                                        <th scope="cod">Create At</th>
+                                        <th scope="cod">Start Date</th>
+                                        <th scope="cod">Expiry Date</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col" colspan="2" style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listcategory}" var="category" varStatus="loop">
+                                    <c:forEach items="${listvoucher}" var="listvoucher" varStatus="loop">
                                         <tr>
-                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>      
+                                            <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>                              
                                             <td class="table-button">
-                                                <a onclick="showDetail(${category.getCategoryID()})">
-                                                    <button type="button" class="custom-button">${category.getCategoryName()}</button>
+                                                <a >
+                                                    <button type="button" class="custom-button">${listvoucher.getCode()}</button>
                                                 </a>
                                             </td>
-                                            <td>${category.getDescription()}</td>
-                                            <td>${category.getCreateAt()}</td>
+                                            <td>${listvoucher.getDiscount()}</td>
+                                            <td>${listvoucher.getCreateAt()}</td>
+                                            <td>${listvoucher.getStartDate()}</td>
+                                            <td>${listvoucher.getExpiryDate()}</td>      
+                                            <td>${listvoucher.getQuantity()}</td>
+
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
-                                            <td>
+                                            <td style="width: 20px;">   
+
                                                 <c:choose>
-                                                    <c:when test="${category.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
-                                                            <button type="button" class="btn btn-danger">
-                                                                View
+                                                    <c:when test="${listvoucher.getStatus() == 1}">
+                                                        <a  onclick="showAlert('Maketing blocked successfully!',${listvoucher.getVoucherID()}, 0)">
+                                                            <button type="button" class="btn btn-success">
+                                                                UnBlock
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${category.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${category.getCategoryID()}, 1);">
-                                                            <button type="button" class="btn btn-success">
-                                                                Hide
+                                                    <c:when test="${listvoucher.getStatus() == 0}">
+                                                        <a  onclick="showAlert('Maketing unblocked successfully!',${listvoucher.getVoucherID()}, 1);">
+                                                            <button style="width: 86px;" type="button" class="btn btn-danger" >
+                                                                Block
                                                             </button>
                                                         </a>
                                                     </c:when>
                                                 </c:choose>
+                                            </td>   
+                                            <td style="width: 20px;">
+                                                <c:if test="${listvoucher.getStatus() == 0}">
+                                                    <a  onclick="showDetail(${listvoucher.getVoucherID()})">
+                                                        <button type="button" class="btn btn-success">
+                                                            Update
+                                                        </button>
+                                                    </a>
+                                                </c:if>
                                             </td>
                                         </tr>
-                                    </c:forEach>
+
+                                        <!-- Modal Add new-->
+                                    <div class="modal fade" id="addnewModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Reply</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="#" method="post" onsubmit="return validateForm()">
+
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="description">Reply</label>
+                                                            <textarea class="form-control" name="reply" id="reply" rows="3" ></textarea>
+                                                            <div id="replyError" class="error-message"></div>
+                                                        </div>                                 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" >Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -232,57 +308,22 @@
                                 <c:if test="${currentPage == totalPage}">
                                     <li class="page-item disabled">
                                         <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
+                       onclick="changePage(${currentPage + 1})">Next</button>
                                     </li>
                                 </c:if>
                                 <c:if test="${currentPage != totalPage}">
                                     <li class="page-item">
                                         <button class="page-link"
-                                                onclick="changePage(${currentPage + 1})">Next</button>
+                       onclick="changePage(${currentPage + 1})">Next</button>
                                     </li>
                                 </c:if>
                             </ul>
                         </nav>
 
-
                     </div>
                 </div>
 
-                <!-- Modal Add new-->
-                <div class="modal fade" id="addnewModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form action="category" method="post" onsubmit="return validateForm()">
-                                <div class="modal-body">
-                                    <input type="hidden" name="service" value="addNewAdmin">
-                                    <div class="form-group">
-                                        <label for="categoryName">Category Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" >
-                                        <div id="nameError" class="error-message"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
-                                        <div id="descriptionError" class="error-message"></div>
-                                    </div>                                 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" >Add new</button>
-                                </div>
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -307,77 +348,43 @@
 
 
     <script>
-                                function showAlert(message, categoryID, status1) {
-                                    if (confirm(message)) {
-                                        const search = document.querySelector('#search').value;
-                                        const status = document.querySelector('#status').value;
-                                        const pageNo = document.querySelector('#pageNo').value;
-                                        window.location.href = 'category?search=' + search +
-                                                '&status=' + status + '&pageNo=' + pageNo + "&categoryID=" + categoryID + "&statusnew=" + status1;
-                                    }
-                                }
-                                function showDetail(categoryID) {
-                                    const search = document.querySelector('#search').value;
-                                    const status = document.querySelector('#status').value;
-                                    const pageNo = document.querySelector('#pageNo').value;
-                                    window.location.href = 'managecategory?search=' + search + 
-                                            '&status=' + status + '&pageNo=' + pageNo + '&id=' + categoryID;
-                                }
+
+                                                    function autoSubmitForm() {
+                                                        document.getElementById('voucher').submit();
+                                                    }
+                                                    function showAlert(message, voucherID, status1) {
+
+
+                                                        if (confirm(message)) {
+                                                            const search = document.querySelector('#search').value;
+                                                            const status = document.querySelector('#status').value;
+                                                            const pageNo = document.querySelector('#pageNo').value;
+                                                            window.location.href = 'voucher?search=' + search +
+                                                                    '&status=' + status + '&pageNo=' + pageNo + "&voucherID=" + voucherID + "&statusnew=" + status1;
+                                                        }
+                                                    }
+
+
+
+                                                    function showDetail(voucherID) {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        window.location.href = 'updatevoucher?search=' + search +
+                                                                '&status=' + status + '&pageNo=' + pageNo + '&voucherID=' + voucherID;
+                                                    }
+                                                    function addNew() {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        window.location.href = 'updatevoucher'
+                                                    }
     </script>
-    <script>
-        function validateForm() {
-            // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
 
-            // Lấy các phần tử để hiển thị lỗi
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
-
-            // Định nghĩa các regex cho kiểm tra input
-            //var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{3,200}$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 50 ký tự
-            var nameRegex = /^(?!\s)[a-zA-Z0-9 ]{3,200}(?<!\s)$/;
-            var descriptionRegex = /^.{10,200}$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự
-
-            // Xóa thông báo lỗi trước đóx
-            nameError.textContent = '';
-            descriptionError.textContent = '';
-
-            // Kiểm tra input
-            var valid = true;
-            if (!nameRegex.test(name)) {
-                nameError.textContent = 'Category names must be between 3 and 200 characters and contain only letters, numbers and spaces.';
-                valid = false;
-            }
-
-            // Kiểm tra xem name có phải là chuỗi số hoàn toàn không
-            if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Category Name cannot contain whole numbers.';
-                valid = false;
-            }
-
-            if (/^\s{2,}/.test(name)) {
-                nameError.textContent = 'Category Name cannot start with multiple spaces.';
-                valid = false;
-            }
-
-            if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Category Description must be from 10 to 200 characters.';
-                valid = false;
-            }
-
-            // Nếu tất cả đều hợp lệ, return true để submit form
-            return valid;
-        }
-    </script>
     <script>
         // handle filter search
-        const searchInput = document.querySelector('#search');
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                performSearch();
-            }
-        });
+
+
         const btnSearch = document.querySelector('#btnSearch');
         btnSearch.addEventListener('click', () => {
             performSearch(); // call function
@@ -385,26 +392,29 @@
         function performSearch() {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
+
 
         // handle filter role
         const status = document.querySelector('#status');
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
+
+
 
 
         // handle pagination
         function changePage(pageNo) {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'category?search=' + search +
+            window.location.href = 'voucher?search=' + search +
                     '&status=' + status + '&pageNo=' + pageNo;
         }
 

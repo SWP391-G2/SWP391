@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controllers.marketing;
 
 import Dal.CategoriesDAO;
@@ -13,44 +14,40 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
-import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class CategoryController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class CategoryDetail extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CategoryController</title>");
+            out.println("<title>Servlet CategoryDetail</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CategoryController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CategoryDetail at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -58,19 +55,14 @@ public class CategoryController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int status_new = -1;
+    throws ServletException, IOException {
         int categoryID = -1;
         try {
-            status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
-            categoryID = request.getParameter("categoryID") == null ? -1 : Integer.parseInt(request.getParameter("categoryID"));
+            //status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
+            categoryID = request.getParameter("id") == null ? -1 : Integer.parseInt(request.getParameter("id"));
         } catch (Exception e) {
         }
 
-        if (status_new != -1) {
-            CategoriesDAO categoryDAO = new CategoriesDAO();
-            categoryDAO.updateStatusCategory(status_new, categoryID);
-        }
         String search = "";
         int status = -1;
         int pageNo = 1;
@@ -84,22 +76,21 @@ public class CategoryController extends HttpServlet {
         } catch (Exception e) {
         }
 
+       
         CategoriesDAO categoryDAO = new CategoriesDAO();
-        List<Categories> listcategory = categoryDAO.getCategoriesByFilter(status, search, pageNo, pageSize);
+        Categories category = categoryDAO.getCategoryById(categoryID);
         int totalPage = categoryDAO.getTotalPage(status, search, pageSize);
-
         request.setAttribute("search", search);
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
-        request.setAttribute("listcategory", listcategory);
+        request.setAttribute("data", category);
 
-        request.getRequestDispatcher("marketing/category.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("category/categoryDetail.jsp").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -107,18 +98,34 @@ public class CategoryController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String categorieName = request.getParameter("name");
-        String categorieDescription = request.getParameter("description");
-        CategoriesDAO cDAO = new CategoriesDAO();
+    throws ServletException, IOException {
+       String status_raw = request.getParameter("statusnew");
+        String category_raw = request.getParameter("id");
+        String categoryName = request.getParameter("name");
+        String categoryDescription = request.getParameter("description");
+        int statusnew = -1;
+        int categoryID = -1;
+
+        String search = "";
+        int status = -1;
+        int pageNo = 1;
+        CategoriesDAO categoryDAO = new CategoriesDAO();
+        try {
+            statusnew = Integer.parseInt(status_raw);
+            categoryID = Integer.parseInt(category_raw);
+            search = request.getParameter("search") == null ? "" : request.getParameter("search");
+            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
+        } catch (Exception e) {
+
+        }
         Date date = new Date(System.currentTimeMillis());
-        cDAO.insertCategory(categorieName, categorieDescription, date, 1);
-        response.sendRedirect("category");
+        categoryDAO.updateCategory(categoryName, categoryDescription, statusnew, date, categoryID);
+        response.sendRedirect("category?search=" + search + "&categoryID=" + categoryID + "&status=" + status + "&pageNo=" + pageNo);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

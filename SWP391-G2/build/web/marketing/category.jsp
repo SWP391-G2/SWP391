@@ -143,14 +143,12 @@
                     </div>
 
                     <div class="col-3">
-
                         <div class="text-right">
                             <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#addnewModal">
                                 <ion-icon style="margin-top: 2px;" name="add-outline"></ion-icon> Add New
                             </button>
                         </div>
-
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
                         <div class="table-responsive">
@@ -177,7 +175,6 @@
                                             <td>${category.getCreateAt()}</td>
                                             <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>
-
                                                 <c:choose>
                                                     <c:when test="${category.getStatus() == 1}">
                                                         <a  onclick="showAlert('Maketing blocked successfully!',${category.getCategoryID()}, 0)">
@@ -262,7 +259,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="addnewcategories" method="post" onsubmit="return validateForm()">
+                            <form action="category" method="post" onsubmit="return validateForm()">
                                 <div class="modal-body">
                                     <input type="hidden" name="service" value="addNewAdmin">
                                     <div class="form-group">
