@@ -21,6 +21,8 @@ EXEC('CREATE DATABASE ' + @databaseName);
 GO
 
 USE [TPS]
+
+USE [TPS]
 GO
 /* ============[Roles] TABLE============*/
 DROP TABLE IF EXISTS [dbo].[Roles];
@@ -79,12 +81,13 @@ CREATE TABLE [dbo].[Vouchers] (
     Discount DECIMAL(5, 2) NOT NULL,
     ExpiryDate DATE NOT NULL,
 	Quantity INT,
-	CreateAt DATE
+	CreateAt DATE,
+	Status Int
 )
 /*======= INSERT VALUE OF [Vouchers] TABLE =======*/
-INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, Quantity, CreateAt) VALUES
-('NEWYEAR2024', 10.00, '2024-12-31', 100, '2024-01-01'),
-('SUMMERSALE', 15.00, '2024-06-30', 50, '2024-06-01');
+INSERT INTO [dbo].[Vouchers] (Code, Discount, ExpiryDate, Quantity, CreateAt,Status) VALUES
+('NEWYEAR2024', 10.00, '2024-12-31', 100, '2024-01-01',1),
+('SUMMERSALE', 15.00, '2024-06-30', 50, '2024-06-01',1);
 GO
 
 /* ============[Categories] TABLE============*/
@@ -145,7 +148,7 @@ CREATE TABLE [dbo].[Products] (
     [ProductName] [NVARCHAR](255) NOT NULL,
     [ProductCreateDate] DATE NOT NULL,
     [ProductStatus] int NOT NULL,
-    [ProductImageUrl] [nvarchar](MAX) NOT NULL,
+    [ProductImageUrl] [nvarchar](255) NOT NULL,
 	[BrandID] [int] NULL,
 	[CategoryID][int],
 	FOREIGN KEY (CategoryID) REFERENCES [dbo].[Categories](CategoryID),
@@ -246,7 +249,7 @@ CREATE TABLE [dbo].[ProductFullDetail] (
     [ProductSize] [NVARCHAR](max) NULL,
     [ProductPrice] [decimal](18, 2) NOT NULL,
     [ProductAvaiable] [int] NOT NULL,
-	[image] varchar(MAX),
+	[image] varchar(100),
 	FOREIGN KEY ([pdProductID]) REFERENCES [dbo].[Products]([ProductID])
 )
 /*======= INSERT VALUE OF [ProductFullDetail] TABLE =======*/
@@ -457,8 +460,17 @@ CREATE TABLE [dbo].[Orders] (
 )
 /*======= INSERT VALUE OF [Orders] TABLE =======*/
 INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
-(1, '2024-01-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-01-05', 'Please deliver in the morning', 1, 1),
-(2, '2024-02-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-02-05', 'Leave at the front door', 2, 2);
+(1, '2024-07-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-07-05', 'Please deliver in the morning', 1, 1),
+(2, '2024-07-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-07-05', 'Leave at the front door', 2, 2),
+(3, '2024-07-01', 300.00, 'Alice Johnson', '1122334455', 'N 789 Trần Duy Hưng - Hà Nội', 1, '2024-07-05', 'Ring the bell', 1, 1),
+(4, '2024-07-01', 250.00, 'Bob Brown', '2233445566', 'N 101 Đội Cấn - Hà Nội', 2, '2024-07-05', 'Call upon arrival', 2, 1),
+(5, '2024-05-01', 180.00, 'Charlie White', '3344556677', 'N 202 Kim Mã - Hà Nội', 1, '2024-05-05', 'Deliver to reception', 1, 1),
+(6, '2024-06-01', 220.00, 'David Green', '4455667788', 'N 303 Hoàng Hoa Thám - Hà Nội', 2, '2024-06-05', 'No special instructions', 2, 1),
+(7, '2024-07-01', 275.00, 'Eva Black', '5566778899', 'N 404 Bà Triệu - Hà Nội', 1, '2024-07-05', 'Deliver before noon', 1, 1),
+(8, '2024-07-01', 190.00, 'Frank Blue', '6677889900', 'N 505 Tôn Đức Thắng - Hà Nội', 2, '2024-07-05', 'Contact before delivery', 2, 1),
+(9, '2024-08-01', 210.00, 'Grace Yellow', '7788990011', 'N 606 Hàng Bài - Hà Nội', 1, '2024-08-05', 'Deliver after 2 PM', 1, 1),
+(10, '2024-05-01', 230.00, 'Henry Red', '8899001122', 'N 707 Cầu Giấy - Hà Nội', 2, '2024-05-05', 'No specific time', 2, 1);
+
 GO
 
 /* ============[Orders] TABLE============*/
@@ -466,17 +478,37 @@ DROP TABLE IF EXISTS [dbo].[OrderDetail];
 CREATE TABLE [dbo].[OrderDetail] (
     odID INT PRIMARY KEY IDENTITY(1,1),
     odOrderID INT NOT NULL,
-    odProductID INT NOT NULL,
+    odProductDetail INT NOT NULL,
     odQuantity INT NOT NULL,
     odPrice FLOAT NOT NULL,
+	odName Nvarchar,
     FOREIGN KEY (odOrderID) REFERENCES [dbo].[Orders](OrderID),
-    FOREIGN KEY (odProductID) REFERENCES [dbo].[Products](ProductID)
+    FOREIGN KEY (odProductDetail) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
 )
 
 /*======= INSERT VALUE OF [OrderDetail] TABLE =======*/
-INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductID, odQuantity, odPrice) VALUES
-(1, 1, 2, 100.00),
-(2, 2, 1, 150.00);
+INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductDetail, odQuantity, odPrice, odName) VALUES
+(1, 1, 2, 100.00, 'Chanel No. 5'),
+(1, 2, 1, 100.00, 'Dior Sauvage'),
+(2, 1, 3, 30.00, 'Chanel No. 5'),
+(2, 1, 2, 45.00, 'Chanel No. 5'),
+(3, 3, 1, 300.00, 'Gucci Bloom'),
+(3, 2, 2, 150.00, 'Dior Sauvage'),
+(4, 1, 1, 250.00, 'Chanel No. 5'),
+(4, 2, 2, 125.00, 'Dior Sauvage'),
+(5, 4, 2, 90.00, 'Tom Ford Black Orchid'),
+(5, 5, 1, 180.00, 'YSL Black Opium'),
+(6, 5, 3, 73.33, 'YSL Black Opium'),
+(6, 4, 2, 110.00, 'Tom Ford Black Orchid'),
+(7, 3, 1, 275.00, 'Gucci Bloom'),
+(7, 1, 2, 137.50, 'Chanel No. 5'),
+(8, 2, 1, 190.00, 'Dior Sauvage'),
+(8, 1, 2, 95.00, 'Chanel No. 5'),
+(9, 2, 1, 210.00, 'Dior Sauvage'),
+(9, 3, 2, 105.00, 'Gucci Bloom'),
+(10, 4, 2, 115.00, 'Tom Ford Black Orchid'),
+(10, 5, 1, 230.00, 'YSL Black Opium');
+
 GO
 
 
@@ -528,7 +560,7 @@ CREATE TABLE [dbo].[Feedbacks] (
     fbProductID INT NOT NULL,
     fbStar INT NOT NULL,
     fbContent NVARCHAR(255) NULL,
-    fbImage NVARCHAR(MAX) NULL,
+    fbImage NVARCHAR(255) NULL,
     fbDate DATE NOT NULL,
     fbStatus INT NOT NULL,
 	[reply] nvarchar (250) NULL,
@@ -553,3 +585,23 @@ CREATE TABLE [dbo].[HistoriesChange] (
 /*======= INSERT VALUE OF [[HistoriesChange]] TABLE =======*/
 
 GO
+/* ============[Sliders] TABLE============*/
+DROP TABLE IF EXISTS [dbo].[Sliders];
+CREATE TABLE [dbo].[Sliders](
+[SliderID] int PRIMARY KEY IDENTITY(1,1),
+[SliderImage] nvarchar(255) NOT NULL,
+[SliderStatus] int NOT NULL,
+[SliderTitle] nvarchar(max) NOT NULL,
+[UpdateAt] date,
+[AccountID] [int],
+FOREIGN KEY ([AccountID]) REFERENCES [dbo].[Accounts]([AccountID]
+))
+/*======= INSERT VALUE OF [Sliders] TABLE =======*/
+INSERT INTO [dbo].[Sliders] ([SliderImage],[SliderTitle],[UpdateAt],[SliderStatus],[AccountID])
+VALUES
+('images/Sliders/slider1.jpg','Men Collections','2024-01-01',1,5),
+('images/Sliders/slider2.jpg','Women Collections','2024-01-01',1,5),
+('images/Sliders/slider3.jpg','Unisex Collections','2024-01-01',1,3),
+('images/Sliders/slider4.jpg','Men Collections','2024-01-01',0,5),
+('images/Sliders/slider5.jpg','Women Collections','2024-01-01',0,5),
+('images/Sliders/slider6.jpg','Unisex Collections','2024-01-01',0,3)
