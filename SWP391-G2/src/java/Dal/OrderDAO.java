@@ -132,10 +132,9 @@ public class OrderDAO extends DBContext {
             ur.setString(4, order.getOrderContactName());
             ur.setString(5, order.getOrderPhone());
             ur.setString(6, order.getOrderAddress());
-            ur.setDate(7, (Date) order.getOrderReceiveDate());
-            ur.setString(8, order.getOrderNote());
-            ur.setInt(9, order.getOrderSoID());
-            ur.setInt(10, order.getVoucherID());
+            ur.setString(7, order.getOrderNote());
+            ur.setInt(8, order.getOrderSoID());
+            ur.setInt(9, order.getVoucherID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -156,7 +155,6 @@ public class OrderDAO extends DBContext {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getDate(8),
                         rs.getString(9),
                         rs.getInt(10),
                         rs.getInt(11));
@@ -168,7 +166,7 @@ public class OrderDAO extends DBContext {
         return listOrder;
     }
 
-    public ArrayList<Orders> getBrandByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<Orders> getOrdersByFilter(int status, String search, int pageNo, int pageSize) {
         ArrayList<Orders> listOrder = new ArrayList<>();
         String sql = "select * from Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
@@ -178,7 +176,7 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " OrderSoID = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
@@ -189,7 +187,7 @@ public class OrderDAO extends DBContext {
             }
         }
 
-        sql += " ORDER BY OrderID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY OrderID  OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index
@@ -198,7 +196,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 4; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -216,10 +214,9 @@ public class OrderDAO extends DBContext {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getDate(8),
-                        rs.getString(9),
-                        rs.getInt(10),
-                        rs.getInt(11));
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getInt(10));
                 listOrder.add(order);
 
             }
@@ -227,6 +224,7 @@ public class OrderDAO extends DBContext {
         }
 
         return listOrder;
+
     }
 
     public int getTotalPage(int status, String search, int pageSize) {
@@ -238,7 +236,7 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " status = ?";
+                sql += " OrderSoID = ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
@@ -274,6 +272,7 @@ public class OrderDAO extends DBContext {
         } catch (Exception e) {
         }
         return 0;
+
     }
 
     public int getOrderID() {
@@ -300,14 +299,10 @@ public class OrderDAO extends DBContext {
 //        Date sqlRecieveDate = Date.valueOf(recieveDate);
 //        Orders order = new Orders(1, sqlOrderDate, 3600, "0944362986", "Ha Trung", "Thanh Ba - Phu Tho", sqlRecieveDate, "Hang de vo", 1, 2);
 //        dao.insertOrder(order);
-        List<Orders> list = dao.getListOrder();
+        List<Orders> list = dao.getOrdersByFilter(1,"", 1, 10);
         for (Orders orders : list) {
-            System.out.println(orders.toString());
+            System.out.println(orders.getOrderContactName());
         }
-        System.out.println(dao.getTotalDeals());
-        
-
-        double a = dao.totalRevenueMonth(7, 2024);
-        System.out.println(a);
+       
     }
 }

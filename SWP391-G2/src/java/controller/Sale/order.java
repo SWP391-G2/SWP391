@@ -129,7 +129,7 @@ public class order extends HttpServlet {
 //        response.getWriter().print(city);
         switch (payment) {
             case "vnpay":
-                // Code xử lý cho "vnpay"s
+                // Code xử lý cho "vnpay"
                 request.setAttribute("total", amount);
                 request.getRequestDispatcher("form.jsp").forward(request, response);
                 break;
@@ -146,7 +146,7 @@ public class order extends HttpServlet {
                 Date sqlOrderDate = Date.valueOf(orderDate);
                 Date sqlRecieveDate = Date.valueOf(recieveDate);
 
-                Orders order = new Orders(AccountID, sqlOrderDate, amount, phone, fullName, address, sqlRecieveDate, note, 2, 1);
+                Orders order = new Orders(AccountID, sqlOrderDate, amount, phone, fullName, address, note, 2, 1);
                 dao.insertOrder(order);
                 int orderID = dao.getOrderID();
                 request.setAttribute("fullname", fullName);

@@ -295,7 +295,7 @@
                                                             const search = document.querySelector('#search').value;
                                                             const status = document.querySelector('#status').value;
                                                             const pageNo = document.querySelector('#pageNo').value;
-                                                            window.location.href = 'brand?search=' + search +
+                                                            window.location.href = 'saleorder?search=' + search +
                                                                     '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
                                                         }
                                                     }
@@ -303,7 +303,7 @@
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
                                                         const pageNo = document.querySelector('#pageNo').value;
-                                                        window.location.href = 'branddetail?search=' + search +
+                                                        window.location.href = 'saleorder?search=' + search +
                                                                 '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
                                                     }
 
@@ -375,7 +375,7 @@
         function performSearch() {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'saleorder?search=' + search +
                     '&status=' + status + '&pageNo=1';
         }
         ;
@@ -385,7 +385,7 @@
         status.addEventListener('change', () => {
             const search = document.querySelector('#search').value;
             const status = document.querySelector('#status').value;
-            window.location.href = 'brand?search=' + search +
+            window.location.href = 'saleorder?search=' + search +
                     '&status=' + status + '&pageNo=1';
         });
 

@@ -3,25 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.Sale;
+package controller.customer;
 
-import Dal.BrandsDAO;
-import Dal.OrderDAO;
-import Models.Brands;
-import Models.Orders;
+import Dal.VoucherDAO;
+import Models.VoucherNew;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author hatru
  */
-public class SaleControllerOrder extends HttpServlet {
+@WebServlet(name="ApplyVouchers", urlPatterns={"/applyvouchers"})
+public class ApplyVouchers extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +38,10 @@ public class SaleControllerOrder extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaleControllerOrder</title>");  
+            out.println("<title>Servlet ApplyVouchers</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SaleControllerOrder at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ApplyVouchers at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,32 +58,31 @@ public class SaleControllerOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       //processRequest(request, response);
-     
-        String search = "";
-        int status = -1;
-        int pageNo = 1;
-        final int pageSize = 10;
-        try {
+         String voucher = request.getParameter("voucher");
+        String delete = request.getParameter("delete");
+        String totalprice = request.getParameter("totalprice");
+        VoucherDAO dao = new VoucherDAO();
+        HttpSession session = request.getSession();
+        if (delete == null) {
+            VoucherNew vou = dao.getVourcherByCode(voucher);
 
-            search = request.getParameter("search") == null ? "" : request.getParameter("search");
-            status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
-            pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
-
-        } catch (Exception e) {
+            if (vou != null) {
+                //request.setAttribute("discount", discount);
+                session.setAttribute("dis", vou);
+                //response.sendRedirect("checkout");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+            } else {
+                request.setAttribute("error", "error");
+                request.setAttribute("totalprice", totalprice);
+                request.getRequestDispatcher("checkout").forward(request, response);
+                //response.sendRedirect("checkout");
+            }
+        } else {
+            session.invalidate();
+            request.setAttribute("totalprice", totalprice);
+            request.getRequestDispatcher("checkout").forward(request, response);
         }
-
-        OrderDAO dao = new OrderDAO();
-        List<Orders> listOrder  = dao.getOrdersByFilter(status, search, pageNo, pageSize);
-        int totalPage = dao.getTotalPage(status, search, pageSize);
-
-        request.setAttribute("search", search);
-        request.setAttribute("status", status);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("currentPage", pageNo);
-        request.setAttribute("listorder", listOrder);
-
-         request.getRequestDispatcher("sale/saleorder.jsp").forward(request, response);
 
     } 
 
