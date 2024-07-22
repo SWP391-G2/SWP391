@@ -130,6 +130,13 @@
                     </div>
 
                     <div class="col-3">
+                        <div class="input-group">
+                            <input type="date" class="form-control" value="${date}"
+                                   id="date">
+                        </div>
+                    </div>
+
+                    <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
@@ -137,8 +144,8 @@
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
                             <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
-                            <option value="0" ${status==2 ? 'selected' : '' }>Done</option>
-                            <option value="0" ${status==3 ? 'selected' : '' }>Cancelled</option>
+                            <option value="2" ${status==2 ? 'selected' : '' }>Done</option>
+                            <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
                         </select>
                     </div>
 
@@ -165,46 +172,29 @@
                                         <c:set var="tt" value="${tt+1}"/>
                                         <tr>
                                             <td>${tt}</td>
-                                            <!-- create button Block if status is 1 and Unblock if status is 0 and have tag a href is updateStatusAdmin?status?id-->
                                             <td>${o.getOrderContactName()}</td>
-                                            <td>${o.getOrderPhone() }</td>
+                                            <td>${o.getOrderPhone()}</td>
                                             <td>${o.getOrderAddress()}</td>
                                             <td>${o.getOrderDate()}</td>
                                             <td>${o.getOrderTotalPrice()}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${o.getOrderSoID()} == 1}">
-
-                                                        <button type="button" class="btn btn-danger">
-                                                            Processing
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 1}">
+                                                        Processing
                                                     </c:when>
-                                                    <c:when test="${o.getOrderSoID()} == 2}">
-
-                                                        <button type="button" class="btn btn-success">
-                                                            Done
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 2}">
+                                                        Done
                                                     </c:when>
-                                                    <c:when test="${o.getOrderSoID()} == 3}">
-
-                                                        <button type="button" class="btn btn-success">
-                                                            Cancelled
-                                                        </button>
-
+                                                    <c:when test="${o.getOrderSoID() == 3}">
+                                                        Cancelled
                                                     </c:when>
+                                                    <c:otherwise>
+                                                        Unknown
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td>
-
-
-                                                <a  onclick="showAlert('Marketing unblocked successfully!',${brand.getBrandID()}, 1);">
-                                                    <button type="button" class="btn btn-success">
-                                                        View Details
-                                                    </button>
-                                                </a>
-
+                                                <a href="saleorderdetails?orderID=${o.getOrderID()}">View Details</a>                                                    
 
                                             </td>
                                         </tr>
@@ -288,117 +278,55 @@
 
 
     <script>
-                                                    function showAlert(message, brandID, status1) {
-
-
-                                                        if (confirm(message)) {
-                                                            const search = document.querySelector('#search').value;
-                                                            const status = document.querySelector('#status').value;
-                                                            const pageNo = document.querySelector('#pageNo').value;
-                                                            window.location.href = 'saleorder?search=' + search +
-                                                                    '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
+                                                    // handle filter search
+                                                    const searchInput = document.querySelector('#search');
+                                                    searchInput.addEventListener('keydown', (event) => {
+                                                        if (event.key === 'Enter') {
+                                                            performSearch();
                                                         }
-                                                    }
-                                                    function showDetail(brandID) {
+                                                    });
+
+                                                    const btnSearch = document.querySelector('#btnSearch');
+                                                    btnSearch.addEventListener('click', () => {
+                                                        performSearch(); // call function
+                                                    });
+                                                    function performSearch() {
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
-                                                        const pageNo = document.querySelector('#pageNo').value;
+                                                        const date = document.querySelector('#date').value;
                                                         window.location.href = 'saleorder?search=' + search +
-                                                                '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                    }
+                                                    ;
+
+                                                    // handle filter status
+                                                    const status = document.querySelector('#status');
+                                                    status.addEventListener('change', () => {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                    });
+
+                                                    const date = document.querySelector('#date');
+                                                    status.addEventListener('change', () => {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                    });
+
+                                                    // handle pagination
+                                                    function changePage(pageNo) {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
                                                     }
 
-    </script>
-
-    <script>
-        function isOnlyWhitespace(input) {
-            return /^\s*$/.test(input);
-        }
-
-        function validateForm() {
-            // Lấy giá trị của các input
-            var name = document.getElementById('name').value;
-            var description = document.getElementById('description').value;
-
-            // Lấy các phần tử để hiển thị lỗi
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
-
-            // Định nghĩa các regex cho kiểm tra input
-            var nameRegex = /^[a-zA-Z0-9][a-zA-Z0-9 ]{1,197}[a-zA-Z0-9]$/; // Chỉ chấp nhận chữ cái, số và khoảng trắng, độ dài từ 3 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-            var descriptionRegex = /^[^\s][\s\S]{8,198}[^\s]$/; // Chấp nhận mọi ký tự, độ dài từ 10 đến 200 ký tự, không được nhập space ở đầu và không được nhập toàn khoảng trắng
-
-            // Xóa thông báo lỗi trước đó
-            nameError.textContent = '';
-            descriptionError.textContent = '';
-
-            // Kiểm tra input
-            var valid = true;
-
-            // Kiểm tra name
-            if (isOnlyWhitespace(name)) {
-                nameError.textContent = 'Brand Name cannot contain only whitespace.';
-                valid = false;
-            } else if (!nameRegex.test(name)) {
-                nameError.textContent = 'Brand names cannot have leading spaces, must be between 3 and 200 characters, and contain only letters, numbers, and spaces.';
-                valid = false;
-            } else if (/^\d+$/.test(name)) {
-                nameError.textContent = 'Brand Name cannot contain whole numbers.';
-                valid = false;
-            }
-
-            // Kiểm tra description
-            if (isOnlyWhitespace(description)) {
-                descriptionError.textContent = 'Brand Description cannot contain only whitespace.';
-                valid = false;
-            } else if (!descriptionRegex.test(description)) {
-                descriptionError.textContent = 'Brand Description must be from 10 to 200 characters and do not enter leading spaces.';
-                valid = false;
-            }
-
-            // Nếu tất cả đều hợp lệ, return true để submit form
-            return valid;
-        }
-    </script>
-    <script>
-        // handle filter search
-        const searchInput = document.querySelector('#search');
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                performSearch();
-            }
-        });
-
-        const btnSearch = document.querySelector('#btnSearch');
-        btnSearch.addEventListener('click', () => {
-            performSearch(); // call function
-        });
-        function performSearch() {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=1';
-        }
-        ;
-
-        // handle filter status
-        const status = document.querySelector('#status');
-        status.addEventListener('change', () => {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=1';
-        });
-
-        // handle pagination
-        function changePage(pageNo) {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=' + pageNo;
-        }
-
 
     </script>
-
-
 </html>

@@ -63,19 +63,21 @@ public class SaleControllerOrder extends HttpServlet {
         String search = "";
         int status = -1;
         int pageNo = 1;
+        String date = "";
         final int pageSize = 10;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
+             date  = request.getParameter("date") == null ? "" : request.getParameter("date");
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
 
         } catch (Exception e) {
         }
 
         OrderDAO dao = new OrderDAO();
-        List<Orders> listOrder  = dao.getOrdersByFilter(status, search, pageNo, pageSize);
-        int totalPage = dao.getTotalPage(status, search, pageSize);
+        List<Orders> listOrder  = dao.getOrdersByFilter(status, search,date, pageNo, pageSize);
+        int totalPage = dao.getTotalPage(status, search,date, pageSize);
 
         request.setAttribute("search", search);
         request.setAttribute("status", status);

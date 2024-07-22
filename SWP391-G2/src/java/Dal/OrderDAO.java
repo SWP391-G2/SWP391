@@ -171,11 +171,11 @@ public class OrderDAO extends DBContext {
         return listOrder;
     }
 
-    public ArrayList<Orders> getOrdersByFilter(int status, String search, int pageNo, int pageSize) {
+    public ArrayList<Orders> getOrdersByFilter(int status, String search,String date, int pageNo, int pageSize) {
         ArrayList<Orders> listOrder = new ArrayList<>();
         String sql = "select * from Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (status != -1 || !search.isEmpty()) {
+        if (status != -1 || !search.isEmpty() || date != null) {
             sql += " WHERE";
             if (status != -1) {
                 if (whereAdded) {
@@ -184,11 +184,18 @@ public class OrderDAO extends DBContext {
                 sql += " OrderSoID = ?";
                 whereAdded = true;
             }
+            if (date != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " OrderDate < ?";
+                whereAdded = true;
+            }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or OrderEmail like ? or PaymentMethod like ? or OrderNote like ?)";
             }
         }
 
@@ -200,8 +207,12 @@ public class OrderDAO extends DBContext {
                 ur.setInt(parameterIndex, status);
                 parameterIndex++;
             }
+            if (date != null) {
+                ur.setString(parameterIndex, date);
+                parameterIndex++;
+            }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 6; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -234,7 +245,7 @@ public class OrderDAO extends DBContext {
 
     }
 
-    public int getTotalPage(int status, String search, int pageSize) {
+    public int getTotalPage(int status, String search,String date, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (status != -1 || !search.isEmpty()) {
@@ -246,11 +257,18 @@ public class OrderDAO extends DBContext {
                 sql += " OrderSoID = ?";
                 whereAdded = true;
             }
+            if (date != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " OrderDate < ?";
+                whereAdded = true;
+            }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or OrderEmail like ? or PaymentMethod like ? or OrderNote like ?)";
             }
         }
 
@@ -262,7 +280,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 6; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -306,10 +324,13 @@ public class OrderDAO extends DBContext {
 //        Date sqlRecieveDate = Date.valueOf(recieveDate);
 //        Orders order = new Orders(1, sqlOrderDate, 3600, "0944362986", "Ha Trung", "Thanh Ba - Phu Tho", sqlRecieveDate, "Hang de vo", 1, 2);
 //        dao.insertOrder(order);
-        List<Orders> list = dao.getOrdersByFilter(1, "", 1, 10);
+//        List<Orders> list = dao.getOrdersByFilter(1, "", 1, 10);
+//        for (Orders orders : list) {
+//            System.out.println(orders.getOrderContactName());
+//        }
+        List<Orders> list = dao.getOrdersByFilter(-1, "", "", 1, 10);
         for (Orders orders : list) {
             System.out.println(orders.getOrderContactName());
         }
-
     }
 }
