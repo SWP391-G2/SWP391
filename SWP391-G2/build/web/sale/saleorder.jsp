@@ -290,6 +290,7 @@
                                                     btnSearch.addEventListener('click', () => {
                                                         performSearch(); // call function
                                                     });
+
                                                     function performSearch() {
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
@@ -297,11 +298,10 @@
                                                         window.location.href = 'saleorder?search=' + search +
                                                                 '&status=' + status + '&date=' + date + '&pageNo=1';
                                                     }
-                                                    ;
 
                                                     // handle filter status
-                                                    const status = document.querySelector('#status');
-                                                    status.addEventListener('change', () => {
+                                                    const statusInput = document.querySelector('#status');
+                                                    statusInput.addEventListener('change', () => {
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
                                                         const date = document.querySelector('#date').value;
@@ -309,8 +309,8 @@
                                                                 '&status=' + status + '&date=' + date + '&pageNo=1';
                                                     });
 
-                                                    const date = document.querySelector('#date');
-                                                    status.addEventListener('change', () => {
+                                                    const dateInput = document.querySelector('#date');
+                                                    dateInput.addEventListener('change', () => {
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
                                                         const date = document.querySelector('#date').value;
@@ -324,9 +324,7 @@
                                                         const status = document.querySelector('#status').value;
                                                         const date = document.querySelector('#date').value;
                                                         window.location.href = 'saleorder?search=' + search +
-                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                                '&status=' + status + '&date=' + date + '&pageNo=' + pageNo;
                                                     }
-
-
     </script>
 </html>

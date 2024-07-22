@@ -171,7 +171,7 @@ public class OrderDAO extends DBContext {
         return listOrder;
     }
 
-    public ArrayList<Orders> getOrdersByFilter(int status, String search,String date, int pageNo, int pageSize) {
+    public ArrayList<Orders> getOrdersByFilter(String date, int status, String search,  int pageNo, int pageSize) {
         ArrayList<Orders> listOrder = new ArrayList<>();
         String sql = "select * from Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
@@ -199,7 +199,7 @@ public class OrderDAO extends DBContext {
             }
         }
 
-        sql += " ORDER BY OrderID  OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY OrderID desc  OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index
@@ -245,7 +245,7 @@ public class OrderDAO extends DBContext {
 
     }
 
-    public int getTotalPage(int status, String search,String date, int pageSize) {
+    public int getTotalPage(String date,int status, String search, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (status != -1 || !search.isEmpty()) {
@@ -328,7 +328,7 @@ public class OrderDAO extends DBContext {
 //        for (Orders orders : list) {
 //            System.out.println(orders.getOrderContactName());
 //        }
-        List<Orders> list = dao.getOrdersByFilter(-1, "", "", 1, 10);
+        List<Orders> list = dao.getOrdersByFilter(" ", -1, " ", 1, 10);
         for (Orders orders : list) {
             System.out.println(orders.getOrderContactName());
         }

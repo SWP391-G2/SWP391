@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.Sale;
 
 import Dal.BrandsDAO;
@@ -22,34 +21,37 @@ import java.util.List;
  * @author hatru
  */
 public class SaleControllerOrder extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaleControllerOrder</title>");  
+            out.println("<title>Servlet SaleControllerOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SaleControllerOrder at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SaleControllerOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,40 +59,42 @@ public class SaleControllerOrder extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       //processRequest(request, response);
-     
+            throws ServletException, IOException {
+        //processRequest(request, response);
+
+        String date = "";
         String search = "";
         int status = -1;
         int pageNo = 1;
-        String date = "";
         final int pageSize = 10;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
             status = request.getParameter("status") == null ? -1 : Integer.parseInt(request.getParameter("status"));
-             date  = request.getParameter("date") == null ? "" : request.getParameter("date");
+            date = request.getParameter("date") == null ? "" : request.getParameter("date");
             pageNo = request.getParameter("pageNo") == null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
 
         } catch (Exception e) {
         }
 
         OrderDAO dao = new OrderDAO();
-        List<Orders> listOrder  = dao.getOrdersByFilter(status, search,date, pageNo, pageSize);
-        int totalPage = dao.getTotalPage(status, search,date, pageSize);
+        List<Orders> listOrder = dao.getOrdersByFilter(date, status, search, pageNo, pageSize);
+        int totalPage = dao.getTotalPage(date, status, search, pageSize);
 
         request.setAttribute("search", search);
         request.setAttribute("status", status);
+        request.setAttribute("date", date);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("currentPage", pageNo);
         request.setAttribute("listorder", listOrder);
 
-         request.getRequestDispatcher("sale/saleorder.jsp").forward(request, response);
+        request.getRequestDispatcher("sale/saleorder.jsp").forward(request, response);
 
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -98,12 +102,13 @@ public class SaleControllerOrder extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
