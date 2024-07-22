@@ -122,7 +122,10 @@ public class order extends HttpServlet {
         String note = request.getParameter("note");
         String addressdetails = request.getParameter("addressDetails");
         String address = addressdetails + ward + district + city;
+        String paymentMethod = "vnpay";
+        int voucher = 1;
         int AccountID = 9;
+     
 
 //        response.getWriter().print(email);
 //        response.getWriter().print(phone);
@@ -146,7 +149,7 @@ public class order extends HttpServlet {
                 Date sqlOrderDate = Date.valueOf(orderDate);
                 Date sqlRecieveDate = Date.valueOf(recieveDate);
 
-                Orders order = new Orders(AccountID, sqlOrderDate, amount, phone, fullName, address, note, 2, 1);
+                Orders order = new Orders(AccountID, sqlOrderDate, amount, fullName, phone, email, address, paymentMethod, note, 1, voucher);
                 dao.insertOrder(order);
                 int orderID = dao.getOrderID();
                 request.setAttribute("fullname", fullName);

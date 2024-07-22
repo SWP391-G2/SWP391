@@ -18,7 +18,9 @@ public class Orders {
     private float orderTotalPrice;
     private String orderContactName;
     private String orderPhone;
+    private String email;
     private String orderAddress;
+    private String PaymentMethod;
     private String orderNote;
     private int orderSoID;
     private int voucherID;
@@ -26,31 +28,35 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
+        this.email = email;
         this.orderAddress = orderAddress;
+        this.PaymentMethod = PaymentMethod;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
 
-    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
+        this.email = email;
         this.orderAddress = orderAddress;
+        this.PaymentMethod = PaymentMethod;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
-    
+
     
 
     public int getOrderID() {
@@ -101,12 +107,28 @@ public class Orders {
         this.orderPhone = orderPhone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getOrderAddress() {
         return orderAddress;
     }
 
     public void setOrderAddress(String orderAddress) {
         this.orderAddress = orderAddress;
+    }
+
+    public String getPaymentMethod() {
+        return PaymentMethod;
+    }
+
+    public void setPaymentMethod(String PaymentMethod) {
+        this.PaymentMethod = PaymentMethod;
     }
 
     public String getOrderNote() {
@@ -135,7 +157,7 @@ public class Orders {
 
     @Override
     public String toString() {
-        return "Orders{" + "orderID=" + orderID + ", accountID=" + accountID + ", orderDate=" + orderDate + ", orderTotalPrice=" + orderTotalPrice + ", orderContactName=" + orderContactName + ", orderPhone=" + orderPhone + ", orderAddress=" + orderAddress + ", orderNote=" + orderNote + ", orderSoID=" + orderSoID + ", voucherID=" + voucherID + '}';
+        return "Orders{" + "orderID=" + orderID + ", accountID=" + accountID + ", orderDate=" + orderDate + ", orderTotalPrice=" + orderTotalPrice + ", orderContactName=" + orderContactName + ", orderPhone=" + orderPhone + ", email=" + email + ", orderAddress=" + orderAddress + ", PaymentMethod=" + PaymentMethod + ", orderNote=" + orderNote + ", orderSoID=" + orderSoID + ", voucherID=" + voucherID + '}';
     }
 
    

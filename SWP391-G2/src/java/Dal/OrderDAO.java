@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class OrderDAO extends DBContext {
 
-    
     public int getSumRevenue() {
         String sql = "select SUM(OrderTotalPrice) from Orders";
         try {
@@ -64,7 +63,8 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
-        public double totalRevenueMonth(int month, int year) {
+
+    public double totalRevenueMonth(int month, int year) {
         String sql = "select SUM([OrderTotalPrice]) from [Orders]\r\n"
                 + "where MONTH([OrderReceiveDate])=? and year([OrderReceiveDate])=?";
         try {
@@ -79,6 +79,7 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+
     public double totalRevenueByWeek(int day, int from, int to, int year, int month) {
         String sql = "";
         if (from > to) {
@@ -131,10 +132,12 @@ public class OrderDAO extends DBContext {
             ur.setFloat(3, order.getOrderTotalPrice());
             ur.setString(4, order.getOrderContactName());
             ur.setString(5, order.getOrderPhone());
-            ur.setString(6, order.getOrderAddress());
-            ur.setString(7, order.getOrderNote());
-            ur.setInt(8, order.getOrderSoID());
-            ur.setInt(9, order.getVoucherID());
+            ur.setString(6, order.getEmail());
+            ur.setString(7, order.getOrderAddress());
+            ur.setString(8, order.getPaymentMethod());
+            ur.setString(9, order.getOrderNote());
+            ur.setInt(10, order.getOrderSoID());
+            ur.setInt(11, order.getVoucherID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -155,9 +158,11 @@ public class OrderDAO extends DBContext {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
+                        rs.getString(8),
                         rs.getString(9),
-                        rs.getInt(10),
-                        rs.getInt(11));
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12));
                 listOrder.add(order);
             }
         } catch (SQLException e) {
@@ -215,8 +220,10 @@ public class OrderDAO extends DBContext {
                         rs.getString(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getInt(9),
-                        rs.getInt(10));
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12));
                 listOrder.add(order);
 
             }
@@ -299,10 +306,10 @@ public class OrderDAO extends DBContext {
 //        Date sqlRecieveDate = Date.valueOf(recieveDate);
 //        Orders order = new Orders(1, sqlOrderDate, 3600, "0944362986", "Ha Trung", "Thanh Ba - Phu Tho", sqlRecieveDate, "Hang de vo", 1, 2);
 //        dao.insertOrder(order);
-        List<Orders> list = dao.getOrdersByFilter(1,"", 1, 10);
+        List<Orders> list = dao.getOrdersByFilter(1, "", 1, 10);
         for (Orders orders : list) {
             System.out.println(orders.getOrderContactName());
         }
-       
+
     }
 }
