@@ -46,5 +46,26 @@
 
         </div>
     </body>
-    
+    <script type="text/javascript">
+        var timeLeft = 20;
+        var timerId;
+
+        function countdown() {
+            if (timeLeft == 0) {
+                clearTimeout(timerId);
+                document.getElementById("timer").innerHTML = "Time's up!";
+            } else {
+                document.getElementById("timer").innerHTML = timeLeft + " seconds remaining";
+                timeLeft--;
+            }
+        }
+
+        function startTimer() {
+            timerId = setInterval(countdown, 1000);
+        }
+
+        window.onload = function () {
+            startTimer();
+        }
+    </script>
 </html>

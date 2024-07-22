@@ -23,8 +23,8 @@
             }
         </style>
     </head>
-    <body>
-        <div class="row vh-100 g-0" >
+    <body style="background-color: pink">
+        <div class="row vh-100 g-0"  >
             <c:if test="${requestScope.err != null}">
                 <div class="p-0 m-0 fixed-top text-center">
 
@@ -42,7 +42,7 @@
             <div class="d-flex justify-content-center">
 
                 <div class=" col col-sm-9 col-lg-9 col-xl-6  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
-                    <div class="" >
+                    <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff" >
                         <div class="text-center mb-5">
                             <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
                             <form action="./signup" method="post" >
@@ -127,14 +127,6 @@
 
 
 
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item" >Password must contains</li>
-                                    <li class="dropdown-item" >At least 8 characters length</li>
-                                    <li class="dropdown-item" >At least 1 number (0..9)</li>
-                                    <li class="dropdown-item" >At least 1 lowercase letter (a..z)</li>
-                                    <li class="dropdown-item" >At least 1 special symbol (!..$)</li>
-                                    <li class="dropdown-item" >At least 1 uppercase letter (A..Z)</li>
-                                </ul>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">
@@ -153,17 +145,13 @@
                                         <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
                                     </div>
                                     <div id="showButton" class="col-1 p-0 m-0 d-flex justify-content-end float-right"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
                                         Show Password Requirements
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
                                         </svg>
                                     </div>
                                 </div>
-                                <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
-                            </form>
-                            <div>
-                                <hr/>
-                                <div id="more">
+                                <div id="more" style="margin-left: 110%;">
                                     <ul id="dropdown-menu" class="dropdown-menu shadow-sm">
                                         <li class="dropdown-item">Password must contain:</li>
                                         <li class="dropdown-item">At least 8 characters in length</li>
@@ -173,6 +161,11 @@
                                         <li class="dropdown-item">At least 1 uppercase letter (A-Z)</li>
                                     </ul>
                                 </div>
+                                <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
+                            </form>
+                            <div>
+                                <hr/>
+
 
                             </div>
                         </div>

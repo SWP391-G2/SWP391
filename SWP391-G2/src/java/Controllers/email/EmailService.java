@@ -55,13 +55,12 @@ public class EmailService extends HttpServlet {
         Date otpTime = (Date) session.getAttribute("otpTime");
         Date currentTime = new Date();
         long timeElapsedInSeconds = (currentTime.getTime() - otpTime.getTime()) / 1000;
-        if (timeElapsedInSeconds <= 120) {
-
+        if (timeElapsedInSeconds <= 15) {
             // Compare both OTP
             if (otp.equals(ots)) {
                 Accounts account = (Accounts) session.getAttribute("accountForSign");
                 Adao.setInsert(account);
-                request.getRequestDispatcher("login").forward(request, response);
+                response.sendRedirect("login");
             } else {
                 request.setAttribute("err", "OTP is incorrect!!");
                 request.getRequestDispatcher("common/email.jsp").forward(request, response);

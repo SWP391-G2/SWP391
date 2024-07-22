@@ -481,33 +481,33 @@ CREATE TABLE [dbo].[OrderDetail] (
     odProductDetail INT NOT NULL,
     odQuantity INT NOT NULL,
     odPrice FLOAT NOT NULL,
-	odName Nvarchar,
+	odName NVARCHAR,
     FOREIGN KEY (odOrderID) REFERENCES [dbo].[Orders](OrderID),
     FOREIGN KEY (odProductDetail) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
 )
 
 /*======= INSERT VALUE OF [OrderDetail] TABLE =======*/
 INSERT INTO [dbo].[OrderDetail] (odOrderID, odProductDetail, odQuantity, odPrice, odName) VALUES
-(1, 1, 2, 100.00, 'Chanel No. 5'),
-(1, 2, 1, 100.00, 'Dior Sauvage'),
-(2, 1, 3, 30.00, 'Chanel No. 5'),
-(2, 1, 2, 45.00, 'Chanel No. 5'),
-(3, 3, 1, 300.00, 'Gucci Bloom'),
-(3, 2, 2, 150.00, 'Dior Sauvage'),
-(4, 1, 1, 250.00, 'Chanel No. 5'),
-(4, 2, 2, 125.00, 'Dior Sauvage'),
-(5, 4, 2, 90.00, 'Tom Ford Black Orchid'),
-(5, 5, 1, 180.00, 'YSL Black Opium'),
-(6, 5, 3, 73.33, 'YSL Black Opium'),
-(6, 4, 2, 110.00, 'Tom Ford Black Orchid'),
-(7, 3, 1, 275.00, 'Gucci Bloom'),
-(7, 1, 2, 137.50, 'Chanel No. 5'),
-(8, 2, 1, 190.00, 'Dior Sauvage'),
-(8, 1, 2, 95.00, 'Chanel No. 5'),
-(9, 2, 1, 210.00, 'Dior Sauvage'),
-(9, 3, 2, 105.00, 'Gucci Bloom'),
-(10, 4, 2, 115.00, 'Tom Ford Black Orchid'),
-(10, 5, 1, 230.00, 'YSL Black Opium');
+(1, 1, 2, 100.00, N'Chanel No. 5'),
+(1, 2, 1, 100.00, N'Dior Sauvage'),
+(2, 1, 3, 30.00, N'Chanel No. 5'),
+(2, 1, 2, 45.00, N'Chanel No. 5'),
+(3, 3, 1, 300.00, N'Gucci Bloom'),
+(3, 2, 2, 150.00, N'Dior Sauvage'),
+(4, 1, 1, 250.00, N'Chanel No. 5'),
+(4, 2, 2, 125.00, N'Dior Sauvage'),
+(5, 4, 2, 90.00, N'Tom Ford Black Orchid'),
+(5, 5, 1, 180.00, N'YSL Black Opium'),
+(6, 5, 3, 73.33, N'YSL Black Opium'),
+(6, 4, 2, 110.00, N'Tom Ford Black Orchid'),
+(7, 3, 1, 275.00, N'Gucci Bloom'),
+(7, 1, 2, 137.50, N'Chanel No. 5'),
+(8, 2, 1, 190.00, N'Dior Sauvage'),
+(8, 1, 2, 95.00, N'Chanel No. 5'),
+(9, 2, 1, 210.00, N'Dior Sauvage'),
+(9, 3, 2, 105.00, N'Gucci Bloom'),
+(10, 4, 2, 115.00, N'Tom Ford Black Orchid'),
+(10, 5, 1, 230.00, N'YSL Black Opium');
 
 GO
 
