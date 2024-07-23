@@ -433,6 +433,7 @@ CREATE TABLE [dbo].[StatusOrder] (
 )
 /*======= INSERT VALUE OF [StatusOrder] TABLE =======*/
 INSERT INTO [dbo].[StatusOrder] (SOName) VALUES
+('Wait'),
 ('Processing'),
 ('Done'),
 ('Cancelled');
@@ -443,35 +444,38 @@ GO
 DROP TABLE IF EXISTS [dbo].[Orders];
 CREATE TABLE [dbo].[Orders] (
     OrderID INT PRIMARY KEY IDENTITY(1,1),
-    AccountID INT NOT NULL,
+    AccountID INT NULL,
     OrderDate DATE NOT NULL,
     OrderTotalPrice FLOAT NOT NULL,
     OrderContactName NVARCHAR(255) NOT NULL,
     OrderPhone NVARCHAR(255) NOT NULL,
+    OrderEmail NVARCHAR(255) NOT NULL,
     OrderAddress NVARCHAR(255) NOT NULL,
-    OrderStatus INT NOT NULL,
-    OrderReceiveDate DATE NULL,
+    PaymentMethod NVARCHAR(255),
     OrderNote NVARCHAR(255) NULL,
     OrderSoID INT NOT NULL,
-	VoucherID INT NOT NULL,
-	 FOREIGN KEY (VoucherID) REFERENCES [dbo].[Vouchers](VoucherID),
+    VoucherID INT NOT NULL,
+    FOREIGN KEY (VoucherID) REFERENCES [dbo].[Vouchers](VoucherID),
     FOREIGN KEY (AccountID) REFERENCES [dbo].[Accounts](AccountID),
     FOREIGN KEY (OrderSoID) REFERENCES [dbo].[StatusOrder](SOID)
-)
-/*======= INSERT VALUE OF [Orders] TABLE =======*/
-INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderStatus, OrderReceiveDate, OrderNote, OrderSoID, VoucherID) VALUES
-(1, '2024-07-01', 200.00, 'John Doe', '1234567890', 'N 123 Nguyễn Văn Trỗi - Hà Nội', 1, '2024-07-05', 'Please deliver in the morning', 1, 1),
-(2, '2024-07-01', 150.00, 'Jane Smith', '0987654321', 'N 456 Tố Hữu - Thanh Xuân - Hà Nội', 2, '2024-07-05', 'Leave at the front door', 2, 2),
-(3, '2024-07-01', 300.00, 'Alice Johnson', '1122334455', 'N 789 Trần Duy Hưng - Hà Nội', 1, '2024-07-05', 'Ring the bell', 1, 1),
-(4, '2024-07-01', 250.00, 'Bob Brown', '2233445566', 'N 101 Đội Cấn - Hà Nội', 2, '2024-07-05', 'Call upon arrival', 2, 1),
-(5, '2024-05-01', 180.00, 'Charlie White', '3344556677', 'N 202 Kim Mã - Hà Nội', 1, '2024-05-05', 'Deliver to reception', 1, 1),
-(6, '2024-06-01', 220.00, 'David Green', '4455667788', 'N 303 Hoàng Hoa Thám - Hà Nội', 2, '2024-06-05', 'No special instructions', 2, 1),
-(7, '2024-07-01', 275.00, 'Eva Black', '5566778899', 'N 404 Bà Triệu - Hà Nội', 1, '2024-07-05', 'Deliver before noon', 1, 1),
-(8, '2024-07-01', 190.00, 'Frank Blue', '6677889900', 'N 505 Tôn Đức Thắng - Hà Nội', 2, '2024-07-05', 'Contact before delivery', 2, 1),
-(9, '2024-08-01', 210.00, 'Grace Yellow', '7788990011', 'N 606 Hàng Bài - Hà Nội', 1, '2024-08-05', 'Deliver after 2 PM', 1, 1),
-(10, '2024-05-01', 230.00, 'Henry Red', '8899001122', 'N 707 Cầu Giấy - Hà Nội', 2, '2024-05-05', 'No specific time', 2, 1);
+);
+
+-- Insert values into [Orders] table
+INSERT INTO [dbo].[Orders] (AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderEmail, OrderAddress, PaymentMethod, OrderNote, OrderSoID, VoucherID) VALUES
+(1, '2024-07-01', 200.00, 'John Doe', '1234567890', 'john.doe@example.com', N'123 Nguyễn Văn Trỗi - Hà Nội', 'Credit Card',  'Please deliver in the morning', 1, 1),
+(2, '2024-07-01', 150.00, 'Jane Smith', '0987654321', 'jane.smith@example.com', N'456 Tố Hữu - Thanh Xuân - Hà Nội', 'Cash on Delivery',  'Leave at the front door', 2, 2),
+(3, '2024-07-01', 300.00, 'Alice Johnson', '1122334455', 'alice.johnson@example.com', N'789 Trần Duy Hưng - Hà Nội', 'Credit Card',  'Ring the bell', 1, 1),
+(4, '2024-07-01', 250.00, 'Bob Brown', '2233445566', 'bob.brown@example.com', N'101 Đội Cấn - Hà Nội', 'Cash on Delivery', 'Call upon arrival', 2, 1),
+(5, '2024-05-01', 180.00, 'Charlie White', '3344556677', 'charlie.white@example.com', N'202 Kim Mã - Hà Nội', 'Credit Card',  'Deliver to reception', 1, 1),
+(6, '2024-06-01', 220.00, 'David Green', '4455667788', 'david.green@example.com', N'303 Hoàng Hoa Thám - Hà Nội', 'Cash on Delivery',  'No special instructions', 2, 1),
+(7, '2024-07-01', 275.00, 'Eva Black', '5566778899', 'eva.black@example.com', N'404 Bà Triệu - Hà Nội', 'Credit Card', 'Deliver before noon', 1, 1),
+(8, '2024-07-01', 190.00, 'Frank Blue', '6677889900', 'frank.blue@example.com', N'505 Tôn Đức Thắng - Hà Nội', 'Cash on Delivery',  'Contact before delivery', 2, 1),
+(9, '2024-08-01', 210.00, 'Grace Yellow', '7788990011', 'grace.yellow@example.com', N'606 Hàng Bài - Hà Nội', 'Credit Card', 'Deliver after 2 PM', 1, 1),
+(10, '2024-05-01', 230.00, 'Henry Red', '8899001122', 'henry.red@example.com', N'707 Cầu Giấy - Hà Nội', 'Cash on Delivery', 'No specific time', 2, 1);
 
 GO
+
+
 
 /* ============[Orders] TABLE============*/
 DROP TABLE IF EXISTS [dbo].[OrderDetail];
@@ -481,7 +485,7 @@ CREATE TABLE [dbo].[OrderDetail] (
     odProductDetail INT NOT NULL,
     odQuantity INT NOT NULL,
     odPrice FLOAT NOT NULL,
-	odName NVARCHAR,
+	odName NVARCHAR(max),
     FOREIGN KEY (odOrderID) REFERENCES [dbo].[Orders](OrderID),
     FOREIGN KEY (odProductDetail) REFERENCES [dbo].[ProductFullDetail]([ProductFullDetailID])
 )
