@@ -64,7 +64,7 @@ public class AccountsDAO extends DBContext {
         }
         return listEmployee;
     }
-    
+
     public AccountsEmployee getAccountEmployee(int id) {
         String sql = " select AccountID, FirstName, LastName, [Password], [Image], Gender, BirthDay, Email,ac.Status,CreateDate, RoleID, phone, address_line from Accounts ac join [Address] a on a.account_id = ac.AccountID where AccountID = 1";
         try {
@@ -85,7 +85,7 @@ public class AccountsDAO extends DBContext {
                         rs.getInt(11),
                         rs.getString(12),
                         rs.getString(13));
-               return account;
+                return account;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -194,7 +194,7 @@ public class AccountsDAO extends DBContext {
                 + "           ,[CreateDate]\n"
                 + "           ,[RoleID])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?,4);";
+                + "           (?,?,?,?,?,?,?,?,?,?);";
         try {
 
             PreparedStatement ur = connection.prepareStatement(sql);
@@ -207,6 +207,7 @@ public class AccountsDAO extends DBContext {
             ur.setString(7, account.getEmail());
             ur.setInt(8, account.getStatus());
             ur.setDate(9, (Date) account.getCreateDate());
+            ur.setInt(10, account.getRoleID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -387,14 +388,13 @@ public class AccountsDAO extends DBContext {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setString(1, account.getFirstName());
             ur.setString(2, account.getLastName());
-            ur.setString(3, account.getEmail());
             ur.setString(4, account.getPassword());
             ur.setString(5, account.getImage());
             ur.setInt(6, account.getGender());
             ur.setDate(7, (Date) account.getBirthDay());
             ur.setDate(8, (Date) account.getCreateDate());
-            ur.setInt(9, account.getRoleID());
-            ur.setInt(10, account.getStatus());
+            ur.setInt(9, account.getStatus());
+            ur.setInt(10, account.getRoleID());
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
@@ -414,11 +414,10 @@ public class AccountsDAO extends DBContext {
         }
         return 0;
     }
-    
-    
+
     public ArrayList<Accounts> getListByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
         ArrayList<Accounts> listAccount = new ArrayList<>();
-        String sql = "select * from Accounts where RoleID !=1";
+        String sql = "select * from Accounts";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (roleId != -1 || status != -1 || !search.isEmpty()) {
             sql += " WHERE";
@@ -466,7 +465,7 @@ public class AccountsDAO extends DBContext {
             ur.setInt(parameterIndex, pageSize);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-              Accounts account = new Accounts(
+                Accounts account = new Accounts(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -485,7 +484,6 @@ public class AccountsDAO extends DBContext {
 
         return listAccount;
     }
-    
 
     public ArrayList<AccountsEmployee> getListAdminByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
         ArrayList<AccountsEmployee> listAccount = new ArrayList<>();
@@ -537,7 +535,7 @@ public class AccountsDAO extends DBContext {
             ur.setInt(parameterIndex, pageSize);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-               AccountsEmployee account = new AccountsEmployee(
+                AccountsEmployee account = new AccountsEmployee(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -656,15 +654,14 @@ public class AccountsDAO extends DBContext {
             System.err.println(e);
         }
     }
-    
+
     public static void main(String[] args) {
         AccountsDAO dao = new AccountsDAO();
         Date date = new Date(2024, 6, 18);
         Date date1 = new Date(2024, 6, 20);
-        Accounts a = new Accounts("Ha", "Trung", "Hatrung8888-", "", 1, date, "Hatrung03022003@gmail.com", 1, date1, 2);
-//        dao.setInsert(a);
-        System.out.println(dao.getAccount("dohminhg@example.com"));
+        Accounts a = new Accounts("Ha", "Trung", "Hatrung8888-", "", 1, date, "Hatrung03022003@gmail.com", 1, date1, 3);
+        dao.setInsert(a);
+        //System.out.println(dao.getAccount("dohminhg@example.com"));
     }
-
 
 }
