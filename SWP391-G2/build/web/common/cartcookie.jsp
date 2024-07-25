@@ -310,7 +310,7 @@
                         <c:forEach items="${o.items}" var="i" >
                             <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.product.getImage()}</td>
+                                    <td class="align-middle"><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
                                     <td class="align-middle">${i.getName()}</td>
                             <input name="name" value="${i.getName()}" type="hidden"/>
                             <td class="align-middle">${i.product.getProductSize()}</td>
@@ -407,42 +407,42 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                function notice() {
-                                    if (confirm("Delete all items in cart?")) {
-                                        document.getElementById("deleteForm").submit();
-                                    }
-                                }
+            function notice() {
+                if (confirm("Delete all items in cart?")) {
+                    document.getElementById("deleteForm").submit();
+                }
+            }
 
-                                function deleteCart() {
-                                    if (confirm("Do you want delete product?")) {
-                                        console.log(document.getElementById(''))
+            function deleteCart() {
+                if (confirm("Do you want delete product?")) {
+                    console.log(document.getElementById(''))
 //                                        document.getElementById("myForm${loop.index}").submit();
-                                    }
-                                }
+                }
+            }
 
-                                function sendCode(code) {
-                                    window.location.href = 'applyvouchers?code=' + code;
-                                }
+            function sendCode(code) {
+                window.location.href = 'applyvouchers?code=' + code;
+            }
 
 
 
-                                document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                    inputElement.addEventListener('keypress', (event) => {
-                                        if (event.key === 'Enter') {
-                                            event.preventDefault();
-                                            const value = document.getElementById('newquant' + index).value;
-                                            const value1 = document.getElementById('quantity' + index).value;
-                                            if (value1 < value) {
-                                                document.getElementById('quanError' + index).innerText = 'fail';
-                                                return false;
-                                            } else {
-                                                document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                document.getElementById('myForm' + index).submit();
-                                            }
+            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                inputElement.addEventListener('keypress', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        const value = document.getElementById('newquant' + index).value;
+                        const value1 = document.getElementById('quantity' + index).value;
+                        if (value1 < value) {
+                            document.getElementById('quanError' + index).innerText = 'fail';
+                            return false;
+                        } else {
+                            document.getElementById('newquantity' + index).setAttribute('value', value);
+                            document.getElementById('myForm' + index).submit();
+                        }
 
-                                        }
-                                    });
-                                });
+                    }
+                });
+            });
         </script>
     </body>
 

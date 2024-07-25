@@ -195,6 +195,11 @@
                 flex-direction: column;
             }
 
+            .scroll{
+                width: 100%;
+                height: 600px;
+                overflow-y: scroll;
+            }
 
         </style>
     </head>
@@ -303,50 +308,52 @@
                                 <th>Remove</th>
                             </tr>
                         </thead>
-                        <c:set var="total" value="0"/>
-                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                            <tbody class="align-middle">
-                                <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${listproduct[loop.index].getImage()}</td>
-                                    <td class="align-middle">${listcart[loop.index].getName()}</td>
-                                    <td class="align-middle">${listproduct[loop.index].getProductSize()}</td>
-                                    <td class="align-middle">${listproduct[loop.index].getProductPrice()}$</td>
-                                    <td class="align-middle">
-                                        <form action="cartcontroller" method="post" id="myForm${loop.index}" class="form">
-                                            <input type ="hidden" value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
-                                            <div class="input-group quantity mx-auto">
-                                                <input type="hidden" value="${listcart[loop.index].getProductFullDetailID()}" name="pdID"/>
-                                                <input type="hidden" value="${listcart[loop.index].getQuantity()}" name="quantity"/>
-                                                <input type="hidden" value="${listcart[loop.index].getCardID()}" name="cartID"/>
-                                                <input type="hidden" id="quantity${loop.index}" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable1"/>
-                                                <input type="hidden" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable"/>
-                                                <input type="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
-                                                <span id="quanError${loop.index}" class="text-danger"></span>
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
-                                                        <i class="fa fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                                <input type="text" disabled="" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" name="add" value="1">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </div>
+                        <div class="row scroll ">
+                            <c:set var="total" value="0"/>
+                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                <tbody class="align-middle">
+                                    <tr>
+                                        <td class="align-middle"><img src="${listproduct[loop.index].getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                        <td class="align-middle">${listcart[loop.index].getName()}</td>
+                                        <td class="align-middle">${listproduct[loop.index].getProductSize()}</td>
+                                        <td class="align-middle">${listproduct[loop.index].getProductPrice()}$</td>
+                                        <td class="align-middle">
+                                            <form action="cartcontroller" method="post" id="myForm${loop.index}" class="form">
+                                                <input type ="hidden" value="${listcart[loop.index].getAccountID()}" name="accountID"/> 
+                                                <div class="input-group quantity mx-auto">
+                                                    <input type="hidden" value="${listcart[loop.index].getProductFullDetailID()}" name="pdID"/>
+                                                    <input type="hidden" value="${listcart[loop.index].getQuantity()}" name="quantity"/>
+                                                    <input type="hidden" value="${listcart[loop.index].getCardID()}" name="cartID"/>
+                                                    <input type="hidden" id="quantity${loop.index}" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable1"/>
+                                                    <input type="hidden" value="${listproduct[loop.index].getProductAvaiable()}" name="avaiable"/>
+                                                    <input type="hidden" value="" id="newquantity${loop.index}" name="newquantity"/>
+                                                    <span id="quanError${loop.index}" class="text-danger"></span>
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" disabled="" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" name="add" value="1">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
 
-                                            </div>
-                                        </form>
+                                                </div>
+                                            </form>
 
-                                    </td>
-                                    <td class="align-middle">
-                                        <c:set var="itemTotal" value="${listproduct[loop.index].getProductPrice() * listcart[loop.index].getQuantity()}"/>
-                                        <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
-                                    </td>
-                                    <td class="align-middle "><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
-                                </tr>
-                                <c:set var="total" value="${total + itemTotal}"/>
-                            </tbody>
-                        </c:forEach>
+                                        </td>
+                                        <td class="align-middle">
+                                            <c:set var="itemTotal" value="${listproduct[loop.index].getProductPrice() * listcart[loop.index].getQuantity()}"/>
+                                            <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
+                                        </td>
+                                        <td class="align-middle "><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
+                                    </tr>
+                                    <c:set var="total" value="${total + itemTotal}"/>
+                                </tbody>
+                            </c:forEach>
+                        </div>
                     </table>
                 </div>
 

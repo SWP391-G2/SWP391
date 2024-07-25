@@ -174,7 +174,7 @@ public class order extends HttpServlet {
                 request.setAttribute("listcart", listCart);
                 request.setAttribute("total", amount);
                 request.setAttribute("listproduct", listProduct);
-                request.getRequestDispatcher("order.jsp").forward(request, response);
+                request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 break;
             case "bank":
                 // Code xử lý cho "bank"
