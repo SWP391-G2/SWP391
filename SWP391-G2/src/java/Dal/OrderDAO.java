@@ -328,7 +328,7 @@ public class OrderDAO extends DBContext {
 //        for (Orders orders : list) {
 //            System.out.println(orders.getOrderContactName());
 //        }
-        List<Orders> list = dao.getOrdersByFilter(" ", -1, " ", 1, 10);
+        List<Orders> list = dao.getOrdersByFilter("", -1, "", 1, 10);
         for (Orders orders : list) {
             System.out.println(orders.getOrderContactName());
         }

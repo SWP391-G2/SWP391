@@ -418,7 +418,7 @@ public class AccountsDAO extends DBContext {
     
     public ArrayList<Accounts> getListByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
         ArrayList<Accounts> listAccount = new ArrayList<>();
-        String sql = "select * from Accounts";
+        String sql = "select * from Accounts where RoleID !=1";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (roleId != -1 || status != -1 || !search.isEmpty()) {
             sql += " WHERE";
