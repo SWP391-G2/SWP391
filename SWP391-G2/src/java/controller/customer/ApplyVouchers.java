@@ -5,8 +5,9 @@
 
 package controller.customer;
 
-import Dal.VoucherDAO;
-import Models.VoucherNew;
+
+import Dal.VouchersDAO;
+import Models.Vouchers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -61,10 +62,10 @@ public class ApplyVouchers extends HttpServlet {
          String voucher = request.getParameter("voucher");
         String delete = request.getParameter("delete");
         String totalprice = request.getParameter("totalprice");
-        VoucherDAO dao = new VoucherDAO();
+        VouchersDAO dao = new VouchersDAO();
         HttpSession session = request.getSession();
         if (delete == null) {
-            VoucherNew vou = dao.getVourcherByCode(voucher);
+            Vouchers vou = dao.getVourcherByCode(voucher);
 
             if (vou != null) {
                 //request.setAttribute("discount", discount);
@@ -79,7 +80,8 @@ public class ApplyVouchers extends HttpServlet {
                 //response.sendRedirect("checkout");
             }
         } else {
-            session.invalidate();
+            //session.invalidate();
+            session.removeAttribute("dis");
             request.setAttribute("totalprice", totalprice);
             request.getRequestDispatcher("checkout").forward(request, response);
         }

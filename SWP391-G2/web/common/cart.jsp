@@ -327,7 +327,7 @@
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
-                                                <input type="text" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
+                                                <input type="text" disabled="" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${listcart[loop.index].getQuantity()}">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" name="add" value="1">
                                                         <i class="fa fa-plus"></i>
@@ -340,7 +340,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <c:set var="itemTotal" value="${listproduct[loop.index].getProductPrice() * listcart[loop.index].getQuantity()}"/>
-                                        <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##"/>$
+                                        <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
                                     </td>
                                     <td class="align-middle "><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
                                 </tr>
@@ -376,10 +376,12 @@
                             <div class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${total}" type="number" pattern="#,##"/>$</h5>
+                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${total}" type="number" pattern="#,##0.00"/>$</h5>
                                 </div>
                                 <input type ="hidden" value="${total-total*totaldiscount*0.01}" name="totalprice"/>
-                                <button  class="btn btn-block bg-dark mb-3 my-3 py-3"><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
+                                <c:if test="${total !=0}">
+                                    <button  class="btn btn-block bg-dark mb-3 my-3 py-3"><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
+                                </c:if>
                             </div>
                         </form>
                     </div>

@@ -225,7 +225,7 @@
                             <hr class="mt-0">
                             <div class="d-flex justify-content-between mb-3 pt-1">
                                 <h6 class="font-weight-medium">Subtotal</h6>
-                                <h6 class="font-weight-medium">${requestScope.totalprice}$</h6>
+                                <h6 class="font-weight-medium"><fmt:formatNumber value="${requestScope.totalprice}" type="number" pattern="#,##0.00"/>$</h6>
                             </div>
                             <c:set var="total" value="${requestScope.totalprice}"/>
                             <c:if test="${sessionScope.dis != null}">
@@ -242,7 +242,7 @@
                         <div class="card-footer border-secondary bg-transparent">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5 class="font-weight-bold">Total</h5>
-                                <h5 class="font-weight-bold">${total - sessionScope.dis.getDiscount()*0.01*total}$</h5>
+                                <h5 class="font-weight-bold"><fmt:formatNumber value="${total - sessionScope.dis.getDiscount()*0.01*total}" type="number" pattern="#,##0.00"/>$</h5>
                             </div>
                         </div>
                     </div>
@@ -360,12 +360,6 @@
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="direct">
                                         <label class="custom-control-label" for="directcheck">Direct Check</label>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer" value="bank">
-                                        <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
                                     </div>
                                 </div>
                             </div>

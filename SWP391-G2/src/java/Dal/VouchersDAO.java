@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class VouchersDAO extends DBContext {
 
-    public List<Vouchers> getVoucherByName(){
+    public List<Vouchers> getVoucherByName() {
         String sql = "select Code from Vouchers";
         List<Vouchers> list = new ArrayList<>();
         try {
@@ -34,6 +34,30 @@ public class VouchersDAO extends DBContext {
 
         }
         return list;
+    }
+
+    public Vouchers getVourcherByCode(String code) {
+        String sql = "select * from Vouchers where Code = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, code);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Vouchers(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3),
+                        rs.getDate(4),
+                        rs.getDate(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getInt(8));
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return null;
     }
 
     public void InsertVoucher(String code, double discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
@@ -278,5 +302,11 @@ public class VouchersDAO extends DBContext {
         } catch (Exception e) {
         }
         return 0;
+    }
+    
+    public static void main(String[] args) {
+        VouchersDAO dao = new VouchersDAO();
+        Vouchers v = dao.getVourcherByCode("NEWYEAR2024");
+        System.out.println(v.getDiscount());
     }
 }
