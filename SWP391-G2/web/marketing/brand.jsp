@@ -114,7 +114,7 @@
                     <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
-                        <h1>Admin & Manager</h1>
+                        <h1>Brand & Manager</h1>
 
                     </div>
                     <div class="col-3">
