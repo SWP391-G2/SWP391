@@ -25,8 +25,8 @@ public class Email {
         Random random = new Random();
         return random.nextInt(900000) + 100000;
     }
-    private final String emailFrom = "swp391g2@gmail.com";
-    private final String emailPass = "xjvmsjcizbkqmwap";
+    private final String emailFrom = "bichnqhe173220@fpt.edu.vn";
+    private final String emailPass = "tuiacsucdmecoivn";
 
     public void sendEmail(String subject, String messgage, String to) {
         try {

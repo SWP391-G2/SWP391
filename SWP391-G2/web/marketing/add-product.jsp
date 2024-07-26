@@ -39,10 +39,14 @@
         <div class="container-fluid">
             <!-- Navigation -->
             <jsp:include page="../partials/navigation.jsp"></jsp:include>
-
+                <div class="topbar">
+                </div>
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
+                    <div class="topbar mb-2">
+                        <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-6 link-dark" href="./marketing-manager-products"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                                </svg>Previous page</a></li>
                     </div>
 
                     <div class="row" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
@@ -104,8 +108,8 @@
 
                         <!-- Submit and Cancel buttons -->
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-light mx-2 border-secondary" href="../SWP391-G2/marketing-manager-products">Cancel</a>
-                            <button type="submit" class="btn btn-dark" onclick="uploadImage()">Add new Product</button>
+                            <a class="btn btn-danger  mx-2 border-secondary" href="../SWP391-G2/marketing-manager-products">Cancel</a>
+                            <button type="submit" class="btn btn-primary" onclick="uploadImage()">Add new Product</button>
                         </div>
                     </form>
                 </div>

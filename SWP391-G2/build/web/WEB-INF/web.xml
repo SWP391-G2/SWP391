@@ -224,6 +224,10 @@
         <servlet-name>CategoryDetail</servlet-name>
         <servlet-class>Controllers.marketing.CategoryDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerSaleOrderDetail</servlet-name>
+        <servlet-class>controller.Sale.ControllerSaleOrderDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -447,5 +451,9 @@
     <servlet-mapping>
         <servlet-name>CategoryDetail</servlet-name>
         <url-pattern>/categorydetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerSaleOrderDetail</servlet-name>
+        <url-pattern>/sale-order-detail</url-pattern>
     </servlet-mapping>
 </web-app>

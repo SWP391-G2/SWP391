@@ -39,9 +39,7 @@
                         <input type="hidden" id="pageNo" name="pageNo" value="${currentPage}">
                     <div class="col-12" style="margin-bottom: 40px;">
                         <h1>Product</h1>
-                        <c:if test="${requestScope.success !=null}">
-                            <input type="hidden" id="success" value="${requestScope.success}" >
-                        </c:if>
+                        <input type="hidden" id="success" value="${requestScope.success}" >
                     </div>
                     <div class="col-3">
                         <div class="input-group">
@@ -81,10 +79,10 @@
 
                     <div class="col-2">
                         <div class="text-right">
-                           
-                                <a style="color: white;" href="add-new-product"> <button type="button" class="btn btn-info w-100" data-toggle="modal"
-                                    data-target="#addnewModal">Add New </button></a>
-                           
+
+                            <a style="color: white;" href="add-new-product"> <button type="button" class="btn btn-info w-100" data-toggle="modal"
+                                                                                     data-target="#addnewModal">Add New </button></a>
+
                         </div>
                     </div>
                     <div class="col-12" style="margin-top: 10px;">
@@ -104,10 +102,10 @@
                                 </thead>
                                 <tbody>   
                                     <c:forEach items="${listProduct}" varStatus="loop" var="listProduct">
-                                        <tr>
+                                        <tr class="">
                                             <td>${listProduct.productID}</td>
                                             <td><img src="${listProduct.productImageUrl}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td><a href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
+                                            <td><a class="link-dark" href="update-product?proId=${listProduct.productID}">${listProduct.productName}</a></td>
                                             <td>${listCate[listProduct.getCategoryID()-1].getCategoryName()}</td>                                      
                                             <td>${listBrands[listProduct.getBrandID()-1].getBrandName()}</td>   
                                             <td>${listProduct.productCreateDate}</td>   
@@ -321,9 +319,15 @@
             window.location.href = 'marketing-manager-products?search=' + search +
                     '&status=' + status + '&cateID=' + cateID + '&brandId=' + brandId + "&pageNo=" + pageNo;
         }
-        const success = document.getElementById('success') !== null ? document.getElementById('success') : null;
-        if (success.value !== '') {
+        const successElement = document.getElementById('success');
+        const errorElement = document.getElementById('error');
+
+        if (successElement && successElement.value) {
             successfully('success');
+        }
+
+        if (errorElement && errorElement.value) {
+            errors(errorElement.value);
         }
         function successfully(text) {
             console.log(text);
