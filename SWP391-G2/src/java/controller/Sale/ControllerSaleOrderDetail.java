@@ -33,9 +33,12 @@ public class ControllerSaleOrderDetail extends HttpServlet {
         if (oldStatus == newStatus) {
             return false;
         }
-        if (oldStatus == 1 && newStatus == 2) {
+        if (newStatus == 2) {
             for (orderDetailSale detailSale : _detail) {
                 check = detaildao.getInforProductDetail(detailSale.getProductFullDetailID()).getProductAvaiable() >= detailSale.getQuantity() ? true : false;
+                if (!check) {
+                    return check;
+                }
             }
             if (check) {
                 orderdao.updateStatus(orderId, newStatus);
@@ -43,7 +46,7 @@ public class ControllerSaleOrderDetail extends HttpServlet {
                     detaildao.updateQuantity(detailSale.getProductFullDetailID(), detaildao.getInforProductDetail(detailSale.getProductFullDetailID()).getProductAvaiable() - detailSale.getQuantity());
                 }
             }
-        } else if (newStatus == 4) {
+        } else if (newStatus == 4 && oldStatus != 1) {
             check = true;
             orderdao.updateStatus(orderId, newStatus);
             for (orderDetailSale detailSale : _detail) {
