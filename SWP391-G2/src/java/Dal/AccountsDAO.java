@@ -437,7 +437,7 @@ public class AccountsDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (ac.FirstName LIKE ? OR ac.LastName LIKE ?  OR ac.Email LIKE ?)";
+                sql += " (FirstName LIKE ? OR LastName LIKE ?  OR Email LIKE ?)";
             }
         }
 

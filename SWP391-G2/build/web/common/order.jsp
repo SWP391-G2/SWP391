@@ -339,8 +339,8 @@
                                             </td>
                                             <td class="total-line-name payment-due">
                                                 <span class="payment-due-currency"></span>
-                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000><${requestScope.total}$</span>
-                                                      <span class="checkout_version" display:none="" data_checkout_version="0"></span>
+                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000">${requestScope.total}$</span>
+                                                     
                                             </td>
                                         </tr>
                                     </tfoot>
