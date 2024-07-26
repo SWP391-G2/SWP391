@@ -163,6 +163,7 @@ public class order extends HttpServlet {
                 request.setAttribute("ward", ward);
                 request.setAttribute("orderID", orderID);
                 request.setAttribute("addressdetails", addressdetails);
+                request.setAttribute("method", "Payment on delivery");
                 CartsDAO cart = new CartsDAO();
                 List<Carts> listCart = cart.getAllCart();
                 ProductDetailDAO productDAO = new ProductDetailDAO();

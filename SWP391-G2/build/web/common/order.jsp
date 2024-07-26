@@ -84,6 +84,11 @@
                     flex: 0 0 48%;
                 }
             }
+            .scroll{
+                width: 100%;
+                height: 350px;
+                overflow-y: scroll;
+            }
 
         </style>
     </head>
@@ -200,13 +205,18 @@
                             <div class="content-box-row content-box-row-padding content-box-row-no-border">
                                 <h2>Order Information</h2>
                             </div>
+                            <% String selectedCity = request.getParameter("selectedCity"); %>
+                            <% String selectedDistrict = request.getParameter("selectedDistrict"); %>
+                            <% String selectedWard = request.getParameter("selectedWard"); %>
                             <div class="content-box-row content-box-row-padding">
                                 <div class="section-content">
                                     <div class="section-content-column">
                                         <h3>Shipping Information</h3>
-                                        <p>${requestScope.fullname}<br>${requestScope.phone}<br>${requestScope.addressdetails}<br>${requestScope.ward}<br>${requestScope.district}<br>${requestScope.city}<br>Vietnam</p>
+                                        <p>Customer Name: ${requestScope.fullname}<br>Phone Number: ${requestScope.phone}<br>Address Customer: ${requestScope.addressdetails}<br><%= selectedWard %><br>
+                                            <%= selectedDistrict %><br>
+                                            <%= selectedCity %><br><br>Viet Name</p>
                                         <h3>Payment Method</h3>
-                                        <p>COD (Cash on Delivery)</p>
+                                        <p> ${requestScope.method}</p>
                                     </div>
                                 </div>
                             </div>
@@ -229,47 +239,48 @@
                         <h2 class="visually-hidden">Order Information</h2>
                         <div class="order-summary-sections">
                             <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
-
-                                <table class="product-table table table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"><span class="visually-hidden">Image</span></th>
-                                            <th scope="col"><span class="visually-hidden">Description</span></th>
-                                            <th scope="col"><span class="visually-hidden">Size</span></th>
-                                            <th scope="col"><span class="visually-hidden">Quantity</span></th>
-                                            <th scope="col"><span class="visually-hidden">Price</span></th>
-                                        </tr>
-                                    </thead>
-
-                                    <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                                        <tbody>
-                                            <tr class="product" data-product-id="1019508805" data-variant-id="1043378289">
-                                                <td class="product-image">
-                                                    <div class="product-thumbnail">
-                                                        <div class="product-thumbnail-wrapper">
-                                                            <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="product-description">
-                                                    <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getName()}</span>
-
-                                                </td>
-                                                <td class="product-description">
-                                                    <span class="product-description-name order-summary-emphasis">${listproduct[loop.index].getProductSize()}</span>
-
-                                                </td>
-                                                <td class="product-description">
-                                                    <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getQuantity()}</span>
-
-                                                </td>
-                                                <td class="product-price">
-                                                    <span class="order-summary-emphasis">${listproduct[loop.index].getProductPrice()}$</span>
-                                                </td>
+                                <div class="row scroll ">
+                                    <table class="product-table table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><span class="visually-hidden">Image</span></th>
+                                                <th scope="col"><span class="visually-hidden">Description</span></th>
+                                                <th scope="col"><span class="visually-hidden">Size</span></th>
+                                                <th scope="col"><span class="visually-hidden">Quantity</span></th>
+                                                <th scope="col"><span class="visually-hidden">Price</span></th>
                                             </tr>
-                                        </tbody>
-                                    </c:forEach>
-                                </table>
+                                        </thead>
+
+                                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                            <tbody>
+                                                <tr class="product" data-product-id="1019508805" data-variant-id="1043378289">
+                                                    <td class="product-image">
+                                                        <div class="product-thumbnail">
+                                                            <div class="product-thumbnail-wrapper">
+                                                                <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}" style="width: 60px; height: 60px">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-description">
+                                                        <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getName()}</span>
+
+                                                    </td>
+                                                    <td class="product-description">
+                                                        <span class="product-description-name order-summary-emphasis">${listproduct[loop.index].getProductSize()}</span>
+
+                                                    </td>
+                                                    <td class="product-description">
+                                                        <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getQuantity()}</span>
+
+                                                    </td>
+                                                    <td class="product-price">
+                                                        <span class="order-summary-emphasis">${listproduct[loop.index].getProductPrice()}$</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </c:forEach>
+                                    </table>
+                                </div>
                             </div>
                             <div class="order-summary-section order-summary-section-total-lines payment-lines" data-order-summary-section="payment-lines">
                                 <table class="total-line-table table table-borderless">

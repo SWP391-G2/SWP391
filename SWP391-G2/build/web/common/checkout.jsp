@@ -220,7 +220,7 @@
                                                 <span class="discount-tag">
                                                     <span class="discount-icon"><i class="fa fa-tag"></i></span>
                                                     <span class="discount-tag__name">
-                                                        ${sessionScope.dis.getDiscount()}
+                                                        ${sessionScope.dis.getDiscount()}%
                                                     </span>
                                                 </span>
                                             </span>
@@ -290,6 +290,10 @@
                                         <option value="" selected>Chọn phường xã</option>
                                     </select>
                                 </div>
+                                <!-- Hidden fields to store the selected values -->
+                                <input type="hidden" id="selectedCity" name="selectedCity">
+                                <input type="hidden" id="selectedDistrict" name="selectedDistrict">
+                                <input type="hidden" id="selectedWard" name="selectedWard">
                                 <div class="col-md-6 form-group">
                                     <label>Address Details</label>
                                     <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails" required="">
@@ -360,65 +364,64 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
         <script>
-
             document.addEventListener('DOMContentLoaded', function () {
-                var input1 = document.getElementById('input1');
-                var input2 = document.getElementById('input2');
+                var citis = document.getElementById("city");
+                var districts = document.getElementById("district");
+                var wards = document.getElementById("ward");
+                var selectedCity = document.getElementById("selectedCity");
+                var selectedDistrict = document.getElementById("selectedDistrict");
+                var selectedWard = document.getElementById("selectedWard");
 
-                if (input1 && input2) {
-                    input1.addEventListener('input', function () {
-                        input2.value = input1.value;
-                    });
-                } else {
-                    console.error('Không tìm thấy các thẻ input với ID "input1" hoặc "input2".');
+                var Parameter = {
+                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                    method: "GET",
+                    responseType: "application/json",
+                };
+
+                var promise = axios(Parameter);
+                promise.then(function (result) {
+                    renderCity(result.data);
+                });
+
+                function renderCity(data) {
+                    for (const x of data) {
+                        citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                    }
+                    citis.onchange = function () {
+                        districts.length = 1;
+                        wards.length = 1;
+                        if (this.value != "") {
+                            const result = data.filter(n => n.Id === this.value);
+
+                            for (const k of result[0].Districts) {
+                                districts.options[districts.options.length] = new Option(k.Name, k.Id);
+                            }
+                            updateHiddenFields();
+                        }
+                    };
+                    districts.onchange = function () {
+                        wards.length = 1;
+                        const dataCity = data.filter((n) => n.Id === citis.value);
+                        if (this.value != "") {
+                            const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                            for (const w of dataWards) {
+                                wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                            }
+                            updateHiddenFields();
+                        }
+                    };
+                    wards.onchange = function () {
+                        updateHiddenFields();
+                    };
+                }
+
+                function updateHiddenFields() {
+                    selectedCity.value = citis.options[citis.selectedIndex].text;
+                    selectedDistrict.value = districts.options[districts.selectedIndex].text;
+                    selectedWard.value = wards.options[wards.selectedIndex].text;
                 }
             });
-            var citis = document.getElementById("city");
-            var districts = document.getElementById("district");
-            var wards = document.getElementById("ward");
-            var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
-            };
-            var promise = axios(Parameter);
-            promise.then(function (result) {
-                renderCity(result.data);
-            });
-
-            function renderCity(data) {
-                for (const x of data) {
-                    citis.options[citis.options.length] = new Option(x.Name, x.Id);
-                }
-                citis.onchange = function () {
-                    district.length = 1;
-                    ward.length = 1;
-                    if (this.value != "") {
-                        const result = data.filter(n => n.Id === this.value);
-
-                        for (const k of result[0].Districts) {
-                            district.options[district.options.length] = new Option(k.Name, k.Id);
-                        }
-                    }
-                };
-                district.onchange = function () {
-                    ward.length = 1;
-                    const dataCity = data.filter((n) => n.Id === citis.value);
-                    if (this.value != "") {
-                        const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
-
-                        for (const w of dataWards) {
-                            wards.options[wards.options.length] = new Option(w.Name, w.Id);
-                        }
-                    }
-                };
-            }
-
-            function syncInputs() {
-                var input1Value = document.getElementById('email').value;
-                document.getElementById('emailc').value = input1Value;
-            }
-
         </script>
 
 

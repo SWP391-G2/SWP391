@@ -367,13 +367,6 @@
                                 <h6 class="font-weight-medium">Subtotal</h6>
                                 <h6 class="font-weight-medium">${total}$</h6>
                             </div>
-                            <c:set var="totaldiscount" value="${sessionScope.dis.getDiscount()}"/>
-                            <c:if test="${sessionScope.dis != null}">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-medium">Discount(${sessionScope.dis.getDiscount()}%)</h6>
-                                    <h6 class="font-weight-medium">${sessionScope.dis.getDiscount()*0.01*total}$</h6>
-                                </div>
-                            </c:if>
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">Shipping</h6>
                                 <h6 class="font-weight-medium">Freeship</h6>
