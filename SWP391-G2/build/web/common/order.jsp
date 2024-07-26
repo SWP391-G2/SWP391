@@ -215,7 +215,7 @@
                                         <h3>Shipping Information</h3>
                                         <p>Customer Name: ${requestScope.fullname}<br>Phone Number: ${requestScope.phone}<br>Address Customer: ${requestScope.addressdetails}<br><%= selectedWard %><br>
                                             <%= selectedDistrict %><br>
-                                            <%= selectedCity %><br>Viet Name</p>
+                                            <%= selectedCity %><br>Viet Nam</p>
                                         <h3>Payment Method</h3>
                                         <p> ${requestScope.method}</p>
                                     </div>
@@ -258,7 +258,7 @@
                                                         <td class="product-image">
                                                             <div class="product-thumbnail">
                                                                 <div class="product-thumbnail-wrapper">
-                                                                    <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}" style="width: 60px; height: 60px">
+                                                                    <img class="product-thumbnail-image" alt="Product Image" src="${listproduct[loop.index].getImage()}">
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -339,7 +339,7 @@
                                             </td>
                                             <td class="total-line-name payment-due">
                                                 <span class="payment-due-currency"></span>
-                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000><fmt:formatNumber value="${requestScope.total}" type="number" pattern="#,##0.00"/>$</span>
+                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000><${requestScope.total}$</span>
                                                       <span class="checkout_version" display:none="" data_checkout_version="0"></span>
                                             </td>
                                         </tr>

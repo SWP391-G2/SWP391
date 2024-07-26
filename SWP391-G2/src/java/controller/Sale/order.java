@@ -130,7 +130,6 @@ public class order extends HttpServlet {
         String address = addressdetails + ward + district + city;
         String paymentMethod = "vnpay";
         int voucher = 1;
-        Accounts accounts = (Accounts) session.getAttribute("account");
         int AccountID = 11;
         boolean check = session.getAttribute("account") != null ? true : false;
 //        response.getWriter().print(email);
@@ -153,8 +152,7 @@ public class order extends HttpServlet {
 
                 //Chuyển đổi LocalDate thành Date
                 Date sqlOrderDate = Date.valueOf(orderDate);
-                Orders order = new Orders(AccountID, sqlOrderDate, amount, fullName, phone, email, address, paymentMethod, note, 1, voucher);
-                dao.insertOrder(order);
+
                 int orderID = dao.getOrderID();
                 request.setAttribute("fullname", fullName);
                 request.setAttribute("email", email);
@@ -176,12 +174,14 @@ public class order extends HttpServlet {
                     for (Carts carts : listCart) {
                         ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
                         listProduct.add(p);
-                        request.setAttribute("listcart", listCart);
-                        request.setAttribute("total", amount);
-                        request.setAttribute("listproduct", listProduct);
-                        request.getRequestDispatcher("./common/order.jsp").forward(request, response);
-                        break;
                     }
+                    request.setAttribute("listcart", listCart);
+                    request.setAttribute("total", amount);
+                    request.setAttribute("listproduct", listProduct);
+                    Orders order = new Orders(AccountID, sqlOrderDate, amount, fullName, phone, email, address, paymentMethod, note, 1, voucher);
+                    dao.insertOrder(order);
+                    //cart.deleteAllCart(AccountID);
+                    request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 } else {
                     Cart ca = new Cart();
                     ProductDetailDAO d = new ProductDetailDAO();
@@ -208,6 +208,8 @@ public class order extends HttpServlet {
                     request.setAttribute("cookieCart", ca);
                     request.setAttribute("total", amount);
                     request.setAttribute("listproduct", listProduct);
+                    Orders order = new Orders(0, sqlOrderDate, amount, fullName, phone, email, address, paymentMethod, note, 1, voucher);
+                    dao.insertOrder(order);
                     request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 }
             //cart.deleteAllCart(AccountID);
