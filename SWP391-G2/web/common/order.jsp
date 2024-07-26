@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -250,35 +251,67 @@
                                                 <th scope="col"><span class="visually-hidden">Price</span></th>
                                             </tr>
                                         </thead>
-
-                                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                                            <tbody>
-                                                <tr class="product" data-product-id="1019508805" data-variant-id="1043378289">
-                                                    <td class="product-image">
-                                                        <div class="product-thumbnail">
-                                                            <div class="product-thumbnail-wrapper">
-                                                                <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}" style="width: 60px; height: 60px">
+                                        <c:if test="${requestScope.listcart != null}">
+                                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                                <tbody>
+                                                    <tr class="product" data-product-id="1019508805" data-variant-id="1043378289">
+                                                        <td class="product-image">
+                                                            <div class="product-thumbnail">
+                                                                <div class="product-thumbnail-wrapper">
+                                                                    <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${listproduct[loop.index].getImage()}" style="width: 60px; height: 60px">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-description">
-                                                        <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getName()}</span>
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getName()}</span>
 
-                                                    </td>
-                                                    <td class="product-description">
-                                                        <span class="product-description-name order-summary-emphasis">${listproduct[loop.index].getProductSize()}</span>
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${listproduct[loop.index].getProductSize()}</span>
 
-                                                    </td>
-                                                    <td class="product-description">
-                                                        <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getQuantity()}</span>
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${listcart[loop.index].getQuantity()}</span>
 
-                                                    </td>
-                                                    <td class="product-price">
-                                                        <span class="order-summary-emphasis">${listproduct[loop.index].getProductPrice()}$</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </c:forEach>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span class="order-summary-emphasis">${listproduct[loop.index].getProductPrice()}$</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${requestScope.cookieCart != null}">
+                                            <c:set var="o" value="${requestScope.cookieCart}"/>
+                                            <c:forEach items="${o.items}" var="i" >
+                                                <tbody>
+                                                    <tr class="product" data-product-id="1019508805" data-variant-id="1043378289">
+                                                        <td class="product-image">
+                                                            <div class="product-thumbnail">
+                                                                <div class="product-thumbnail-wrapper">
+                                                                    <img class="product-thumbnail-image" alt="Versace Bright Crystal Absolu" src="${i.product.getImage()}" style="width: 60px; height: 60px">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${i.getName()}</span>
+
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${i.product.getProductSize()}</span>
+
+                                                        </td>
+                                                        <td class="product-description">
+                                                            <span class="product-description-name order-summary-emphasis">${i.getQuantity()}</span>
+
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span class="order-summary-emphasis">${i.product.getProductPrice()}$</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </c:forEach>
+                                        </c:if>
                                     </table>
                                 </div>
                             </div>
@@ -306,8 +339,8 @@
                                             </td>
                                             <td class="total-line-name payment-due">
                                                 <span class="payment-due-currency"></span>
-                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000">${requestScope.total}$</span>
-                                                <span class="checkout_version" display:none="" data_checkout_version="0"></span>
+                                                <span class="payment-due-price" data-checkout-payment-due-target="137750000><fmt:formatNumber value="${requestScope.total}" type="number" pattern="#,##0.00"/>$</span>
+                                                      <span class="checkout_version" display:none="" data_checkout_version="0"></span>
                                             </td>
                                         </tr>
                                     </tfoot>

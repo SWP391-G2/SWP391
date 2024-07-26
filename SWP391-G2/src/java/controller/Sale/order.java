@@ -8,6 +8,7 @@ import Dal.CartsDAO;
 import Dal.OrderDAO;
 import Dal.ProductDetailDAO;
 import Models.Accounts;
+import Models.Cart;
 import Models.Carts;
 import Models.Orders;
 import Models.ProductDetail;
@@ -15,10 +16,13 @@ import Util.Validation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.mail.Session;
@@ -128,7 +132,7 @@ public class order extends HttpServlet {
         int voucher = 1;
         Accounts accounts = (Accounts) session.getAttribute("account");
         int AccountID = 11;
-
+        boolean check = session.getAttribute("account") != null ? true : false;
 //        response.getWriter().print(email);
 //        response.getWriter().print(phone);
 //        response.getWriter().print(city);
@@ -165,11 +169,10 @@ public class order extends HttpServlet {
                 request.setAttribute("addressdetails", addressdetails);
                 request.setAttribute("method", "Payment on delivery");
                 CartsDAO cart = new CartsDAO();
-
-                if (accounts != null) {
+                ProductDetailDAO productDAO = new ProductDetailDAO();
+                List<ProductDetail> listProduct = new ArrayList<>();
+                if (check) {
                     List<Carts> listCart = cart.getAllCart();
-                    ProductDetailDAO productDAO = new ProductDetailDAO();
-                    List<ProductDetail> listProduct = new ArrayList<>();
                     for (Carts carts : listCart) {
                         ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
                         listProduct.add(p);
@@ -179,8 +182,32 @@ public class order extends HttpServlet {
                         request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                         break;
                     }
-                } 
-                else if(accounts == null){
+                } else {
+                    Cart ca = new Cart();
+                    ProductDetailDAO d = new ProductDetailDAO();
+                    List<ProductDetail> list = d.getAll();
+                    Cookie[] arr = request.getCookies();
+                    String txt = "";
+                    if (arr != null) {
+                        for (Cookie o : arr) {
+                            if (o.getName().equals("cart")) {
+                                txt = URLDecoder.decode(o.getValue(), StandardCharsets.UTF_8.toString());
+                                break;
+                            }
+                        }
+                    }
+                    ca = new Cart(txt, list);
+                    if (!txt.isEmpty()) {
+                        String[] s = txt.split(",");
+                        for (String string : s) {
+                            String[] i = string.split(":");
+                            ProductDetail p = productDAO.getInforProductDetail(Integer.parseInt(i[0]));
+                            listProduct.add(p);
+                        }
+                    }
+                    request.setAttribute("cookieCart", ca);
+                    request.setAttribute("total", amount);
+                    request.setAttribute("listproduct", listProduct);
                     request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 }
             //cart.deleteAllCart(AccountID);
