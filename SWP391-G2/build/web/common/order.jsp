@@ -190,7 +190,7 @@
                             </h2>
 
                             <span class="os-order-number">
-                                Order ID ${requestScope.orderID}
+                                Order Number ${requestScope.orderID}
                             </span>
                             <span class="os-description">
                                 Thank you for your purchase!
@@ -214,7 +214,7 @@
                                         <h3>Shipping Information</h3>
                                         <p>Customer Name: ${requestScope.fullname}<br>Phone Number: ${requestScope.phone}<br>Address Customer: ${requestScope.addressdetails}<br><%= selectedWard %><br>
                                             <%= selectedDistrict %><br>
-                                            <%= selectedCity %><br><br>Viet Name</p>
+                                            <%= selectedCity %><br>Viet Name</p>
                                         <h3>Payment Method</h3>
                                         <p> ${requestScope.method}</p>
                                     </div>

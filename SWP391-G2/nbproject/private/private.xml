@@ -3,45 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/admin/createaccount.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/UpdateVoucher.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/voucher/manageVouchers.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/ProductsHome.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/admin/AdminDetails.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/marketing/brand.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/VoucherDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/admin/adminadd.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/common/SearchHome.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Util/Email.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CartController.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/VoucherNew.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/admin/admin-profile.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/admin/admin.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/common/Signup.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/VouchersDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/home.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Accounts.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/feedback/FeedbackController.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/feedback/UpdateFeedback.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandDetailController.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Vouchers.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/ControllerOrderPurchase.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/ViewWishlistServlet.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/cart.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/SaleControllerOrder.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/checkout.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/ShopServlet.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/context/DBContext.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/VoucherManager.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/order.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/CartsDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/admin/AdminAddAccount.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/RoleDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/voucher/update-mange-vouchers.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/AccountsDAO.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/signup.jsp</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Voucher.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/marketing/BrandController.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/addressmain.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CartController.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CartCookieController.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/admin/AdminControlAccount.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Role.java</file>
-            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/order.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/cartcookie.jsp</file>
         </group>
     </open-files>
 </project-private>

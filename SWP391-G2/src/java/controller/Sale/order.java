@@ -7,6 +7,7 @@ package controller.Sale;
 import Dal.CartsDAO;
 import Dal.OrderDAO;
 import Dal.ProductDetailDAO;
+import Models.Accounts;
 import Models.Carts;
 import Models.Orders;
 import Models.ProductDetail;
@@ -17,6 +18,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.mail.Session;
@@ -112,7 +114,7 @@ public class order extends HttpServlet {
 //            request.getRequestDispatcher("checkout").forward(request, response);
 //        }
         String payment = request.getParameter("payment");
-
+        HttpSession session = request.getSession();
         String fullName = request.getParameter("fullname");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -124,8 +126,8 @@ public class order extends HttpServlet {
         String address = addressdetails + ward + district + city;
         String paymentMethod = "vnpay";
         int voucher = 1;
-        int AccountID = 9;
-     
+        Accounts accounts = (Accounts) session.getAttribute("account");
+        int AccountID = 11;
 
 //        response.getWriter().print(email);
 //        response.getWriter().print(phone);
@@ -143,12 +145,10 @@ public class order extends HttpServlet {
 
                 // Tạo các biến LocalDate cho ngày hiện tại
                 LocalDate orderDate = currentDate;
-                LocalDate recieveDate = currentDate;
+                response.getWriter().print(AccountID);
 
-                // Chuyển đổi LocalDate thành Date
+                //Chuyển đổi LocalDate thành Date
                 Date sqlOrderDate = Date.valueOf(orderDate);
-                Date sqlRecieveDate = Date.valueOf(recieveDate);
-
                 Orders order = new Orders(AccountID, sqlOrderDate, amount, fullName, phone, email, address, paymentMethod, note, 1, voucher);
                 dao.insertOrder(order);
                 int orderID = dao.getOrderID();
@@ -165,18 +165,26 @@ public class order extends HttpServlet {
                 request.setAttribute("addressdetails", addressdetails);
                 request.setAttribute("method", "Payment on delivery");
                 CartsDAO cart = new CartsDAO();
-                List<Carts> listCart = cart.getAllCart();
-                ProductDetailDAO productDAO = new ProductDetailDAO();
-                List<ProductDetail> listProduct = new ArrayList<>();
-                for (Carts carts : listCart) {
-                    ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
-                    listProduct.add(p);
+
+                if (accounts != null) {
+                    List<Carts> listCart = cart.getAllCart();
+                    ProductDetailDAO productDAO = new ProductDetailDAO();
+                    List<ProductDetail> listProduct = new ArrayList<>();
+                    for (Carts carts : listCart) {
+                        ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
+                        listProduct.add(p);
+                        request.setAttribute("listcart", listCart);
+                        request.setAttribute("total", amount);
+                        request.setAttribute("listproduct", listProduct);
+                        request.getRequestDispatcher("./common/order.jsp").forward(request, response);
+                        break;
+                    }
+                } 
+                else if(accounts == null){
+                    request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 }
-                request.setAttribute("listcart", listCart);
-                request.setAttribute("total", amount);
-                request.setAttribute("listproduct", listProduct);
-                request.getRequestDispatcher("./common/order.jsp").forward(request, response);
-                break;
+            //cart.deleteAllCart(AccountID);
+
             default:
                 throw new AssertionError();
         }
