@@ -14,6 +14,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <title>The perfume shop</title>
     </head>
+    <style>
+        .timer {
+            font-size: 1em;
+            text-align: center;
+        }
+    </style>
     <body >
         <div class="row vh-100 g-0">
             <c:if test="${requestScope.err != null}">
@@ -36,36 +42,52 @@
                                 <input type="number" name="OTP" maxlength="6" class="form-control" required="" id="inputPassword2" placeholder="XXXXXX">
                             </div>
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-dark mb-3">Confirm identity</button>
+                                <button type="submit" id="subm" class="subm btn btn-dark mb-3">Confirm identity</button>
                             </div>
                         </form>
+                        <div class="timer" id="timer">02:00</div>
                     </div>
+
                 </div>
 
             </div>
 
         </div>
     </body>
-    <script type="text/javascript">
-        var timeLeft = 20;
-        var timerId;
+    <script>
+        // Set the time for the countdown (2 minutes in seconds)
+        let timeLeft = 119;
 
-        function countdown() {
-            if (timeLeft == 0) {
-                clearTimeout(timerId);
-                document.getElementById("timer").innerHTML = "Time's up!";
-            } else {
-                document.getElementById("timer").innerHTML = timeLeft + " seconds remaining";
-                timeLeft--;
+        // Get the timer element
+        const timerElement = document.getElementById('timer');
+
+        // Function to update the timer
+        function updateTimer() {
+            // Calculate minutes and seconds
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            // Format the time as MM:SS
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // Display the updated time
+            timerElement.innerHTML = minutes + ':' + seconds;
+            console.log(minutes + ':' + seconds);
+            // Decrease the time left
+            timeLeft--;
+
+            // Check if the countdown is over
+            if (timeLeft < 0) {
+                clearInterval(timerInterval);
+                document.getElementById('subm').classList.add('disabled');
+                timerElement.innerHTML = '<a href="${pageContext.request.contextPath}/email" class="link-dark">Click here to retrieve OTP code.</a>';
             }
         }
 
-        function startTimer() {
-            timerId = setInterval(countdown, 1000);
-        }
+        // Start the timer
+        let timerInterval = setInterval(updateTimer, 1000);
 
-        window.onload = function () {
-            startTimer();
-        }
+
     </script>
 </html>

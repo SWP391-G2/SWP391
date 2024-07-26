@@ -108,7 +108,7 @@ public class CheckoutController extends HttpServlet {
         String totalprice_raw = request.getParameter("totalprice");
         if (check) {
             request.setAttribute("listcart", listCart);
-        }else{
+        } else {
             request.setAttribute("cookieCart", ca);
         }
         request.setAttribute("listproduct", listProduct);

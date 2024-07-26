@@ -49,15 +49,17 @@
             <div class="main" style="margin-left: 50px; margin-right: 50px;">
                 <div class="topbar">
                 </div>
-                <c:if test="${requestScope.success !=null}">
-                    <input type="hidden" id="success" value="${requestScope.success}" >
-                </c:if>
+
+                <input type="hidden" id="success" value="${requestScope.success}" >
+
 
 
                 <!<!-- product detail list -->
 
                 <div class="topbar mb-2">
-                    <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-5 font-weight-bold" href="./update-product?proId=${proId}">> Products</a></li>
+                    <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-6 link-dark" href="./update-product?proId=${proId}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                            </svg>Previous page</a></li>
                 </div>
 
                 <div class="row" style="margin-right: 70px;  padding: 10px; border: 1px solid #cccc;">
@@ -124,7 +126,7 @@
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
                                             <td><img src="${detail.image}" style="width: 75px; display: table; margin: 0px -10px;" alt=""></td>
-                                            <td class="w-50" ><a href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="link-primary">${detail.getProductDescription()}</a></td>
+                                            <td class="w-50" ><a  href="./update-product-detail?proId=${proId}&cateId=${cateId}&detailId=${detail.getProductFullDetailID()}" class="link-dark">${detail.getProductDescription()}</a></td>
                                             <td>${detail.getProductCreateDate()}</td>  
                                             <td>${detail.getProductSize()}</td> 
                                             <td>${detail.getProductPrice()}</td>   
@@ -326,9 +328,16 @@
                                                     window.location.href = 'product-detail?search=' + search +
                                                             '&status=' + status + '&pageNo=' + pageNo + '&cateId=' + cateID + '&proId=' + proId + '&size=' + size;
                                                 }
-                                                const success = document.getElementById('success') !== null ? document.getElementById('success') : null;
-                                                if (success.value !== '') {
+
+                                                const successElement = document.getElementById('success');
+                                                const errorElement = document.getElementById('error');
+
+                                                if (successElement && successElement.value) {
                                                     successfully('success');
+                                                }
+
+                                                if (errorElement && errorElement.value) {
+                                                    errors(errorElement.value);
                                                 }
                                                 function successfully(text) {
                                                     console.log(text);

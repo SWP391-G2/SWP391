@@ -55,7 +55,7 @@ public class EmailService extends HttpServlet {
         Date otpTime = (Date) session.getAttribute("otpTime");
         Date currentTime = new Date();
         long timeElapsedInSeconds = (currentTime.getTime() - otpTime.getTime()) / 1000;
-        if (timeElapsedInSeconds <= 15) {
+        if (timeElapsedInSeconds <= 120) {
             // Compare both OTP
             if (otp.equals(ots)) {
                 Accounts account = (Accounts) session.getAttribute("accountForSign");
