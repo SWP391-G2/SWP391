@@ -195,7 +195,11 @@
                 flex-direction: column;
             }
 
-
+            .scroll{
+                width: 100%;
+                height: 550px;
+                overflow-y: scroll;
+            }
         </style>
     </head>
 
@@ -291,63 +295,65 @@
         <div class="container-fluid pt-5" >
             <div class="row px-xl-5">
                 <div class="col-lg-8 table-responsive mb-5">
-                    <table class="table table-bordered text-center mb-0">
-                        <thead class="bg-secondary text-dark">
-                            <tr>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Size</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
-
-                        <c:set var="total" value="0"/>
-                        <c:set var="o" value="${requestScope.cart}"/>
-
-                        <c:forEach items="${o.items}" var="i" >
-                            <tbody class="align-middle">
+                    <div class="row scroll ">
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class="bg-secondary text-dark">
                                 <tr>
-                                    <td class="align-middle"><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
-                                    <td class="align-middle">${i.getName()}</td>
-                            <input name="name" value="${i.getName()}" type="hidden"/>
-                            <td class="align-middle">${i.product.getProductSize()}</td>
-                            <td class="align-middle">${i.product.getProductPrice()}$</td>
-                            <td class="align-middle">
-                                <form action="shop" method="post" id="myForm${loop.index}" class="form">
-                                    <div class="input-group quantity mx-auto">
-                                        <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
-                                        <span id="quanError${loop.index}" class="text-danger"></span>
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+
+                            <c:set var="total" value="0"/>
+                            <c:set var="o" value="${requestScope.cart}"/>
+
+                            <c:forEach items="${o.items}" var="i" >
+                                <tbody class="align-middle">
+                                    <tr>
+                                        <td class="align-middle"><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                        <td class="align-middle">${i.getName()}</td>
+                                <input name="name" value="${i.getName()}" type="hidden"/>
+                                <td class="align-middle">${i.product.getProductSize()}</td>
+                                <td class="align-middle">${i.product.getProductPrice()}$</td>
+                                <td class="align-middle">
+                                    <form action="shop" method="post" id="myForm${loop.index}" class="form">
+                                        <div class="input-group quantity mx-auto">
+                                            <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                            <span id="quanError${loop.index}" class="text-danger"></span>
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" disabled="" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" ${i.product.getProductAvaiable()- i.getQuantity() <= 0 ? 'disabled' : ''} name="add" value="1">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+
                                         </div>
-                                        <input type="text" disabled="" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" ${i.product.getProductAvaiable()- i.getQuantity() <= 0 ? 'disabled' : ''} name="add" value="1">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
+                                    </form>
 
-                                    </div>
-                                </form>
+                                </td>
+                                <td class="align-middle">
+                                    <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
+                                    <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
+                                </td>
+                                <!--<td class="align-middle "><button class="btn btn-danger" type="submit"  onclick="deleteCart()" name="deletecard" value="${i.product.getProductFullDetailID()}">DELETE</button></td>-->
+                                </tr>
+                                <c:set var="total" value="${total + itemTotal}"/>
 
-                            </td>
-                            <td class="align-middle">
-                                <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
-                                <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
-                            </td>
-                            <!--<td class="align-middle "><button class="btn btn-danger" type="submit"  onclick="deleteCart()" name="deletecard" value="${i.product.getProductFullDetailID()}">DELETE</button></td>-->
-                            </tr>
-                            <c:set var="total" value="${total + itemTotal}"/>
-
-                        </c:forEach>
+                            </c:forEach>
 
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="col-lg-4">

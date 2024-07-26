@@ -176,10 +176,6 @@ public class order extends HttpServlet {
                 request.setAttribute("listproduct", listProduct);
                 request.getRequestDispatcher("./common/order.jsp").forward(request, response);
                 break;
-            case "bank":
-                // Code xử lý cho "bank"
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;
             default:
                 throw new AssertionError();
         }

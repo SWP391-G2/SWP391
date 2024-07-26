@@ -71,13 +71,18 @@
             .btn-primary{
 
             }
+            .scroll{
+                width: 100%;
+                height: 340px;
+                overflow-y: scroll;
+            }
         </style>
 
     </head>
 
     <body>
 
-     <!-- Page Header Start -->
+        <!-- Page Header Start -->
         <header style="padding-bottom: 80px">
             <div class="main_header header_transparent header-mobile-m">
                 <div class="header_container sticky-header" style="padding: 0">
@@ -171,33 +176,35 @@
                         <div class="card-header bg-secondary border-0">
                             <h4 class="font-weight-semi-bold m-0">Order Total (${requestScope.listcart.size()} products)</h4>
                         </div>
-                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        <h5 class="font-weight-medium mb-3"></h5>
                         <div class="card-body">
-                            <table class="table border-0">
-                                <c:if test="${requestScope.listcart != null}">
-                                    <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                                        <tr>
-                                            <td>${listproduct[loop.index].getImage()}</td>
-                                            <td>${listcart[loop.index].getName()}</td>
-                                            <td>${listproduct[loop.index].getProductSize()}</td>
-                                            <td>${listcart[loop.index].getQuantity()}</td>
-                                            <td>${listproduct[loop.index].getProductPrice()}$</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${requestScope.cookieCart != null}">
-                                    <c:set var="o" value="${requestScope.cookieCart}"/>
-                                    <c:forEach items="${o.items}" var="i" >
-                                        <tr>
-                                            <td>${i.product.getImage()}</td>
-                                            <td>${i.getName()}</td>
-                                            <td>${i.product.getProductSize()}</td>
-                                            <td>${i.getQuantity()}</td>
-                                            <td>${i.product.getProductPrice()}$</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
-                            </table>
+                            <div class="row scroll ">
+                                <table class="table border-0">
+                                    <c:if test="${requestScope.listcart != null}">
+                                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                            <tr>
+                                                <td><img src="${listproduct[loop.index].getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                                <td>${listcart[loop.index].getName()}</td>
+                                                <td>${listproduct[loop.index].getProductSize()}</td>
+                                                <td>${listcart[loop.index].getQuantity()}</td>
+                                                <td>${listproduct[loop.index].getProductPrice()}$</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${requestScope.cookieCart != null}">
+                                        <c:set var="o" value="${requestScope.cookieCart}"/>
+                                        <c:forEach items="${o.items}" var="i" >
+                                            <tr>
+                                                <td><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                                <td>${i.getName()}</td>
+                                                <td>${i.product.getProductSize()}</td>
+                                                <td>${i.getQuantity()}</td>
+                                                <td>${i.product.getProductPrice()}$</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:if>
+                                </table>
+                            </div>
                             <div class="col-lg-4">
                                 <form class="mb-5" action="applyvouchers">
                                     <div class="input-group mb-3 d-flex">
@@ -255,15 +262,15 @@
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label>Full Name</label>
-                                    <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname">
+                                    <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Email</label>
-                                    <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email">
+                                    <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Mobile No</label>
-                                    <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone">
+                                    <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Country</label>
@@ -285,60 +292,11 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Address Details</label>
-                                    <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails">
+                                    <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Note</label>
                                     <input class="form-control" value="${param.note}" type="text" placeholder="Please deliver in the morning" name="note">
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount" name="newaccount">
-                                        <label class="custom-control-label" for="newaccount">Create an account</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="shipto" name="shipto">
-                                        <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="collapse mb-4" id="shipping-address">
-                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label>Full Name</label>
-                                    <input class="form-control" type="text" placeholder="John" name="shippingFirstName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control" type="text" placeholder="Doe" name="shippingLastName">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="example@email.com" name="shippingEmail">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="+84944362986" name="shippingPhone">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 1</label>
-                                    <input class="form-control" type="text" placeholder="123 Street" name="shippingAddress1">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>City</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingCity">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>State</label>
-                                    <input class="form-control" type="text" placeholder="New York" name="shippingState">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>ZIP Code</label>
-                                    <input class="form-control" type="text" placeholder="123" name="shippingZip">
                                 </div>
                             </div>
                         </div>
@@ -353,13 +311,13 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="payment" id="paypal" value="vnpay">
-                                        <label class="custom-control-label" for="paypal">VN Pay</label>
+                                        <label class="custom-control-label" for="paypal">Payment VN Pay</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="direct">
-                                        <label class="custom-control-label" for="directcheck">Direct Check</label>
+                                        <label class="custom-control-label" for="directcheck">Payment on delivery</label>
                                     </div>
                                 </div>
                             </div>

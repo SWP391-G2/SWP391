@@ -197,7 +197,7 @@
 
             .scroll{
                 width: 100%;
-                height: 600px;
+                height: 550px;
                 overflow-y: scroll;
             }
 
@@ -296,19 +296,19 @@
         <div class="container-fluid pt-5" >
             <div class="row px-xl-5">
                 <div class="col-lg-8 table-responsive mb-5">
-                    <table class="table table-bordered text-center mb-0">
-                        <thead class="bg-secondary text-dark">
-                            <tr>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Size</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
-                        <div class="row scroll ">
+                    <div class="row scroll ">
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class="bg-secondary text-dark">
+                                <tr>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
                             <c:set var="total" value="0"/>
                             <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
                                 <tbody class="align-middle">
@@ -353,8 +353,8 @@
                                     <c:set var="total" value="${total + itemTotal}"/>
                                 </tbody>
                             </c:forEach>
-                        </div>
-                    </table>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="col-lg-4">
@@ -422,41 +422,41 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                        function notice() {
-                                            if (confirm("Delete all items in cart?")) {
-                                                document.getElementById("deleteForm").submit();
-                                            }
-                                        }
-
-                                        function deleteCart() {
-                                            if (confirm("Do you want delete product?")) {
-                                                document.getElementById("myForm${loop.index}").submit();
-                                            }
-                                        }
-
-                                        function sendCode(code) {
-                                            window.location.href = 'applyvouchers?code=' + code;
-                                        }
-
-
-
-                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                            inputElement.addEventListener('keypress', (event) => {
-                                                if (event.key === 'Enter') {
-                                                    event.preventDefault();
-                                                    const value = document.getElementById('newquant' + index).value;
-                                                    const value1 = document.getElementById('quantity' + index).value;
-                                                    if (value1 < value) {
-                                                        document.getElementById('quanError' + index).innerText = 'fail';
-                                                        return false;
-                                                    } else {
-                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                        document.getElementById('myForm' + index).submit();
-                                                    }
-
+                                            function notice() {
+                                                if (confirm("Delete all items in cart?")) {
+                                                    document.getElementById("deleteForm").submit();
                                                 }
+                                            }
+
+                                            function deleteCart() {
+                                                if (confirm("Do you want delete product?")) {
+                                                    document.getElementById("myForm${loop.index}").submit();
+                                                }
+                                            }
+
+                                            function sendCode(code) {
+                                                window.location.href = 'applyvouchers?code=' + code;
+                                            }
+
+
+
+                                            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                                inputElement.addEventListener('keypress', (event) => {
+                                                    if (event.key === 'Enter') {
+                                                        event.preventDefault();
+                                                        const value = document.getElementById('newquant' + index).value;
+                                                        const value1 = document.getElementById('quantity' + index).value;
+                                                        if (value1 < value) {
+                                                            document.getElementById('quanError' + index).innerText = 'fail';
+                                                            return false;
+                                                        } else {
+                                                            document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                            document.getElementById('myForm' + index).submit();
+                                                        }
+
+                                                    }
+                                                });
                                             });
-                                        });
         </script>
     </body>
 
