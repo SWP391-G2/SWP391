@@ -134,7 +134,7 @@ public class order extends HttpServlet {
         Accounts accounts = null;
         accounts = (Accounts) session.getAttribute("account");
         AccountID = accounts != null ? accounts.getAccountID() : -1;
-        Orders or = new Orders(AccountID, sqlOrderDate, totalprice, fullName, phone, email, address, paymentMethod, note, orderID, -1);
+        Orders or = new Orders(AccountID, sqlOrderDate, totalprice, fullName, phone, email, address, paymentMethod, note, 1, -1);
 
         switch (payment) {
             case "vnpay":
@@ -218,10 +218,11 @@ public class order extends HttpServlet {
                     if (checkVou) {
                         Vouchers v = (Vouchers) session.getAttribute("dis");
                         voucherID = v.getVoucherID();
-                        Orders order = new Orders(0, sqlOrderDate, totalprice, fullName, phone, email, address, "Payment on delivery", note, 1, voucherID);
+                        Orders order = new Orders(-1, sqlOrderDate, totalprice, fullName, phone, email, address, "Payment on delivery", note, 1, voucherID);
                         dao.insertOrder(order);
+                        session.removeAttribute("dis");
                     } else {
-                        Orders order = new Orders(0, sqlOrderDate, totalprice, fullName, phone, email, address, "Payment on delivery", note, 1, -1);
+                        Orders order = new Orders(-1, sqlOrderDate, totalprice, fullName, phone, email, address, "Payment on delivery", note, 1, -1);
                         dao.insertOrder(order);
                     }
                     ca = new Cart(txt, list);

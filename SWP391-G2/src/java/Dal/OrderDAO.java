@@ -240,7 +240,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 5; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -416,7 +416,7 @@ public class OrderDAO extends DBContext {
         Date sqlOrderDate = Date.valueOf(orderDate);
 //        Date sqlRecieveDate = Date.valueOf(recieveDate);
         //Orders order = new Orders(1, sqlOrderDate, 3600,"Ha Trung" ,"0944362986", "hatrung03022003@gmail.com", "Thanh Ba - Phu Tho","Direct", "Hang de vo", 1, 2);
-        Orders o = new Orders(11, sqlOrderDate, 84024.5, "Dinh Khanh Linh", "0944362986", "hatrung03022003@gmail.com", "Khu 12 ngo trang tien phuong xuan la quan tay ho thanh pho ha noi", "Direct", "Hang de vo", 1, 2);
+        Orders o = new Orders(11, sqlOrderDate, 669.999, "Dinh Khanh Linh", "0944362986", "hatrung03022003@gmail.com", "Khu 12 ngo trang tien phuong xuan la quan tay ho thanh pho ha noi", "Direct", "Hang de vo", 1, -1);
         dao.insertOrder(o);
 //        List<Orders> list = dao.getOrdersByFilter(1, "", 1, 10);
 //        for (Orders orders : list) {

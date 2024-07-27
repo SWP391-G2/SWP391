@@ -143,9 +143,10 @@
                         </select> -->
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
-                            <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
-                            <option value="2" ${status==2 ? 'selected' : '' }>Done</option>
-                            <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
+                            <option value="1" ${status==1 ? 'selected' : '' }>Wait</option>
+                            <option value="2" ${status==2 ? 'selected' : '' }>Processing</option>
+                            <option value="3" ${status==3 ? 'selected' : '' }>Done</option>
+                            <option value="4" ${status==4 ? 'selected' : '' }>Cancelled</option>
                         </select>
                     </div>
 
@@ -176,20 +177,20 @@
                                             <td>${o.getOrderPhone()}</td>
                                             <td>${o.getOrderAddress()}</td>
                                             <td>${o.getOrderDate()}</td>
-                                            <td>${o.getOrderTotalPrice()}</td>
+                                            <td>${o.getOrderTotalPrice()}$</td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${o.getOrderSoID() == 1}">
-                                                        Processing
+                                                        Wait
                                                     </c:when>
                                                     <c:when test="${o.getOrderSoID() == 2}">
-                                                        Done
+                                                        Processing
                                                     </c:when>
                                                     <c:when test="${o.getOrderSoID() == 3}">
-                                                        Cancelled
+                                                        Done
                                                     </c:when>
                                                     <c:otherwise>
-                                                        Unknown
+                                                        Cancelled
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>

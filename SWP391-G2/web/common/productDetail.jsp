@@ -395,11 +395,9 @@
         const quantityInput = document.getElementById('quantity');
         let currentQuantity = parseInt(quantityInput.value);
         const maxQuantity = parseInt(quantityInput.max);
-
         // Ensure the current quantity is a number and apply the change
         if (!isNaN(currentQuantity)) {
             currentQuantity += change;
-
             // Ensure the quantity is within the allowed range
             if (currentQuantity < quantityInput.min) {
                 currentQuantity = parseInt(quantityInput.min);
@@ -417,18 +415,15 @@
         var policyText = document.getElementById('policy-text');
         var descContent = document.getElementById('description');
         var policyContent = document.getElementById('policy');
-
         descText.addEventListener('click', function () {
             policyContent.style.display = 'none';
             descContent.style.display = 'block';
         });
-
         policyText.addEventListener('click', function () {
             descContent.style.display = 'none';
             policyContent.style.display = 'block';
         });
     });
-
     var priceAndSizeData = [
     <c:forEach items="${priceandsize}" var="size" varStatus="status">
     {
@@ -453,7 +448,6 @@
                 console.log(document.getElementById("productductFullDetailID"));
                 var statusText = (priceAndSizeData[i].quantity === 0 || priceAndSizeData[i].status === 0) ? 'Out Of Stock' : 'In Stock';
                 document.getElementById("status").innerText = statusText;
-
                 // Cập nhật trạng thái của nút "Add to Cart"
                 var addToCartBtn = document.getElementById("addToCartBtn");
                 if (priceAndSizeData[i].quantity === 0) {
@@ -461,7 +455,13 @@
                     addToCartBtn.removeAttribute("onclick");
                 } else {
                     addToCartBtn.removeAttribute("disabled");
+    <c:if test="${sessionScope.account != null}">
                     addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
+    </c:if>
+
+    <c:if test="${sessionScope.account == null}">
+                    addToCartBtn.setAttribute("onclick", "addToCartCookie(" + priceAndSizeData[i].productfulldetailid + ")");
+    </c:if>
                 }
 
 
@@ -469,21 +469,24 @@
             }
         }
     });
-    <c:if test="${sessionScope.account != null}">
     function addToCart(productductFullDetailID) {
-        var productname = document.getElementById('productname').value;
-        var quantity = document.getElementById('quantity').value;
-        window.location.href = "/SWP391-G2/cartcontroller?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID;
+        var productname = document.getElementById('productname');
+        var quantity = document.getElementById('quantity');
+        if (productname !== null && productname.value !== '' && quantity !== null && quantity.value !== '') {
+            window.location.href = "/SWP391-G2/cartcontroller?quantity=" + quantity.value + "&&productname=" + productname.value + "&&productfulldetailid=" + productductFullDetailID;
+        }
     }
-    </c:if>
 
-    <c:if test="${sessionScope.account == null}">
+
+
     function addToCartCookie(productductFullDetailID) {
-        var productname = document.getElementById('productname').value;
-        var quantity = document.getElementById('quantity').value;
-        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID;
+        var productname = document.getElementById('productname');
+        var quantity = document.getElementById('quantity');
+        if (productname !== null && productname.value !== '' && quantity !== null && quantity.value !== '') {
+            window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity.value + "&&productname=" + productname.value + "&&productfulldetailid=" + productductFullDetailID;
+        }
     }
-    </c:if>
+
 
 </script>
 <script src="js/main.js"></script>

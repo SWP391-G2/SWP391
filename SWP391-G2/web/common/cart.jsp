@@ -350,7 +350,7 @@
                                             <c:set var="itemTotal" value="${listproduct[loop.index].getProductPrice() * listcart[loop.index].getQuantity()}"/>
                                             <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
                                         </td>
-                                        <td class="align-middle "><a onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
+                                        <td class="align-middle text-warning" ><a class="text-warning" onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
                                     </tr>
                                     <c:set var="total" value="${total + itemTotal}"/>
                                 </tbody>

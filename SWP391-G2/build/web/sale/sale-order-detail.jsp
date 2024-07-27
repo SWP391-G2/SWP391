@@ -78,7 +78,7 @@
                                         <table class="table border-0">
                                             <c:forEach items="${requestScope.orderDetail}" var="_order" varStatus="loop">
                                                 <tr style="height: 30px">
-                                                    <td>${_order.getImage()}</td>
+                                                    <td><img src="${_order.getImage()}" alt="" style="width: 60px; height: 60px"></td>
                                                     <td>${_order.getName()}</td>
                                                     <td>${_order.getSize()}</td>
                                                     <td>${_order.getQuantity()}</td>
@@ -91,7 +91,7 @@
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2 mb-4">
                                         <h5 class="font-weight-bold">Total</h5>
-                                        <h5 class="font-weight-bold">${info.orderTotalPrice}</h5>
+                                        <h5 class="font-weight-bold">${info.orderTotalPrice}$</h5>
                                     </div>
                                 </div>
                             </div>
