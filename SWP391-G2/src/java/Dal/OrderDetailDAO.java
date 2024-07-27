@@ -45,7 +45,7 @@ public class OrderDetailDAO extends DBContext {
     }
 
     public void insertOrderDetail(int orderID, int pdID, int odQuantity, double pdPrice, String odName) {
-        String sql = "insert into OrderDetail(odOrderID, odProductDetail, odQuantity, odPrice, odName) values(?,?,?,?,?);";
+        String sql = "nsert into OrderDetail(odOrderID, odProductDetail, odQuantity, odPrice, odName) values(?,?,?,?,?);";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, orderID);
