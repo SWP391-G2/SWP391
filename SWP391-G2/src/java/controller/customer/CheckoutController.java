@@ -66,6 +66,10 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       String r = request.getParameter("r");
+       if(r!=null){
+           request.setAttribute("error", "Checkout Fail");
+       }
         //processRequest(request, response);
         HttpSession session = request.getSession();
         ProductDetailDAO productDAO = new ProductDetailDAO();

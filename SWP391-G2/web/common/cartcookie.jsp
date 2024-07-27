@@ -22,6 +22,8 @@
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
         <!-- Libraries Stylesheet -->
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -291,6 +293,7 @@
         <!-- Page Header End -->
 
 
+
         <!-- Cart Start -->
         <div class="container-fluid pt-5" >
             <div class="row px-xl-5">
@@ -311,7 +314,6 @@
 
                             <c:set var="total" value="0"/>
                             <c:set var="o" value="${requestScope.cart}"/>
-
                             <c:forEach items="${o.items}" var="i" >
                                 <tbody class="align-middle">
                                     <tr>
@@ -351,7 +353,6 @@
 
                             </c:forEach>
 
-
                         </table>
                     </div>
                 </div>
@@ -379,7 +380,9 @@
                                     <h5 class="font-weight-bold"><fmt:formatNumber value="${total}" type="number"  pattern="#,##0.00"/>$</h5>
                                 </div>
                                 <input type ="hidden" value="${total}" name="totalprice"/>
-                                <button  class="btn btn-block bg-dark mb-3 my-3 py-3"><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
+                                <c:if test="${total !=0}">
+                                    <button  class="btn btn-block bg-dark mb-3 my-3 py-3" ><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
+                                </c:if>
                             </div>
                         </form>
                     </div>
@@ -449,6 +452,22 @@
                     }
                 });
             });
+
+            function loading() {
+                let timerInterval;
+                Swal.fire({
+                    title: "Loading...",
+                    didOpen: () => {
+                        Swal.showLoading();
+
+                    },
+                    willClose: () => {
+
+                    }
+                }).then((result) => {
+
+                });
+            }
         </script>
     </body>
 

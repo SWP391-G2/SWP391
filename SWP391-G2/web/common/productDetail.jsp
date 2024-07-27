@@ -111,18 +111,18 @@
                 <div class="row gx-5 align-items-center">
                     <aside class="col-lg-5">
                         <div class="mb-3">
-                            <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
+                            <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
                         </div>
                         <button class="prev" onclick="changeImage(-1)">&#10094;</button>
                         <button class="next" onclick="changeImage(1)">&#10095;</button>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
-                                    <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}')">
+                                    <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
                                 </div>
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
-                                        <img src="images/Products/${c.getCategoryName()}/${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')">
+                                        <img src="${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
                                     </div>
                                 </c:forEach>
                             </div>
@@ -212,7 +212,7 @@
                                     <p >
                                         ${pd.getProductDescription()}
                                     </p>
-                                    <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
+                                    <img src="${p.getProductImageUrl()}">
                                     <p >
                                         ${b.getDescription()}
                                     </p>

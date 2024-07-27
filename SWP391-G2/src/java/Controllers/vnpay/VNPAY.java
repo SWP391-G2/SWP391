@@ -4,22 +4,36 @@
  */
 package Controllers.vnpay;
 
+import Dal.CartsDAO;
+import Dal.OrderDAO;
+import Dal.OrderDetailDAO;
+import Dal.ProductDetailDAO;
+import Models.Accounts;
+import Models.Cart;
+import Models.Carts;
+import Models.Orders;
+import Models.ProductDetail;
+import Models.Vouchers;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,6 +47,144 @@ import org.apache.http.client.fluent.Response;
  * @author hatru
  */
 public class VNPAY extends HttpServlet {
+
+    protected void order(HttpServletRequest request, HttpServletResponse response) throws SecurityException, IOException, ServletException {
+        // Code xử lý cho "direct"
+        HttpSession session = request.getSession();
+
+        //response.getWriter().print(sqlOrderDate);
+        // Code xử lý cho "direct"
+        Orders o = (Orders) session.getAttribute("order");
+        //response.getWriter().print(sqlOrderDate);
+        boolean check = o.getAccountID() == -1 ? false : true;
+        request.setAttribute("fullname", o.getOrderContactName());
+        request.setAttribute("email", o.getEmail());
+        request.setAttribute("phone", o.getOrderPhone());
+        request.setAttribute("address", o.getOrderAddress());
+        request.setAttribute("note", o.getOrderNote());
+        request.setAttribute("accountID", o.getAccountID());
+        request.setAttribute("method", "Payment on VNpay");
+
+        CartsDAO cart = new CartsDAO();
+        ProductDetailDAO productDAO = new ProductDetailDAO();
+        List<ProductDetail> listProduct = new ArrayList<>();
+        OrderDAO dao = new OrderDAO();
+        OrderDetailDAO detailDao = new OrderDetailDAO();
+        int orderID = -1;
+        dao.insertOrder(o);
+        if (check) {
+            List<Carts> listCart = cart.getAllCart();
+            orderID = dao.getOrderID();
+            for (Carts carts : listCart) {
+                ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
+                listProduct.add(p);
+                detailDao.insertOrderDetail(orderID, carts.getProductFullDetailID(), carts.getQuantity(), p.getProductPrice().floatValue(), carts.getName());
+            }
+            request.setAttribute("listcart", listCart);
+            request.setAttribute("total", o.getOrderTotalPrice());
+            request.setAttribute("listproduct", listProduct);
+            //response.getWriter().println(AccountID);
+            cart.deleteAllCart(o.getAccountID());
+            session.removeAttribute("dis");
+            request.getRequestDispatcher("./common/order.jsp").forward(request, response);
+        } else {
+            Cart ca = new Cart();
+            ProductDetailDAO d = new ProductDetailDAO();
+            List<ProductDetail> list = d.getAll();
+            Cookie[] arr = request.getCookies();
+            String txt = "";
+            if (arr != null) {
+                for (Cookie c : arr) {
+                    if (c.getName().equals("cart")) {
+                        txt = URLDecoder.decode(c.getValue(), StandardCharsets.UTF_8.toString());
+                        break;
+                    }
+                }
+            }
+            ca = new Cart(txt, list);
+            orderID = dao.getOrderID();
+            if (!txt.isEmpty()) {
+                String[] s = txt.split(",");
+                for (String string : s) {
+                    String[] i = string.split(":");
+                    ProductDetail p = productDAO.getInforProductDetail(Integer.parseInt(i[0]));
+                    listProduct.add(p);
+                    detailDao.insertOrderDetail(orderID, Integer.parseInt(i[0]), Integer.parseInt(i[1]), p.getProductPrice().floatValue(), i[2]);
+                }
+            }
+            request.setAttribute("cookieCart", ca);
+            request.setAttribute("total", o.getOrderTotalPrice());
+            request.setAttribute("listproduct", listProduct);
+
+            //Delete all product in cart cookie
+            if (arr != null) {
+                for (Cookie c : arr) {
+                    if (c.getName().equals("cart")) {
+                        c.setMaxAge(0);
+                        response.addCookie(c);
+                        break;
+                    }
+                }
+            }
+            request.getRequestDispatcher("./common/order.jsp").forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Map fields = new HashMap();
+            for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+                String fieldName = URLEncoder.encode((String) params.nextElement(), StandardCharsets.US_ASCII.toString());
+                String fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII.toString());
+                if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                    fields.put(fieldName, fieldValue);
+                }
+            }
+
+            String vnp_SecureHash = request.getParameter("vnp_SecureHash");
+            if (fields.containsKey("vnp_SecureHashType")) {
+                fields.remove("vnp_SecureHashType");
+            }
+            if (fields.containsKey("vnp_SecureHash")) {
+                fields.remove("vnp_SecureHash");
+            }
+
+            // Check checksum
+            String signValue = Config.hashAllFields(fields);
+            if (signValue.equals(vnp_SecureHash)) {
+
+                boolean checkOrderId = true; // vnp_TxnRef exists in your database
+                boolean checkAmount = true; // vnp_Amount is valid (Check vnp_Amount VNPAY returns compared to the 
+                boolean checkOrderStatus = true; // PaymnentStatus = 0 (pending)
+
+                if (checkOrderId) {
+                    if (checkAmount) {
+                        if (checkOrderStatus) {
+                            if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
+                                order(request, response);
+                                //Here Code update PaymnentStatus = 1 into your Database
+                            } else {
+                                HttpSession session = request.getSession();
+                                Orders o = (Orders) session.getAttribute("order");
+                                response.sendRedirect("checkout?totalprice=" + o.getOrderTotalPrice()+"&&r=1");
+                            }
+                        } else {
+
+                        }
+                    } else {
+
+                    }
+                } else {
+
+                }
+            } else {
+
+            }
+        } catch (Exception e) {
+
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -123,5 +275,3 @@ public class VNPAY extends HttpServlet {
     }
 
 }
-//vui lòng tham khảo thêm tại code demo
-

@@ -7,7 +7,7 @@
         <li>
             <div style="display: flex; margin: 10px;">
                 <span class="icon">
-    
+
                 </span>
                 <span class="title">The Perfume<span class="shop-text">Shop</span></span>
             </div>
@@ -15,7 +15,7 @@
 
 
 
-        <c:if test="${sessionScope.role == 3}">
+        <c:if test="${sessionScope.account.getAccountID() == 2}">
             <li>
                 <a href="../admin/home">
                     <span class="icon">
@@ -26,7 +26,7 @@
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 3}">
+        <c:if test="${sessionScope.account.getAccountID() == 2}">
             <li>
                 <a href="../sale/manageOrder">
                     <span class="icon">
@@ -41,7 +41,7 @@
 
 
 
-        <c:if test="${sessionScope.role == 2}">
+        <c:if test="${sessionScope.account.getAccountID() == 3}">
             <li>
 
                 <a href="marketing-manager-products">
@@ -54,16 +54,7 @@
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 2}">
-            <li>
-                <a href="../admin/FeedbackList">
-                    <span class="icon">
-                        <ion-icon name="chatbubble"></ion-icon>
-                    </span>
-                    <span class="title">Feedbacks</span>
-                </a>
-            </li>
-        </c:if>
+
 
 
         <c:if test="${sessionScope.role == 2}">
@@ -78,60 +69,29 @@
         </c:if>
 
 
-        <c:if test="${sessionScope.role == 4}">
 
+        <c:if test="${sessionScope.account.getAccountID() == 1}">
             <li>
-                <a href="admincontrolaccount?roleId=3">
+                <a href="admincontrolaccount">
                     <span class="icon">
                         <ion-icon name="people"></ion-icon>
                     </span>
-                    <span class="title">Marketing</span>
-                </a>
-            </li>
-
-        </c:if>
-        <c:if test="${sessionScope.role == 4}">
-
-            <li>
-                <a href="admincontrolaccount?roleId=3">
-                    <span class="icon">
-                        <ion-icon name="people"></ion-icon>
-                    </span>
-                    <span class="title">Marketing</span>
+                    <span class="title">Account</span>
                 </a>
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 3}">
-
+        <c:if test="${sessionScope.account.getAccountID() == 1}">
             <li>
-                <a href="admincontrolaccount?roleId=2">
+                <a href="admincontrolaccount">
                     <span class="icon">
                         <ion-icon name="people"></ion-icon>
                     </span>
-                    <span class="title">Sale</span>
+                    <span class="title">Account</span>
                 </a>
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 4}">
-            <li>
-                <a href="admincontrolaccount?roleId=4">
-                    <span class="icon">
-                        <ion-icon name="people"></ion-icon>
-                    </span>
-                    <span class="title">Customer</span>
-                </a>
-            </li>
-        </c:if>
-            <li>
-                <a href="adminprofile?roleId=1">
-                    <span class="icon">
-                        <ion-icon name="person"></ion-icon>
-                    </span>
-                    <span class="title">My Profile</span>
-                </a>
-            </li>
         <c:if test="${sessionScope.role == 3}">
             <li>
                 <a href="brand?brandID=1">

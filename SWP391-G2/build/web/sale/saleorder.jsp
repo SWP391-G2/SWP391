@@ -194,7 +194,7 @@
                                                 </c:choose>
                                             </td>
                                             <td>
-                                                <a href="saleorderdetails?orderID=${o.getOrderID()}">View Details</a>                                                    
+                                                <a href="sale-order-detail?orderId=${o.getOrderID()}">View Details</a>                                                    
 
                                             </td>
                                         </tr>

@@ -4,6 +4,7 @@
  */
 package Models;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -15,7 +16,7 @@ public class Orders {
     private int orderID;
     private int accountID;
     private Date orderDate;
-    private float orderTotalPrice;
+    private Double orderTotalPrice;
     private String orderContactName;
     private String orderPhone;
     private String email;
@@ -28,7 +29,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int orderID, int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
@@ -43,7 +44,7 @@ public class Orders {
         this.voucherID = voucherID;
     }
 
-    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
@@ -56,8 +57,6 @@ public class Orders {
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
-
-    
 
     public int getOrderID() {
         return orderID;
@@ -83,11 +82,11 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public float getOrderTotalPrice() {
+    public Double getOrderTotalPrice() {
         return orderTotalPrice;
     }
 
-    public void setOrderTotalPrice(float orderTotalPrice) {
+    public void setOrderTotalPrice(Double orderTotalPrice) {
         this.orderTotalPrice = orderTotalPrice;
     }
 

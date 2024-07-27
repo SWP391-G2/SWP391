@@ -80,7 +80,7 @@ public class BrandController extends HttpServlet {
         String search = "";
         int status = -1;
         int pageNo = 1;
-        final int pageSize = 10;
+        final int pageSize = 6;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");

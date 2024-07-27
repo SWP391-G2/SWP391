@@ -9,88 +9,16 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <style type="text/css">
-            .nav-borders .nav-link.active {
-                color: #0061f2;
-                border-bottom-color: #0061f2;
-            }
-            .nav-borders .nav-link {
-                color: #69707a;
-                border-bottom-width: 0.125rem;
-                border-bottom-style: solid;
-                border-bottom-color: transparent;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                padding-left: 0;
-                padding-right: 0;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-            .card {
-                border: none;
-                border-radius: 10px;
-                width: 100%;
-                margin-top: 10%;
-            }
-            .btn-secondary {
-                height: 40px !important;
-                margin-top: 3px;
-            }
-            .btn-secondary:focus {
-                box-shadow: none;
-            }
-            .container-xl {
-                padding-top: 100px;
-                padding-bottom: 100px;
-            }
-            .header_container {
-                padding: 0;
-            }
-            .header_container .container-fluid {
-                background-color: black;
-            }
-            .header_container .row {
-                padding: 8px 0;
-            }
-            .main_menu ul {
-                display: flex;
-                justify-content: space-around;
-            }
-            .search_form {
-                display: flex;
-                justify-content: center;
-            }
-            .block-account ul {
-                padding: 0;
-                list-style: none;
-            }
-            .block-account ul li a {
-                display: block;
-                padding: 10px;
-                text-decoration: none;
-                color: #000;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-            }
-            .block-account ul li a:hover, .block-account ul li a.active {
-                background-color: #0074bf;
-                color: #fff;
-            }
-            .title-head {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-            .form-signup p {
-                margin-bottom: 10px;
-            }
+            
         </style>
     </head>
     <body>
-        <header>
+        <!-- Page Header Start -->
+        <header style="padding-bottom: 80px">
             <div class="main_header header_transparent header-mobile-m">
-                <div class="header_container sticky-header">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
+                <div class="header_container sticky-header" style="padding: 0">
+                    <div class="container-fluid" style="background-color: black">
+                        <div class="row align-items-center" style="padding: 8px 0">
                             <div class="col-lg-2">
                                 <div class="logo">
                                     <a href="home"><img src="images/logo/logo0.png" alt=""></a>
@@ -142,14 +70,15 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" href="">BLOGS</a>
                                             </li>
+
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="header_search search_form">
-                                    <form class="input-group search-bar search_form has-validation-callback" action="searchHome" method="get" role="search"> 
-                                        <input type="text" name="query" placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                    <form class="input-group search-bar search_form has-validation-callback " action="searchHome" method="get" role="search"> 
+                                        <input type="text" name="query" value placeholder="Search your products..." class="input-group-field st-default-search-input search-text" autocomplete="off">
                                         <span class="input-group-btn">
                                             <button class="btn icon-fallback-text">
                                                 <i class="fa fa-search"></i>
@@ -166,7 +95,8 @@
                 </div>
             </div>
         </header>
-        <div class="container-xl px-4 mt-4">
+        <!-- Page Header End -->
+        <div class="">
             <section class="signup page_customer_account">
                 <div class="container">
                     <div class="row">
@@ -182,7 +112,7 @@
                                         <a class="title-info" href="myorder" title="Đơn hàng của bạn">Đơn hàng của bạn</a>
                                     </li>
                                     <li>
-                                        <a class="title-info" href="./commonchangepassword.jsp" title="Đổi mật khẩu">Đổi mật khẩu</a>
+                                        <a class="title-info" href="/account/changepassword" title="Đổi mật khẩu">Đổi mật khẩu</a>
                                     </li>
                                     <li>
                                         <a class="title-info" href="/account/logout" title="Đăng xuất">Đăng xuất</a>
@@ -191,14 +121,27 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
-                            <h1 class="title-head margin-top-0">Thông tin tài khoản</h1>
-                            <div class="form-signup name-account m992">
-                                <p><strong>Họ tên:</strong>  Trung Hà</p>
-                                <p> <strong>Email:</strong> hatrung03022003@gmail.com</p>
-                                <p> <strong>Điện thoại:</strong> 0944362886 </p>
-                                <p><strong>Công ty:</strong> An Giang</p>
-                                <p><strong>Địa chỉ :</strong> ${requestScope.address}</p>
-                            </div>
+                            <h1 class="title-head margin-top-0">Thông tin đơn hàng</h1>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Order Date</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2024-07-25</td>
+                                        <td>$100.00</td>
+                                        <td>Credit Card</td>
+                                        <td>Pending</td>
+                                        <td><button class="btn btn-primary">Feedback</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

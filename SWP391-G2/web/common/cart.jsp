@@ -25,6 +25,8 @@
 
         <!-- Libraries Stylesheet -->
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
         <!-- Customized Bootstrap Stylesheet -->
 
@@ -39,7 +41,7 @@
             }
 
             .container-fluid {
-                padding-top: 50px;
+                padding-top: 0px;
             }
 
             .table-responsive {
@@ -195,10 +197,10 @@
                 flex-direction: column;
             }
 
-            .scroll{
-                width: 100%;
-                height: 550px;
-                overflow-y: scroll;
+            .scroll {
+                height: 550px; /* Adjust height as needed */
+                overflow-y: auto;
+                border: 1px solid #ddd; /* Optional: to visually separate the scroll area */
             }
 
         </style>
@@ -415,41 +417,57 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                            function notice() {
-                                                if (confirm("Delete all items in cart?")) {
-                                                    document.getElementById("deleteForm").submit();
-                                                }
+                                        function notice() {
+                                            if (confirm("Delete all items in cart?")) {
+                                                document.getElementById("deleteForm").submit();
                                             }
+                                        }
 
-                                            function deleteCart() {
-                                                if (confirm("Do you want delete product?")) {
-                                                    document.getElementById("myForm${loop.index}").submit();
-                                                }
+                                        function deleteCart() {
+                                            if (confirm("Do you want delete product?")) {
+                                                document.getElementById("myForm${loop.index}").submit();
                                             }
+                                        }
 
-                                            function sendCode(code) {
-                                                window.location.href = 'applyvouchers?code=' + code;
-                                            }
+                                        function sendCode(code) {
+                                            window.location.href = 'applyvouchers?code=' + code;
+                                        }
 
 
 
-                                            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                                inputElement.addEventListener('keypress', (event) => {
-                                                    if (event.key === 'Enter') {
-                                                        event.preventDefault();
-                                                        const value = document.getElementById('newquant' + index).value;
-                                                        const value1 = document.getElementById('quantity' + index).value;
-                                                        if (value1 < value) {
-                                                            document.getElementById('quanError' + index).innerText = 'fail';
-                                                            return false;
-                                                        } else {
-                                                            document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                            document.getElementById('myForm' + index).submit();
-                                                        }
-
+                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                            inputElement.addEventListener('keypress', (event) => {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                    const value = document.getElementById('newquant' + index).value;
+                                                    const value1 = document.getElementById('quantity' + index).value;
+                                                    if (value1 < value) {
+                                                        document.getElementById('quanError' + index).innerText = 'fail';
+                                                        return false;
+                                                    } else {
+                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                        document.getElementById('myForm' + index).submit();
                                                     }
-                                                });
+
+                                                }
                                             });
+                                        });
+
+                                        function loading() {
+                                            let timerInterval;
+                                            Swal.fire({
+                                                title: "Loading...",
+                                                didOpen: () => {
+                                                    Swal.showLoading();
+
+                                                },
+                                                willClose: () => {
+
+                                                }
+                                            }).then((result) => {
+
+                                            });
+                                        }
         </script>
     </body>
 

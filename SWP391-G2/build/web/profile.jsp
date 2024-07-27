@@ -166,7 +166,7 @@
                 </div>
             </div>
         </header>
-        <div class="container-xl px-4 mt-4">
+        <div class="">
             <section class="signup page_customer_account">
                 <div class="container">
                     <div class="row">
@@ -182,7 +182,7 @@
                                         <a class="title-info" href="myorder" title="Đơn hàng của bạn">Đơn hàng của bạn</a>
                                     </li>
                                     <li>
-                                        <a class="title-info" href="./commonchangepassword.jsp" title="Đổi mật khẩu">Đổi mật khẩu</a>
+                                        <a class="title-info" href="/account/changepassword" title="Đổi mật khẩu">Đổi mật khẩu</a>
                                     </li>
                                     <li>
                                         <a class="title-info" href="/account/logout" title="Đăng xuất">Đăng xuất</a>
@@ -191,14 +191,35 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
-                            <h1 class="title-head margin-top-0">Thông tin tài khoản</h1>
-                            <div class="form-signup name-account m992">
-                                <p><strong>Họ tên:</strong>  Trung Hà</p>
-                                <p> <strong>Email:</strong> hatrung03022003@gmail.com</p>
-                                <p> <strong>Điện thoại:</strong> 0944362886 </p>
-                                <p><strong>Công ty:</strong> An Giang</p>
-                                <p><strong>Địa chỉ :</strong> ${requestScope.address}</p>
-                            </div>
+                            <h1 class="title-head margin-top-0">Thông tin đơn hàng</h1>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Order Date</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2024-07-25</td>
+                                        <td>$100.00</td>
+                                        <td>Credit Card</td>
+                                        <td>Pending</td>
+                                        <td><button class="btn btn-primary">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2024-07-24</td>
+                                        <td>$150.00</td>
+                                        <td>PayPal</td>
+                                        <td>Shipped</td>
+                                        <td><button class="btn btn-primary">View</button></td>
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

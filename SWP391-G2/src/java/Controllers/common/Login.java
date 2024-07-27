@@ -72,11 +72,11 @@ public class Login extends HttpServlet {
                             case 4 ->
                                 response.sendRedirect("home");
                             case 3 ->
-                                response.sendRedirect("home");
+                                response.sendRedirect("brand");
                             case 2 ->
-                                response.sendRedirect("home");
+                                response.sendRedirect("saleorder");
                             case 1 ->
-                                response.sendRedirect("home");
+                                response.sendRedirect("admincontrolaccount");
                         }
                     } else {
                         throw new Exception("Password is incorrect, please check again!!");

@@ -189,10 +189,6 @@
                             <h2 class="os-header-title">
                                 Order Successful
                             </h2>
-
-                            <span class="os-order-number">
-                                Order Number ${requestScope.orderID}
-                            </span>
                             <span class="os-description">
                                 Thank you for your purchase!
                             </span>
@@ -213,9 +209,8 @@
                                 <div class="section-content">
                                     <div class="section-content-column">
                                         <h3>Shipping Information</h3>
-                                        <p>Customer Name: ${requestScope.fullname}<br>Phone Number: ${requestScope.phone}<br>Address Customer: ${requestScope.addressdetails}<br><%= selectedWard %><br>
-                                            <%= selectedDistrict %><br>
-                                            <%= selectedCity %><br>Viet Nam</p>
+                                        <p>Customer Name: ${requestScope.fullname}<br>Phone Number: ${requestScope.phone}<br>Address Customer: ${requestScope.address}<br>
+                                          <br>Viet Nam</p>
                                         <h3>Payment Method</h3>
                                         <p> ${requestScope.method}</p>
                                     </div>

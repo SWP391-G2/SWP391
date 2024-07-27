@@ -3,10 +3,10 @@
     Created on : Jun 25, 2024, 11:09:19 PM
     Author     : hatru
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +23,7 @@
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -81,7 +82,8 @@
     </head>
 
     <body>
-
+        <input type="hidden" id="success" value="${requestScope.success}" >
+        <input type="hidden" id="error" value="${requestScope.error}" >
         <!-- Page Header Start -->
         <header style="padding-bottom: 80px">
             <div class="main_header header_transparent header-mobile-m">
@@ -238,7 +240,7 @@
                             <c:if test="${sessionScope.dis != null}">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Discount(${sessionScope.dis.getDiscount()}%)</h6>
-                                    <h6 class="font-weight-medium">${sessionScope.dis.getDiscount()*0.01*total}$</h6>
+                                    <h6 class="font-weight-medium"><fmt:formatNumber value="${sessionScope.dis.getDiscount()*0.01*total}" type="number" pattern="#,##0.00"/>$</h6>
                                 </div>
                             </c:if>
                             <div class="d-flex justify-content-between">
@@ -257,6 +259,11 @@
                 </div>
                 <div class="col-lg-5">
                     <form id="billingForm" action="order" method="post">
+                        <div class="form-group">
+                            <input type="hidden" id="selectedCity" name="selectedCity">
+                            <input type="hidden" id="selectedDistrict" name="selectedDistrict">
+                            <input type="hidden" id="selectedWard" name="selectedWard">
+                        </div>
                         <div class="mb-4">
                             <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                             <div class="row">
@@ -269,7 +276,7 @@
                                     <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
+                                    <label>Mobile Phone</label>
                                     <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
@@ -304,8 +311,8 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" value="${total - sessionScope.dis.getDiscount()*0.01*total}" name="total"/>
-                        <input class="form-control" type="email" hidden="" id="input2" name="emailC">
+                        <input type="hidden" name="total" value="${total - sessionScope.dis.getDiscount()*0.01*total}"/>
+                        <input class="form-control" type="email" hidden="" id="input2" name="email">
 
                         <div class="card border-secondary mb-5">
                             <div class="card-header bg-secondary border-0">
@@ -326,7 +333,7 @@
                                 </div>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
-                                <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3">Place Order</button>
+                                <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3" onclick="loading()">Place Order</button>
                             </div>
                         </div>
                     </form>
@@ -364,6 +371,23 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
         <script>
+            function loading() {
+                let timerInterval;
+                Swal.fire({
+                    title: "Loading...",
+                    didOpen: () => {
+                        Swal.showLoading();
+
+                    },
+                    willClose: () => {
+
+                    }
+                }).then((result) => {
+
+                });
+            }
+        </script>
+        <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var citis = document.getElementById("city");
                 var districts = document.getElementById("district");
@@ -378,45 +402,79 @@
                     responseType: "application/json",
                 };
 
+                const successElement = document.getElementById('success');
+                const errorElement = document.getElementById('error');
+
+                if (successElement && successElement.value) {
+                    successfully('success');
+                }
+
+                if (errorElement && errorElement.value) {
+                    errors(errorElement.value);
+                }
+                function errors(text) {
+                    let timerInterval;
+                    Swal.fire({
+                        title: text,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then((result) => {
+                    }
+                    );
+                }
                 var promise = axios(Parameter);
                 promise.then(function (result) {
                     renderCity(result.data);
                 });
 
                 function renderCity(data) {
+                    // Populate city select options
                     for (const x of data) {
                         citis.options[citis.options.length] = new Option(x.Name, x.Id);
                     }
+
                     citis.onchange = function () {
                         districts.length = 1;
                         wards.length = 1;
                         if (this.value != "") {
                             const result = data.filter(n => n.Id === this.value);
-
                             for (const k of result[0].Districts) {
                                 districts.options[districts.options.length] = new Option(k.Name, k.Id);
                             }
                             updateHiddenFields();
                         }
                     };
+
                     districts.onchange = function () {
                         wards.length = 1;
                         const dataCity = data.filter((n) => n.Id === citis.value);
                         if (this.value != "") {
                             const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
-
                             for (const w of dataWards) {
                                 wards.options[wards.options.length] = new Option(w.Name, w.Id);
                             }
                             updateHiddenFields();
                         }
                     };
+
                     wards.onchange = function () {
                         updateHiddenFields();
                     };
                 }
 
                 function updateHiddenFields() {
+                    // Update hidden fields with selected options
                     selectedCity.value = citis.options[citis.selectedIndex].text;
                     selectedDistrict.value = districts.options[districts.selectedIndex].text;
                     selectedWard.value = wards.options[wards.selectedIndex].text;

@@ -46,6 +46,22 @@ public class ProductDetailDAO extends DBContext {
         return list;
     }
 
+    public void updateQuantity(int id, int quantity) {
+        String sql = "UPDATE [dbo].[ProductFullDetail]\n"
+                + "   SET \n"
+                + "      [ProductAvaiable] = ?\n"
+                + "     \n"
+                + " WHERE ProductFullDetailID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, quantity);
+            ur.setInt(2, id);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public ProductDetail getProductDetail(int id) {
         String sql = "select * from ProductFullDetail where ProductFullDetailID = ?";
         try {
@@ -434,6 +450,7 @@ public class ProductDetailDAO extends DBContext {
         }
         return details;
     }
+
     public static void main(String[] args) {
         ProductDetailDAO pddao = new ProductDetailDAO();
         Date date = new Date(System.currentTimeMillis());
