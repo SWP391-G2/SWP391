@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author hatru
@@ -14,24 +16,19 @@ public class OrderDetail {
     private int odOrderID;
     private int odProductID;
     private int odQuantity;
-    private float odPrice;
+    private BigDecimal odPrice;
+    private String odName;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int odOrderID, int odProductID, int odQuantity, float odPrice) {
-        this.odOrderID = odOrderID;
-        this.odProductID = odProductID;
-        this.odQuantity = odQuantity;
-        this.odPrice = odPrice;
-    }
-
-    public OrderDetail(int odID, int odOrderID, int odProductID, int odQuantity, float odPrice) {
+    public OrderDetail(int odID, int odOrderID, int odProductID, int odQuantity, BigDecimal odPrice, String odName) {
         this.odID = odID;
         this.odOrderID = odOrderID;
         this.odProductID = odProductID;
         this.odQuantity = odQuantity;
         this.odPrice = odPrice;
+        this.odName = odName;
     }
 
     public int getOdID() {
@@ -66,12 +63,25 @@ public class OrderDetail {
         this.odQuantity = odQuantity;
     }
 
-    public float getOdPrice() {
+    public BigDecimal getOdPrice() {
         return odPrice;
     }
 
-    public void setOdPrice(float odPrice) {
+    public void setOdPrice(BigDecimal odPrice) {
         this.odPrice = odPrice;
     }
+
+    public String getOdName() {
+        return odName;
+    }
+
+    public void setOdName(String odName) {
+        this.odName = odName;
+    }
+
+    
+
+    
+    
 
 }

@@ -111,18 +111,18 @@
                 <div class="row gx-5 align-items-center">
                     <aside class="col-lg-5">
                         <div class="mb-3">
-                            <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
+                            <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
                         </div>
                         <button class="prev" onclick="changeImage(-1)">&#10094;</button>
                         <button class="next" onclick="changeImage(1)">&#10095;</button>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
-                                    <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}')">
+                                    <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
                                 </div>
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
-                                        <img src="images/Products/${c.getCategoryName()}/${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('images/Products/${c.getCategoryName()}/${img.getImage()}')">
+                                        <img src="${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
                                     </div>
                                 </c:forEach>
                             </div>
@@ -212,7 +212,7 @@
                                     <p >
                                         ${pd.getProductDescription()}
                                     </p>
-                                    <img src="images/Products/${c.getCategoryName()}/${p.getProductImageUrl()}">
+                                    <img src="${p.getProductImageUrl()}">
                                     <p >
                                         ${b.getDescription()}
                                     </p>
@@ -395,11 +395,9 @@
         const quantityInput = document.getElementById('quantity');
         let currentQuantity = parseInt(quantityInput.value);
         const maxQuantity = parseInt(quantityInput.max);
-
         // Ensure the current quantity is a number and apply the change
         if (!isNaN(currentQuantity)) {
             currentQuantity += change;
-
             // Ensure the quantity is within the allowed range
             if (currentQuantity < quantityInput.min) {
                 currentQuantity = parseInt(quantityInput.min);
@@ -417,18 +415,15 @@
         var policyText = document.getElementById('policy-text');
         var descContent = document.getElementById('description');
         var policyContent = document.getElementById('policy');
-
         descText.addEventListener('click', function () {
             policyContent.style.display = 'none';
             descContent.style.display = 'block';
         });
-
         policyText.addEventListener('click', function () {
             descContent.style.display = 'none';
             policyContent.style.display = 'block';
         });
     });
-
     var priceAndSizeData = [
     <c:forEach items="${priceandsize}" var="size" varStatus="status">
     {
@@ -453,7 +448,6 @@
                 console.log(document.getElementById("productductFullDetailID"));
                 var statusText = (priceAndSizeData[i].quantity === 0 || priceAndSizeData[i].status === 0) ? 'Out Of Stock' : 'In Stock';
                 document.getElementById("status").innerText = statusText;
-
                 // Cập nhật trạng thái của nút "Add to Cart"
                 var addToCartBtn = document.getElementById("addToCartBtn");
                 if (priceAndSizeData[i].quantity === 0) {
@@ -461,7 +455,13 @@
                     addToCartBtn.removeAttribute("onclick");
                 } else {
                     addToCartBtn.removeAttribute("disabled");
+    <c:if test="${sessionScope.account != null}">
                     addToCartBtn.setAttribute("onclick", "addToCart(" + priceAndSizeData[i].productfulldetailid + ")");
+    </c:if>
+
+    <c:if test="${sessionScope.account == null}">
+                    addToCartBtn.setAttribute("onclick", "addToCartCookie(" + priceAndSizeData[i].productfulldetailid + ")");
+    </c:if>
                 }
 
 
@@ -469,21 +469,24 @@
             }
         }
     });
-    <c:if test="${sessionScope.account != null}">
     function addToCart(productductFullDetailID) {
-        var productname = document.getElementById('productname').value;
-        var quantity = document.getElementById('quantity').value;
-        window.location.href = "/SWP391-G2/cartcontroller?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID;
+        var productname = document.getElementById('productname');
+        var quantity = document.getElementById('quantity');
+        if (productname !== null && productname.value !== '' && quantity !== null && quantity.value !== '') {
+            window.location.href = "/SWP391-G2/cartcontroller?quantity=" + quantity.value + "&&productname=" + productname.value + "&&productfulldetailid=" + productductFullDetailID;
+        }
     }
-    </c:if>
 
-    <c:if test="${sessionScope.account == null}">
+
+
     function addToCartCookie(productductFullDetailID) {
-        var productname = document.getElementById('productname').value;
-        var quantity = document.getElementById('quantity').value;
-        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID;
+        var productname = document.getElementById('productname');
+        var quantity = document.getElementById('quantity');
+        if (productname !== null && productname.value !== '' && quantity !== null && quantity.value !== '') {
+            window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity.value + "&&productname=" + productname.value + "&&productfulldetailid=" + productductFullDetailID;
+        }
     }
-    </c:if>
+
 
 </script>
 <script src="js/main.js"></script>

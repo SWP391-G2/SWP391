@@ -21,7 +21,7 @@ public class RoleDAO extends DBContext {
 
     public List<Role> getAllRoles() {
         List<Role> list = new ArrayList<>();
-        String sql = "select * from Roles";
+        String sql = "select * from Roles where roleID != 1";
         //chay lenhj truy van
         try {
             PreparedStatement ur = connection.prepareStatement(sql);

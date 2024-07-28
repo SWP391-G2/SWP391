@@ -15,7 +15,7 @@
 
 
 
-        <c:if test="${sessionScope.role == 3}">
+        <c:if test="${sessionScope.role == 2}">
             <li>
                 <a href="../admin/home">
                     <span class="icon">
@@ -26,7 +26,7 @@
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 3}">
+        <c:if test="${sessionScope.role == 2}">
             <li>
                 <a href="../sale/manageOrder">
                     <span class="icon">
@@ -41,7 +41,7 @@
 
 
 
-        <c:if test="${sessionScope.role == 2}">
+        <c:if test="${sessionScope.role == 3}">
             <li>
 
                 <a href="marketing-manager-products">
@@ -54,7 +54,7 @@
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 2}">
+        <c:if test="${sessionScope.role == 3}">
             <li>
                 <a href="../admin/FeedbackList">
                     <span class="icon">
@@ -66,9 +66,9 @@
         </c:if>
 
 
-        <c:if test="${sessionScope.role == 2}">
+        <c:if test="${sessionScope.role == 3}">
             <li>
-                <a href="../marketing/manage-slider">
+                <a href="manage-slider">
                     <span class="icon">
                         <ion-icon name="tablet-landscape"></ion-icon>
                     </span>
@@ -78,7 +78,7 @@
         </c:if>
 
 
-        <c:if test="${sessionScope.role == 4}">
+        <c:if test="${sessionScope.role == 1}">
 
             <li>
                 <a href="admincontrolaccount?roleId=3">
@@ -90,19 +90,7 @@
             </li>
 
         </c:if>
-        <c:if test="${sessionScope.role == 4}">
-
-            <li>
-                <a href="admincontrolaccount?roleId=3">
-                    <span class="icon">
-                        <ion-icon name="people"></ion-icon>
-                    </span>
-                    <span class="title">Marketing</span>
-                </a>
-            </li>
-        </c:if>
-
-        <c:if test="${sessionScope.role == 3}">
+        <c:if test="${sessionScope.role == 1}">
 
             <li>
                 <a href="admincontrolaccount?roleId=2">
@@ -114,7 +102,7 @@
             </li>
         </c:if>
 
-        <c:if test="${sessionScope.role == 4}">
+        <c:if test="${sessionScope.role == 1}">
             <li>
                 <a href="admincontrolaccount?roleId=4">
                     <span class="icon">
@@ -132,7 +120,7 @@
                     <span class="title">My Profile</span>
                 </a>
             </li>
-        <c:if test="${sessionScope.role == 3}">
+            <c:if test="${sessionScope.role == 3}">
             <li>
                 <a href="brand?brandID=1">
                     <span class="icon">

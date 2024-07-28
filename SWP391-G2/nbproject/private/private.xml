@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/ProductsHome.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/RefineServlet.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewSlider.java</file>
@@ -30,6 +31,18 @@
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/OrderStatusDAO.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/ViewWishlistServlet.java</file>
             <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Wishlist.java</file>
+=======
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/OrderDAO.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/vnpay/VNPAY.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/controllerCart.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/SaleControllerOrder.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/checkout.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/order.jsp</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Orders.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/order.java</file>
+            <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
+>>>>>>> fix_trung
         </group>
     </open-files>
 </project-private>

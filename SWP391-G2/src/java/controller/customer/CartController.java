@@ -79,18 +79,18 @@ public class CartController extends HttpServlet {
         String deletecart_raw = request.getParameter("deletecard");
         int cartID = -1, pdID = -1, addquantity = -1;
 
-
         Accounts accounts = (Accounts) session.getAttribute("account");
         int account = accounts == null ? Integer.parseInt(request.getParameter("accountID")) : accounts.getAccountID();
         try {
-            pdID = pdtID_raw != null ?Integer.parseInt(pdtID_raw): -1;
-            addquantity = addquantity_raw != null? Integer.parseInt(addquantity_raw):-1;
-            cartID = deletecart_raw != null ? Integer.parseInt(deletecart_raw) :-1;
+            pdID = pdtID_raw != null ? Integer.parseInt(pdtID_raw) : -1;
+            addquantity = addquantity_raw != null ? Integer.parseInt(addquantity_raw) : -1;
+            //cartID = deletecart_raw != null ? Integer.parseInt(deletecart_raw) :-1;
 
         } catch (Exception e) {
 
         }
         if (deletecart_raw != null) {
+            cartID = Integer.parseInt(deletecart_raw);
             cart.deleteCart(cartID);
         } else if (cart.checkExist(pdID, account) != null) {
             //Update quantity exist in DB
@@ -109,7 +109,7 @@ public class CartController extends HttpServlet {
             ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
             listProduct.add(p);
         }
-       
+
         request.setAttribute("listcart", listCart);
         request.setAttribute("listproduct", listProduct);
         request.getRequestDispatcher("common/cart.jsp").forward(request, response);
@@ -134,7 +134,7 @@ public class CartController extends HttpServlet {
         String cartID_raw = request.getParameter("cartID");
         String avaiable_raw = request.getParameter("avaiable");
         String newquantity_raw = request.getParameter("newquantity");
-        String delete = request.getParameter("delete");
+        String delete = request.getParameter("deletecard");
         int productID = 0, quantity = 0, accountID = 0, avaiable = 0, newquantity = 0, cartID = 0;
         HttpSession session = request.getSession();
         try {
@@ -151,34 +151,53 @@ public class CartController extends HttpServlet {
         ProductDetailDAO pdDAO = new ProductDetailDAO();
         if (minus_raw != null) {
 
-            if (quantity - 1 <= 0) {
-                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+            if (quantity == 1) {
+                //response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+                //deletecart
+                //session.invalidate();
+                cartDAO.deleteCart(cartID);
+                //response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             } else {
-                session.invalidate();
+                //session.invalidate();
                 cartDAO.minusQuantity(quantity, productID, accountID);
                 //pdDAO.updateAddAvaiableProductDetail(avaiable, productID);
-                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+                //response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             }
 
         } else if (add_raw != null) {
 
             if (quantity + 1 > avaiable) {
-                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+                //response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             } else {
-                session.invalidate();
+                //session.invalidate();
                 cartDAO.addQuantity(quantity, productID, accountID);
                 //pdDAO.updateAddAvaiableProductDetail(avaiable, productID);
-                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+                //response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
             }
-        } else if (delete != null) {
-            cartDAO.deleteCart(cartID);
-            response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
-        } else {
-            cartDAO.updateQuantity(newquantity, productID, accountID);
-                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
-
-            //response.getWriter().print("success");
         }
+//        else if (delete != null) {
+//            cartDAO.deleteCart(cartID);
+//            response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+//        }
+//        else {
+//            //cartDAO.updateQuantity(newquantity, productID, accountID);
+//                response.sendRedirect("cartcontroller?accountID=" + accountID_raw);
+//
+//            //response.getWriter().print("success");
+//        }
+        Accounts accounts = (Accounts) session.getAttribute("account");
+        int account = accounts == null ? Integer.parseInt(request.getParameter("accountID")) : accounts.getAccountID();
+        CartsDAO cart = new CartsDAO();
+        List<Carts> listCart = cart.getCartByAccountID(account);
+        ProductDetailDAO productDAO = new ProductDetailDAO();
+        List<ProductDetail> listProduct = new ArrayList<>();
+        for (Carts carts : listCart) {
+            ProductDetail p = productDAO.getInforProductDetail(carts.getProductFullDetailID());
+            listProduct.add(p);
+        }
+        request.setAttribute("listcart", listCart);
+        request.setAttribute("listproduct", listProduct);
+        request.getRequestDispatcher("common/cart.jsp").forward(request, response);
 
     }
 

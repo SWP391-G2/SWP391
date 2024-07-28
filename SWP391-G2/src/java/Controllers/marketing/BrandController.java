@@ -6,6 +6,7 @@ package Controllers.marketing;
 
 import Dal.AccountsDAO;
 import Dal.BrandsDAO;
+import Dal.ProductsDAO;
 import Dal.RoleDAO;
 import Models.Accounts;
 import Models.Brands;
@@ -63,7 +64,7 @@ public class BrandController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        int status_new = -1;
+        int status_new = 0;
         int brandID = -1;
         try {
             status_new = request.getParameter("statusnew") == null ? -1 : Integer.parseInt(request.getParameter("statusnew"));
@@ -79,7 +80,7 @@ public class BrandController extends HttpServlet {
         String search = "";
         int status = -1;
         int pageNo = 1;
-        final int pageSize = 10;
+        final int pageSize = 6;
         try {
 
             search = request.getParameter("search") == null ? "" : request.getParameter("search");
@@ -90,9 +91,12 @@ public class BrandController extends HttpServlet {
         }
         
         BrandsDAO brandDao = new BrandsDAO();
+        ProductsDAO productDao = new ProductsDAO();
+        productDao.updateStatusByStatusBrand(status_new, brandID);
+        
         List<Brands> listbrand = brandDao.getBrandByFilter(status, search, pageNo, pageSize);
         int totalPage = brandDao.getTotalPage(status, search, pageSize);
-
+        
         request.setAttribute("search", search);
         request.setAttribute("status", status);
         request.setAttribute("totalPage", totalPage);

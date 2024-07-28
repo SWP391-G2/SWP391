@@ -31,6 +31,11 @@
         <link rel="icon" href="./images/logo/image.png" type="image/x-icon" />
 
     </head>
+<<<<<<< HEAD
+=======
+    <input type="hidden" id="success" value="${requestScope.success}" >
+    <input type="hidden" id="error" value="${requestScope.error}" >
+>>>>>>> fix_trung
     <body style="background-color: pink">
         <div class="row vh-100 g-0" style="background-color: pink">
             <c:if test="${requestScope.err != null}">
@@ -56,7 +61,11 @@
                                     </svg>  Login With Google</a>
                             </div>
                             <div class="position-relative bg-secondary-subtle mb-3 line" style="width: 100%; height: 1px;"></div>
+<<<<<<< HEAD
                             <form action="login" method="post" >
+=======
+                            <form action="${pageContext.request.contextPath}/login" method="post" >
+>>>>>>> fix_trung
                                 <div class="input-group mb-3" >
                                     <span class="input-group-text">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
@@ -89,7 +98,11 @@
                                         <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <button class="btn btn-dark btn-lg  w-100 mb-3" name="login"> Login</button>
+=======
+                                <button class="btn btn-dark btn-lg  w-100 mb-3" onclick="loading()" name="login"> Login</button>
+>>>>>>> fix_trung
 
                             </form>
                             <div class="text-center">
@@ -103,4 +116,89 @@
             <!--/ right side  -->
         </div>
     </body>
+<<<<<<< HEAD
+=======
+    <script>
+        function loading() {
+            let timerInterval;
+            Swal.fire({
+                title: "Loading...",
+                didOpen: () => {
+                    Swal.showLoading();
+
+                },
+                willClose: () => {
+
+                }
+            }).then((result) => {
+
+            });
+        }
+        const successElement = document.getElementById('success');
+        const errorElement = document.getElementById('error');
+
+        if (successElement && successElement.value) {
+            successfully('success');
+        }
+
+        if (errorElement && errorElement.value) {
+            errors(errorElement.value);
+        }
+        // Call the function on page load
+
+        function loading() {
+            let timerInterval;
+            Swal.fire({
+                title: "Loading...",
+                didOpen: () => {
+                    Swal.showLoading();
+
+                },
+                willClose: () => {
+
+                }
+            }).then((result) => {
+
+            });
+        }
+        function successfully(text) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Signed up successfully"
+            });
+        }
+
+        function errors(text) {
+            let timerInterval;
+            Swal.fire({
+                title: text,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+            }
+            );
+    </script>
+>>>>>>> fix_trung
 </html>

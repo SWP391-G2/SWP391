@@ -194,7 +194,11 @@
                 display: flex;
                 flex-direction: column;
             }
-
+            .scroll{
+                width: 100%;
+                height: 550px;
+                overflow-y: scroll;
+            }
 
         </style>
     </head>
@@ -291,65 +295,73 @@
         <div class="container-fluid pt-5" >
             <div class="row px-xl-5">
                 <div class="col-lg-8 table-responsive mb-5">
-                    <table class="table table-bordered text-center mb-0">
-                        <thead class="bg-secondary text-dark">
-                            <tr>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Size</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
+                    <div class="row scroll">
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class="bg-secondary text-dark">
 
-                        <c:set var="total" value="0"/>
-                        <c:set var="o" value="${requestScope.cart}"/>
-
-                        <c:forEach items="${o.items}" var="i" >
-                            <tbody class="align-middle">
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">${i.product.getImage()}</td>
-                                    <td class="align-middle">${i.getName()}</td>
-                            <input name="name" value="${i.getName()}" type="hidden"/>
-                            <td class="align-middle">${i.product.getProductSize()}</td>
-                            <td class="align-middle">${i.product.getProductPrice()}$</td>
-                            <td class="align-middle">
-                                <form action="shop" method="post" id="myForm${loop.index}" class="form">
-                                    <div class="input-group quantity mx-auto">
-                                        <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
-                                        <span id="quanError${loop.index}" class="text-danger"></span>
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+
+                            <c:set var="total" value="0"/>
+                            <c:set var="o" value="${requestScope.cart}"/>
+
+                            <tbody class="align-middle">
+
+                                <c:forEach items="${o.items}" var="i" varStatus="loop">
+
+
+                                    <tr>
+                                        <td class="align-middle"><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                        <td class="align-middle">${i.getName()}</td>
+                                <input name="name" value="${i.getName()}" type="hidden"/>
+                                <td class="align-middle">${i.product.getProductSize()}</td>
+                                <td class="align-middle">${i.product.getProductPrice()}$</td>
+                                <td class="align-middle">
+                                    <form action="shop" method="post" id="myForm${loop.index}" class="form">
+                                        <input type="hidden" name="deletecard" value="">
+                                        <div class="input-group quantity mx-auto">
+                                            <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
+                                            <span id="quanError${loop.index}" class="text-danger"></span>
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" disabled="" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" ${i.product.getProductAvaiable()- i.getQuantity() <= 0 ? 'disabled' : ''} name="add" value="1">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <input type="text" disabled="" pattern="[0-9]*" maxlength="3" class="form-control form-control-sm  text-center" id="newquant${loop.index}" placeholder="${i.getQuantity()}">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm bg-dark btn-plus" type="submit" class="changeQuantity" ${i.product.getProductAvaiable()- i.getQuantity() <= 0 ? 'disabled' : ''} name="add" value="1">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-
-                            </td>
-                            <td class="align-middle">
-                                <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
-                                <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
-                            </td>
-                            <!--<td class="align-middle "><button class="btn btn-danger" type="submit"  onclick="deleteCart()" name="deletecard" value="${i.product.getProductFullDetailID()}">DELETE</button></td>-->
-                            </tr>
-                            <c:set var="total" value="${total + itemTotal}"/>
-
-                        </c:forEach>
+                                    </form>
+                                </td>
+                                <td class="align-middle">
+                                    <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
+                                    <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
+                                </td>
+                                <td class="align-middle ">
+                                    <button class="btn text-warning" style="background-color: #ffffff" type="submit"  onclick="deleteCart('${loop.index}')" >DELETE</button>
+                                </td>
+                                </tr>
+                                <c:set var="total" value="${total + itemTotal}"/>
 
 
-                    </table>
+                            </c:forEach>
+
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
-
                 <div class="col-lg-4">
                     <div class="card border-secondary mb-5">
                         <div class="card-header bg-secondary border-0">
@@ -393,57 +405,59 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-        <!-- Contact Javascript File -->
-        <script src="mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
-
-        <!-- Template Javascript -->
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
-        <script>
-                                function notice() {
-                                    if (confirm("Delete all items in cart?")) {
-                                        document.getElementById("deleteForm").submit();
-                                    }
-                                }
-
-                                function deleteCart() {
-                                    if (confirm("Do you want delete product?")) {
-                                        console.log(document.getElementById(''))
-//                                        document.getElementById("myForm${loop.index}").submit();
-                                    }
-                                }
-
-                                function sendCode(code) {
-                                    window.location.href = 'applyvouchers?code=' + code;
-                                }
-
-
-
-                                document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                    inputElement.addEventListener('keypress', (event) => {
-                                        if (event.key === 'Enter') {
-                                            event.preventDefault();
-                                            const value = document.getElementById('newquant' + index).value;
-                                            const value1 = document.getElementById('quantity' + index).value;
-                                            if (value1 < value) {
-                                                document.getElementById('quanError' + index).innerText = 'fail';
-                                                return false;
-                                            } else {
-                                                document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                document.getElementById('myForm' + index).submit();
-                                            }
-
-                                        }
-                                    });
-                                });
-        </script>
     </body>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <script>
+                                        function notice() {
+                                            if (confirm("Delete all items in cart?")) {
+                                                document.getElementById("deleteForm").submit();
+                                            }
+                                        }
+
+                                        function deleteCart(index) {
+                                            if (confirm("Do you want delete product?")) {
+                                                const form = document.getElementById('myForm' + index);
+                                                var inputElement = form.querySelector('input[name="deletecard"]');
+                                                inputElement.value = index;
+                                                form.submit();
+                                            }
+                                        }
+
+                                        function sendCode(code) {
+                                            window.location.href = 'applyvouchers?code=' + code;
+                                        }
+
+
+
+                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                            inputElement.addEventListener('keypress', (event) => {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                    const value = document.getElementById('newquant' + index).value;
+                                                    const value1 = document.getElementById('quantity' + index).value;
+                                                    if (value1 < value) {
+                                                        document.getElementById('quanError' + index).innerText = 'fail';
+                                                        return false;
+                                                    } else {
+                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                        document.getElementById('myForm' + index).submit();
+                                                    }
+
+                                                }
+                                            });
+                                        });
+    </script>
+
 
 </html>
