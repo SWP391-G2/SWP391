@@ -3,52 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/marketing/statistic-revenue.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Controllers/marketing/StatisticRevenue.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/marketing/marketing-manage-sliders.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/web/blog/blog.jsp</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/OrderDAO.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/ProductsDAO.java</file>
-            <file>file:/C:/Users/pna29/OneDrive/Máy%20tính/SWP391-G2-New/SWP391/SWP391-G2/src/java/Dal/ProductDetailDAO.java</file>
-=======
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/UpdateVoucher.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/voucher/update-mange-vouchers.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/web/marketing/manager-feedback.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Dal/VouchersDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/feedback/FeedbackController.java</file>
-            <file>file:/C:/Users/admin/Desktop/KÌ_V/SWP/SWP-Fix/SWP391/SWP391-G2/src/java/Controllers/marketing/VoucherManager.java</file>
->>>>>>> bc8eadf71d0c9703cc8bc1b050332eb85e217c6f
-=======
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/ProductsHome.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/RefineServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingAddNewSlider.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/SliderDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/CategoriesDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Sliders.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/SearchSliderServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/AddToWishlistServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/StatisticRevenue.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingManageSliderDetail.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MakertingManageSlider.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/web/sale/sale-order-detail.jsp</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/HomeServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/SearchRefineServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/OrderStatus.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/OrderDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/common/SearchHome.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/WishlistDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/WishlistItems.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/OrderDetailDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Controllers/marketing/MarketingUpdateStatusSlider.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/Sale/ControllerSaleOrderDetail.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/Sale/SaleControllerOrder.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/BrandsDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Dal/OrderStatusDAO.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/controller/customer/ViewWishlistServlet.java</file>
-            <file>file:/D:/swp/SWP391-G2/SWP391-G2/src/java/Models/Wishlist.java</file>
-=======
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Dal/OrderDAO.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/web/common/productDetail.jsp</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Controllers/vnpay/VNPAY.java</file>
@@ -59,8 +13,6 @@
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/Models/Orders.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/Sale/order.java</file>
             <file>file:/D:/New%20folder/FinalSWP/SWP391/SWP391-G2/src/java/controller/customer/CheckoutController.java</file>
->>>>>>> fix_trung
->>>>>>> fix_all
         </group>
     </open-files>
 </project-private>

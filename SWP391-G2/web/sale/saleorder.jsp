@@ -143,16 +143,10 @@
                         </select> -->
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
-<<<<<<< HEAD
-                            <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
-                            <option value="2" ${status==2 ? 'selected' : '' }>Done</option>
-                            <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
-=======
                             <option value="1" ${status==1 ? 'selected' : '' }>Wait</option>
                             <option value="2" ${status==2 ? 'selected' : '' }>Processing</option>
                             <option value="3" ${status==3 ? 'selected' : '' }>Done</option>
                             <option value="4" ${status==4 ? 'selected' : '' }>Cancelled</option>
->>>>>>> fix_all
                         </select>
                     </div>
 
@@ -187,18 +181,6 @@
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${o.getOrderSoID() == 1}">
-<<<<<<< HEAD
-                                                        Processing
-                                                    </c:when>
-                                                    <c:when test="${o.getOrderSoID() == 2}">
-                                                        Done
-                                                    </c:when>
-                                                    <c:when test="${o.getOrderSoID() == 3}">
-                                                        Cancelled
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        Unknown
-=======
                                                         Wait
                                                     </c:when>
                                                     <c:when test="${o.getOrderSoID() == 2}">
@@ -209,18 +191,12 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         Cancelled
->>>>>>> fix_all
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td>
-<<<<<<< HEAD
-                                                <a href="saleorderdetails">View Details</a>                                                    
-                                                
-=======
                                                 <a href="sale-order-detail?orderId=${o.getOrderID()}">View Details</a>                                                    
 
->>>>>>> fix_all
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -352,49 +328,4 @@
                                                                 '&status=' + status + '&date=' + date + '&pageNo=' + pageNo;
                                                     }
     </script>
-<<<<<<< HEAD
-    <script>
-        // handle filter search
-        const searchInput = document.querySelector('#search');
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                performSearch();
-            }
-        });
-
-        const btnSearch = document.querySelector('#btnSearch');
-        btnSearch.addEventListener('click', () => {
-            performSearch(); // call function
-        });
-        function performSearch() {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=1';
-        }
-        ;
-
-        // handle filter status
-        const status = document.querySelector('#status');
-        status.addEventListener('change', () => {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=1';
-        });
-
-        // handle pagination
-        function changePage(pageNo) {
-            const search = document.querySelector('#search').value;
-            const status = document.querySelector('#status').value;
-            window.location.href = 'saleorder?search=' + search +
-                    '&status=' + status + '&pageNo=' + pageNo;
-        }
-
-
-    </script>
-
-
-=======
->>>>>>> fix_all
 </html>

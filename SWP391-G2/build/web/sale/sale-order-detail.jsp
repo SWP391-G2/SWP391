@@ -39,8 +39,6 @@
                 height: 550px;
                 overflow-y: scroll;
             }
-<<<<<<< HEAD
-=======
 
             .btnaa {
                 display: inline-block;
@@ -55,7 +53,6 @@
                 transition: background-color 0.3s, border-color 0.3s; /* Hiệu ứng chuyển tiếp */
             }
 
->>>>>>> fix_trung
         </style>
 
     </head>
@@ -67,15 +64,11 @@
             <input type="hidden" id="success" value="${requestScope.success}" >
             <input type="hidden" id="error" value="${requestScope.error}" >
             <div class="main">
-<<<<<<< HEAD
-
-=======
                 <div class="topbar mb-2">
                     <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-6 link-dark" href="./saleorder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                             </svg>Previous page</a></li>
                 </div>
->>>>>>> fix_trung
                 <div class="container-fluid pt-5">
                     <div class="row px-xl-5">
                         <div class="col-lg-7">
@@ -89,11 +82,7 @@
                                         <table class="table border-0">
                                             <c:forEach items="${requestScope.orderDetail}" var="_order" varStatus="loop">
                                                 <tr style="height: 30px">
-<<<<<<< HEAD
-                                                    <td>${_order.getImage()}</td>
-=======
                                                     <td><img src="${_order.getImage()}" alt="" style="width: 60px; height: 60px"></td>
->>>>>>> fix_trung
                                                     <td>${_order.getName()}</td>
                                                     <td>${_order.getSize()}</td>
                                                     <td>${_order.getQuantity()}</td>
@@ -106,11 +95,7 @@
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2 mb-4">
                                         <h5 class="font-weight-bold">Total</h5>
-<<<<<<< HEAD
-                                        <h5 class="font-weight-bold">${info.orderTotalPrice}</h5>
-=======
                                         <h5 class="font-weight-bold">${info.orderTotalPrice}$</h5>
->>>>>>> fix_trung
                                     </div>
                                 </div>
                             </div>
@@ -162,11 +147,7 @@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Email</label>
-<<<<<<< HEAD
-                                        <input class="form-control" value="${info.getOrderEmail()}" type="text" disabled="" name="email">
-=======
                                         <input class="form-control" value="${info.getEmail()}" type="text" disabled="" name="email">
->>>>>>> fix_trung
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Mobile No</label>

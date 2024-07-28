@@ -20,11 +20,7 @@
         <!-- Include Bootstrap CSS via CDN link -->
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_manager.css">
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> fix_all
     </head>
 
     <body>
@@ -44,10 +40,6 @@
                 </div>
                 <form action="admincontrolaccount" method="post" >
                     <input type="text" value="${data.getAccountID()}" name="id" hidden>
-<<<<<<< HEAD
-                    <input type="text" value="${requestScope.roleId}" name="roleId" id="roleId" hidden>
-=======
->>>>>>> fix_all
                     <input type="text" value="${requestScope.status}" name="status" id="status" hidden> 
                     <input type="text" value="${requestScope.currentPage}" name="pageNo" id="pageNo" hidden>
                     <input type="text" value="${requestScope.search}" name="search" id="search" hidden>
@@ -78,10 +70,6 @@
                                    value="<fmt:formatDate value='${data.getBirthDay()}' pattern='yyyy-MM-dd'/>" required>
                         </div>
                         <div class="col-4">
-<<<<<<< HEAD
-                            <label for="roleId">Role:</label>
-                            <select class="form-control" id="role" name="role">
-=======
                             <label for="lastName">Gender:</label>
                             <select class="form-control" id="gender" name="gender">
                                 <option value="1">Male</option>
@@ -93,7 +81,6 @@
                         <div class="col-4">
                             <label for="roleId">Role:</label>
                             <select class="form-control" id="role" name="roleId">
->>>>>>> fix_all
                                 <c:forEach items="${requestScope.listRole}" var="role">
                                     <option value="${role.getRoleID()}"> ${role.getRoleName()}</option>
                                 </c:forEach>

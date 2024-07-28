@@ -5,14 +5,9 @@
 
 package controller.customer;
 
-<<<<<<< HEAD
-import Dal.VoucherDAO;
-import Models.VoucherNew;
-=======
 
 import Dal.VouchersDAO;
 import Models.Vouchers;
->>>>>>> fix_all
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,17 +62,10 @@ public class ApplyVouchers extends HttpServlet {
          String voucher = request.getParameter("voucher");
         String delete = request.getParameter("delete");
         String totalprice = request.getParameter("totalprice");
-<<<<<<< HEAD
-        VoucherDAO dao = new VoucherDAO();
-        HttpSession session = request.getSession();
-        if (delete == null) {
-            VoucherNew vou = dao.getVourcherByCode(voucher);
-=======
         VouchersDAO dao = new VouchersDAO();
         HttpSession session = request.getSession();
         if (delete == null) {
             Vouchers vou = dao.getVourcherByCode(voucher);
->>>>>>> fix_all
 
             if (vou != null) {
                 //request.setAttribute("discount", discount);
@@ -92,12 +80,8 @@ public class ApplyVouchers extends HttpServlet {
                 //response.sendRedirect("checkout");
             }
         } else {
-<<<<<<< HEAD
-            session.invalidate();
-=======
             //session.invalidate();
             session.removeAttribute("dis");
->>>>>>> fix_all
             request.setAttribute("totalprice", totalprice);
             request.getRequestDispatcher("checkout").forward(request, response);
         }
@@ -126,8 +110,4 @@ public class ApplyVouchers extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fix_all

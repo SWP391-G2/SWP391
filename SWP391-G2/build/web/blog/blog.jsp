@@ -35,9 +35,7 @@
     <body>
 
         <!-- Header Start -->
-        <header>
-    
-        </header>
+
         <!-- Header Close -->
 
         <div class="main-wrapper ">
@@ -158,9 +156,7 @@
             </section>
 
             <!-- footer Start -->
-            <div class="footer">
 
-            </div>
 
         </div>
 

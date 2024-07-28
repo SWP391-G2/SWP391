@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.UIManager;
 
 /**
  *
@@ -20,6 +21,19 @@ import java.util.List;
  */
 public class AccountsDAO extends DBContext {
 
+    private int accountID;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String image;
+    private int gender;
+    private java.util.Date birthDay;
+    private String email;
+    private int status;
+    private java.util.Date createDate;
+    private int roleID;
+    private String phone;
+    private String address;
 
     //get All account Employee
     public List<AccountsEmployee> getAllEmployee() {
@@ -400,78 +414,6 @@ public class AccountsDAO extends DBContext {
         }
         return 0;
     }
-    
-    
-    public ArrayList<Accounts> getListByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
-        ArrayList<Accounts> listAccount = new ArrayList<>();
-        String sql = "select * from Accounts";
-        boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (roleId != -1 || status != -1 || !search.isEmpty()) {
-            sql += " WHERE";
-            if (roleId != -1) {
-                sql += " RoleID = ?";
-                whereAdded = true;
-            }
-
-            if (status != -1) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
-                sql += " Status = ?";
-                whereAdded = true;
-            }
-            if (!search.isEmpty()) {
-                if (whereAdded) {
-                    sql += " AND";
-                }
-                sql += " (ac.FirstName LIKE ? OR ac.LastName LIKE ?  OR ac.Email LIKE ?)";
-            }
-        }
-
-        sql += " ORDER BY AccountID desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        try {
-            PreparedStatement ur = connection.prepareStatement(sql);
-            int parameterIndex = 1; // Start with the first parameter index
-            if (roleId != -1) {
-                ur.setInt(parameterIndex, roleId);
-                parameterIndex++;
-            }
-            if (status != -1) {
-                ur.setInt(parameterIndex, status);
-                parameterIndex++;
-            }
-            if (!search.isEmpty()) {
-                for (int i = 0; i < 3; i++) {
-                    ur.setString(parameterIndex, "%" + search + "%");
-                    parameterIndex++;
-                }
-            }
-            // Set the limit and offset parameters for pagination
-            ur.setInt(parameterIndex, (pageNo - 1) * pageSize);
-            parameterIndex++;
-            ur.setInt(parameterIndex, pageSize);
-            ResultSet rs = ur.executeQuery();
-            while (rs.next()) {
-              Accounts account = new Accounts(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getDate(7),
-                        rs.getString(8),
-                        rs.getInt(9),
-                        rs.getDate(10),
-                        rs.getInt(11));
-                listAccount.add(account);
-            }
-        } catch (Exception e) {
-        }
-
-        return listAccount;
-    }
-    
 
     public ArrayList<Accounts> getListByFilter(int roleId, int status, String search, int pageNo, int pageSize) {
         ArrayList<Accounts> listAccount = new ArrayList<>();
@@ -711,15 +653,6 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException e) {
             System.err.println(e);
         }
-    }
-    
-    public static void main(String[] args) {
-        AccountsDAO dao = new AccountsDAO();
-        Date date = new Date(2024, 6, 18);
-        Date date1 = new Date(2024, 6, 20);
-        Accounts a = new Accounts("Ha", "Trung", "Hatrung8888-", "", 1, date, "Hatrung03022003@gmail.com", 1, date1, 2);
-//        dao.setInsert(a);
-        System.out.println(dao.getAccount("dohminhg@example.com"));
     }
 
     public static void main(String[] args) {

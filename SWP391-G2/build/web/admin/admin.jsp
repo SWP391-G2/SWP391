@@ -128,11 +128,7 @@
                                     <c:forEach items="${listUser}" var="user" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
-<<<<<<< HEAD
-                                            <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} + ${user.getLastName()}</a></td>
-=======
                                             <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} ${user.getLastName()}</a></td>
->>>>>>> fix_all
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${user.getGender() == 1}">Male</c:when>

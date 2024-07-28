@@ -81,10 +81,7 @@
 
     </style>
     <body>
-<<<<<<< HEAD
-=======
           <jsp:include page="../partials/navigation.jsp"></jsp:include>
->>>>>>> fix_all
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
 

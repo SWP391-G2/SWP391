@@ -19,11 +19,7 @@ public class Orders {
     private Double orderTotalPrice;
     private String orderContactName;
     private String orderPhone;
-<<<<<<< HEAD
-    private String orderEmail;
-=======
     private String email;
->>>>>>> fix_trung
     private String orderAddress;
     private String PaymentMethod;
     private String orderNote;
@@ -33,36 +29,13 @@ public class Orders {
     public Orders() {
     }
 
-<<<<<<< HEAD
-    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderEmail, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
-        this.accountID = accountID;
-        this.orderDate = orderDate;
-        this.orderTotalPrice = orderTotalPrice;
-        this.orderContactName = orderContactName;
-        this.orderPhone = orderPhone;
-        this.orderEmail = orderEmail;
-        this.orderAddress = orderAddress;
-        this.PaymentMethod = PaymentMethod;
-        this.orderNote = orderNote;
-        this.orderSoID = orderSoID;
-        this.voucherID = voucherID;
-    }
-
-    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderEmail, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
-=======
     public Orders(int orderID, int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
->>>>>>> fix_trung
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
-<<<<<<< HEAD
-        this.orderEmail = orderEmail;
-        this.orderAddress = orderAddress;
-        this.PaymentMethod = PaymentMethod;
-=======
         this.email = email;
         this.orderAddress = orderAddress;
         this.PaymentMethod = PaymentMethod;
@@ -71,50 +44,19 @@ public class Orders {
         this.voucherID = voucherID;
     }
 
-<<<<<<< HEAD
-    public Orders(Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
-=======
     public Orders(int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.accountID = accountID;
->>>>>>> fix_all
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
-<<<<<<< HEAD
-        this.orderAddress = orderAddress;
-        this.orderReceiveDate = orderReceiveDate;
-=======
         this.email = email;
         this.orderAddress = orderAddress;
         this.PaymentMethod = PaymentMethod;
->>>>>>> fix_trung
->>>>>>> fix_all
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
-<<<<<<< HEAD
-    
-    
-=======
-
-    public String getOrderEmail() {
-        return orderEmail;
-    }
-
-    public void setOrderEmail(String orderEmail) {
-        this.orderEmail = orderEmail;
-    }
-
-    public String getPaymentMethod() {
-        return PaymentMethod;
-    }
-
-    public void setPaymentMethod(String PaymentMethod) {
-        this.PaymentMethod = PaymentMethod;
-    }
->>>>>>> fix_all
 
     public int getOrderID() {
         return orderID;
@@ -152,7 +94,6 @@ public class Orders {
         return orderContactName;
     }
 
-  
     public void setOrderContactName(String orderContactName) {
         this.orderContactName = orderContactName;
     }
@@ -181,8 +122,6 @@ public class Orders {
         this.orderAddress = orderAddress;
     }
 
-<<<<<<< HEAD
-=======
     public String getPaymentMethod() {
         return PaymentMethod;
     }
@@ -191,7 +130,6 @@ public class Orders {
         this.PaymentMethod = PaymentMethod;
     }
 
->>>>>>> fix_trung
     public String getOrderNote() {
         return orderNote;
     }

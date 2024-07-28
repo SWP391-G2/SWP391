@@ -275,7 +275,3 @@ public class VNPAY extends HttpServlet {
     }
 
 }
-<<<<<<< HEAD
-//vui lòng tham khảo thêm tại code demo
-=======
->>>>>>> fix_all

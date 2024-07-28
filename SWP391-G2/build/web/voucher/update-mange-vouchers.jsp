@@ -104,18 +104,6 @@
 
                                         Status: 
                                         <c:if test="${voucher.getVoucherID() != null}">
-<<<<<<< HEAD
-                                        <select class="form-control"  name="statusnew">
-                                            <option value="1" ${requestScope.voucher.getStatus()==1 ? 'selected' : '' }>Active</option>
-                                            <option value="0" ${requestScope.voucher.getStatus()==0 ? 'selected' : '' }>In-Active</option>
-                                        </select>
-                                        </c:if>
-                                       <c:if test="${voucher.getVoucherID() == null || requestScope.id != null}">
-                                        <select class="form-control"  name="statusnew">
-                                            <option value="1" ${requestScope.statusnew == 1 ? 'selected' : '' }>Active</option>
-                                            <option value="0" ${requestScope.statusnew ==0 ? 'selected' : '' }>In-Active</option>
-                                        </select>
-=======
                                             <select class="form-control"  name="statusnew">
                                                 <option value="1" ${requestScope.voucher.getStatus()==1 ? 'selected' : '' }>Active</option>
                                                 <option value="0" ${requestScope.voucher.getStatus()==0 ? 'selected' : '' }>In-Active</option>
@@ -126,7 +114,6 @@
                                                 <option value="1" ${requestScope.statusnew == 1 ? 'selected' : '' }>Active</option>
                                                 <option value="0" ${requestScope.statusnew ==0 ? 'selected' : '' }>In-Active</option>
                                             </select>
->>>>>>> fix_all
                                         </c:if>
                                     </div>
 
@@ -267,24 +254,6 @@
                             </script>
                             <script>
                                 // Function to set the default date to today
-<<<<<<< HEAD
-                                function setDefaultDate() {
-                                    const today = new Date();
-                                    const yyyy = today.getFullYear();
-                                    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-                                    const dd = String(today.getDate()).padStart(2, '0');
-                                    const formattedDate = `${dd}-${mm}-${yyyy}`;
-
-                                            // Only set the date if no date is already provided
-                                            const startDateInput = document.getElementById('startDate');
-                                            if (!startDateInput.value) {
-                                                startDateInput.value = formattedDate;
-                                            }
-                                        }
-
-                                        // Set the default date when the page loads
-                                        window.onload = setDefaultDate;
-=======
                                 window.onload = function () {
                                     // Lấy ngày hôm nay
                                     var today = new Date();
@@ -300,7 +269,6 @@
                                     endDateInput.value = todayDate;
                                     endDateInput.min = todayDate;
                                 };
->>>>>>> fix_all
                             </script>
 
 

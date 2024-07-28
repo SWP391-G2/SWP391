@@ -19,11 +19,7 @@ import java.util.List;
  */
 public class VouchersDAO extends DBContext {
 
-<<<<<<< HEAD
-    public List<Vouchers> getVoucherByName(){
-=======
     public List<Vouchers> getVoucherByName() {
->>>>>>> fix_all
         String sql = "select Code from Vouchers";
         List<Vouchers> list = new ArrayList<>();
         try {
@@ -40,8 +36,6 @@ public class VouchersDAO extends DBContext {
         return list;
     }
 
-<<<<<<< HEAD
-=======
     public Vouchers getVourcherByCode(String code) {
         String sql = "select * from Vouchers where Code = ?";
         try {
@@ -66,7 +60,6 @@ public class VouchersDAO extends DBContext {
         return null;
     }
 
->>>>>>> fix_all
     public void InsertVoucher(String code, double discount, Date EndDate, Date StartDate, int quantity, Date Create, int status) {
         String sql = "INSERT INTO [dbo].[Vouchers]\n"
                 + "           ([Code]\n"
@@ -310,13 +303,10 @@ public class VouchersDAO extends DBContext {
         }
         return 0;
     }
-<<<<<<< HEAD
-=======
     
     public static void main(String[] args) {
         VouchersDAO dao = new VouchersDAO();
         Vouchers v = dao.getVourcherByCode("NEWYEAR2024");
         System.out.println(v.getDiscount());
     }
->>>>>>> fix_all
 }

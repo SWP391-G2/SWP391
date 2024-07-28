@@ -17,6 +17,10 @@
         <servlet-class>Controllers.email.EmailService</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProductList</servlet-name>
+        <servlet-class>Controllers.common.ProductList</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DetailOfProduct</servlet-name>
         <servlet-class>Controllers.common.DetailOfProduct</servlet-class>
     </servlet>
@@ -31,6 +35,10 @@
     <servlet>
         <servlet-name>AdminSale</servlet-name>
         <servlet-class>Controllers.AdminSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controllers.CartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminControlAccount</servlet-name>
@@ -101,14 +109,6 @@
         <servlet-class>Controllers.marketing.ManagerCategory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FeedbackController</servlet-name>
-        <servlet-class>Controllers.marketing.feedback.FeedbackController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateFeedback</servlet-name>
-        <servlet-class>Controllers.marketing.feedback.UpdateFeedback</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RefineServlet</servlet-name>
         <servlet-class>Controllers.common.RefineServlet</servlet-class>
     </servlet>
@@ -149,20 +149,6 @@
         <servlet-class>Controllers.common.ForgotPasswordOTP</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        <servlet-name>VoucherManager</servlet-name>
-        <servlet-class>Controllers.marketing.VoucherManager</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateVoucher</servlet-name>
-        <servlet-class>Controllers.marketing.UpdateVoucher</servlet-class>
-    </servlet>
-    <servlet>
->>>>>>> bc8eadf71d0c9703cc8bc1b050332eb85e217c6f
-=======
->>>>>>> fix_all
         <servlet-name>AddToWishlistServlet</servlet-name>
         <servlet-class>controller.customer.AddToWishlistServlet</servlet-class>
     </servlet>
@@ -189,30 +175,6 @@
     <servlet>
         <servlet-name>SaleControllerOrder</servlet-name>
         <servlet-class>controller.Sale.SaleControllerOrder</servlet-class>
-<<<<<<< HEAD
-    </servlet>
-    <servlet>
-<<<<<<< HEAD
-        <servlet-name>MakertingManageSlider</servlet-name>
-        <servlet-class>Controllers.marketing.MakertingManageSlider</servlet-class>
-=======
-        <servlet-name>SaleOrderDetails</servlet-name>
-        <servlet-class>controller.Sale.SaleOrderDetails</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminAddAccount</servlet-name>
-        <servlet-class>Controllers.admin.AdminAddAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Order</servlet-name>
-        <servlet-class>controller.Sale.Order</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CategoryDetail</servlet-name>
-        <servlet-class>Controllers.marketing.CategoryDetail</servlet-class>
->>>>>>> bc8eadf71d0c9703cc8bc1b050332eb85e217c6f
-=======
->>>>>>> fix_all
     </servlet>
     <servlet>
         <servlet-name>AdminAddAccount</servlet-name>
@@ -263,11 +225,6 @@
         <servlet-class>Controllers.marketing.CategoryDetail</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-        <servlet-name>ControllerSaleOrderDetail</servlet-name>
-        <servlet-class>controller.Sale.ControllerSaleOrderDetail</servlet-class>
-    </servlet>
-=======
         <servlet-name>order</servlet-name>
         <servlet-class>controller.Sale.order</servlet-class>
     </servlet>
@@ -291,10 +248,13 @@
         <servlet-name>CheckStatus</servlet-name>
         <servlet-class>Controllers.vnpay.CheckStatus</servlet-class>
     </servlet>
->>>>>>> fix_trung
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern>/ProductList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -323,6 +283,10 @@
     <servlet-mapping>
         <servlet-name>AdminSale</servlet-name>
         <url-pattern>/adminsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminControlAccount</servlet-name>
@@ -393,14 +357,6 @@
         <url-pattern>/managecategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FeedbackController</servlet-name>
-        <url-pattern>/feedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateFeedback</servlet-name>
-        <url-pattern>/updatefeedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RefineServlet</servlet-name>
         <url-pattern>/refine</url-pattern>
     </servlet-mapping>
@@ -441,20 +397,6 @@
         <url-pattern>/ForgotPasswordOTP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        <servlet-name>VoucherManager</servlet-name>
-        <url-pattern>/voucher</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateVoucher</servlet-name>
-        <url-pattern>/updatevoucher</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
->>>>>>> bc8eadf71d0c9703cc8bc1b050332eb85e217c6f
-=======
->>>>>>> fix_all
         <servlet-name>AddToWishlistServlet</servlet-name>
         <url-pattern>/addToWishlist</url-pattern>
     </servlet-mapping>
@@ -481,30 +423,6 @@
     <servlet-mapping>
         <servlet-name>SaleControllerOrder</servlet-name>
         <url-pattern>/saleorder</url-pattern>
-<<<<<<< HEAD
-    </servlet-mapping>
-    <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>MakertingManageSlider</servlet-name>
-        <url-pattern>/manageSlider</url-pattern>
-=======
-        <servlet-name>SaleOrderDetails</servlet-name>
-        <url-pattern>/saleorderdetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminAddAccount</servlet-name>
-        <url-pattern>/adminaddaccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Order</servlet-name>
-        <url-pattern>/order</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CategoryDetail</servlet-name>
-        <url-pattern>/categorydetail</url-pattern>
->>>>>>> bc8eadf71d0c9703cc8bc1b050332eb85e217c6f
-=======
->>>>>>> fix_all
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminAddAccount</servlet-name>
@@ -555,11 +473,6 @@
         <url-pattern>/categorydetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>ControllerSaleOrderDetail</servlet-name>
-        <url-pattern>/sale-order-detail</url-pattern>
-    </servlet-mapping>
-=======
         <servlet-name>order</servlet-name>
         <url-pattern>/order</url-pattern>
     </servlet-mapping>
@@ -583,5 +496,4 @@
         <servlet-name>CheckStatus</servlet-name>
         <url-pattern>/checkstatus</url-pattern>
     </servlet-mapping>
->>>>>>> fix_trung
 </web-app>

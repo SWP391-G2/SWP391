@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Chi Tiáº¿t Sáº£n Pháº©m NÆ°á»c Hoa</title>
+        <title>Chi Tiết Sản Phẩm Nước Hoa</title>
 
         <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -21,16 +21,10 @@
             />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="css/prdDetails.css" rel="stylesheet">
-        <style>
-            #product-image{
-                width:  400px;
-            }
-        </style>
     </head>
     <body>
         <header>
             <input type="text" id="productname" value="${p.getProductName()}" hidden="">
-            <input type="text" id="category" value="${c.getCategoryName()}" hidden="">
             <input type="text" id="productductFullDetailID" value="${priceandsize[0].productFullDetailID}" hidden="">
             <div class="main_header header_transparent header-mobile-m">
                 <div class="header_container sticky-header" style="padding: 0">
@@ -117,29 +111,18 @@
                 <div class="row gx-5 align-items-center">
                     <aside class="col-lg-5">
                         <div class="mb-3">
-<<<<<<< HEAD
-                            <img id="product-image" src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded-4 shadow">
-
-=======
                             <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded-4 shadow">
->>>>>>> fix_all
                         </div>
+                        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+                        <button class="next" onclick="changeImage(1)">&#10095;</button>
                         <div class="d-flex justify-content-center mb-3">
                             <div class="row gx-2">
                                 <div class="col-3">
-<<<<<<< HEAD
-                                    <img src="${p.getProductImageUrl()}" alt="áº¢nh sáº£n pháº©m 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
-                                </div>                               
-                                <c:forEach items="${priceandsize}" var="img">
-                                    <div class="col-3">
-                                        <img src="${img.getImage()}" alt="áº¢nh sáº£n pháº©m 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
-=======
                                     <img src="${p.getProductImageUrl()}" alt="Ảnh sản phẩm 1" class="img-fluid rounded cursor-pointer" onclick="showImage('${p.getProductImageUrl()}')">
                                 </div>
                                 <c:forEach items="${priceandsize}" var="img">
                                     <div class="col-3">
                                         <img src="${img.getImage()}" alt="Ảnh sản phẩm 2" class="img-fluid rounded cursor-pointer" onclick="showImage('${img.getImage()}')">
->>>>>>> fix_all
                                     </div>
                                 </c:forEach>
                             </div>
@@ -390,14 +373,9 @@
                      color: rgba(0, 0, 0, 0.87);
                      margin-top: 0.75rem;
                      white-space: pre-wrap;">${fb.getFbContent()}</div>
-                <div style="font-size: 20px;
-                     line-height: 10px;
-                     color: rgba(0, 0, 0, 0.87);
-                     margin-top: 1.75rem;
-                     white-space: pre-wrap;"><h4 style="color: red;">${fb.getReply()}</h4></div>
                 <div style="margin-top: 0.95rem;">
                     <c:if test="${fb.getFbImage() != null}" >
-                        <img src="${fb.getFbImage()}" style="width: 100px; height: 100px" />
+                        <img src="images/Feedback/${fb.getFbImage()}" style="width: 100px; height: 100px" />
                     </c:if>
                 </div>
 
@@ -458,24 +436,19 @@
     </c:forEach>
     ];
     document.getElementById("perfume-type").addEventListener("change", function () {
-        // Láº¥y giÃ¡ trá» size ÄÆ°á»£c chá»n
+        // Lấy giá trị size được chọn
         var selectedSize = this.value;
-        // Láº·p qua danh sÃ¡ch cÃ¡c size Äá» tÃ¬m size tÆ°Æ¡ng á»©ng vÃ  cáº­p nháº­t giÃ¡
+        // Lặp qua danh sách các size để tìm size tương ứng và cập nhật giá
         for (var i = 0; i < priceAndSizeData.length; i++) {
-            if (priceAndSizeData[i].size == selectedSize) {
-
+            if (priceAndSizeData[i].size === selectedSize) {
+                // Hiển thị giá của size được chọn
                 document.getElementById("price").innerText = priceAndSizeData[i].price + " $";
                 document.getElementById("quantitie").innerText = priceAndSizeData[i].quantity;
                 document.getElementById("productductFullDetailID").setAttribute("value", priceAndSizeData[i].productfulldetailid);
                 console.log(document.getElementById("productductFullDetailID"));
                 var statusText = (priceAndSizeData[i].quantity === 0 || priceAndSizeData[i].status === 0) ? 'Out Of Stock' : 'In Stock';
                 document.getElementById("status").innerText = statusText;
-<<<<<<< HEAD
-
-                // Cáº­p nháº­t tráº¡ng thÃ¡i cá»§a nÃºt "Add to Cart"
-=======
                 // Cập nhật trạng thái của nút "Add to Cart"
->>>>>>> fix_all
                 var addToCartBtn = document.getElementById("addToCartBtn");
                 if (priceAndSizeData[i].quantity === 0) {
                     addToCartBtn.setAttribute("disabled", "true");
@@ -492,7 +465,7 @@
                 }
 
 
-                break; // Káº¿t thÃºc vÃ²ng láº·p khi tÃ¬m ÄÆ°á»£c size tÆ°Æ¡ng á»©ng
+                break; // Kết thúc vòng lặp khi tìm được size tương ứng
             }
         }
     });
@@ -507,18 +480,11 @@
 
 
     function addToCartCookie(productductFullDetailID) {
-<<<<<<< HEAD
-        var productname = document.getElementById('productname').value;
-        var quantity = document.getElementById('quantity').value;
-        var category = document.getElementById('category').value;
-        window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity + "&&productname=" + productname + "&&productfulldetailid=" + productductFullDetailID + "&&category=" + category;
-=======
         var productname = document.getElementById('productname');
         var quantity = document.getElementById('quantity');
         if (productname !== null && productname.value !== '' && quantity !== null && quantity.value !== '') {
             window.location.href = "/SWP391-G2/cartcookie?quantity=" + quantity.value + "&&productname=" + productname.value + "&&productfulldetailid=" + productductFullDetailID;
         }
->>>>>>> fix_all
     }
 
 
@@ -531,4 +497,3 @@
 
 </body>
 </html>
-

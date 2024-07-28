@@ -19,10 +19,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
->>>>>>> fix_all
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -181,11 +178,7 @@ public class AdminControlAccount extends HttpServlet {
 
                 String gender1 = request.getParameter("gender");
 
-<<<<<<< HEAD
-                String roleID1 = request.getParameter("roleID");
-=======
                 String roleID1 = request.getParameter("roleId");
->>>>>>> fix_all
 
                 int roleID = -1;
                 int gender = -1;
@@ -209,16 +202,6 @@ public class AdminControlAccount extends HttpServlet {
                 String p = security.getPasswordSecurity(password);
                 Accounts a = new Accounts(firstName, lastName, p, image, gender, birthday, email, 1, createdate, roleID);
 
-<<<<<<< HEAD
-                response.getWriter().println(firstName);
-                response.getWriter().println(lastName);
-                response.getWriter().println(p);
-                response.getWriter().println(gender);
-                response.getWriter().println(birthday);
-                response.getWriter().println(email);
-                response.getWriter().println(createdate);
-                response.getWriter().println(roleID);
-=======
 //                response.getWriter().println(firstName);
 //                response.getWriter().println(lastName);
 //                response.getWriter().println(p);
@@ -227,7 +210,6 @@ public class AdminControlAccount extends HttpServlet {
 //                response.getWriter().println(email);
 //                response.getWriter().println(createdate);
 //                response.getWriter().println(roleID);
->>>>>>> fix_all
                 dao.setInsert(a);
 
             } else {
@@ -239,16 +221,7 @@ public class AdminControlAccount extends HttpServlet {
         } catch (Exception e) {
 
         }
-<<<<<<< HEAD
-        response.getWriter().print(email);
-
-        //List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
-        List<Accounts> listAccount = dao.getListByFilter(roleId, status, search, pageNo, pageSize);
-        int totalPage = dao.getTotalPage(roleId, status, search, pageSize);
-        RoleDAO daoRole = new RoleDAO();
-=======
         //response.getWriter().print(email);
->>>>>>> fix_all
 
         //List<Accounts> listAccount = dao.getListAdminByFilter(roleId, status, search, pageNo, pageSize);
         List<Accounts> listAccount = dao.getListByFilter(roleId, status, search, pageNo, pageSize);

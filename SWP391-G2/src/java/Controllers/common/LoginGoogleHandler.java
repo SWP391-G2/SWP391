@@ -50,7 +50,7 @@ public class LoginGoogleHandler extends HttpServlet {
         try {
             if (account != null) {
                 if (account.getStatus() == 1) {
-                    session.setAttribute("account", account);
+                   session.setAttribute("account", account);
                     request.getRequestDispatcher("home").forward(request, response);
                 } else {
                     throw new Exception("Your account was ban please enter another account!!");
@@ -101,6 +101,7 @@ public class LoginGoogleHandler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String s = request.getParameter("error");
+
         if (s != null) {
             request.getRequestDispatcher("login").forward(request, response);
         } else {

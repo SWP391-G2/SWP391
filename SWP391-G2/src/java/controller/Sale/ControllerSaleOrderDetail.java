@@ -4,20 +4,13 @@
  */
 package controller.Sale;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> fix_trung
 import Dal.OrderDAO;
 import Dal.OrderDetailDAO;
 import Dal.OrderStatusDAO;
 import Dal.ProductDetailDAO;
 import Models.OrderStatus;
 import Models.Orders;
-<<<<<<< HEAD
-import Models.ProductDetail;
-=======
->>>>>>> fix_trung
 import Models.orderDetailSale;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -63,16 +63,12 @@ public class SaleControllerOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-<<<<<<< HEAD
-     
-=======
             HttpSession session = request.getSession();
         session.setAttribute("role", 2);
         LocalDate currentDate = LocalDate.now();
         // Chuyển đổi ngày hiện tại thành chuỗi với định dạng mặc định
         String dateString = currentDate.toString();
         String date = "";
->>>>>>> fix_all
         String search = "";
         int status = -1;
         int pageNo = 1;

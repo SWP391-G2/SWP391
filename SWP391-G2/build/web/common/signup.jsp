@@ -21,13 +21,6 @@
                 color: #232836;
                 padding: 0 15px;
             }
-<<<<<<< HEAD
-
-        </style>
-    </head>
-    <body>
-        <div class="row vh-100 g-0 " style="background-color: pink">
-=======
             .loading-spinner {
                 position: fixed;
                 left: 50%;
@@ -53,18 +46,6 @@
     </head>
     <body style="background-color: pink">
         <div class="row vh-100 g-0"  >
-<<<<<<< HEAD
->>>>>>> fix_all
-            <c:if test="${requestScope.err != null}">
-                <div class="p-0 m-0 fixed-top text-center">
-
-                    <div class="alert alert-warning text-center" role="alert">
-                        ${requestScope.err}
-                    </div>
-                </div>
-            </c:if>
-=======
->>>>>>> fix_trung
             <!--left side  -->
             <input type="hidden" id="success" value="${requestScope.success}" >
             <input type="hidden" id="error" value="${requestScope.error}" >
@@ -74,13 +55,8 @@
             <!-- right side  -->
             <div class="d-flex justify-content-center">
 
-<<<<<<< HEAD
-                <div class=" col col-sm-9 col-lg-7 col-xl-5  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
-                    <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff">
-=======
                 <div class=" col col-sm-9 col-lg-9 col-xl-6  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
                     <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff" >
->>>>>>> fix_all
                         <div class="text-center mb-5">
                             <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
                             <form action="./signup" id="form" method="post" >
@@ -161,10 +137,6 @@
                                             <label for="floatingInputGroup1">Password</label>
                                         </div>
                                     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> fix_all
                                 </div>
 
 
@@ -184,7 +156,7 @@
 
                                 <div class="input-group mb-3 d-flex justify-content-between">
                                     <div>
-                                        <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none">Forgot Password ?</a></small>
+                                        <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Forgot Password?</a></small>
                                     </div>
                                     <div id="showButton" class="col-1 p-0 m-0 d-flex justify-content-end float-right"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
@@ -203,19 +175,6 @@
                                         <li class="dropdown-item">At least 1 uppercase letter (A-Z)</li>
                                     </ul>
                                 </div>
-<<<<<<< HEAD
-                                <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
-                                <div class="text-center">
-                                    <small>Return to the <a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none;font-weight: bold;">LOGIN PAGE</a></small>
-                                </div>
-                            </form>
-<<<<<<< HEAD
-                           
-=======
-                            <div>
-                                <hr/>
-
-=======
                                 <button type="submit" class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
                             </form>
                             <div>
@@ -223,10 +182,8 @@
                                   <div>
                                         <small><a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">back to login</a></small>
                                     </div>
->>>>>>> fix_trung
 
                             </div>
->>>>>>> fix_all
                         </div>
                     </div>
                 </div>

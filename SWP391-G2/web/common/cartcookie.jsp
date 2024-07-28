@@ -300,22 +300,6 @@
                             <thead class="bg-secondary text-dark">
 
                                 <tr>
-<<<<<<< HEAD
-                                    <td class="align-middle"><img width="150px" height="150px" src="${i.product.getImage()}" alt="alt"/></td>
-                                    <td class="align-middle">${i.getName()}</td>
-                            <input name="name" value="${i.getName()}" type="hidden"/>
-                            <td class="align-middle">${i.product.getProductSize()}</td>
-                            <td class="align-middle">${i.product.getProductPrice()}$</td>
-                            <td class="align-middle">
-                                <form action="shop" method="post" id="myForm${loop.index}" class="form">
-                                    <div class="input-group quantity mx-auto">
-                                        <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
-                                        <span id="quanError${loop.index}" class="text-danger"></span>
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm  bg-dark btn-minus" type="submit" class="changeQuantity" name="minus" value="1">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-=======
                                     <th>Product Image</th>
                                     <th>Product Name</th>
                                     <th>Size</th>
@@ -357,7 +341,6 @@
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
->>>>>>> fix_all
                                         </div>
                                     </form>
                                 </td>

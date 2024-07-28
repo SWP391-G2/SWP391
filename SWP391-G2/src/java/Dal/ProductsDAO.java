@@ -20,11 +20,7 @@ import java.sql.Date;
  */
 public class ProductsDAO extends DBContext {
 
-<<<<<<< HEAD
-    public Products getProduct(int id) {
-=======
        public Products getProduct(int id) {
->>>>>>> fix_all
         String sql = "select * from Products where ProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -46,12 +42,7 @@ public class ProductsDAO extends DBContext {
         }
         return null;
     }
-<<<<<<< HEAD
-    
-   public List<ProductsHome> loadProducts() {
-=======
     public List<ProductsHome> loadProducts() {
->>>>>>> fix_all
         List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
@@ -942,14 +933,7 @@ public class ProductsDAO extends DBContext {
     public static void main(String[] args) {
         ProductsDAO productsDAO = new ProductsDAO();
 
-<<<<<<< HEAD
-        List<ProductsHome> products1 = productsDAO.getTopBestSellers("5");
-        for (ProductsHome product : products1) {
-            System.out.println(product.getProductName());
-        }
-=======
         productsDAO.updateStatusByStatusBrand(1, 1);
->>>>>>> fix_all
     }
 
 }

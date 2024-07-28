@@ -6,6 +6,7 @@ package Dal;
 
 import context.DBContext;
 import Models.ProductDetail;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -399,22 +400,6 @@ public class ProductDetailDAO extends DBContext {
         }
     }
 
-    public void updateQuantity(int id, int quantity) {
-        String sql = "UPDATE [dbo].[ProductFullDetail]\n"
-                + "   SET \n"
-                + "      [ProductAvaiable] = ?\n"
-                + "     \n"
-                + " WHERE ProductFullDetailID = ?";
-        try {
-            PreparedStatement ur = connection.prepareStatement(sql);
-            ur.setInt(1, quantity);
-            ur.setInt(2, id);
-            ur.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
     public void updateMinusAvaiableProductDetail(int avaiable, int pdID) {
         String sql = "UPDATE ProductFullDetail set ProductAvaiable = ? -1 where ProductFullDetailID = ?";
         try {
@@ -465,29 +450,11 @@ public class ProductDetailDAO extends DBContext {
         }
         return details;
     }
-<<<<<<< HEAD
-    public int countAllProduct() {
-        String sql = "select sum([ProductAvaiable]) from ProductFullDetail";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (Exception e) {
-        }
-        return 0;
-    }
-    public static void main (String[] args){
-        ProductDetailDAO prdDAO = new ProductDetailDAO();
-        System.out.println(prdDAO.countAllProduct());
-=======
 
     public static void main(String[] args) {
         ProductDetailDAO pddao = new ProductDetailDAO();
         Date date = new Date(System.currentTimeMillis());
         ProductDetail detail = new ProductDetail(90, "sdsa dd", date, 1, "30ml", BigDecimal.valueOf(-1), 100, "");
         System.out.println(pddao.getTotalPage(1, -1, "", 10));
->>>>>>> fix_all
     }
 }
