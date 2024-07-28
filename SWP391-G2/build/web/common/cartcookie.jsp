@@ -22,8 +22,6 @@
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
         <!-- Libraries Stylesheet -->
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -196,12 +194,12 @@
                 display: flex;
                 flex-direction: column;
             }
-
             .scroll{
                 width: 100%;
                 height: 550px;
                 overflow-y: scroll;
             }
+
         </style>
     </head>
 
@@ -293,14 +291,14 @@
         <!-- Page Header End -->
 
 
-
         <!-- Cart Start -->
         <div class="container-fluid pt-5" >
             <div class="row px-xl-5">
                 <div class="col-lg-8 table-responsive mb-5">
-                    <div class="row scroll ">
+                    <div class="row scroll">
                         <table class="table table-bordered text-center mb-0">
                             <thead class="bg-secondary text-dark">
+
                                 <tr>
                                     <th>Product Image</th>
                                     <th>Product Name</th>
@@ -314,8 +312,12 @@
 
                             <c:set var="total" value="0"/>
                             <c:set var="o" value="${requestScope.cart}"/>
-                            <c:forEach items="${o.items}" var="i" >
-                                <tbody class="align-middle">
+
+                            <tbody class="align-middle">
+
+                                <c:forEach items="${o.items}" var="i" varStatus="loop">
+
+
                                     <tr>
                                         <td class="align-middle"><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
                                         <td class="align-middle">${i.getName()}</td>
@@ -324,6 +326,7 @@
                                 <td class="align-middle">${i.product.getProductPrice()}$</td>
                                 <td class="align-middle">
                                     <form action="shop" method="post" id="myForm${loop.index}" class="form">
+                                        <input type="hidden" name="deletecard" value="">
                                         <div class="input-group quantity mx-auto">
                                             <input type="hidden" value="${i.product.getProductFullDetailID()}" name="pdID"/>
                                             <span id="quanError${loop.index}" class="text-danger"></span>
@@ -338,25 +341,27 @@
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
-
                                         </div>
                                     </form>
-
                                 </td>
                                 <td class="align-middle">
                                     <c:set var="itemTotal" value="${i.product.getProductPrice() * i.getQuantity()}"/>
                                     <fmt:formatNumber value="${itemTotal}" type="number" pattern="#,##0.00"/>$
                                 </td>
-                                <!--<td class="align-middle "><button class="btn btn-danger" type="submit"  onclick="deleteCart()" name="deletecard" value="${i.product.getProductFullDetailID()}">DELETE</button></td>-->
+                                <td class="align-middle ">
+                                    <button class="btn text-warning" style="background-color: #ffffff" type="submit"  onclick="deleteCart('${loop.index}')" >DELETE</button>
+                                </td>
                                 </tr>
                                 <c:set var="total" value="${total + itemTotal}"/>
 
+
                             </c:forEach>
+
+                            </tbody>
 
                         </table>
                     </div>
                 </div>
-
                 <div class="col-lg-4">
                     <div class="card border-secondary mb-5">
                         <div class="card-header bg-secondary border-0">
@@ -380,9 +385,7 @@
                                     <h5 class="font-weight-bold"><fmt:formatNumber value="${total}" type="number"  pattern="#,##0.00"/>$</h5>
                                 </div>
                                 <input type ="hidden" value="${total}" name="totalprice"/>
-                                <c:if test="${total !=0}">
-                                    <button  class="btn btn-block bg-dark mb-3 my-3 py-3" ><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
-                                </c:if>
+                                <button  class="btn btn-block bg-dark mb-3 my-3 py-3"><span style="color: #fff; font-weight: bold">Proceed To Checkout</span></button>
                             </div>
                         </form>
                     </div>
@@ -402,73 +405,59 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-        <!-- Contact Javascript File -->
-        <script src="mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
-
-        <!-- Template Javascript -->
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
-        <script>
-            function notice() {
-                if (confirm("Delete all items in cart?")) {
-                    document.getElementById("deleteForm").submit();
-                }
-            }
-
-            function deleteCart() {
-                if (confirm("Do you want delete product?")) {
-                    console.log(document.getElementById(''))
-//                                        document.getElementById("myForm${loop.index}").submit();
-                }
-            }
-
-            function sendCode(code) {
-                window.location.href = 'applyvouchers?code=' + code;
-            }
-
-
-
-            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                inputElement.addEventListener('keypress', (event) => {
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        const value = document.getElementById('newquant' + index).value;
-                        const value1 = document.getElementById('quantity' + index).value;
-                        if (value1 < value) {
-                            document.getElementById('quanError' + index).innerText = 'fail';
-                            return false;
-                        } else {
-                            document.getElementById('newquantity' + index).setAttribute('value', value);
-                            document.getElementById('myForm' + index).submit();
-                        }
-
-                    }
-                });
-            });
-
-            function loading() {
-                let timerInterval;
-                Swal.fire({
-                    title: "Loading...",
-                    didOpen: () => {
-                        Swal.showLoading();
-
-                    },
-                    willClose: () => {
-
-                    }
-                }).then((result) => {
-
-                });
-            }
-        </script>
     </body>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <script>
+                                        function notice() {
+                                            if (confirm("Delete all items in cart?")) {
+                                                document.getElementById("deleteForm").submit();
+                                            }
+                                        }
+
+                                        function deleteCart(index) {
+                                            if (confirm("Do you want delete product?")) {
+                                                const form = document.getElementById('myForm' + index);
+                                                var inputElement = form.querySelector('input[name="deletecard"]');
+                                                inputElement.value = index;
+                                                form.submit();
+                                            }
+                                        }
+
+                                        function sendCode(code) {
+                                            window.location.href = 'applyvouchers?code=' + code;
+                                        }
+
+
+
+                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                            inputElement.addEventListener('keypress', (event) => {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                    const value = document.getElementById('newquant' + index).value;
+                                                    const value1 = document.getElementById('quantity' + index).value;
+                                                    if (value1 < value) {
+                                                        document.getElementById('quanError' + index).innerText = 'fail';
+                                                        return false;
+                                                    } else {
+                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                        document.getElementById('myForm' + index).submit();
+                                                    }
+
+                                                }
+                                            });
+                                        });
+    </script>
+
 
 </html>

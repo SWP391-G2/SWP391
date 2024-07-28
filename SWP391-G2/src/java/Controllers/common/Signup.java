@@ -86,7 +86,7 @@ public class Signup extends HttpServlet {
                 throw new Exception("email is exist, please enter another email or login!!");
             }
         } catch (Exception e) {
-            request.setAttribute("err", e.getMessage());
+            request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("common/signup.jsp").forward(request, response);
         }
 

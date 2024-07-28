@@ -35,7 +35,7 @@ public class MarketingManagerProducts extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.setAttribute("role", 2);
+        session.setAttribute("role", 3);
 
         String search = "";
         int proId = -1;

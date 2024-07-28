@@ -44,14 +44,14 @@ public class OrderDetailDAO extends DBContext {
         return _details;
     }
 
-    public void insertOrderDetail(int orderID, int pdID, int odQuantity, double pdPrice, String odName) {
-        String sql = "nsert into OrderDetail(odOrderID, odProductDetail, odQuantity, odPrice, odName) values(?,?,?,?,?);";
+    public void insertOrderDetail(int orderID, int pdID, int odQuantity, float pdPrice, String odName) {
+        String sql = "insert into OrderDetail(odOrderID, odProductDetail, odQuantity, odPrice, odName) values(?,?,?,?,?);";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, orderID);
             ur.setInt(2, pdID);
             ur.setInt(3, odQuantity);
-            ur.setDouble(4, pdPrice);
+            ur.setFloat(4, pdPrice);
             ur.setString(5, odName);
             ur.executeUpdate();
         } catch (SQLException e) {

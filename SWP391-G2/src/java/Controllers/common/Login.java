@@ -72,7 +72,7 @@ public class Login extends HttpServlet {
                             case 4 ->
                                 response.sendRedirect("home");
                             case 3 ->
-                                response.sendRedirect("brand");
+                                response.sendRedirect("marketing-manager-products");
                             case 2 ->
                                 response.sendRedirect("saleorder");
                             case 1 ->

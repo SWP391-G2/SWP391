@@ -216,14 +216,14 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " OrderDate < ?";
+                sql += " OrderDate <= ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or OrderEmail like ? or PaymentMethod like ? or OrderNote like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or Email like ? )";
             }
         }
 
@@ -240,7 +240,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 4; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -289,14 +289,14 @@ public class OrderDAO extends DBContext {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " OrderDate < ?";
+                sql += " OrderDate <= ?";
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or OrderEmail like ? or PaymentMethod like ? or OrderNote like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or Email like ? )";
             }
         }
 
@@ -308,7 +308,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 4; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }

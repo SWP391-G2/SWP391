@@ -312,8 +312,9 @@
                                 </tr>
                             </thead>
                             <c:set var="total" value="0"/>
-                            <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
-                                <tbody class="align-middle">
+                            <tbody class="align-middle">
+                                <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+
                                     <tr>
                                         <td class="align-middle"><img src="${listproduct[loop.index].getImage()}" alt="" style="width: 60px; height: 60px"></td>
                                         <td class="align-middle">${listcart[loop.index].getName()}</td>
@@ -353,8 +354,9 @@
                                         <td class="align-middle text-warning" ><a class="text-warning" onclick="deleteCart()" href="cartcontroller?deletecard=${listcart[loop.index].getCardID()}">DELETE</a></td>
                                     </tr>
                                     <c:set var="total" value="${total + itemTotal}"/>
-                                </tbody>
-                            </c:forEach>
+
+                                </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -417,57 +419,57 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
         <script>
-                                        function notice() {
-                                            if (confirm("Delete all items in cart?")) {
-                                                document.getElementById("deleteForm").submit();
+                                            function notice() {
+                                                if (confirm("Delete all items in cart?")) {
+                                                    document.getElementById("deleteForm").submit();
+                                                }
                                             }
-                                        }
 
-                                        function deleteCart() {
-                                            if (confirm("Do you want delete product?")) {
-                                                document.getElementById("myForm${loop.index}").submit();
+                                            function deleteCart() {
+                                                if (confirm("Do you want delete product?")) {
+                                                    document.getElementById("myForm${loop.index}").submit();
+                                                }
                                             }
-                                        }
 
-                                        function sendCode(code) {
-                                            window.location.href = 'applyvouchers?code=' + code;
-                                        }
-
+                                            function sendCode(code) {
+                                                window.location.href = 'applyvouchers?code=' + code;
+                                            }
 
 
-                                        document.querySelectorAll('.quantity').forEach((inputElement, index) => {
-                                            inputElement.addEventListener('keypress', (event) => {
-                                                if (event.key === 'Enter') {
-                                                    event.preventDefault();
-                                                    const value = document.getElementById('newquant' + index).value;
-                                                    const value1 = document.getElementById('quantity' + index).value;
-                                                    if (value1 < value) {
-                                                        document.getElementById('quanError' + index).innerText = 'fail';
-                                                        return false;
-                                                    } else {
-                                                        document.getElementById('newquantity' + index).setAttribute('value', value);
-                                                        document.getElementById('myForm' + index).submit();
+
+                                            document.querySelectorAll('.quantity').forEach((inputElement, index) => {
+                                                inputElement.addEventListener('keypress', (event) => {
+                                                    if (event.key === 'Enter') {
+                                                        event.preventDefault();
+                                                        const value = document.getElementById('newquant' + index).value;
+                                                        const value1 = document.getElementById('quantity' + index).value;
+                                                        if (value1 < value) {
+                                                            document.getElementById('quanError' + index).innerText = 'fail';
+                                                            return false;
+                                                        } else {
+                                                            document.getElementById('newquantity' + index).setAttribute('value', value);
+                                                            document.getElementById('myForm' + index).submit();
+                                                        }
+
                                                     }
-
-                                                }
+                                                });
                                             });
-                                        });
 
-                                        function loading() {
-                                            let timerInterval;
-                                            Swal.fire({
-                                                title: "Loading...",
-                                                didOpen: () => {
-                                                    Swal.showLoading();
+                                            function loading() {
+                                                let timerInterval;
+                                                Swal.fire({
+                                                    title: "Loading...",
+                                                    didOpen: () => {
+                                                        Swal.showLoading();
 
-                                                },
-                                                willClose: () => {
+                                                    },
+                                                    willClose: () => {
 
-                                                }
-                                            }).then((result) => {
+                                                    }
+                                                }).then((result) => {
 
-                                            });
-                                        }
+                                                });
+                                            }
         </script>
     </body>
 

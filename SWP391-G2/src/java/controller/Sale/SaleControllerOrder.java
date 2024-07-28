@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class SaleControllerOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+            HttpSession session = request.getSession();
+        session.setAttribute("role", 2);
         LocalDate currentDate = LocalDate.now();
         // Chuyển đổi ngày hiện tại thành chuỗi với định dạng mặc định
         String dateString = currentDate.toString();

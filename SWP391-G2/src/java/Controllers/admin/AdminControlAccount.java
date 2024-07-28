@@ -19,6 +19,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -67,7 +68,8 @@ public class AdminControlAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+    HttpSession session = request.getSession();
+        session.setAttribute("role", 1);
         //processRequest(request, response);
         //String status_raw = request.getParameter("statusnew");
         //String accountID_raw = request.getParameter("accountID");

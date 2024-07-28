@@ -38,11 +38,16 @@
         <div class="container-fluid">
             <!-- Navigation -->
             <jsp:include page="../partials/navigation.jsp"></jsp:include>
-
+                <div class="topbar">
+                </div>
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
+                    <div class="topbar mb-2">
+                        <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-6 link-dark" href="./marketing-manager-products"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                                </svg>Previous page</a></li>
                     </div>
+
                     <!--profile of product-->
                     <div class="row mb-5" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <div class="col-12" style="margin-bottom: 40px;">
@@ -152,7 +157,7 @@
                                     var isValid = true;
 
                                     // Validate Image Input
-                                   
+
 
                                     // Validate Product Name
                                     if (productName === '') {
@@ -187,7 +192,7 @@
                                         reader.onload = function (e) {
                                             $('#image').attr('src', e.target.result);
                                             uploadImage();
-                                              imgError.textContent = '';
+                                            imgError.textContent = '';
                                         };
                                         uploadImage();
                                         reader.readAsDataURL(input.files[0]);
