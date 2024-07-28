@@ -20,7 +20,7 @@ public class BrandsDAO extends DBContext {
 
     public List<Brands> getBrands() {
         List<Brands> brands = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[Brands]";
+        String sql = "SELECT * FROM [dbo].[Brands] where status =1 ";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -61,7 +61,11 @@ public class BrandsDAO extends DBContext {
             }
         }
 
+<<<<<<< HEAD
         sql += " ORDER BY  BrandID desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+=======
+        sql += " ORDER BY BrandID desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+>>>>>>> fix_all
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index

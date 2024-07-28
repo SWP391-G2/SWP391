@@ -75,7 +75,6 @@ public class MarketingUpdateProduct extends HttpServlet {
         List<Brands> brList = brDao.getBrands();
 
         request.setAttribute("size", size);
-        request.setAttribute("folder", Constant.constant.PRODUCT);
         request.setAttribute("product", product);
         request.setAttribute("status", status);
         request.setAttribute("cateName", cateName);
@@ -100,10 +99,10 @@ public class MarketingUpdateProduct extends HttpServlet {
         int newStatus = -1;
         int pageNo = -1;
         String productName = "";
-        String photo = "";
+        String ima = "";
         try {
             productName = request.getParameter("productName") == null ? "" : request.getParameter("productName");
-            photo = request.getParameter("photo") == null ? "" : request.getParameter("photo");
+            ima = request.getParameter("ima") == null ? "" : request.getParameter("ima");
             proId = request.getParameter("productId") == null ? -1 : Integer.parseInt(request.getParameter("productId"));
             newCateId = request.getParameter("newcateId") == null ? -1 : Integer.parseInt(request.getParameter("newcateId"));
             newStatus = request.getParameter("newstatus") == null ? -1 : Integer.parseInt(request.getParameter("newstatus"));
@@ -113,17 +112,17 @@ public class MarketingUpdateProduct extends HttpServlet {
         }
 
         response.getWriter().println(proId);
-        response.getWriter().println(photo);
+        response.getWriter().println(ima);
         response.getWriter().println(newBrandId);
         response.getWriter().println(newCateId);
         response.getWriter().println(newStatus);
         response.getWriter().print(productName);
 //        Products product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
-        Products product = new Products(proId, productName, newStatus, photo, newBrandId, pageNo);
+        Products product = new Products(proId, productName, newStatus, ima, newBrandId, pageNo);
         
         proDao.updateProduct(product);
         
-     //   response.sendRedirect("marketing-manager-products?s=1");
+        response.sendRedirect("marketing-manager-products?s=1");
         //insert product
 //        var product = new Products(proId, productName, newStatus, fileName, newBrandId, newCateId);
 //        proDao.updateProduct(product);

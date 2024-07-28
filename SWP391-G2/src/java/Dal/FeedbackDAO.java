@@ -18,7 +18,11 @@ import context.DBContext;
  * @author admin
  */
 public class FeedbackDAO extends DBContext {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fix_all
     public List<FeedBacks> getListFeedback(Boolean replyNotNull) {
         List<FeedBacks> list = new ArrayList<>();
         String sql = "SELECT * FROM Feedbacks";

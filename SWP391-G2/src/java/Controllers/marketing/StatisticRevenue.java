@@ -63,7 +63,11 @@ public class StatisticRevenue extends HttpServlet {
             throws ServletException, IOException {
         ProductDetailDAO prdDAO = new ProductDetailDAO();
         OrderDAO odDAO = new OrderDAO();
+<<<<<<< HEAD
         int count = prdDAO.countAllProduct();
+=======
+//        int count = prdDAO.countAllProduct();
+>>>>>>> fix_all
         int totalmoneyAll = odDAO.getSumRevenue();
         int sumquantitySold = odDAO.getSumQuantitySold();
         int totalDeals = odDAO.getTotalDeals();
@@ -131,7 +135,11 @@ public class StatisticRevenue extends HttpServlet {
         request.setAttribute("totalDeals", totalDeals);
         request.setAttribute("totalmoneyAll", totalmoneyAll);
         request.setAttribute("sumquantitySold", sumquantitySold);
+<<<<<<< HEAD
         request.setAttribute("countProduct", count);
+=======
+//        request.setAttribute("countProduct", count);
+>>>>>>> fix_all
         request.getRequestDispatcher("marketing/statistic-revenue.jsp").forward(request, response);
     }
 

@@ -20,7 +20,11 @@ import java.sql.Date;
  */
 public class ProductsDAO extends DBContext {
 
+<<<<<<< HEAD
     public Products getProduct(int id) {
+=======
+       public Products getProduct(int id) {
+>>>>>>> fix_all
         String sql = "select * from Products where ProductID = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -42,8 +46,12 @@ public class ProductsDAO extends DBContext {
         }
         return null;
     }
+<<<<<<< HEAD
     
    public List<ProductsHome> loadProducts() {
+=======
+    public List<ProductsHome> loadProducts() {
+>>>>>>> fix_all
         List<ProductsHome> products = new ArrayList<>();
         String sql = "SELECT p.*, "
                 + "MIN(pd.ProductPrice) AS priceMin, "
@@ -334,14 +342,7 @@ public class ProductsDAO extends DBContext {
     //Search by name ajax in refine
     public List<ProductsHome> searchByName(String text) {
         List<ProductsHome> products = new ArrayList<>();
-        String sql = "SELECT p.*, "
-                + "MIN(pd.ProductPrice) AS priceMin, "
-                + "MAX(pd.ProductPrice) AS priceMax "
-                + "FROM Products p "
-                + "JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID "
-                + "WHERE p.ProductName LIKE ? "
-                + "GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, "
-                + "p.ProductStatus, p.ProductImageUrl, p.BrandID";
+        String sql = "SELECT p.* ,MIN(pd.ProductPrice) AS priceMin,MAX(pd.ProductPrice) AS priceMax FROM Products p JOIN ProductFullDetail pd ON p.ProductID = pd.pdProductID WHERE p.ProductStatus = 1 and p.ProductName LIKE ? GROUP BY p.ProductID, p.CategoryID, p.ProductName, p.ProductCreateDate, p.ProductStatus, p.ProductImageUrl, p.BrandID";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + text + "%");
@@ -878,6 +879,18 @@ public class ProductsDAO extends DBContext {
             System.err.println(e.getMessage());
         }
     }
+    
+     public void updateStatusByStatusBrand(int status, int brandID) {
+        String sql = "UPDATE [dbo].[Products]  SET [ProductStatus] = ? WHERE BrandID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, status);
+            ur.setInt(2, brandID);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
     public void updateProduct(Products product) {
         String sql = "UPDATE [dbo].[Products]\n"
@@ -929,10 +942,14 @@ public class ProductsDAO extends DBContext {
     public static void main(String[] args) {
         ProductsDAO productsDAO = new ProductsDAO();
 
+<<<<<<< HEAD
         List<ProductsHome> products1 = productsDAO.getTopBestSellers("5");
         for (ProductsHome product : products1) {
             System.out.println(product.getProductName());
         }
+=======
+        productsDAO.updateStatusByStatusBrand(1, 1);
+>>>>>>> fix_all
     }
 
 }

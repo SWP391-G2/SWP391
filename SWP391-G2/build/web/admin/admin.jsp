@@ -128,7 +128,11 @@
                                     <c:forEach items="${listUser}" var="user" varStatus="loop">
                                         <tr>
                                             <td>${(requestScope.currentPage-1)*10+loop.index+1}</td>
+<<<<<<< HEAD
                                             <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} + ${user.getLastName()}</a></td>
+=======
+                                            <td><a href="admindetails?id=${user.getAccountID()}&roleID=${user.getRoleID()}">${user.getFirstName()} ${user.getLastName()}</a></td>
+>>>>>>> fix_all
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${user.getGender() == 1}">Male</c:when>
@@ -144,7 +148,7 @@
                                                     <c:when test="${user.getRoleID() == 1}">Admin</c:when>
                                                     <c:when test="${user.getRoleID() == 3}">Marketing</c:when>
                                                     <c:when test="${user.getRoleID() == 2}">Saler</c:when>
-                                                    <c:otherwise>User</c:otherwise>
+                                                    <c:otherwise>Customer</c:otherwise>
                                                 </c:choose>
                                             </td>
 
@@ -152,19 +156,22 @@
                                             <td>
 
                                                 <c:choose>
-                                                    <c:when test="${user.getStatus() == 1}">
-                                                        <a  onclick="showAlert('Admin blocked successfully!',${user.getAccountID()}, 0)">
+                                                    <c:when test="${user.getStatus() == 1 && user.getRoleID() !=1}">
+                                                        <a  onclick="showAlert(' Blocked account successfully!',${user.getAccountID()}, 0)">
                                                             <button type="button" class="btn btn-danger">
                                                                 Block
                                                             </button>
                                                         </a>
                                                     </c:when>
-                                                    <c:when test="${user.getStatus() == 0}">
-                                                        <a  onclick="showAlert('Admin unblocked successfully!',${user.getAccountID()}, 1);">
+                                                    <c:when test="${user.getStatus() == 0 && user.getRoleID() !=1}">
+                                                        <a  onclick="showAlert('Unblocked account successfully!',${user.getAccountID()}, 1);">
                                                             <button type="button" class="btn btn-success">
                                                                 UnBlock
                                                             </button>
                                                         </a>
+                                                    </c:when>
+                                                    <c:when test="${user.getRoleID() ==1}">
+                                                        
                                                     </c:when>
                                                 </c:choose>
                                             </td>

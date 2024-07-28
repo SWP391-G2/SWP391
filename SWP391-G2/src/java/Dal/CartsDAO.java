@@ -41,7 +41,7 @@ public class CartsDAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Carts> getCartByAccountID(int accountID) {
         List<Carts> list = new ArrayList<>();
         String sql = "select * from Cart where AccountID = ?";
@@ -101,6 +101,18 @@ public class CartsDAO extends DBContext {
             ur.setInt(2, pdID);
             ur.setInt(3, accountID);
             ur.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public void deleteAllCart(int accountID) {
+        String sql = "delete from Cart where AccountID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, accountID);
+            ur.execute();
 
         } catch (SQLException e) {
 

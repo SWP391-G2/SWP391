@@ -3,10 +3,10 @@
     Created on : Jun 25, 2024, 11:09:19 PM
     Author     : hatru
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +23,7 @@
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -71,15 +72,24 @@
             .btn-primary{
 
             }
+<<<<<<< HEAD
 
 
+=======
+            .scroll{
+                width: 100%;
+                height: 340px;
+                overflow-y: scroll;
+            }
+>>>>>>> fix_all
         </style>
 
 
     </head>
 
     <body>
-
+        <input type="hidden" id="success" value="${requestScope.success}" >
+        <input type="hidden" id="error" value="${requestScope.error}" >
         <!-- Page Header Start -->
         <header style="padding-bottom: 80px">
             <div class="main_header header_transparent header-mobile-m">
@@ -175,8 +185,9 @@
                         <div class="card-header bg-secondary border-0">
                             <h4 class="font-weight-semi-bold m-0">Order Total (${requestScope.listcart.size()} products)</h4>
                         </div>
-                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        <h5 class="font-weight-medium mb-3"></h5>
                         <div class="card-body">
+<<<<<<< HEAD
                             <table class="table border-0">
                                 <c:if test="${requestScope.listcart != null}">
                                     <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
@@ -202,6 +213,35 @@
                                     </c:forEach>
                                 </c:if>
                             </table>
+=======
+                            <div class="row scroll ">
+                                <table class="table border-0">
+                                    <c:if test="${requestScope.listcart != null}">
+                                        <c:forEach items="${requestScope.listcart}" var="cart" varStatus="loop">
+                                            <tr>
+                                                <td><img src="${listproduct[loop.index].getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                                <td>${listcart[loop.index].getName()}</td>
+                                                <td>${listproduct[loop.index].getProductSize()}</td>
+                                                <td>${listcart[loop.index].getQuantity()}</td>
+                                                <td>${listproduct[loop.index].getProductPrice()}$</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${requestScope.cookieCart != null}">
+                                        <c:set var="o" value="${requestScope.cookieCart}"/>
+                                        <c:forEach items="${o.items}" var="i" >
+                                            <tr>
+                                                <td><img src="${i.product.getImage()}" alt="" style="width: 60px; height: 60px"></td>
+                                                <td>${i.getName()}</td>
+                                                <td>${i.product.getProductSize()}</td>
+                                                <td>${i.getQuantity()}</td>
+                                                <td>${i.product.getProductPrice()}$</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:if>
+                                </table>
+                            </div>
+>>>>>>> fix_all
                             <div class="col-lg-4">
                                 <form class="mb-5" action="applyvouchers">
                                     <div class="input-group mb-3 d-flex">
@@ -217,7 +257,7 @@
                                                 <span class="discount-tag">
                                                     <span class="discount-icon"><i class="fa fa-tag"></i></span>
                                                     <span class="discount-tag__name">
-                                                        ${sessionScope.dis.getDiscount()}
+                                                        ${sessionScope.dis.getDiscount()}%
                                                     </span>
                                                 </span>
                                             </span>
@@ -229,13 +269,13 @@
                             <hr class="mt-0">
                             <div class="d-flex justify-content-between mb-3 pt-1">
                                 <h6 class="font-weight-medium">Subtotal</h6>
-                                <h6 class="font-weight-medium">${requestScope.totalprice}$</h6>
+                                <h6 class="font-weight-medium"><fmt:formatNumber value="${requestScope.totalprice}" type="number" pattern="#,##0.00"/>$</h6>
                             </div>
                             <c:set var="total" value="${requestScope.totalprice}"/>
                             <c:if test="${sessionScope.dis != null}">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Discount(${sessionScope.dis.getDiscount()}%)</h6>
-                                    <h6 class="font-weight-medium">${sessionScope.dis.getDiscount()*0.01*total}$</h6>
+                                    <h6 class="font-weight-medium"><fmt:formatNumber value="${sessionScope.dis.getDiscount()*0.01*total}" type="number" pattern="#,##0.00"/>$</h6>
                                 </div>
                             </c:if>
                             <div class="d-flex justify-content-between">
@@ -246,19 +286,29 @@
                         <div class="card-footer border-secondary bg-transparent">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5 class="font-weight-bold">Total</h5>
-                                <h5 class="font-weight-bold">${total - sessionScope.dis.getDiscount()*0.01*total}$</h5>
+                                <h5 class="font-weight-bold"><fmt:formatNumber value="${total - sessionScope.dis.getDiscount()*0.01*total}" type="number" pattern="#,##0.00"/>$</h5>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-5">
+<<<<<<< HEAD
                     <form id="billingForm" action="order" method="post" onsubmit="return validateForm()">
+=======
+                    <form id="billingForm" action="order" method="post">
+                        <div class="form-group">
+                            <input type="hidden" id="selectedCity" name="selectedCity">
+                            <input type="hidden" id="selectedDistrict" name="selectedDistrict">
+                            <input type="hidden" id="selectedWard" name="selectedWard">
+                        </div>
+>>>>>>> fix_all
                         <div class="mb-4">
                             <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label>Full Name</label>
+<<<<<<< HEAD
                                     <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname" required>
                                     <div class="invalid-feedback" id="fullnameError"></div>
                                 </div>
@@ -271,6 +321,17 @@
                                     <label>Mobile No</label>
                                     <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone" required>
                                     <div class="invalid-feedback" id="phoneError"></div>
+=======
+                                    <input class="form-control" value="${param.fullname}" type="text" placeholder="Ha" name="fullname" required="">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" value="${param.email}" type="text"  id="input1" oninput="syncInputs()" placeholder="Hatrung03022003@gmail.com" name="email" required="">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Mobile Phone</label>
+                                    <input class="form-control" value="${param.phone}" type="text" placeholder="0944362986" name="phone" required="">
+>>>>>>> fix_all
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Country</label>
@@ -293,20 +354,36 @@
                                     </select>
                                     <div class="invalid-feedback" id="wardError"></div>
                                 </div>
+                                <!-- Hidden fields to store the selected values -->
+                                <input type="hidden" id="selectedCity" name="selectedCity">
+                                <input type="hidden" id="selectedDistrict" name="selectedDistrict">
+                                <input type="hidden" id="selectedWard" name="selectedWard">
                                 <div class="col-md-6 form-group">
                                     <label>Address Details</label>
+<<<<<<< HEAD
                                     <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails" required>
                                     <div class="invalid-feedback" id="addressDetailsError"></div>
+=======
+                                    <input class="form-control" value="${param.addressDetails}" type="text" placeholder="Số 143 đường Đào Giã" name="addressDetails" required="">
+>>>>>>> fix_all
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Note</label>
                                     <input class="form-control" value="${param.note}" type="text" placeholder="Please deliver in the morning" name="note">
+<<<<<<< HEAD
                                     <div class="invalid-feedback" id="noteError"></div>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" value="${total - sessionScope.dis.getDiscount()*0.01*total}" name="total"/>
                         <input class="form-control" type="email" hidden="" id="input2" name="emailC">
+=======
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="total" value="${total - sessionScope.dis.getDiscount()*0.01*total}"/>
+                        <input class="form-control" type="email" hidden="" id="input2" name="email">
+>>>>>>> fix_all
 
                         <div class="card border-secondary mb-5">
                             <div class="card-header bg-secondary border-0">
@@ -315,20 +392,31 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
+<<<<<<< HEAD
                                         <input type="radio" class="custom-control-input" name="payment" id="paypal" value="vnpay" required>
                                         <label class="custom-control-label" for="paypal">VN Pay</label>
+=======
+                                        <input type="radio" class="custom-control-input" name="payment" id="paypal" value="vnpay">
+                                        <label class="custom-control-label" for="paypal">Payment VN Pay</label>
+>>>>>>> fix_all
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="direct">
+<<<<<<< HEAD
                                         <label class="custom-control-label" for="directcheck">Direct Check</label>
                                     </div>
                                 </div>
                                 <div class="invalid-feedback" id="paymentError"></div>
+=======
+                                        <label class="custom-control-label" for="directcheck">Payment on delivery</label>
+                                    </div>
+                                </div>
+>>>>>>> fix_all
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
-                                <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3">Place Order</button>
+                                <button type="submit" class="btn btn-lg btn-block btn-dark font-weight-bold my-3 py-3" onclick="loading()">Place Order</button>
                             </div>
                         </div>
                     </form>
@@ -339,12 +427,19 @@
 
 
         <!-- Checkout End -->
+<<<<<<< HEAD
+=======
+
+>>>>>>> fix_all
         <!-- Footer Start -->
         <footer class="footer">        
             <jsp:include page="footer.jsp"/>
         </footer>
         <!-- Footer End -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> fix_all
 
 
 
@@ -367,7 +462,14 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
         <script>
+            function loading() {
+                let timerInterval;
+                Swal.fire({
+                    title: "Loading...",
+                    didOpen: () => {
+                        Swal.showLoading();
 
+<<<<<<< HEAD
                         document.addEventListener('DOMContentLoaded', function () {
                             var input1 = document.getElementById('input1');
                             var input2 = document.getElementById('input2');
@@ -503,6 +605,110 @@
                 return re.test(email);
             }
 
+=======
+                    },
+                    willClose: () => {
+
+                    }
+                }).then((result) => {
+
+                });
+            }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var citis = document.getElementById("city");
+                var districts = document.getElementById("district");
+                var wards = document.getElementById("ward");
+                var selectedCity = document.getElementById("selectedCity");
+                var selectedDistrict = document.getElementById("selectedDistrict");
+                var selectedWard = document.getElementById("selectedWard");
+
+                var Parameter = {
+                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                    method: "GET",
+                    responseType: "application/json",
+                };
+
+                const successElement = document.getElementById('success');
+                const errorElement = document.getElementById('error');
+
+                if (successElement && successElement.value) {
+                    successfully('success');
+                }
+
+                if (errorElement && errorElement.value) {
+                    errors(errorElement.value);
+                }
+                function errors(text) {
+                    let timerInterval;
+                    Swal.fire({
+                        title: text,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then((result) => {
+                    }
+                    );
+                }
+                var promise = axios(Parameter);
+                promise.then(function (result) {
+                    renderCity(result.data);
+                });
+
+                function renderCity(data) {
+                    // Populate city select options
+                    for (const x of data) {
+                        citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                    }
+
+                    citis.onchange = function () {
+                        districts.length = 1;
+                        wards.length = 1;
+                        if (this.value != "") {
+                            const result = data.filter(n => n.Id === this.value);
+                            for (const k of result[0].Districts) {
+                                districts.options[districts.options.length] = new Option(k.Name, k.Id);
+                            }
+                            updateHiddenFields();
+                        }
+                    };
+
+                    districts.onchange = function () {
+                        wards.length = 1;
+                        const dataCity = data.filter((n) => n.Id === citis.value);
+                        if (this.value != "") {
+                            const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+                            for (const w of dataWards) {
+                                wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                            }
+                            updateHiddenFields();
+                        }
+                    };
+
+                    wards.onchange = function () {
+                        updateHiddenFields();
+                    };
+                }
+
+                function updateHiddenFields() {
+                    // Update hidden fields with selected options
+                    selectedCity.value = citis.options[citis.selectedIndex].text;
+                    selectedDistrict.value = districts.options[districts.selectedIndex].text;
+                    selectedWard.value = wards.options[wards.selectedIndex].text;
+                }
+            });
+>>>>>>> fix_all
         </script>
 
     </body>

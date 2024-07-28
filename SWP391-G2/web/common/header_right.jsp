@@ -42,6 +42,21 @@
             .auth-links span {
                 color: #fff;
             }
+
+            .mini_cart_wrapper span.item_count {
+                position: absolute;
+                top: -6px;
+                right: -10px;
+                width: 17px;
+                height: 17px;
+                line-height: 17px;
+                border-radius: 100%;
+                text-align: center;
+                background: #f6692a;
+                font-weight: 400;
+                font-size: 10px;
+                color: #fff;
+            }
         </style>
 
     </head>
@@ -82,12 +97,12 @@
                     <div class="logout">
                         <a id="logout" href="#" onclick="confirmLogout('logoutModal')">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            
+
                         </a>
                         <div id="logoutModal" class="modal"></div>
 
                     </div>
-                    
+
 
                 </c:if> 
 

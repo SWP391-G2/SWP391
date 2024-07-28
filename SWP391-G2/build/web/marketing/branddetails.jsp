@@ -31,7 +31,7 @@
 <body>
     <div class="container-fluid">
         <!-- Navigation -->
-        <jsp:include page="../public/navigation.jsp"></jsp:include>
+        <jsp:include page="../partials/navigation.jsp"></jsp:include>
 
             <!-- Main Content -->
             <div class="main" style="margin-left: 50px; margin-right: 50px;">

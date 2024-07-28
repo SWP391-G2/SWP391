@@ -130,15 +130,29 @@
                     </div>
 
                     <div class="col-3">
+                        <div class="input-group">
+                            <input type="date" class="form-control" value="${date}"
+                                   id="date">
+                        </div>
+                    </div>
+
+                    <div class="col-3">
                         <!-- <select class="form-control" id="status">
                             <option value="1" selected>Status: Active</option>
                             <option value="0">Status: In-Active</option>
                         </select> -->
                         <select class="form-control" id="status" name="status">
                             <option value="-1" ${status==null ? 'selected' : '' }>All status</option>
+<<<<<<< HEAD
                             <option value="1" ${status==1 ? 'selected' : '' }>Processing</option>
                             <option value="2" ${status==2 ? 'selected' : '' }>Done</option>
                             <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
+=======
+                            <option value="1" ${status==1 ? 'selected' : '' }>Wait</option>
+                            <option value="2" ${status==2 ? 'selected' : '' }>Processing</option>
+                            <option value="3" ${status==3 ? 'selected' : '' }>Done</option>
+                            <option value="4" ${status==4 ? 'selected' : '' }>Cancelled</option>
+>>>>>>> fix_all
                         </select>
                     </div>
 
@@ -169,10 +183,11 @@
                                             <td>${o.getOrderPhone()}</td>
                                             <td>${o.getOrderAddress()}</td>
                                             <td>${o.getOrderDate()}</td>
-                                            <td>${o.getOrderTotalPrice()}</td>
+                                            <td>${o.getOrderTotalPrice()}$</td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${o.getOrderSoID() == 1}">
+<<<<<<< HEAD
                                                         Processing
                                                     </c:when>
                                                     <c:when test="${o.getOrderSoID() == 2}">
@@ -183,12 +198,29 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         Unknown
+=======
+                                                        Wait
+                                                    </c:when>
+                                                    <c:when test="${o.getOrderSoID() == 2}">
+                                                        Processing
+                                                    </c:when>
+                                                    <c:when test="${o.getOrderSoID() == 3}">
+                                                        Done
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Cancelled
+>>>>>>> fix_all
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td>
+<<<<<<< HEAD
                                                 <a href="saleorderdetails">View Details</a>                                                    
                                                 
+=======
+                                                <a href="sale-order-detail?orderId=${o.getOrderID()}">View Details</a>                                                    
+
+>>>>>>> fix_all
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -271,26 +303,56 @@
 
 
     <script>
-                                                    function showAlert(message, brandID, status1) {
-
-
-                                                        if (confirm(message)) {
-                                                            const search = document.querySelector('#search').value;
-                                                            const status = document.querySelector('#status').value;
-                                                            const pageNo = document.querySelector('#pageNo').value;
-                                                            window.location.href = 'brand?search=' + search +
-                                                                    '&status=' + status + '&pageNo=' + pageNo + "&brandID=" + brandID + "&statusnew=" + status1;
+                                                    // handle filter search
+                                                    const searchInput = document.querySelector('#search');
+                                                    searchInput.addEventListener('keydown', (event) => {
+                                                        if (event.key === 'Enter') {
+                                                            performSearch();
                                                         }
-                                                    }
-                                                    function showDetail(brandID) {
+                                                    });
+
+                                                    const btnSearch = document.querySelector('#btnSearch');
+                                                    btnSearch.addEventListener('click', () => {
+                                                        performSearch(); // call function
+                                                    });
+
+                                                    function performSearch() {
                                                         const search = document.querySelector('#search').value;
                                                         const status = document.querySelector('#status').value;
-                                                        const pageNo = document.querySelector('#pageNo').value;
-                                                        window.location.href = 'branddetail?search=' + search +
-                                                                '&status=' + status + '&pageNo=' + pageNo + '&id=' + brandID;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
                                                     }
 
+                                                    // handle filter status
+                                                    const statusInput = document.querySelector('#status');
+                                                    statusInput.addEventListener('change', () => {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                    });
+
+                                                    const dateInput = document.querySelector('#date');
+                                                    dateInput.addEventListener('change', () => {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=1';
+                                                    });
+
+                                                    // handle pagination
+                                                    function changePage(pageNo) {
+                                                        const search = document.querySelector('#search').value;
+                                                        const status = document.querySelector('#status').value;
+                                                        const date = document.querySelector('#date').value;
+                                                        window.location.href = 'saleorder?search=' + search +
+                                                                '&status=' + status + '&date=' + date + '&pageNo=' + pageNo;
+                                                    }
     </script>
+<<<<<<< HEAD
     <script>
         // handle filter search
         const searchInput = document.querySelector('#search');
@@ -333,4 +395,6 @@
     </script>
 
 
+=======
+>>>>>>> fix_all
 </html>

@@ -9,7 +9,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Product | The Perfume Shop</title>
-        <link rel="icon" type="image/x-icon" href="img/logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
               crossorigin="anonymous">
@@ -39,11 +38,16 @@
         <div class="container-fluid">
             <!-- Navigation -->
             <jsp:include page="../partials/navigation.jsp"></jsp:include>
-
+                <div class="topbar">
+                </div>
                 <!-- Main Content -->
                 <div class="main" style="margin-left: 50px; margin-right: 50px;">
-                    <div class="topbar">
+                    <div class="topbar mb-2">
+                        <li style="list-style-type: none" class="breadcrumb-item"><a class="link-offset-2 fs-6 link-dark" href="./marketing-manager-products"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                                </svg>Previous page</a></li>
                     </div>
+
                     <!--profile of product-->
                     <div class="row mb-5" style="margin-right: 70px;  padding: 10px; border: 1.5px solid #000;">
                         <div class="col-12" style="margin-bottom: 40px;">
@@ -54,28 +58,34 @@
                     <div class="col-12 d-flex justify-content-end">
                         <a class="btn btn-info mx-2" href="./product-detail?proId=${product.getProductID()}&cateId=${product.categoryID}">View Product Detail</a>
                     </div>
-                    <form action="update-product" method="post" id="productForm" enctype="multipart/form-data">
+                    <form action="update-product" method="post" id="productForm" >
                         <input name="productId" value="${product.getProductID()}" hidden=""/>
                         <div class="form-group row">
                             <label for="productID">Product image:</label>
                             <div class="input-group image-preview-container">
-                                <input type="hidden" id="photo" name="photo"/>
                                 <div class="input-group">
-                                    <input type="file" name="img" required="" class="form-control d-none image-preview" id="img" onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                    <label for="img"><img src="${product.productImageUrl}" id="image" class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
+                                    <input id="a" name="ima" hidden="" value="${product.productImageUrl}" type="text">
+                                    <input type="file" name="img" value="${product.productImageUrl}" class="form-control d-none image-preview" id="photo"
+                                           onchange="chooseFile(this)" accept="image/*" aria-describedby="inputGroupFileAddon04"
+                                           aria-label="Upload">
+                                    <label for="photo"><img src="${product.productImageUrl}" id="image"
+                                                            class="img-thumbnail rounded-5 image-preview" width="100%" alt="product image"></label>
                                 </div>
-                                <span id="productImageError" class="text-danger"></span>
+                                <span id="imgError" class="text-danger"></span>
                             </div>
                         </div>
 
                         <!-- Product Name -->
                         <div class="form-group row">
-                            <div class="col-10">
+
+                            <div class="col-10">  
                                 <label for="productName">Product Name:</label>
-                                <input type="text" class="form-control" id="productName"  required="" value="${product.getProductName()}" name="productName">
+                                <input type="text" class="form-control" id="productName" value="${product.productName}"  name="productName">
+                                <span id="productNameError" class="text-danger"></span>
                             </div>
+
                             <div class="col-2">
-                                <label for="productName">Day of init:</label>
+                                <label for="productCreateDate">Day of init:</label>
                                 <input type="text" class="form-control" id="productCreateDate" readonly="" value="${product.getProductCreateDate()}" name="productCreateDate">
                             </div>
                         </div>
@@ -110,7 +120,7 @@
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-danger ps-2 mx-2" href="./marketing-manager-products">Cancel</a>
-                            <button type="button" class="btn btn-primary ps-2"  onclick="uploadImage('${folder}')">Update</button>
+                            <button type="submit" class="btn btn-primary ps-2"  onclick="uploadImage()">Update</button>
                         </div>
                     </form>
                 </div>
@@ -118,7 +128,6 @@
         </div>
     </body>
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
-    <script src="${pageContext.request.contextPath}/js/uploadImage.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -139,80 +148,94 @@
     crossorigin="anonymous"></script>
     <script>
                                 function validateForm() {
-                                    // Reset all error messages
-                                    document.getElementById('productImageError').innerText = '';
+                                    var imgInput = document.getElementById('photo');
+                                    var productNameInput = document.getElementById('productName');
+                                    var productName = productNameInput.value.trim();
+
+                                    var imgError = document.getElementById('imgError');
+                                    var productNameError = document.getElementById('productNameError');
+                                    var isValid = true;
+
+                                    // Validate Image Input
+
 
                                     // Validate Product Name
-                                    let productName = document.getElementById('img').value.trim();
                                     if (productName === '') {
-                                        document.getElementById('productImageError').innerText = 'Product Image is required';
-                                        return false; // Prevent form submission
+                                        productNameError.textContent = 'Product Name cannot be empty.';
+                                        isValid = false;
+                                    } else if (!/^(?!.*\d)(?!.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\S)[A-Za-zÀ-ỹ\s]*$/.test(productName)) {
+                                        productNameError.textContent = 'Product Name should not contain numbers, special characters, and cannot be all whitespace.';
+                                        isValid = false;
+                                    } else {
+                                        productNameError.textContent = '';
                                     }
-                                    // Additional validations for other fields can be added similarly
-                                    return true; // Allow form submission
+
+                                    return isValid;
                                 }
-                                function chooseFile(fileInput) {
-                                    if (fileInput.files && fileInput.files[0]) {
+
+// Function to handle form submission
+                                function submitForm() {
+                                    if (validateForm()) {
+                                        // Form is valid, submit your form here
+//                                        document.getElementById('yourFormId').submit(); // Replace 'yourFormId' with your actual form ID
+                                    } else {
+                                        // Form is not valid, do not submit
+                                        alert('Please fill out the form correctly.');
+                                    }
+                                }
+
+// Example onchange function for image preview (assuming you have one)
+                                function chooseFile(input) {
+                                    if (input.files && input.files[0]) {
                                         var reader = new FileReader();
 
                                         reader.onload = function (e) {
                                             $('#image').attr('src', e.target.result);
-                                        }
-                                        reader.readAsDataURL(fileInput.files[0]);
+                                            uploadImage();
+                                            imgError.textContent = '';
+                                        };
+                                        uploadImage();
+                                        reader.readAsDataURL(input.files[0]);
                                     }
                                 }
 
-                                function enableEditing() {
-                                    Swal.fire({
-                                        title: "Do you want to update?",
-                                        icon: "warning",
-                                        showCancelButton: true,
-                                        confirmButtonColor: "#3085d6",
-                                        cancelButtonColor: "#d33",
-                                        confirmButtonText: "Update"
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            let timerInterval;
-                                            Swal.fire({
-                                                title: "Updated form is in preparation",
-                                                html: "",
-                                                timer: 1500,
-                                                timerProgressBar: true,
-                                                didOpen: () => {
-                                                    Swal.showLoading();
-                                                    const timer = Swal.getPopup().querySelector("b");
-                                                    timerInterval = setInterval(() => {
-                                                        timer.textContent = `${Swal.getTimerLeft()}`;
-                                                    }, 100);
-                                                },
-                                                willClose: () => {
-                                                    clearInterval(timerInterval);
-                                                    var formElements = document.getElementById('productForm').elements;
-                                                    for (var i = 0; i < formElements.length; i++) {
-                                                        formElements[i].disabled = false;
-                                                    }
-                                                    var button = document.getElementById('updateButton');
-                                                    button.setAttribute('onclick', 'updateForm()');
-                                                    var button = document.getElementById('updateButton');
-                                                    button.type = 'submit';
-                                                    button.innerText = 'Submit';
-                                                }
-                                            }).then((result) => {
-                                                /* Read more about handling dismissals below */
-                                                if (result.dismiss === Swal.DismissReason.timer) {
-                                                    console.log("I was closed by the timer");
-                                                }
-                                            });
+// Example: Attach validation to form submission event
+                                document.getElementById('productForm').addEventListener('submit', function (event) {
+                                    if (!validateForm()) {
+                                        event.preventDefault(); // Prevent form submission if validation fails
+                                    }
+                                    uploadImage();
+                                });
 
+
+                                const firebaseConfig = {
+                                    apiKey: "AIzaSyA007R8TopzTXZxWH9Bip3XtGxoSgql7XI",
+                                    authDomain: "swp391-g2-72cbb.firebaseapp.com",
+                                    projectId: "swp391-g2-72cbb",
+                                    storageBucket: "swp391-g2-72cbb.appspot.com",
+                                    messagingSenderId: "1066037353813",
+                                    appId: "1:1066037353813:web:2deb0838eaeb48add1e3dc",
+                                    measurementId: "G-Z6QYLR7ZC8"
+                                };
+
+// Initialize Firebase
+                                firebase.initializeApp(firebaseConfig);
+                                function uploadImage() {
+
+
+                                    const ref = firebase.storage().ref('image/');
+                                    const file = document.querySelector('#photo').files[0];
+                                    const metadata = {
+                                        contentType: file.type
+                                    };
+                                    const name = file.name;
+                                    const uploadIMG = ref.child(name).put(file, metadata);
+                                    uploadIMG.snapshot.ref.getDownloadURL().then((url) => {
+                                        if (url != null) {
+                                            document.getElementById('a').setAttribute('value', url);
                                         }
-                                    });
-                                }
-
-                                function updateForm() {
-                                    var form = document.getElementById('productForm');
-
-                                    // Gọi hành động submit của form
-                                    form.submit();
+                                        ;
+                                    })
                                 }
     </script>
 

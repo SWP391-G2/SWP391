@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.math.BigDecimal;
 
 /**
  *
@@ -25,7 +26,10 @@ import java.util.List;
  */
 public class OrderDAO extends DBContext {
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> fix_all
     public int getSumRevenue() {
         String sql = "select SUM(OrderTotalPrice) from Orders";
         try {
@@ -64,7 +68,12 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+<<<<<<< HEAD
         public double totalRevenueMonth(int month, int year) {
+=======
+
+    public double totalRevenueMonth(int month, int year) {
+>>>>>>> fix_all
         String sql = "select SUM([OrderTotalPrice]) from [Orders]\r\n"
                 + "where MONTH([OrderReceiveDate])=? and year([OrderReceiveDate])=?";
         try {
@@ -79,6 +88,10 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fix_all
     public double totalRevenueByWeek(int day, int from, int to, int year, int month) {
         String sql = "";
         if (from > to) {
@@ -122,24 +135,59 @@ public class OrderDAO extends DBContext {
     }
 
     public void insertOrder(Orders order) {
-        String sql = "INSERT INTO Orders(AccountID, OrderDate, OrderTotalPrice, OrderContactName, OrderPhone, OrderAddress, OrderReceiveDate,OrderNote, OrderSoID, VoucherID)\n"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into Orders(AccountID, OrderDate, OrderTotalPrice, OrderContactName,OrderPhone, Email, OrderAddress,  PaymentMethod, OrderNote, OrderSoID, VoucherID) values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             ur.setInt(1, order.getAccountID());
             ur.setDate(2, (Date) order.getOrderDate());
-            ur.setFloat(3, order.getOrderTotalPrice());
+            ur.setDouble(3, order.getOrderTotalPrice());
             ur.setString(4, order.getOrderContactName());
             ur.setString(5, order.getOrderPhone());
+<<<<<<< HEAD
             ur.setString(6, order.getOrderAddress());
-            ur.setDate(7, (Date) order.getOrderReceiveDate());
-            ur.setString(8, order.getOrderNote());
-            ur.setInt(9, order.getOrderSoID());
-            ur.setInt(10, order.getVoucherID());
+            ur.setString(7, order.getOrderNote());
+            ur.setInt(8, order.getOrderSoID());
+            ur.setInt(9, order.getVoucherID());
+=======
+            ur.setString(6, order.getEmail());
+            ur.setString(7, order.getOrderAddress());
+            ur.setString(8, order.getPaymentMethod());
+            ur.setString(9, order.getOrderNote());
+            ur.setInt(10, order.getOrderSoID());
+            ur.setInt(11, order.getVoucherID());
+>>>>>>> fix_trung
             ur.executeUpdate();
         } catch (SQLException e) {
             System.err.println(e);
         }
+    }
+
+    public List<Orders> getMyOrder(int accountID) {
+        List<Orders> listOrder = new ArrayList<>();
+        String sql = "select * from Orders where AccountID = 3 and OrderSoID = 1";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            //ur.setInt(1, accountID);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                Orders order = new Orders(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getDouble(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12));
+                listOrder.add(order);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return listOrder;
     }
 
     public List<Orders> getListOrder() {
@@ -149,52 +197,76 @@ public class OrderDAO extends DBContext {
             PreparedStatement ur = connection.prepareStatement(sql);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
+<<<<<<< HEAD
+                Orders order = new Orders();
+=======
                 Orders order = new Orders(rs.getInt(1),
                         rs.getInt(2),
                         rs.getDate(3),
-                        rs.getFloat(4),
+                        rs.getDouble(4),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getDate(8),
+                        rs.getString(8),
                         rs.getString(9),
-                        rs.getInt(10),
-                        rs.getInt(11));
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12));
+>>>>>>> fix_trung
                 listOrder.add(order);
             }
+            closeResultSetAndStatement(rs, ur);
         } catch (SQLException e) {
             System.err.println(e);
         }
         return listOrder;
     }
 
+<<<<<<< HEAD
     public ArrayList<Orders> getBrandByFilter(int status, String search, int pageNo, int pageSize) {
+=======
+    public ArrayList<Orders> getOrdersByFilter(String date, int status, String search, int pageNo, int pageSize) {
+>>>>>>> fix_all
         ArrayList<Orders> listOrder = new ArrayList<>();
         String sql = "select * from Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
-        if (status != -1 || !search.isEmpty()) {
+        if (status != -1 || !search.isEmpty() || date != null) {
             sql += " WHERE";
             if (status != -1) {
                 if (whereAdded) {
                     sql += " AND";
                 }
                 sql += " OrderSoID = ?";
+<<<<<<< HEAD
+=======
+                whereAdded = true;
+            }
+            if (date != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " OrderDate <= ?";
+>>>>>>> fix_all
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or Email like ? )";
             }
         }
 
-        sql += " ORDER BY OrderID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        sql += " ORDER BY OrderID desc  OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ur = connection.prepareStatement(sql);
             int parameterIndex = 1; // Start with the first parameter index
             if (status != -1) {
                 ur.setInt(parameterIndex, status);
+                parameterIndex++;
+            }
+            if (date != null) {
+                ur.setString(parameterIndex, date);
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
@@ -209,27 +281,36 @@ public class OrderDAO extends DBContext {
             ur.setInt(parameterIndex, pageSize);
             ResultSet rs = ur.executeQuery();
             while (rs.next()) {
-                Orders order = new Orders(rs.getInt(1),
+                Orders order = new Orders(
+                        rs.getInt(1),
                         rs.getInt(2),
                         rs.getDate(3),
-                        rs.getFloat(4),
+                        rs.getDouble(4),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getDate(8),
+                        rs.getString(8),
                         rs.getString(9),
-                        rs.getInt(10),
-                        rs.getInt(11));
+                        rs.getString(10),
+                        rs.getInt(11),
+<<<<<<< HEAD
+                        rs.getInt(12)
+                );
+=======
+                        rs.getInt(12));
+>>>>>>> fix_trung
                 listOrder.add(order);
 
             }
+            closeResultSetAndStatement(rs, ur);
         } catch (Exception e) {
         }
 
         return listOrder;
+
     }
 
-    public int getTotalPage(int status, String search, int pageSize) {
+    public int getTotalPage(String date, int status, String search, int pageSize) {
         String sql = "SELECT COUNT(*) FROM Orders";
         boolean whereAdded = false; // A flag to track whether "WHERE" has been added to the SQL query.
         if (status != -1 || !search.isEmpty()) {
@@ -239,13 +320,23 @@ public class OrderDAO extends DBContext {
                     sql += " AND";
                 }
                 sql += " OrderSoID = ?";
+<<<<<<< HEAD
+=======
+                whereAdded = true;
+            }
+            if (date != null) {
+                if (whereAdded) {
+                    sql += " AND";
+                }
+                sql += " OrderDate <= ?";
+>>>>>>> fix_all
                 whereAdded = true;
             }
             if (!search.isEmpty()) {
                 if (whereAdded) {
                     sql += " AND";
                 }
-                sql += " (OrderAddress like ? or OrderContactName like ? or OrderNote like ? or OrderPhone like ?)";
+                sql += " (OrderAddress like ? or OrderContactName like ? or OrderPhone like ? or Email like ? )";
             }
         }
 
@@ -257,7 +348,7 @@ public class OrderDAO extends DBContext {
                 parameterIndex++;
             }
             if (!search.isEmpty()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 4; i++) {
                     ur.setString(parameterIndex, "%" + search + "%");
                     parameterIndex++;
                 }
@@ -271,9 +362,11 @@ public class OrderDAO extends DBContext {
                 }
                 return totalPage;
             }
+            closeResultSetAndStatement(rs, ur);
         } catch (Exception e) {
         }
         return 0;
+
     }
 
     public int getOrderID() {
@@ -285,29 +378,182 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
                 orderID = rs.getInt(1);
             }
+            closeResultSetAndStatement(rs, ur);
         } catch (SQLException e) {
             System.err.println(e);
         }
         return orderID;
     }
 
+    public Orders getOrder(int id) {
+        Orders order = null;
+        String sql = "select * from Orders where OrderID = ? ";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, id);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                order = new Orders(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getDouble(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12)
+                );
+            }
+            closeResultSetAndStatement(rs, ur);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return order;
+    }
+
+    public void updateStatus(int id, int status) {
+
+        String sql = "UPDATE [dbo].[Orders]\n"
+                + "   SET \n"
+                + "      [OrderSoID] = ?\n"
+                + "    \n"
+                + " WHERE OrderID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(2, id);
+            ur.setInt(1, status);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
+    public void closeResultSetAndStatement(ResultSet rs, PreparedStatement ps) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                System.out.println(e + "ham mypurchase");
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         OrderDAO dao = new OrderDAO();
-//        LocalDate orderDate = LocalDate.of(2024, 7, 2);
+        LocalDate orderDate = LocalDate.of(2024, 7, 2);
 //        LocalDate recieveDate = LocalDate.of(2024, 7, 5);
+<<<<<<< HEAD
 //
 //        Date sqlOrderDate = Date.valueOf(orderDate);
 //        Date sqlRecieveDate = Date.valueOf(recieveDate);
 //        Orders order = new Orders(1, sqlOrderDate, 3600, "0944362986", "Ha Trung", "Thanh Ba - Phu Tho", sqlRecieveDate, "Hang de vo", 1, 2);
 //        dao.insertOrder(order);
-        List<Orders> list = dao.getListOrder();
-        for (Orders orders : list) {
-            System.out.println(orders.toString());
+//        List<Orders> list = dao.getListOrder();
+//        for (Orders orders : list) {
+//            System.out.println(orders.toString());
+//        }
+//        System.out.println(dao.getTotalDeals());
+//
+//        double a = dao.totalRevenueMonth(7, 2024);
+//        System.out.println(a);
+        System.out.println(dao.getOrder(2).getOrderAddress());
+    }
+
+    public Orders getOrder(int id) {
+        Orders order = null;
+        String sql = "select * from Orders where OrderID = ? ";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(1, id);
+            ResultSet rs = ur.executeQuery();
+            while (rs.next()) {
+                order = new Orders(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),
+                        rs.getFloat(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12)
+                );
+            }
+            closeResultSetAndStatement(rs, ur);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return order;
+    }
+
+    public void updateStatus(int id, int status) {
+
+        String sql = "UPDATE [dbo].[Orders]\n"
+                + "   SET \n"
+                + "      [OrderSoID] = ?\n"
+                + "    \n"
+                + " WHERE OrderID = ?";
+        try {
+            PreparedStatement ur = connection.prepareStatement(sql);
+            ur.setInt(2, id);
+            ur.setInt(1, status);
+            ur.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
         }
         System.out.println(dao.getTotalDeals());
         
 
         double a = dao.totalRevenueMonth(7, 2024);
         System.out.println(a);
+    }
+
+    public void closeResultSetAndStatement(ResultSet rs, PreparedStatement ps) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                System.out.println(e + "ham mypurchase");
+            }
+        }
+
+=======
+
+        Date sqlOrderDate = Date.valueOf(orderDate);
+//        Date sqlRecieveDate = Date.valueOf(recieveDate);
+        //Orders order = new Orders(1, sqlOrderDate, 3600,"Ha Trung" ,"0944362986", "hatrung03022003@gmail.com", "Thanh Ba - Phu Tho","Direct", "Hang de vo", 1, 2);
+        Orders o = new Orders(11, sqlOrderDate, 669.999, "Dinh Khanh Linh", "0944362986", "hatrung03022003@gmail.com", "Khu 12 ngo trang tien phuong xuan la quan tay ho thanh pho ha noi", "Direct", "Hang de vo", 1, -1);
+        dao.insertOrder(o);
+//        List<Orders> list = dao.getOrdersByFilter(1, "", 1, 10);
+//        for (Orders orders : list) {
+//            System.out.println(orders.getOrderContactName());
+//        }
+//        List<Orders> list = dao.getOrdersByFilter("", -1, "", 1, 10);
+//        for (Orders orders : list) {
+//            System.out.println(orders.getOrderContactName());
+//        }
+>>>>>>> fix_trung
     }
 }

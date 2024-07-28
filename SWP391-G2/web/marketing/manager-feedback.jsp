@@ -74,6 +74,10 @@
 
     </style>
     <body>
+<<<<<<< HEAD
+=======
+        <jsp:include page="../partials/navigation.jsp"></jsp:include>
+>>>>>>> fix_all
         <c:if test="${requestScope.error !=null}">
             <div class="row fixed-top text-center">
 
@@ -125,6 +129,7 @@
                         </div>
                     </div>
                     <div class="col-3">
+<<<<<<< HEAD
 
                     </div>
                     <div class="col-3">
@@ -134,6 +139,16 @@
                         </select> -->
                         <select class="form-control" id="filterbyreply" name="filterbyreply">
                             <option value="All" ${filterbyreply == null ? 'selected' : ''}>All</option>
+=======
+                        <!--                         <select class="form-control" id="status">
+                                                                           <option value="1" selected>Status: Active</option>
+                                                                           <option value="0">Status: In-Active</option>
+                                                </select> -->
+                    </div>
+                    <div class="col-3">       
+                        <select class="form-control" id="filterbyreply" name="filterbyreply">
+                            <option value="All" ${filterbyreply == null ? 'selected' : ''}>All Reply</option>
+>>>>>>> fix_all
                             <option value="Non-Reply" ${filterbyreply == false ? 'selected' : ''}>Non-Reply</option>
                             <option value="Reply" ${filterbyreply == true ? 'selected' : ''}>Reply</option>
                         </select>

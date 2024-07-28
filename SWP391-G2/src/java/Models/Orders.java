@@ -4,6 +4,7 @@
  */
 package Models;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -15,11 +16,16 @@ public class Orders {
     private int orderID;
     private int accountID;
     private Date orderDate;
-    private float orderTotalPrice;
+    private Double orderTotalPrice;
     private String orderContactName;
     private String orderPhone;
+<<<<<<< HEAD
+    private String orderEmail;
+=======
+    private String email;
+>>>>>>> fix_trung
     private String orderAddress;
-    private Date orderReceiveDate;
+    private String PaymentMethod;
     private String orderNote;
     private int orderSoID;
     private int voucherID;
@@ -27,46 +33,88 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+<<<<<<< HEAD
+    public Orders(int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderEmail, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
+        this.orderEmail = orderEmail;
         this.orderAddress = orderAddress;
-        this.orderReceiveDate = orderReceiveDate;
+        this.PaymentMethod = PaymentMethod;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
 
-    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+    public Orders(int orderID, int accountID, Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderEmail, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
+=======
+    public Orders(int orderID, int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
+>>>>>>> fix_trung
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
+<<<<<<< HEAD
+        this.orderEmail = orderEmail;
         this.orderAddress = orderAddress;
-        this.orderReceiveDate = orderReceiveDate;
+        this.PaymentMethod = PaymentMethod;
+=======
+        this.email = email;
+        this.orderAddress = orderAddress;
+        this.PaymentMethod = PaymentMethod;
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
 
+<<<<<<< HEAD
     public Orders(Date orderDate, float orderTotalPrice, String orderContactName, String orderPhone, String orderAddress, Date orderReceiveDate, String orderNote, int orderSoID, int voucherID) {
+=======
+    public Orders(int accountID, Date orderDate, Double orderTotalPrice, String orderContactName, String orderPhone, String email, String orderAddress, String PaymentMethod, String orderNote, int orderSoID, int voucherID) {
+        this.accountID = accountID;
+>>>>>>> fix_all
         this.orderDate = orderDate;
         this.orderTotalPrice = orderTotalPrice;
         this.orderContactName = orderContactName;
         this.orderPhone = orderPhone;
+<<<<<<< HEAD
         this.orderAddress = orderAddress;
         this.orderReceiveDate = orderReceiveDate;
+=======
+        this.email = email;
+        this.orderAddress = orderAddress;
+        this.PaymentMethod = PaymentMethod;
+>>>>>>> fix_trung
+>>>>>>> fix_all
         this.orderNote = orderNote;
         this.orderSoID = orderSoID;
         this.voucherID = voucherID;
     }
+<<<<<<< HEAD
     
     
+=======
+
+    public String getOrderEmail() {
+        return orderEmail;
+    }
+
+    public void setOrderEmail(String orderEmail) {
+        this.orderEmail = orderEmail;
+    }
+
+    public String getPaymentMethod() {
+        return PaymentMethod;
+    }
+
+    public void setPaymentMethod(String PaymentMethod) {
+        this.PaymentMethod = PaymentMethod;
+    }
+>>>>>>> fix_all
 
     public int getOrderID() {
         return orderID;
@@ -92,11 +140,11 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public float getOrderTotalPrice() {
+    public Double getOrderTotalPrice() {
         return orderTotalPrice;
     }
 
-    public void setOrderTotalPrice(float orderTotalPrice) {
+    public void setOrderTotalPrice(Double orderTotalPrice) {
         this.orderTotalPrice = orderTotalPrice;
     }
 
@@ -104,6 +152,7 @@ public class Orders {
         return orderContactName;
     }
 
+  
     public void setOrderContactName(String orderContactName) {
         this.orderContactName = orderContactName;
     }
@@ -116,6 +165,14 @@ public class Orders {
         this.orderPhone = orderPhone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getOrderAddress() {
         return orderAddress;
     }
@@ -124,14 +181,17 @@ public class Orders {
         this.orderAddress = orderAddress;
     }
 
-    public Date getOrderReceiveDate() {
-        return orderReceiveDate;
+<<<<<<< HEAD
+=======
+    public String getPaymentMethod() {
+        return PaymentMethod;
     }
 
-    public void setOrderReceiveDate(Date orderReceiveDate) {
-        this.orderReceiveDate = orderReceiveDate;
+    public void setPaymentMethod(String PaymentMethod) {
+        this.PaymentMethod = PaymentMethod;
     }
 
+>>>>>>> fix_trung
     public String getOrderNote() {
         return orderNote;
     }
@@ -156,4 +216,10 @@ public class Orders {
         this.voucherID = voucherID;
     }
 
+    @Override
+    public String toString() {
+        return "Orders{" + "orderID=" + orderID + ", accountID=" + accountID + ", orderDate=" + orderDate + ", orderTotalPrice=" + orderTotalPrice + ", orderContactName=" + orderContactName + ", orderPhone=" + orderPhone + ", email=" + email + ", orderAddress=" + orderAddress + ", PaymentMethod=" + PaymentMethod + ", orderNote=" + orderNote + ", orderSoID=" + orderSoID + ", voucherID=" + voucherID + '}';
+    }
+
+   
 }

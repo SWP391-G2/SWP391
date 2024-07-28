@@ -5,7 +5,7 @@
 package Controllers.marketing;
 
 import Dal.CategoriesDAO;
-import Dal.ProductDetailDAO;  
+import Dal.ProductDetailDAO;
 import Models.Categories;
 import Models.ProductDetail;
 import java.io.IOException;
@@ -78,56 +78,28 @@ public class MarketingAddProductDetail extends HttpServlet {
             detail = request.getParameter("detail") == null ? "" : request.getParameter("detail");
             price = request.getParameter("price") == null ? BigDecimal.valueOf(-1) : new BigDecimal(request.getParameter("price"));
         } catch (Exception e) {
-            
-        }
 
+        }
+        String fileName = request.getParameter("ima");
         Date dateInit = new Date(System.currentTimeMillis());
         ProductDetailDAO pddao = new ProductDetailDAO();
-        int lastPdId = pddao.getLastProductDetailId();
-        //file upload
-        CategoriesDAO cateDao = new CategoriesDAO();
-        Categories cate = cateDao.getCategoryById(cateId);
-        String realPath = "../../web/images/Products/" + cate.getCategoryName() + "/";
-        String uploadFolder = getServletContext().getRealPath("") + realPath;
-
-        File folder = new File(uploadFolder);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        Part filePart = request.getPart("img");
-        String fileName = String.valueOf(lastPdId + 1) + "_" + lastId + ".jpg";
-        OutputStream out = null;
-        InputStream fileContent = null;
-
-        try {
-            out = new FileOutputStream(new File(uploadFolder + File.separator + fileName));
-            fileContent = filePart.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
-            while ((read = fileContent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-        } catch (FileNotFoundException fne) {
-            fne.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (fileContent != null) {
-                fileContent.close();
-            }
-        }
-
-        //insert product
+        response.getWriter().println(proId);
+        response.getWriter().println(detail);
+        response.getWriter().println(dateInit);
+        response.getWriter().println(status);
+        response.getWriter().println(size);
+        response.getWriter().println(price);
+        response.getWriter().println(quantity);
+        response.getWriter().print(fileName);
+//        insert product
         ProductDetail details = new ProductDetail(proId, detail, dateInit, status, size, price, quantity, fileName);
         pddao.insertNewProductDetail(details);
-        response.sendRedirect("../SWP391-G2/product-detail?proId=" + proId + "&cateId=" + cateId);
+        response.sendRedirect("../SWP391-G2/product-detail?s=1&&proId=" + proId + "&cateId=" + cateId);
 
     }
 
     @Override
+
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

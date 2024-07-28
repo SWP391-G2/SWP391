@@ -63,7 +63,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
 
         ProductDetailDAO detailDAO = new ProductDetailDAO();
         List<ProductDetail> details = detailDAO.getListProductByFilter(proId, status, size, pageNo, pageSize);
-        int totalPage = detailDAO.getTotalPage(proId, status, size, pageSize);
+        int totalPage = detailDAO.getTotalPage(proId, -1, "", pageSize);
         List<String> listSize = detailDAO.getSize(proId);
 
         CategoriesDAO cateDao = new CategoriesDAO();
@@ -91,7 +91,7 @@ public class MarketingManagerProductDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
     }
 
     @Override

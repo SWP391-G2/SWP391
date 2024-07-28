@@ -21,11 +21,40 @@
                 color: #232836;
                 padding: 0 15px;
             }
+<<<<<<< HEAD
 
         </style>
     </head>
     <body>
         <div class="row vh-100 g-0 " style="background-color: pink">
+=======
+            .loading-spinner {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid #3498db;
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body style="background-color: pink">
+        <div class="row vh-100 g-0"  >
+<<<<<<< HEAD
+>>>>>>> fix_all
             <c:if test="${requestScope.err != null}">
                 <div class="p-0 m-0 fixed-top text-center">
 
@@ -34,19 +63,27 @@
                     </div>
                 </div>
             </c:if>
+=======
+>>>>>>> fix_trung
             <!--left side  -->
-
-
+            <input type="hidden" id="success" value="${requestScope.success}" >
+            <input type="hidden" id="error" value="${requestScope.error}" >
+            
             <!--/ left side  -->
 
             <!-- right side  -->
             <div class="d-flex justify-content-center">
 
+<<<<<<< HEAD
                 <div class=" col col-sm-9 col-lg-7 col-xl-5  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
                     <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff">
+=======
+                <div class=" col col-sm-9 col-lg-9 col-xl-6  row align-items-center justify-content-center h-100 g-0 px-4 px-sm">
+                    <div class=" border rounded-5 p-5 shadow" style="background-color: #ffffff" >
+>>>>>>> fix_all
                         <div class="text-center mb-5">
                             <h1 class="fw-bold pb-3 pt-5">SIGN UP</h1>
-                            <form action="./signup" method="post" >
+                            <form action="./signup" id="form" method="post" >
                                 <div class="input-group mb-3" >
                                     <span class="input-group-text">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
@@ -55,7 +92,7 @@
                                         </svg>
                                     </span>
                                     <div class="form-floating">
-                                        <input type="email" name="email" value="${param.email}" maxlength="50" class="form-control form-control-lg fs-6" required placeholder="Email">
+                                        <input type="email" name="email" id="email" value="${param.email}" maxlength="50" class="form-control form-control-lg fs-6" required placeholder="Email">
                                         <label for="floatingInputGroup1">Email</label>
                                     </div>
                                 </div>
@@ -124,19 +161,14 @@
                                             <label for="floatingInputGroup1">Password</label>
                                         </div>
                                     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> fix_all
                                 </div>
 
 
 
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item" >Password must contains</li>
-                                    <li class="dropdown-item" >At least 8 characters length</li>
-                                    <li class="dropdown-item" >At least 1 number (0..9)</li>
-                                    <li class="dropdown-item" >At least 1 lowercase letter (a..z)</li>
-                                    <li class="dropdown-item" >At least 1 special symbol (!..$)</li>
-                                    <li class="dropdown-item" >At least 1 uppercase letter (A..Z)</li>
-                                </ul>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">
@@ -154,19 +186,47 @@
                                     <div>
                                         <small><a href="#" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none">Forgot Password ?</a></small>
                                     </div>
-                                    <div class="col-1 p-0 m-0 d-flex justify-content-end float-right">
-                                        <p></p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
+                                    <div id="showButton" class="col-1 p-0 m-0 d-flex justify-content-end float-right"> 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="20" fill="currentColor" class="mx-2 bi bi-exclamation-circle-fill btn-link btn-light border-0" viewBox="0 0 16 16">
+                                        Show Password Requirements
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
                                         </svg>
                                     </div>
                                 </div>
+                                <div id="more" style="margin-left: 110%;">
+                                    <ul id="dropdown-menu" class="dropdown-menu shadow-sm">
+                                        <li class="dropdown-item">Password must contain:</li>
+                                        <li class="dropdown-item">At least 8 characters in length</li>
+                                        <li class="dropdown-item">At least 1 number (0-9)</li>
+                                        <li class="dropdown-item">At least 1 lowercase letter (a-z)</li>
+                                        <li class="dropdown-item">At least 1 special symbol (!-$)</li>
+                                        <li class="dropdown-item">At least 1 uppercase letter (A-Z)</li>
+                                    </ul>
+                                </div>
+<<<<<<< HEAD
                                 <button class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
                                 <div class="text-center">
                                     <small>Return to the <a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="text-decoration: none;font-weight: bold;">LOGIN PAGE</a></small>
                                 </div>
                             </form>
+<<<<<<< HEAD
                            
+=======
+                            <div>
+                                <hr/>
+
+=======
+                                <button type="submit" class="btn btn-dark btn-lg w-100 mb-3">Sign up</button>
+                            </form>
+                            <div>
+                                <hr/>
+                                  <div>
+                                        <small><a href="${pageContext.request.contextPath}/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">back to login</a></small>
+                                    </div>
+>>>>>>> fix_trung
+
+                            </div>
+>>>>>>> fix_all
                         </div>
                     </div>
                 </div>
@@ -175,9 +235,9 @@
 
         </div>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const today = new Date();
-
         // Lấy các thành phần của ngày
         const year = today.getFullYear() - 16;
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
@@ -185,9 +245,93 @@
 
         // Định dạng ngày theo 'yyyy-dd-MM'
         const formattedDate = (year) + '-' + month + '-' + day;
-
         // Đặt thuộc tính 'max' của phần tử input
         document.getElementById('dateinput').setAttribute('max', formattedDate);
+        document.addEventListener('DOMContentLoaded', function () {
+            var button = document.getElementById("showButton");
+            button.addEventListener("click", function () {
+                var dropdownMenu = document.getElementById("dropdown-menu");
+                if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
+                    dropdownMenu.style.display = "block";
+                } else {
+                    dropdownMenu.style.display = "none";
+                }
+            });
+        });
+        document.getElementById('form').addEventListener('submit', function () {
+            // Hiển thị chỉ báo tải
+            loading();
+        });
+        function loading() {
+            let timerInterval;
+            Swal.fire({
+                title: "Loading...",
+                didOpen: () => {
+                    Swal.showLoading();
 
+                },
+                willClose: () => {
+
+                }
+            }).then((result) => {
+
+            });
+        }
+        const successElement = document.getElementById('success');
+        const errorElement = document.getElementById('error');
+
+        if (successElement && successElement.value) {
+            successfully('success');
+        }
+
+        if (errorElement && errorElement.value) {
+            errors(errorElement.value);
+        }
+        // Call the function on page load
+
+
+        function successfully(text) {
+            let timerInterval;
+            Swal.fire({
+                title: text,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+            });
+        }
+
+        function errors(text) {
+            let timerInterval;
+            Swal.fire({
+                title: text,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+            }
+            );
+        }
     </script>
+
 </html>

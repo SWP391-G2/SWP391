@@ -25,8 +25,8 @@ public class Email {
         Random random = new Random();
         return random.nextInt(900000) + 100000;
     }
-    private final String emailFrom = "swp391g2@gmail.com";
-    private final String emailPass = "xjvmsjcizbkqmwap";
+    private final String emailFrom = "bichnqhe173220@fpt.edu.vn";
+    private final String emailPass = "tuiacsucdmecoivn";
 
     public void sendEmail(String subject, String messgage, String to) {
         try {
@@ -85,6 +85,10 @@ public class Email {
         String otps = String.valueOf(e.randomOTP());
         String su = e.subjectEmail();
         e.sendEmail(su, otps, "bichnqhe173220@fpt.edu.vn");
+    }
+
+    public Email() {
+
     }
 
     public String subjectEmail() {
